@@ -1,7 +1,1 @@
 <!--pages/cart/cart.wxml-->
-<label class="checkbox">
-  <checkbox checked=''>中</radio>
-  <checkbox checked=''>上</radio>
-  <checkbox checked=''>下</radio>
-</label>
-  <button bindtap='chooseAll'>全选</button>
