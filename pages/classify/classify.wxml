@@ -1,2 +1,5 @@
 <!--pages/classify/classify.wxml-->
-<text>pages/classify/classify.wxml</text>
+<view>
+  <textarea value='{{textdata}}'/>
+</view>
+<button bindtap='RequestData' value="Button">request</button>

@@ -1,13 +1,33 @@
 <!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
+<!-- http://www.iconfont.cn/collections/detail?spm=a313x.7781069.1998910419.d9df05512&cid=19 图标获取地址 -->
+<view class="page-body">
+  <view class='page-section'>
+    <view class='top-search'>
+      <input class='zhuyesearch' placeholder='请输入要查询的书/作者' focus='true' confirm-type='search' ></input>
+      </view>
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+  <view class='page-section'>
+    <view class='enevt-planning'>
+      <swiper indicator-dots="{{indicatorDots}}"
+        autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+        <block wx:for="{{imgUrls}}">
+          <swiper-item>
+            <image src="{{item}}" mode='aspectFit'></image>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+  </view>
+  <view class='page-section'>
+    <view class='main-zone'>
+      <view wx:for="{{mzImgUrl}}" class='first-mzImg' >
+        <image src='{{item}}'></image>
+      </view>
+    </view>
+  </view>
+   <view class='page-section'>
+    <view class='main-bookinfo'>
+      
+    </view>
   </view>
 </view>

@@ -5,9 +5,24 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    textdata:"测试 wx.request",
   },
-
+  RequestData: function () {
+    var that = this;
+    wx.request({
+      url: 'http://192.168.10.110:8080/ssm/1/findUser', //仅为示例，并非真实的接口地址
+      data: {
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      dataType:"string",
+      success(res) {
+        that.setData({ textdata: res.data });
+        console.log(res.data)
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
