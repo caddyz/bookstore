@@ -58,17 +58,17 @@
   margin-top: 10rpx;
   font-size: 30rpx;
 }
-.tr{
+.bi-tr{
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
 .view-controller1,.view-controller2{
   width: 35%;
-  height: 350rpx;
+  height: 430rpx;
 }
 .book-data{
-  height: 325rpx;
+  height: 420rpx;
   border: 1rpx,solid,whitesmoke;
 }
 .view-controller1{
@@ -78,18 +78,21 @@
   margin-right: 45rpx;
 }
 .book-info-pic{
-  height: 73%;
+  height: 64%;
   background-color: red;
 }
+.book-info-title,.book-info-author,.book-info-price{
+  height: 12%;
+}
 .book-info-title{
-  height: 9%;
   background-color: blue;
+  font-size: 30rpx;
 }
 .book-info-author{
-  height: 9%;
   background-color: green;
+  font-size: 30rpx;
 }
 .book-info-price{
-  height: 9%;
   background-color: yellow;
+  font-size: 30rpx;
 }

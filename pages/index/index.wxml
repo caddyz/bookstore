@@ -1,5 +1,6 @@
 <!--index.wxml-->
 <!-- http://www.iconfont.cn/collections/detail?spm=a313x.7781069.1998910419.d9df05512&cid=19 图标获取地址 -->
+
 <view class="page-body">
   <view style='height:28rpx'></view>
   <view class='page-section'>
@@ -54,25 +55,25 @@
       </view>
     </view>
     <view style='height:20rpx;'></view>
-    <view class='book-info'>
-      <view class='tr' wx:for="{{5}}">
-        <view class='view-controller1'>
-          <button class='book-data'>
-            <view class='book-info-pic'>图片</view>
-            <view class='book-info-title'>标题</view>
-            <view class='book-info-author'>作译者</view>
-            <view class='book-info-price'>价格</view>
-          </button>
+      <block wx:for="{{[1,2]}}" wx:key="id">
+        <view class='bi-tr'>
+          <view class='view-controller1'>
+            <button class='book-data'>
+              <view class='book-info-pic'></view>
+                <input type='text' class='book-info-title' value='书名真的是一个好好的名字啊'></input>
+                <input type='text' class='book-info-author' value='作者'></input>
+                <input type='text' class='book-info-price' value='价格'></input>
+            </button>
+          </view>
+          <view class='view-controller2'>
+            <button class='book-data'>
+              <view class='book-info-pic'></view>
+              <input type='text' class='book-info-title' value='书名真的是一个好好的名字啊'></input>
+              <input type='text' class='book-info-author' value='作者'></input>
+              <input type='text' class='book-info-price' value='价格'></input>
+            </button>
+          </view>
         </view>
-        <view class='view-controller2'>
-          <button class='book-data'>
-            <view class='book-info-pic'>图片</view>
-            <view class='book-info-title'>标题</view>
-            <view class='book-info-author'>作译者</view>
-            <view class='book-info-price'>价格</view>
-          </button>
-        </view>
-      </view>
-    </view>
+      </block>
   </view>
 </view>

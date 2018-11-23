@@ -11,7 +11,8 @@
     "pages/message/message",
     "pages/member/member",
     "pages/hot/hot",
-    "pages/help/help"
+    "pages/help/help",
+    "pages/more/more"
   ],
   "window":{
     "backgroundTextStyle":"light",

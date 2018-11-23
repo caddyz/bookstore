@@ -20,10 +20,35 @@ Page({
     autoplay: true,
     interval: 5000,
     duration: 1000,
+    list: []
+  },
+  onLoad: function (options) {
+    this.getData();
+  },
+  getData: function () {
+    var that = this;
+    wx.request({
+      url: 'http://192.168.10.110:8080/ssm/0/findBook',
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      method: 'GET',
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          list: res.data
+        })
+      }
+    })
+  },
+  next:function(e){
+    wx.navigateTo({
+      url: '/pages/template/moreTemplate?list='+JSON.stringify(this.data.list),
+    })
   },
   moreSkip:function(){
-    wx.switchTab({
-      url: '/pages/classify/classify',
+    wx.navigateTo({
+      url: '/pages/more/more',
     })
   },
   favoriteSkip:function(){
