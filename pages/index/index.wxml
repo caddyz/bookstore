@@ -1,9 +1,10 @@
 <!--index.wxml-->
 <!-- http://www.iconfont.cn/collections/detail?spm=a313x.7781069.1998910419.d9df05512&cid=19 图标获取地址 -->
 <view class="page-body">
+  <view style='height:28rpx'></view>
   <view class='page-section'>
     <view class='top-search'>
-      <input class='zhuyesearch' placeholder='请输入要查询的书/作者' focus='true' confirm-type='search' ></input>
+      <input class='zhuyesearch' placeholder='请输入要查询的书/作者' confirm-type='search' ></input>
       </view>
   </view>
   <view class='page-section'>
@@ -18,16 +19,60 @@
       </swiper>
     </view>
   </view>
+  <view style='height:10rpx'></view>
   <view class='page-section'>
     <view class='main-zone'>
-      <view wx:for="{{mzImgUrl}}" class='first-mzImg' >
-        <image src='{{item}}'></image>
+      <view class='mz-classify'>
+        <icon class='iconfont icon-favorites' bindtap='favoriteSkip'></icon>
+        <icon class='iconfont icon-survey' bindtap='commentSkip'></icon>
+        <icon class='iconfont icon-code' bindtap='messageSkip'></icon>
+      </view>
+      <view class='mz-classify'>
+        <view class='mz-font-color' bindtap='favoriteSkip'>收藏</view>
+        <view class='mz-font-color' bindtap='commentSkip'>评论</view>
+        <view class='mz-font-color' bindtap='messageSkip'>消息</view>
+      </view>
+      <view class='mz-classify'>
+        <icon class='iconfont icon-creditlevel' bindtap='vipSkip'></icon>
+        <icon class='iconfont icon-hot' bindtap='hotSkip'></icon>
+        <icon class='iconfont icon-help' bindtap='helpSkip'></icon>
+      </view>
+      <view class='mz-classify'>
+        <view class='mz-font-color' bindtap='vipSkip'>会员</view>
+        <view class='mz-font-color' bindtap='hotSkip'>最热</view>
+        <view class='mz-font-color' bindtap='helpSkip'>帮助</view>
       </view>
     </view>
   </view>
-   <view class='page-section'>
+  <view class='discard'></view>
+  <view class='page-section'>
     <view class='main-bookinfo'>
-      
+      <view class='mb-newbook'>新书上架</view>
+      <view class='mb-more' bindtap='moreSkip'>
+        <text class='mb-more-more'>更多</text>
+        <icon class='iconfont icon-right1'></icon>
+      </view>
+    </view>
+    <view style='height:20rpx;'></view>
+    <view class='book-info'>
+      <view class='tr' wx:for="{{5}}">
+        <view class='view-controller1'>
+          <button class='book-data'>
+            <view class='book-info-pic'>图片</view>
+            <view class='book-info-title'>标题</view>
+            <view class='book-info-author'>作译者</view>
+            <view class='book-info-price'>价格</view>
+          </button>
+        </view>
+        <view class='view-controller2'>
+          <button class='book-data'>
+            <view class='book-info-pic'>图片</view>
+            <view class='book-info-title'>标题</view>
+            <view class='book-info-author'>作译者</view>
+            <view class='book-info-price'>价格</view>
+          </button>
+        </view>
+      </view>
     </view>
   </view>
 </view>

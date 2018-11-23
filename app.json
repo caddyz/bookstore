@@ -5,13 +5,18 @@
     "pages/search/search",
     "pages/cart/cart",
     "pages/person/person",
-    "pages/classify/classify"
-
+    "pages/classify/classify",
+    "pages/favorite/favorite",
+    "pages/comment/comment",
+    "pages/message/message",
+    "pages/member/member",
+    "pages/hot/hot",
+    "pages/help/help"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "bookstore",
     "navigationBarTextStyle":"black"
   },
   "tabBar": {

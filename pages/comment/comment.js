@@ -1,11 +1,11 @@
-// pages/person/person.js
+// pages/comment/comment.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
- 
+
   },
 
   /**
