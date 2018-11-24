@@ -1,0 +1,11 @@
+<scroll-view class="scroll" scroll-y="true">
+<view wx:for="{{regions}}" wx:for-index="idx" wx:for-item="itemName">
+    <image class='addr_img' src=''></image>我的收货地址:
+    <text>\n</text>
+        <view class='myaddress'>{{itemName.province}} {{itemName.city}} {{itemName.county}} {{itemName.details}}</view>
+</view>
+<view class="address-line"></view>
+      <view class="add-address" catchtap='addAddress'>
+        <image class="add-img"  src="../addressList/images/add_address.png"></image>新增地址
+      </view>
+</scroll-view>

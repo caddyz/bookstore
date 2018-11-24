@@ -1,2 +1,34 @@
-<!--pages/classify/classify.wxml-->
-<text>pages/classify/classify.wxml</text>
+<!--装订-->
+<view class="container">
+  <!--左边侧栏-->
+  <view class="num_left">
+    <block wx:for="{{books}}">
+      <!--当前项的id等于item项的id-->
+      <!--用data-index记录这个数据在数组的下标位置，使用data-id设置每个item的id值，
+      供打开2级页面使用-->
+      <view class="num_left_items {{curNum == item.book_id ? 'active' : ''}}" 
+            bindtap="switchRightTab" data-index="{{index}}" 
+            data-id="{{item.book_id}}">{{item.book_name}}
+      </view>
+    </block>
+  </view>
+  <!--右边侧栏-->
+  <view class="num_right">
+    <!--如果有数据，就遍历项-->
+    <view wx:if="{{books[curIndex].ishaveChild}}">
+      <block wx:for="{{books[curIndex].children}}">
+        <view class="num_right_items">
+
+        <!--界面跳转 -->
+        <!-- 地址 -->
+         <navigator url="../detail/detail">
+            <image src="{{item.image}}"></image>
+            <text>{{item.name}}</text>
+          </navigator>
+        </view>
+      </block>
+    </view>
+    <!--如果无数据，则显示数据-->
+    <view class="nodata_text" wx:else>该分类暂无数据</view>
+  </view>
+</view>

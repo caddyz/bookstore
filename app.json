@@ -4,20 +4,31 @@
     "pages/search/search",
     "pages/cart/cart",
     "pages/person/person",
-    "pages/classify/classify",
     "pages/favorite/favorite",
     "pages/comment/comment",
     "pages/message/message",
     "pages/member/member",
     "pages/hot/hot",
     "pages/help/help",
-    "pages/more/more"
+    "pages/more/more",
+    "pages/find/find",
+    "pages/classify/classify",
+    "pages/detail/detail",
+    "pages/register/register",
+    "pages/retrieve/retrieve",
+    "pages/order/order",
+    "pages/userInfomation/userInfomation",
+    "pages/address/address",
+    "pages/addressList/addressList",
+    "pages/userSaleRecord/userSaleRecord",
+    "pages/myEvaluate/myEvaluate"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "bookstore",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle":"black",
+    "enablePullDownRefresh": true
   },
   "tabBar": {
     "list": [
@@ -30,7 +41,7 @@
         "iconPath": "pages/img/app.png"
       },
       {
-        "pagePath": "pages/search/search",
+        "pagePath": "pages/find/find",
         "iconPath": "pages/img/search.png"
       },
       {

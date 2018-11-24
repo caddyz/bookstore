@@ -1,7 +1,8 @@
 //index.js
+// 导入utils.js文件
+var util = require('../../utils/util.js')
 //获取应用实例
 const app = getApp()
-
 Page({
   data: {
     mzImgUrl:[
@@ -20,35 +21,56 @@ Page({
     autoplay: true,
     interval: 5000,
     duration: 1000,
-    list: []
+    list: [],
+    loadingpageNum:1,
+    searchLoading: true,  
+    searchLoadingComplete: false 
   },
+  // 数据起始加载
   onLoad: function (options) {
-    this.getData();
+    // this.getData();
+    let taht = this;
+    util.getSearchBook(1,function(data){
+      console.log(data);
+      taht.setData({
+        list:data
+      })
+    })
   },
-  getData: function () {
-    var that = this;
-    wx.request({
-      url: 'http://192.168.10.110:8080/ssm/0/findBook',
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      method: 'GET',
-      success: function (res) {
-        console.log(res.data)
+  onPullDownRefresh: function () {
+    let that = this;
+    wx.showNavigationBarLoading()
+    setTimeout(function () {
+      that.onLoad()
+      wx.hideNavigationBarLoading() //完成停止加载
+      wx.stopPullDownRefresh() //停止下拉刷新
+    }, 300);
+  },
+  onReachBottom: function () {
+    let that = this;
+    that.data.loadingpageNum += 1;
+    util.getSearchBook(that.data.loadingpageNum, function (data) {
+      console.log("数据长度："+data.length)
+      if (data.length > 0) {
+        let searchList = [];
+        searchList = that.data.list.concat(data);
         that.setData({
-          list: res.data
+          list: searchList,
+          searchLoading: true
         })
+      } else {
+        that.setData({
+          searchLoadingComplete: true, //把“没有数据”设为true，显示
+          searchLoading: false  //把"上拉加载"的变量设为false，隐藏
+        });
       }
     })
   },
-  next:function(e){
-    wx.navigateTo({
-      url: '/pages/template/moreTemplate?list='+JSON.stringify(this.data.list),
-    })
-  },
+  // 跳转函数
   moreSkip:function(){
+    // console.log(list);
     wx.navigateTo({
-      url: '/pages/more/more',
+      url: '/pages/more/more?list='+JSON.stringify(this.data.list),
     })
   },
   favoriteSkip:function(){
@@ -79,6 +101,11 @@ Page({
   helpSkip: function () {
     wx.navigateTo({
       url: '/pages/help/help',
+    })
+  },
+  homepageSearch:function(){
+    wx.navigateTo({
+      url: '/pages/search/search',
     })
   },
 })

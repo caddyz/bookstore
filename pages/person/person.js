@@ -1,66 +1,113 @@
 // pages/person/person.js
+var app = getApp()
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    userInfo: {},
+    motto: 'Hello World',
+    list:'',
+    // orderItems
+    orderItems: [
+      {
+        typeId: 0,
+        name: '待付款',
+        url: 'bill',
+        imageurl: '../person/images/waiting_pay.png',
+      },
+      {
+        typeId: 1,
+        name: '待发货',
+        url: 'bill',
+        imageurl: '../person/images/waiting_send.png',
+      },
+      {
+        typeId: 2,
+        name: '待收货',
+        url: 'bill',
+        imageurl: '../person/images/waiting_receiv.png'
+      },
+      {
+        typeId: 3,
+        name: '待评价',
+        url: 'bill',
+        imageurl: '../person/images/waiting_estimate.png'
+      }
+    ],
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
+  //事件处理函数
+  toOrder: function () {
+    wx.navigateTo({
+      url: '../order/order'
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  //收货地址跳转界面
+  toAddressList:function() {
+    wx.navigateTo({
+      url: '../addressList/addressList',
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  //售后记录跳转界面
+  toUserSaleRecord:function(){
+    wx.navigateTo({
+      url: '../userSaleRecord/userSaleRecord',
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
+  //个人信息跳转页面
+  toUserInfomation:function(){
+  wx.navigateTo({
+  url: '../userInfomation/userInfomation',
+})
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
+  //我的评价跳转页面
+  toMyEvaluate:function(){
+    wx.navigateTo({
+      url: '../myEvaluate/myEvaluate',
+    })
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
+  onLoad: function () {
+    console.log('onLoad')
+    var that = this
+    //调用应用实例的方法获取全局数据
+    app.getUserInfo(function (userinfo) {
+      //更新数据
+      that.setData({
+        userInfo: userInfo
+      })
+    })
   },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
+  getUserInfo: function (e) {
+    console.log(e)
+    app.globalData.userInfo = e.detail.userInfo
+    this.setData({
+      userInfo: e.detail.userInfo,
+      hasUserInfo: true
+    })
   },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  // 链接测试
+  houduanButton1: function () {
+    var that = this;
+    wx.request({
+      url: 'http://192.168.10.162:8080/springmvc01/getUser',
+      method: 'GET',
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        console.log(res.data)//打印到控制台
+        var list = res.data.list;
+        if (list == null) {
+          var toastText = '数据获取失败';
+          wx.showToast({
+            title: toastText,
+            icon: '',
+            duration: 2000
+          });
+        } else {
+          that.setData({
+            list: list
+          })
+        }
+      }
+    })
   }
+
 })
