@@ -20,8 +20,6 @@ Page({
 
     list: [],
     loadingpageNum:1,
-    searchLoading: true,  
-    searchLoadingComplete: false,
     seekValue:null
   },
   // 数据起始加载

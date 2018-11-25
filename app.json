@@ -28,7 +28,8 @@
     "pages/address/address",
     "pages/addressList/addressList",
     "pages/userSaleRecord/userSaleRecord",
-    "pages/myEvaluate/myEvaluate"
+    "pages/myEvaluate/myEvaluate",
+    "pages/template/bookinfoTemplate"
   ],
   "window":{
     "backgroundTextStyle":"light",
