@@ -1,2 +1,19 @@
 <!--pages/search/search.wxml-->
-<text>pages/search/search.wxml</text>
+<view class='bi-tr'>
+          <block wx:for="{{list}}" wx:key="id">
+            <view class='view-controller1'>
+              <button class='book-data'>
+                  <view class='book-info-pic' >
+                    <image src='/pages/img/{{item.bookCoverImage}}' mode='scaleToFill'
+                    style="width: 100%; height: 100%;background-color: #eeeeee;">
+                    </image> 
+                  </view>
+                  <input type='text' class='book-info-title' value='{{item.bookName}}'></input>
+                  <input type='text' class='book-info-author' value='{{item.bookAuthor}}'></input>
+                  <input type='text' class='book-info-price' value='{{item.bookSalesPrice}}'></input>
+              </button>
+            </view>
+          </block>
+        </view>
+        <view class="loading" hidden="{{!searchLoading}}">正在载入更多...</view>
+<view class="loading complete" hidden="{{!searchLoadingComplete}}">已加载全部</view>

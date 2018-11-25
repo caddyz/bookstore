@@ -24,7 +24,8 @@ Page({
     list: [],
     loadingpageNum:1,
     searchLoading: true,  
-    searchLoadingComplete: false 
+    searchLoadingComplete: false,
+    seekValue:null
   },
   // 数据起始加载
   onLoad: function (options) {
@@ -103,9 +104,10 @@ Page({
       url: '/pages/help/help',
     })
   },
-  homepageSearch:function(){
+  homepageSearch:function(e){
+    this.data.seekValue = e.detail.value
     wx.navigateTo({
-      url: '/pages/search/search',
+      url: '/pages/search/search?seekValue=' + this.data.seekValue,
     })
   },
 })
