@@ -5,11 +5,6 @@ var util = require('../../utils/util.js')
 const app = getApp()
 Page({
   data: {
-    mzImgUrl:[
-      '/pages/img/like.png',
-      '/pages/img/comment.png',
-      '/pages/img/message.png',
-    ],
     imgUrls: [
       '/pages/img/history-1.jpg',
       '/pages/img/history-2.jpg',
@@ -21,6 +16,8 @@ Page({
     autoplay: true,
     interval: 5000,
     duration: 1000,
+    swiperCurrent:0,
+
     list: [],
     loadingpageNum:1,
     searchLoading: true,  
@@ -45,7 +42,7 @@ Page({
       that.onLoad()
       wx.hideNavigationBarLoading() //完成停止加载
       wx.stopPullDownRefresh() //停止下拉刷新
-    }, 300);
+    }, 150);
   },
   onReachBottom: function () {
     let that = this;
@@ -67,47 +64,69 @@ Page({
       }
     })
   },
-  // 跳转函数
+  //轮播区事件
+  //轮播区滑动事件
+  swiperChange:function(e){
+    this.setData({
+      swiperCurrent: e.detail.current
+    })
+  },
+  //轮播区点击事件
+  swiperClick:function(e){
+    wx.navigateTo({
+      url: '/pages/index/slideshow/slideshow' + this.data.swiperCurrent,
+    })
+  },
+  //新书更多事件
   moreSkip:function(){
     // console.log(list);
     wx.navigateTo({
-      url: '/pages/more/more?list='+JSON.stringify(this.data.list),
+      url: '/pages/index/more/more?list='+JSON.stringify(this.data.list),
     })
   },
+  //分类区事件
+  // 跳转函数
   favoriteSkip:function(){
     wx.navigateTo({
-      url: '/pages/favorite/favorite',
+      url: '/pages/index/favorite/favorite',
     })
   },
   commentSkip: function () {
     wx.navigateTo({
-      url: '/pages/comment/comment',
+      url: '/pages/index/comment/comment',
     })
   },
   messageSkip: function () {
     wx.navigateTo({
-      url: '/pages/message/message',
+      url: '/pages/index/message/message',
     })
   },
   vipSkip: function () {
     wx.navigateTo({
-      url: '/pages/member/member',
+      url: '/pages/index/member/member',
     })
   },
   hotSkip: function () {
     wx.navigateTo({
-      url: '/pages/hot/hot',
+      url: '/pages/index/hot/hot',
     })
   },
   helpSkip: function () {
     wx.navigateTo({
-      url: '/pages/help/help',
+      url: '/pages/index/help/help',
     })
   },
+  //图书详情页跳转
+  bookInfoSkip:function(){
+    wx.navigateTo({
+      url: '/pages/detail/detail',
+    })
+  },
+  //搜索区域事件
   homepageSearch:function(e){
     this.data.seekValue = e.detail.value
     wx.navigateTo({
-      url: '/pages/search/search?seekValue=' + this.data.seekValue,
+      url: '/pages/index/search/search?seekValue=' + this.data.seekValue,
     })
   },
 })
