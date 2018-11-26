@@ -1,0 +1,3 @@
+<!--pages/more/more.wxml-->
+<import src='../../template/bookinfoTemplate'/>
+<template is="msgItem" data="{{list:list}}"/>
