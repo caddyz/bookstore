@@ -28,9 +28,9 @@
     "pages/address/address",
     "pages/addressList/addressList",
     "pages/userSaleRecord/userSaleRecord",
-    "pages/myEvaluate/myEvaluate",
-    "pages/template/bookinfoTemplate"
+    "pages/myEvaluate/myEvaluate"
   ],
+    
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",

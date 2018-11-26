@@ -1,6 +1,6 @@
 <template name="msgItem">
   <view class='bi-tr'>
-    <block wx:for="{{list}}" wx:key="id">
+    <block wx:for="{{list}}" wx:key="index">
       <view class='view-controller'>
         <button class='book-data' bindtap='bookInfoSkip'>
           <view class='book-info-pic' >
@@ -15,6 +15,6 @@
       </view>
     </block>
   </view>
-  <view class="loading" hidden="{{list.item.boonId!=null}}">正在载入更多...</view>
-  <view class="loading complete" hidden="{{list.item.boonId==null}}">已加载全部</view>
+  <view class="loading" hidden="{{!searchLoading}}">正在加载...</view>
+  <view class="loading complete" hidden="{{!searchLoadingComplete}}">已经到底了...</view>
 </template>

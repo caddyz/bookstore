@@ -1,6 +1,8 @@
 //index.js
 // 导入utils.js文件
 var util = require('../../utils/util.js')
+// //导入模板js文件
+import templates from '../template/bookinfoTemplate'
 //获取应用实例
 const app = getApp()
 Page({
@@ -17,7 +19,8 @@ Page({
     interval: 5000,
     duration: 1000,
     swiperCurrent:0,
-
+    searchLoading: true,
+    searchLoadingComplete: false,
     list: [],
     loadingpageNum:1,
     seekValue:null
@@ -46,16 +49,16 @@ Page({
     let that = this;
     that.data.loadingpageNum += 1;
     util.getSearchBook(that.data.loadingpageNum, function (data) {
-      console.log("数据长度："+data.length)
-      if (data.length > 0) {
-        let searchList = [];
+      let searchList = [];
+      if (data.length === 10) {
+        searchList = that.data.list.concat(data);
+        that.setData({
+          list: searchList
+        })
+      } else {
         searchList = that.data.list.concat(data);
         that.setData({
           list: searchList,
-          searchLoading: true
-        })
-      } else {
-        that.setData({
           searchLoadingComplete: true, //把“没有数据”设为true，显示
           searchLoading: false  //把"上拉加载"的变量设为false，隐藏
         });
@@ -114,12 +117,7 @@ Page({
       url: '/pages/index/help/help',
     })
   },
-  //图书详情页跳转
-  bookInfoSkip:function(){
-    wx.navigateTo({
-      url: '/pages/detail/detail',
-    })
-  },
+  
   //搜索区域事件
   homepageSearch:function(e){
     this.data.seekValue = e.detail.value
@@ -127,4 +125,8 @@ Page({
       url: '/pages/index/search/search?seekValue=' + this.data.seekValue,
     })
   },
+  //模板点击事件
+  bookInfoSkip: function (event){
+    templates.bookInfoSkip(event)
+  }
 })

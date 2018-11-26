@@ -1,1 +1,14 @@
 /* pages/favorite/favorite.wxss */
+.favorite-info{
+  display: flex;
+  flex-direction: row;
+}
+.favorite-pic{
+  background-color: red;
+}
+.favorite-book{
+  background-color: blue;
+}
+.favorite-delete{
+  background-color: whitesmoke;
+}

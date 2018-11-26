@@ -8,6 +8,8 @@ Page({
   data: {
     list:[],
     loadingpageNum: 1,
+    searchLoading: true,
+    searchLoadingComplete: false,
   },
 
   /**
@@ -66,16 +68,17 @@ Page({
     let that = this;
     that.data.loadingpageNum += 1;
     util.getSearchBook(that.data.loadingpageNum, function (data) {
-      console.log("数据长度：" + data.length)
-      if (data.length > 0) {
-        let searchList = [];
+      // console.log("数据长度：" + data.length)
+      let searchList = [];
+      if (data.length === 10) {
+        searchList = that.data.list.concat(data);
+        that.setData({
+          list: searchList
+        })
+      } else {
         searchList = that.data.list.concat(data);
         that.setData({
           list: searchList,
-          searchLoading: true
-        })
-      } else {
-        that.setData({
           searchLoadingComplete: true, //把“没有数据”设为true，显示
           searchLoading: false  //把"上拉加载"的变量设为false，隐藏
         });

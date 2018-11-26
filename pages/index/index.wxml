@@ -61,6 +61,8 @@
     <view style='height:20rpx;'></view>
     <!-- 页面主体展示 -->
     <import src='../template/bookinfoTemplate'/>
-    <template is="msgItem" data="{{list:list}}"/>
+    <view bindtap='bookInfoSkip'>
+      <template is="msgItem" data="{{list:list,searchLoading:searchLoading,searchLoadingComplete:searchLoadingComplete}}"/>
+    </view>
   </view>
 </view>
