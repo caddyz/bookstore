@@ -1,2 +1,59 @@
 <!--pages/person/person.wxml-->
-<text>pages/person/person.wxml</text>
+<view class="container">
+
+  <view class="userinfo">
+    <open-data type="userAvatarUrl" class="userinfo-avatar" background-size="cover"></open-data>
+    <open-data type="userNickName" class="userinfo-nickname"></open-data>
+    <image src="../person/images/user_pic.png" class="user-bg">
+    </image>
+  </view>
+<!-- <view>
+<image src='../person/images/user.png'></image>
+</view> -->
+  <view class="separate"></view>
+
+  <view class="order">
+    <text class="myorder-text">我的订单</text>
+    <navigator url="../order/order?title=order" hover-class="navigator-hover" class='myorderlook-text'>查看全部订单   </navigator>
+    <image class="next-image" src="../person/images/user_order.png"></image>
+  </view>
+  <view class="line"></view>
+
+  <view class="navs">
+    <block wx:for="{{orderItems}}" wx:key="name">
+      <view class="nav-item" catchtap="toOrder" data-type="{{item.name}}" data-typeid="{{item.typeId}}">
+        <image src="{{item.imageurl}}" class="nav-image" />
+        <text>{{item.name}}</text>
+      </view>
+    </block>
+  </view>
+
+  <view class="separate"></view>
+  <view class="person-list">
+    <view class="list-item" catchtap='toUserInfomation'>
+      <image class="item-image" src="../person/images/user_infomation.png"></image>
+      <text class="item-text">用户信息</text>
+    </view>
+    <view class="person-line" ></view>
+    <view class="list-item" catchtap='toAddressList'>
+      <image class="item-image" src="../person/images/user_address.png"></image>
+      <text class="item-text">收货地址</text>
+    </view>
+    <view class="person-line"></view>
+    <view class="list-item" catchtap='toUserSaleRecord'>
+      <image class="item-image" src="../person/images/user_sale_record.png"></image>
+      <text class="item-text">售后记录</text>
+    </view>
+    <view class="person-line"></view>
+    <view class="list-item" catchtap='toMyEvaluate'>
+      <image class="item-image" src="../person/images/user_evaluate.png"></image>
+      <text class="item-text">我的评价</text>
+    </view>
+  </view>
+  <view class="separate"></view>
+</view>
+<!-- 链接测试 -->
+<button bindtap='houduanButton1'>点击发起请求</button>
+<view wx:for="{{list}}">
+    姓名：{{item}}
+  </view>
