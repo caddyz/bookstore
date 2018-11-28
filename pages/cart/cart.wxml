@@ -30,7 +30,7 @@
                     <view class="btn-box">
                         <view class="btn">
                             <button id="del{{index}}" type="default" size="mini" bindtap="delCount">-</button>
-                            <input  value="{{item.count}}"/>
+                            <input  value="{{item.num}}"/>
                             <button id="add{{index}}" type="default" size="mini" bindtap="addCount">+</button>
                         </view>
                         <image id="img{{index}}" src="/images/del2.png" bindtap="delGoods"/>

@@ -4,66 +4,74 @@ Page({
     iscart: false,
     cart: [{
       id: "001",
-      imgUrl: "http://img5.imgtn.bdimg.com/it/u=2906541843,1492984080&fm=23&gp=0.jpg",
-      name: "女装T恤中长款大码摆裙春夏新款",
+      imgUrl: "../cart/images/history-21.jpg",
+      name: "燃烧的远征",
       price: "65.00",
-      statuse:true
+      statuse:true,
+      num:'1'
     },
       {
         id: "002",
-        imgUrl: "http://img4.imgtn.bdimg.com/it/u=1004404590,1607956492&fm=23&gp=0.jpg",
-        name: "火亮春秋季 男青年修身款圆领男士T恤",
+        imgUrl: "../cart/images/history-22.jpg",
+        name: "人类简史",
         price: "68.00",
-        statuse: true
+        statuse: true,
+        num: '1'
       },
       {
         id: "003",
-        imgUrl: "http://img1.imgtn.bdimg.com/it/u=2305064940,3470659889&fm=23&gp=0.jpg",
-        name: "新款立体挂脖t恤女短袖大码宽松条纹V领上衣显瘦休闲春夏",
+        imgUrl: "../cart/images/history-23.jpg",
+        name: "日本现代史",
         price: "86.00",
-        statuse: true
+        statuse: true,
+        num: '1'
       },
       {
         id: "004",
-        imgUrl: "http://img4.imgtn.bdimg.com/it/u=3986819380,1610061022&fm=23&gp=0.jpg",
-        name: "男运动上衣春季上新品 上衣流行装青年",
+        imgUrl: "../cart/images/history-24.jpg",
+        name: "十字军的故事",
         price: "119.00",
-        statuse: true
+        statuse: true,
+        num: '1'
       },
       {
         id: "005",
-        imgUrl: "http://img1.imgtn.bdimg.com/it/u=3583238552,3525141111&fm=23&gp=0.jpg",
-        name: "时尚字母三角露胸t恤女装亮丝大码宽松不规则春夏潮",
+        imgUrl: "../cart/images/history-25.jpg",
+        name: "丝绸之路",
         price: "69.00",
-        statuse: true
+        statuse: true,
+        num: '1'
       },
       {
         id: "006",
-        imgUrl: "http://img2.imgtn.bdimg.com/it/u=1167272381,3361826143&fm=23&gp=0.jpg",
-        name: "新款立体挂脖t恤短袖大码宽松条纹V领上衣显瘦休闲春夏",
+        imgUrl: "../cart/images/history-26.jpg",
+        name: "宋徽宗",
         price: "86.00",
-        statuse: true
+        statuse: true,
+        num: '1'
       },
       {
         id: "007",
-        imgUrl: "http://img0.imgtn.bdimg.com/it/u=789486313,2033571593&fm=23&gp=0.jpg",
-        name: "时尚字母三角露胸t恤女装亮丝大码宽松不规则春夏潮",
+        imgUrl: "../cart/images/history-27.jpg",
+        name: "万历十五年",
         price: "119.00",
-        statuse: true
+        statuse: true,
+        num: '1'
       },
       {
         id: "008",
-        imgUrl: "http://img2.imgtn.bdimg.com/it/u=3314044863,3966877419&fm=23&gp=0.jpg",
-        name: "男运动上衣春季上新品 上衣流行装青年",
+        imgUrl: "../cart/images/history-28.jpg",
+        name: "未来简史",
         price: "69.00",
-        statuse: true
+        statuse: true,
+        num: '1'
       },], //数据
     count: 1,   //商品数量默认是1
     total: 0,    //总金额
     goodsCount: 0 //数量
   },
   onLoad: function (options) {
-		console.log("adf");
+	console.log("adf");
 		wx.navigateTo({
 		url: "/pages/login/login"
     })
@@ -76,8 +84,10 @@ Page({
     // 有数据的话，就遍历数据，计算总金额 和 总数量
     if (arr.length > 0) {
       for (var i in arr) {
-        that.data.total += Number(arr[i].price) * Number(arr[i].count);
-        that.data.goodsCount += Number(arr[i].count);
+        if(arr[i].statuse){
+          that.data.total += Number(arr[i].price) * Number(arr[i].num);
+          that.data.goodsCount += Number(arr[i].num);
+        }
       }
       // 更新数据
       this.setData({
@@ -212,3 +222,4 @@ getTotalPrice() {
     totalPrice: total.toFixed(2)
   });
 }
+})
