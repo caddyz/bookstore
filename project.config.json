@@ -13,7 +13,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.4.0",
 	"appid": "wx15fc93659302fda3",
-	"projectname": "book",
+	"projectname": "bookstore",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},

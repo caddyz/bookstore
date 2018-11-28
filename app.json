@@ -20,9 +20,9 @@
     "pages/index/slideshow/slideshow3",
     "pages/index/slideshow/slideshow4",
     "pages/detail/detail",
-    "pages/register/register",
-    "pages/retrieve/retrieve",
-	
+    "pages/login/register/register",
+    "pages/login/retrieve/retrieve",
+    "pages/login/login",
     "pages/person/order/order",
     "pages/person/editorUserInfomation/editorUserInfomation",
     "pages/person/userInfomation/userInfomation",
