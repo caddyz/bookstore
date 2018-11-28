@@ -2,6 +2,7 @@
   "pages":[
     "pages/index/index",
     "pages/classify/classify",
+    "pages/classify/detail/detail",
     "pages/find/find",
     "pages/cart/cart",
     "pages/person/person",
@@ -19,7 +20,6 @@
     "pages/index/slideshow/slideshow2",
     "pages/index/slideshow/slideshow3",
     "pages/index/slideshow/slideshow4",
-    "pages/detail/detail",
     "pages/login/register/register",
     "pages/login/retrieve/retrieve",
     "pages/login/login",
