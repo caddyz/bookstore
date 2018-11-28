@@ -36,31 +36,31 @@ Page({
   //事件处理函数
   toOrder: function () {
     wx.navigateTo({
-      url: '../order/order'
+      url: '../person/order/order'
     })
   },
   //收货地址跳转界面
   toAddressList:function() {
     wx.navigateTo({
-      url: '../addressList/addressList',
+      url: '../person/addressList/addressList',
     })
   },
   //售后记录跳转界面
   toUserSaleRecord:function(){
     wx.navigateTo({
-      url: '../userSaleRecord/userSaleRecord',
+      url: '../person/userSaleRecord/userSaleRecord',
     })
   },
   //个人信息跳转页面
   toUserInfomation:function(){
   wx.navigateTo({
-  url: '../userInfomation/userInfomation',
+    url: '../person/userInfomation/userInfomation',
 })
   },
   //我的评价跳转页面
   toMyEvaluate:function(){
     wx.navigateTo({
-      url: '../myEvaluate/myEvaluate',
+      url: '../person/myEvaluate/myEvaluate',
     })
   },
   onLoad: function () {
@@ -85,9 +85,14 @@ Page({
   // 链接测试
   houduanButton1: function () {
     var that = this;
+    let user = "嗨喽你好";
     wx.request({
-      url: 'http://192.168.10.162:8080/springmvc01/getUser',
+      url: 'http://192.168.10.162:8080/springmvc01/getUser/' + user,
       method: 'GET',
+      // data:{
+      //   user:"嗨喽你好"
+      // },
+
       header: {
         'content-type': 'application/json' // 默认值
       },

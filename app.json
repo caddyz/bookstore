@@ -19,16 +19,18 @@
     "pages/index/slideshow/slideshow2",
     "pages/index/slideshow/slideshow3",
     "pages/index/slideshow/slideshow4",
-
     "pages/detail/detail",
     "pages/register/register",
     "pages/retrieve/retrieve",
-    "pages/order/order",
-    "pages/userInfomation/userInfomation",
-    "pages/address/address",
-    "pages/addressList/addressList",
-    "pages/userSaleRecord/userSaleRecord",
-    "pages/myEvaluate/myEvaluate"
+	
+    "pages/person/order/order",
+    "pages/person/editorUserInfomation/editorUserInfomation",
+    "pages/person/userInfomation/userInfomation",
+    "pages/person/address/address",
+    "pages/person/editorAddress/editorAddress",
+    "pages/person/addressList/addressList",
+    "pages/person/userSaleRecord/userSaleRecord",
+    "pages/person/myEvaluate/myEvaluate"
   ],
     
   "window":{
