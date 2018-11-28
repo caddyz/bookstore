@@ -1,3 +1,9 @@
+
+
+<view>
+  <button bindtap='headtest'>连接后台</button>
+</view>
+
 <!--装订-->
 <view class="container">
   <!--左边侧栏-->
@@ -17,18 +23,18 @@
     <!--如果有数据，就遍历项-->
     <view wx:if="{{books[curIndex].ishaveChild}}">
       <block wx:for="{{books[curIndex].children}}">
-        <view class="num_right_items">
+        <view class="num_right_items" bindtap='items'>
 
         <!--界面跳转 -->
         <!-- 地址 -->
-         <navigator url="../detail/detail">
+         
             <image src="{{item.image}}"></image>
             <text>{{item.name}}</text>
-          </navigator>
+          
         </view>
       </block>
     </view>
-    <!--如果无数据，则显示数据-->
+    <!--如果无数据，则显示-->
     <view class="nodata_text" wx:else>该分类暂无数据</view>
   </view>
 </view>

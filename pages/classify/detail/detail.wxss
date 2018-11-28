@@ -1,0 +1,151 @@
+/* pages/classify/detail/detail.wxss */
+page {
+  /* 弹性布局 */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+/* 加减框 */
+  padding: 20px 0;
+}
+/* 直接设置swiper属性 */
+swiper {
+  height: 500rpx;
+}
+swiper-item image {
+  width: 100%;
+  height: 100%;
+}
+.detail {
+  display: flex;
+  flex-direction: column;
+  /* 设置元素的上外边距 */
+  margin-top: 15rpx;
+  /* 设置元素的下外边距 */
+  margin-bottom: 0rpx;
+}
+/* 设置名字 */
+.detail .bookName {
+  font-size: 40rpx;
+  margin: 10rpx;
+  color: black;
+  /* text-align: justify; */
+  text-align: justify;
+}
+/* 设置金额 */
+.detail .price {
+  color: red;
+  font-size: 40rpx;
+  margin: 10rpx;
+}
+/* 设置作者 */
+.detail .author{
+  color: rgb(27, 184, 40);
+  font-size: 30rpx;
+   margin: 10rpx;
+}
+/* 设置销量 */
+.detail .totalSold{
+  color: blue;
+  font-size: 30rpx;
+   margin: 10rpx;
+}
+/* 设置余量 */
+.detail .totalStore{
+  color: blue;
+  font-size: 30rpx;
+   margin: 10rpx;
+}
+/* 设置商品详情 */
+.text-detail{
+  color: yellow;
+  font-size: 30rpx;
+   margin: 10rpx;
+}
+.detail-nav {
+  display: flex;
+  flex-direction: row;
+  /* align-items 设置了flex容器的对齐方式 */
+  align-items: center;
+  float: left;
+  background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  /* z-index 属性指定一个元素的堆叠顺序,如果值设置为正数，越大这对应的view也会越在上面一层，
+  负数就是在底层 */
+  z-index: 1;
+  width: 100%;
+  height: 100rpx;
+}
+.button-yellow {
+  background-color: yellow; /* yellow */
+}
+.button-red {
+  background-color: red; /* 红色 */
+}
+.image_detail {
+  width: 100%;
+}
+button {
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 30rpx;
+  /* border-radius 设置边界圆角 */
+  border-radius: 0rpx;
+  width: 50%;
+  height: 100%;
+  line-height: 100rpx;
+}
+.detail-nav image {
+  width: 70rpx;
+  height: 50rpx;
+  margin: 20rpx 40rpx;
+}
+.line_nav {
+  width: 5rpx;
+  height: 100%;
+  background-color: gainsboro;
+}
+/* 占位 */
+.temp {
+  height: 100rpx;
+}
+text {
+  display: block;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 30rpx;
+  margin: 10rpx;
+}
+.text-remark {
+  display: block;
+  font-size: 25rpx;
+  margin: 10rpx;
+  color: firebrick
+}
+
+ 
+/*加号和减号*/
+.stepper text {
+	width: 50rpx;
+	line-height: 50rpx;
+	float: left;
+  text-align: center;
+  border:1px solid #999999;
+}
+ 
+/*数值*/
+.stepper input {
+	width: 40px;
+	height: 26px;
+	float: left;
+	margin: 0 auto;
+	text-align: center;
+	font-size: 12px;
+	/*给中间的input设置左右边框即可*/
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+}
+ 
