@@ -63,7 +63,10 @@ Page({
     goodsCount: 0 //数量
   },
   onLoad: function (options) {
-
+		console.log("adf");
+		wx.navigateTo({
+		url: "/pages/login/login"
+    })
   },
   onShow: function () {
     var that = this;

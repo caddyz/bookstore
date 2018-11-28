@@ -1,10 +1,9 @@
-// pages/person/person.js
+// pages/login/login.js
 Page({
   //定义全局变量data
   data: {
     username: '',
     password: '',
-    message: ""
   },
 
   // 获取输入账号 
@@ -26,22 +25,22 @@ Page({
     //登陆的时候要传过来的参数
     var username = that.data.username
     var password = that.data.password
-    if (that.data.username == "") {
+    if (that.data.username == "" || that.data.username==null) {
       wx.showModal({
         title: "信息提示",
-        content: "用户名不能为空!"
+        content: "请输入用户名!"
       })
-    } else if (that.data.password == "") {
+    } else if (that.data.password == "" || that.data.password == null) {
       wx.showModal({
         title: "信息提示",
         content: "请输入密码!"
       })
     }
-    console.log("用户名：" + username + "密码：" + password)
+    console.log("用户名：" + username + "，密码：" + password)
     //发送ajax请求到服务器-登录
     wx.request({
       //开发者服务器接口地址
-      url: 'http://localhost:8080/webFront/login',
+      url: 'http://localhost:8080/userLogin/bookC',
       //请求的参数
       data: {
         username:username,
@@ -49,18 +48,19 @@ Page({
       },
       //设置请求的 header
       header: {
-        'content-type': 'application/x-www-form-urlencoded' // 默认值
+        //'content-type': 'application/x-www-form-urlencoded' // 默认值
+        'Content-Type': 'application/json'
       },
-      method: 'POST',//定义传到后台接受的是post方法还是get方法
+      method: 'GET',//定义传到后台接受的是post方法还是get方法
       dataType: 'json', // 默认值json
       success: function (res) {  // 服务器响应成功的回调函数
         //调试，相当于alert
-        // console.log("成功")
-        if (res.data.message == "ok") {
+        console.log("成功")
+        if (res.data.status==1) {
           // 点击确定后跳转登录页面并关闭当前页面
           wx.redirectTo({
             //成功后跳转的路径
-            url: '../index/index'
+            url: '../person/person'
           })
         
         } else {
@@ -84,13 +84,13 @@ Page({
   //点击注册的时候触发的事件
   register: function () {
     wx.navigateTo({
-      url: "../register/register"
+      url: "/pages/login/register/register"
     })
   },
   //点击找回密码的时候触发的事件
   retrieve: function () {
     wx.navigateTo({
-      url: "../retrieve/retrieve"
+      url: "/pages/login/retrieve/retrieve"
     })
   },
   onReady: function () {
