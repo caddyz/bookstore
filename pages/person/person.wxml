@@ -1,6 +1,5 @@
 <!--pages/person/person.wxml-->
-<view class="container">
-
+<view>
   <view class="userinfo">
     <open-data type="userAvatarUrl" class="userinfo-avatar" background-size="cover"></open-data>
     <open-data type="userNickName" class="userinfo-nickname"></open-data>
@@ -14,7 +13,7 @@
 
   <view class="order">
     <text class="myorder-text">我的订单</text>
-    <navigator url="../order/order?title=order" hover-class="navigator-hover" class='myorderlook-text'>查看全部订单   </navigator>
+    <navigator url="../order/order?title=order" hover-class="navigator-hover" class='myorderlook-text' catchtap="toOrder">查看全部订单   </navigator>
     <image class="next-image" src="../person/images/user_order.png"></image>
   </view>
   <view class="line"></view>

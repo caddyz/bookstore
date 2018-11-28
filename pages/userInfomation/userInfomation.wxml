@@ -1,2 +1,0 @@
-<!--pages/userInfomation/userInfomation.wxml-->
-<text>{{message}}</text>
