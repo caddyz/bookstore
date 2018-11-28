@@ -62,11 +62,6 @@ Page({
     })
   },
 //默认地址编辑
-  editor:function(){
-    var that=this
-    that.editorAddress
-  },
-
   editorAddress:function(e){
     var id = e.target.dataset.id
     console.log(e.detail.value)

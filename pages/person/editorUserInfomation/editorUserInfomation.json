@@ -1,1 +1,5 @@
-{}
+{
+  "component": true,
+  "usingComponents": {},
+  "navigationBarTitleText": "修改个人资料"
+}

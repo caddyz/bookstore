@@ -64,7 +64,7 @@ Page({
     })
   },
   onLoad: function () {
-    console.log('onLoad')
+     console.log('onLoad')
     wx.navigateTo({
       url: "/pages/login/login"
     })

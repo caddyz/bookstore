@@ -1,5 +1,5 @@
 <scroll-view class="scroll" scroll-y="true">
-<form class='receiveAddress' bindsubmit="editorAddress" >
+<form class='receiveAddress' catchtap="editorAddress" >
 <view wx:for="{{regions}}" wx:for-index="idx" wx:for-item="itemName">
         <view class="addressList">
         <image class='addr_img' src='../addressList/images/receive_address.png'></image>收货地址: 
@@ -15,7 +15,7 @@
       <view class='real'>{{itemName.mobile}} </view>
       </view>
                 <p class="ui-list-item-del" data-id="{{itemName.id}}" bindtap="delAddress">删除</p>
-                <p class="ui-list-item-editor" form-type='sumbit' data-id="{{itemName.id}}" bindtap="editor">编辑</p>
+                <p class="ui-list-item-editor" form-type='sumbit' data-id="{{itemName.id}}" catchtap="editorAddress">编辑</p>
                 <view><text>\n</text></view>
   </view>
 </form>

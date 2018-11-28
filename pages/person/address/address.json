@@ -1,5 +1,5 @@
 {
-  "window": {
-    "navigationBarTitleText": "地址管理"
-  }
+  "component": true,
+  "usingComponents": {},
+  "navigationBarTitleText": "添加地址"
 }

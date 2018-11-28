@@ -1,1 +1,5 @@
-{}
+{
+  "component": true,
+  "usingComponents": {},
+  "navigationBarTitleText": "售后记录"
+}
