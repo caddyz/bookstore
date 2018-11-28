@@ -1,1 +1,28 @@
 /* pages/help/help.wxss */
+.help-title,.info,.discard{
+  /* width: 80%;
+  display: flex;
+  background-color: rgb(238, 238, 238);
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 auto; */
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  font-size: 34rpx;
+  width: 80%;
+  padding: 0 4%;
+  height: 100rpx;
+  line-height: 100rpx;
+  border-bottom: 1rpx solid #f1f1f1;
+   margin: 0 auto;
+}
+.info{
+  background-color: #F2F2F2
+}
+.help-font{
+  color: #5CACEE
+}
+.help-font-info{
+  color: #B2DFEE
+}

@@ -1,5 +1,6 @@
 // pages/search/search.js
 var util = require('../../../utils/util.js')
+import templates from '../../template/bookinfoTemplate'
 Page({
 
   /**
@@ -18,14 +19,15 @@ Page({
    */
   onLoad: function (options) {
     let that = this;
-    // console.log("接收到的seekValue参数是：" + JSON.stringify(options.seekValue));
+    console.log("接收到的seekValue参数是：" + JSON.stringify(options.seekValue));
     util.getKeywordSearch(options.seekValue,1,function(data){
-      // console.log("关键字查询数据："+data);
+      console.log("关键字查询数据：" + JSON.stringify(data));
       if(data.length < 10){
         that.setData({
           searchLoadingComplete: true,
           searchLoading: false,
-          list:data
+          list:data,
+          seekValue: options.seekValue
         })
       } else{
         that.setData({
@@ -82,7 +84,7 @@ Page({
     util.getKeywordSearch(that.data.seekValue,that.data.loadingpageNum, function (data) {
       console.log("数据长度：" + data.length)
       let searchList = [];
-      if (data.length === 10) {
+      if (data.length != 0) {
         searchList = that.data.list.concat(data);
         that.setData({
           list: searchList
@@ -103,5 +105,8 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  bookInfoSkip: function (event) {
+    templates.bookInfoSkip(event)
   }
 })

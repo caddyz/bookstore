@@ -1,5 +1,6 @@
 // pages/more/more.js
 var util = require('../../../utils/util.js')
+import templates from '../../template/bookinfoTemplate'
 Page({
 
   /**
@@ -70,7 +71,7 @@ Page({
     util.getSearchBook(that.data.loadingpageNum, function (data) {
       // console.log("数据长度：" + data.length)
       let searchList = [];
-      if (data.length === 10) {
+      if (data.length != 0) {
         searchList = that.data.list.concat(data);
         that.setData({
           list: searchList
@@ -91,5 +92,8 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  bookInfoSkip: function (event) {
+    templates.bookInfoSkip(event)
   }
 })

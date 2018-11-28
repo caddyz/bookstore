@@ -1,16 +1,18 @@
 <!--pages/favorite/favorite.wxml-->
-<view>
+<block wx:for="{{list}}" wx:key="index">
   <view class='favorite-info'>
-    
-      <image src='../../img/tuipian1.jpg' mode='scaleToFill'
-        style="width: 100%; height: 100%;"></image>
-   
+    <view class='favorite-pic'>
+      <image src='/pages/picture/{{item.bookCoverImage}}' mode='aspectFit'  style="width: 100%; height: 100%;background-color: #eeeeee;"></image>
+    </view>
     <view class='favorite-book'>
-      <view><text>来自未来世界的人们啊</text></view>
-      <view><text>孤独终老</text></view>
+      <view><text>{{item.bookName}}</text></view>
+      <block wx:for="{{item.bookAuthor}}">
+        <view>作者：<text>{{item.authorName}}</text></view>
+      </block>
     </view>
     <view class='favorite-delete'>
-      <icon type='cancel'></icon>
+      <icon type='cancel' size='30' bindtap='deleteBookInfo'></icon>
     </view>
   </view>
-</view>
+</block>
+

@@ -49,3 +49,7 @@
 .loading.complete:before{
   display: none;
 }
+.author-info{
+  display: flex;
+  flex-direction: row;
+}

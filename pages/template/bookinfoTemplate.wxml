@@ -4,12 +4,16 @@
       <view class='view-controller'>
         <button class='book-data' bindtap='bookInfoSkip'>
           <view class='book-info-pic' >
-            <image src='/pages/img/{{item.bookCoverImage}}' mode='scaleToFill'
+            <image src='/pages/picture/{{item.bookCoverImage}}' mode='scaleToFill'
               style="width: 100%; height: 100%;background-color: #eeeeee;">
             </image> 
           </view>
           <input type='text' class='book-info-title' value='{{item.bookName}}'></input>
-          <input type='text' class='book-info-author' value='{{item.bookAuthor}}'></input>
+          <view class='author-info'>
+            <block wx:for="{{item.bookAuthor}}">
+              <input type='text' class='book-info-author' value='{{item.authorName}}  '></input>
+            </block>
+          </view>
           <input type='text' class='book-info-price' value='{{item.bookSalesPrice}}'></input>
         </button>
       </view>

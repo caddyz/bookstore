@@ -2,13 +2,19 @@
 .favorite-info{
   display: flex;
   flex-direction: row;
+  height: 200rpx;
+  width: 90%;
+  margin: 0 auto;
 }
 .favorite-pic{
-  background-color: red;
+  width: 30%;
 }
 .favorite-book{
-  background-color: blue;
+  width: 50%;
 }
 .favorite-delete{
-  background-color: whitesmoke;
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  width: 20%;
 }

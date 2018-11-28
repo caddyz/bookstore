@@ -15,9 +15,8 @@ const formatNumber = n => {
 }
 // 分页查询
 function getSearchBook(pageNum,callback){
-  let index = (pageNum-1)*10;
   wx.request({
-    url: 'http://192.168.2.210:8080/ssm/'+index+'/findBook',
+    url: 'http://192.168.10.110:8080/bookstore-mall/'+pageNum+'/find',
     header: {
       'content-type': 'application/json' // 默认值
     },
@@ -32,7 +31,7 @@ function getSearchBook(pageNum,callback){
 // 关键字查询
 function getKeywordSearch(keyword,pageNum,callback){
   wx.request({
-    url: 'http://192.168.2.210:8080/ssm/'+keyword+'/'+pageNum+'/keyword',
+    url: 'http://192.168.10.110:8080/bookstore-mall/'+keyword+'/'+pageNum+'/keyword',
     header:{'content-type':'application/json'},
     method:'GET',
     success:function(res){

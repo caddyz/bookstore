@@ -1,3 +1,5 @@
 <!--pages/more/more.wxml-->
 <import src='../../template/bookinfoTemplate'/>
+<view bindtap='bookInfoSkip'>
 <template is="msgItem" data="{{list:list,searchLoading:searchLoading,searchLoadingComplete:searchLoadingComplete}}"/>
+</view>

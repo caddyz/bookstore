@@ -30,7 +30,7 @@ Page({
     // this.getData();
     let taht = this;
     util.getSearchBook(1,function(data){
-      console.log(data);
+      // console.log(data);
       taht.setData({
         list:data
       })
@@ -49,8 +49,9 @@ Page({
     let that = this;
     that.data.loadingpageNum += 1;
     util.getSearchBook(that.data.loadingpageNum, function (data) {
+      console.log("data长度：" + data.length);
       let searchList = [];
-      if (data.length === 10) {
+      if (data.length!= 0) {
         searchList = that.data.list.concat(data);
         that.setData({
           list: searchList
