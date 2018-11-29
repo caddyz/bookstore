@@ -23,6 +23,7 @@
     "pages/login/register/register",
     "pages/login/retrieve/retrieve",
     "pages/login/login",
+	
     "pages/person/order/order",
     "pages/person/editorUserInfomation/editorUserInfomation",
     "pages/person/userInfomation/userInfomation",
@@ -31,6 +32,7 @@
     "pages/person/addressList/addressList",
     "pages/person/userSaleRecord/userSaleRecord",
     "pages/person/myEvaluate/myEvaluate"
+	"pages/person/orderDetail/orderDetails"
   ],
     
   "window":{
