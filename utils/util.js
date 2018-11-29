@@ -56,14 +56,7 @@ function getUserSearch(phone, password, callback) {
       }
     }
   })
-
-
-
-
-
-
-
-
+}
 module.exports = {
   formatTime: formatTime,
   getSearchBook: getSearchBook,
