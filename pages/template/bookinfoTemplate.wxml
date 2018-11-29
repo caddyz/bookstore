@@ -4,7 +4,7 @@
       <view class='view-controller'>
         <button class='book-data' bindtap='bookInfoSkip'>
           <view class='book-info-pic' >
-            <image src='/pages/picture/{{item.bookCoverImage}}' mode='scaleToFill'
+            <image src='http://images.bookstore.com/{{item.bookCoverImage}}' mode='scaleToFill'
               style="width: 100%; height: 100%;background-color: #eeeeee;">
             </image> 
           </view>
