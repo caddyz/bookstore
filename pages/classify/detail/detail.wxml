@@ -5,6 +5,7 @@ autoplay:是否自动切换
 interval:自动切换时间间隔
 duration:滑动动画时长
  -->
+ 
 <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" 
 interval="{{interval}}" duration="{{duration}}">
 
@@ -46,7 +47,13 @@ js文件中的data中imgUrls数组的数据，并直接将数组展开了。 -->
 <text> \n </text>
 <text> \n </text>
   <text>商品评价</text>
-  <text class="text-remark">书本不错哦</text>
+  <!-- 表单 -->
+<form bindsubmit="formSubmit">
+<input type="text" name="liuyantext" placeholder='输入留言内容' class="input-style"/>
+<button formType="submit" class="btn" >留言</button>
+</form>
+
+
   <view class="separate"></view>
 
   <text>商品详情</text>
@@ -59,14 +66,19 @@ js文件中的data中imgUrls数组的数据，并直接将数组展开了。 -->
 
 <!-- 底部的悬浮栏 -->
 <view class="detail-nav">
-  <view class="line_nav"></view>
-  <!-- 需要修改,底部悬浮栏里面的那个收藏按钮，我们要如何做用户点击一下就更换收藏图标，
+ <!-- 需要修改,底部悬浮栏里面的那个收藏按钮，我们要如何做用户点击一下就更换收藏图标，
   是通过isLike这个Boolean值来做判断的， 用户每触发一次addLike事件，
   就更换一次Boolean值，按钮的更换效果就实现了 -->
-  <image bindtap="addLike" src="{{isLike?'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3411382528,345291280&fm=26&gp=0.jpg':'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=971562027,3284667727&fm=26&gp=0.jpg'}}" />
-  <button class="button-yellow" bindtap="addCar" formType="submit">加入购物车</button>
+  <!-- <image bindtap="addLike" src="{{isLike?'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3411382528,345291280&fm=26&gp=0.jpg':'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=971562027,3284667727&fm=26&gp=0.jpg'}}" /> -->
+
+<image catchtap='handleCollection' wx:if='{{!isCollected}}' 
+src='https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3411382528,345291280&fm=26&gp=0.jpg'></image>
+<image catchtap='handleCollection' wx:if='{{isCollected}}' 
+src='https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=971562027,3284667727&fm=26&gp=0.jpg'></image>
+  <button class="button-yellow" bindtap="addCar" formType="submit"
+    data-goodid="1">加入购物车</button>
   <button class="button-red" bindtap="nowBuy" formType="submit">立即购买</button>
-</view>
+</view> 
 
 
 

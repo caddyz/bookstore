@@ -1,3 +1,4 @@
+
 Page({
   data: {
     books: [
@@ -328,11 +329,11 @@ Page({
               image: ""
             }
           ]
-      },{
+      }, {
         book_id: 12,
         book_name: "文化",
         ishaveChild: false,
-        children:[]
+        children: []
       }
     ],
     curNum: 1,
@@ -351,58 +352,91 @@ Page({
     })
   },
   // 跳转
-  items:function(options){
-    wx.navigateTo({
-      url: '/pages/classify/detail/detail',
-    })
-  }
-  // 连接后台
-  ,
-  headtest: function () {
+  items: function (e) {
     var that = this;
-    wx.request({
-      url: 'http://localhost:8080/bookstore-mall/1/open',//所需要查询的路径地址
-      data: {
-        classify_id:"1",
-        classify_name:"恐怖",
-        
-      },
-      method: 'GET',
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function (res) {
-        console.log(res.data);//打印到控制台
-        that.setData({
-          Items: res.data,
-        })
-      },
-      fail: function (res) {
-        console.log(".....fail.....");
-      }
+    var id = e.currentTarget.dataset.id
+    console.log('id :' + id);
+    wx.navigateTo({
+      url: '/pages/classify/detail/detail?id=' + id,
     })
+    // var that = this;
+    // var book_id = e.currentTarget.dataset.book_id;
+    // console.log('book_id:' + book_id);  
+    // wx.navigateTo({ url: '/pages/classify/detail/detail?book_id=' + book_id })
+    // wx.navigateTo({
+    //   url: '/pages/classify/detail/detail',
+    // })
   },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // 连接后台
+  // ,
+  // headtest: function () {
+  //   var that = this;
+  //   wx.request({
+  //     url: 'http://localhost:8080/bookstore-mall/1/open',//所需要查询的路径地址
+  //     data: {
+  //       classify_id:"1",
+  //       classify_name:"恐怖",
+
+  //     },
+  //     method: 'GET',
+  //     header: {
+  //       'content-type': 'application/json' // 默认值
+  //     },
+  //     success: function (res) {
+  //       console.log(res.data);//打印到控制台
+  //       that.setData({
+  //         Items: res.data,
+  //       })
+  //     },
+  //     fail: function (res) {
+  //       console.log(".....fail.....");
+  //     }
+  //   })
+  // },
   //选择图片上传图片到服务器
-  choosepic: function () {
-    wx.chooseImage({
-      success: function (res) {
-        var tempFilePaths = res.tempFilePaths
-        wx.uploadFile({
-          url: 'http://localhost:8080/',
-          filePath: tempFilePaths[0],
-          name: 'pic',
-          header: { "Content-Type": "multipart/form-data" },
-          formData: {
-            
-          },
-          success: function (res) {
-            var data = res.data
-            console.log(data)
-          }
-        })
-      },
-    })
-  }
+  // choosepic: function () {
+  //   wx.chooseImage({
+  //     success: function (res) {
+  //       var tempFilePaths = res.tempFilePaths
+  //       wx.uploadFile({
+  //         url: 'http://localhost:8080/',
+  //         filePath: tempFilePaths[0],
+  //         name: 'pic',
+  //         header: { "Content-Type": "multipart/form-data" },
+  //         formData: {
+
+  //         },
+  //         success: function (res) {
+  //           var data = res.data
+  //           console.log(data)
+  //         }
+  //       })
+  //     },
+  //   })
+  // }
 
 })
+
+
 

@@ -1,9 +1,3 @@
-
-
-<view>
-  <button bindtap='headtest'>连接后台</button>
-</view>
-
 <!--装订-->
 <view class="container">
   <!--左边侧栏-->
@@ -22,15 +16,11 @@
   <view class="num_right">
     <!--如果有数据，就遍历项-->
     <view wx:if="{{books[curIndex].ishaveChild}}">
-      <block wx:for="{{books[curIndex].children}}">
-        <view class="num_right_items" bindtap='items'>
-
+      <block wx:for="{{books[curIndex].children}}" wx:key="id">
+        <view class="num_right_items" bindtap='items' data-id="{{index}}">
         <!--界面跳转 -->
-        <!-- 地址 -->
-         
             <image src="{{item.image}}"></image>
             <text>{{item.name}}</text>
-          
         </view>
       </block>
     </view>
