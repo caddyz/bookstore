@@ -1,7 +1,7 @@
 var temp = {
   bookInfoSkip: function () {
     wx.navigateTo({
-      url: '/pages/detail/detail',
+      url: '/pages/classify/detail/detail',
     })
   }
 }

@@ -1,10 +1,8 @@
 <!--pages/help/help.wxml-->
   <block wx:for="{{selectedFlag}}" wx:key="item">
-  <view class='main'>
     <view class='help-title' data-index="{{index}}" bindtap="expandDetail">
       <view><text>{{item.title}}</text></view>
       <view><text class='help-font'>{{item.flag?'收起' : '展开'}}</text></view>
     </view>
     <view class='info' wx:if="{{item.flag}}"><text class='help-font-info'>{{item.content}}</text></view>
-    </view>
   </block>

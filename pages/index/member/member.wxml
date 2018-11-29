@@ -1,2 +1,5 @@
 <!--pages/member/member.wxml-->
-<text>pages/member/member.wxml</text>
+<view class='top-button'>
+  <view class='left-button'>会员购买</view>
+  <view class='right-button'>购买记录</view>
+</view>

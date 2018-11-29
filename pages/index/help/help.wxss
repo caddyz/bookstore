@@ -1,11 +1,5 @@
 /* pages/help/help.wxss */
 .help-title,.info,.discard{
-  /* width: 80%;
-  display: flex;
-  background-color: rgb(238, 238, 238);
-  flex-direction: row;
-  justify-content: space-between;
-  margin: 0 auto; */
   background-color: #fff;
   display: flex;
   justify-content: space-between;

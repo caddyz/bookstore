@@ -1,1 +1,19 @@
 /* pages/member/member.wxss */
+.top-button{
+  display: flex;
+  flex-direction: row;
+  height: 100rpx;
+  line-height: 100rpx;
+  border-bottom: 1rpx solid #8B636C;
+  background-color: #FA8072
+}
+.left-button,.right-button{
+   display: flex;
+  width: 50%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.left-button{
+  border-right: 1rpx solid #8B636C;
+}
