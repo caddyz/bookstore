@@ -31,7 +31,7 @@
     "pages/person/editorAddress/editorAddress",
     "pages/person/addressList/addressList",
     "pages/person/userSaleRecord/userSaleRecord",
-    "pages/person/myEvaluate/myEvaluate"
+    "pages/person/myEvaluate/myEvaluate",
 	"pages/person/orderDetail/orderDetails"
   ],
     
