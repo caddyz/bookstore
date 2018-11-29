@@ -2,7 +2,7 @@
 <block wx:for="{{list}}" wx:key="item">
   <view class='favorite-info'>
     <view class='favorite-pic'>
-      <image src='/pages/picture/{{item.bookCoverImage}}' mode='aspectFit'  style="width: 100%; height: 100%;background-color: #eeeeee;"></image>
+      <image src='http://images.bookstore.com/{{item.bookCoverImage}}' mode='aspectFit'  style="width: 100%; height: 100%;background-color: #eeeeee;"></image>
     </view>
     <view class='favorite-book'>
       <view><text>{{item.bookName}}</text></view>
@@ -15,4 +15,6 @@
     </view>
   </view>
 </block>
-
+<view class='hidde-info' wx:if='{{hiddeinfo}}'>
+  <view>什么都没有</view><view bindtap='goBuy' style='color: #5CACEE'>去看看</view>
+</view>

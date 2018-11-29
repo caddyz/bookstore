@@ -18,3 +18,7 @@
   align-items: center;
   width: 20%;
 }
+.hidde-info{
+  width: 90%;
+  text-align: center;
+}

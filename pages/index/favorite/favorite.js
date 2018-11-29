@@ -7,15 +7,13 @@ Page({
    */
   data: {
    list:[],
-   mes:[]
+   mes:[],
+   hiddeinfo:false
   },
   deleteBookInfo: function (e) {
     let that = this;
     let listData = that.data.list;
-    console.log(listData)
-    let index = e.currentTarget.dataset.index;
-    console.log(listData[index].bookId)
-    console.log("index:" + index)
+    let index = e.currentTarget.dataset.index;//获取下标
     wx.request({
       url: 'http://192.168.10.110:8080/bookstore-mall/delete/1/' + listData[index].bookId,
       header: { 'content-type': 'application/json' },
@@ -37,7 +35,12 @@ Page({
         })
       }
     })
-    console.log(that.data.list)
+    console.log("数据长度：" + that.data.list.length)
+    if (that.data.list.length -1 == 0) {
+      that.setData({
+        hiddeinfo: true
+      })
+    }
   },
   /**
    * 生命周期函数--监听页面加载
@@ -48,9 +51,15 @@ Page({
       url: 'http://192.168.10.110:8080/bookstore-mall/1/favorite',
       header: { 'content-type': 'application/json' },
       success: function (res) {
-        that.setData({
-          list:res.data
-        })
+        if(res.data.length!=0){
+          that.setData({
+            list:res.data
+          })
+        }else{
+          that.setData({
+            hiddeinfo: true
+          })
+        }
       }
     })
   },
@@ -103,5 +112,9 @@ Page({
   onShareAppMessage: function () {
 
   },
-  
+  goBuy:function(){
+    wx.navigateTo({
+      url: '../more/more',
+    })
+  }
 })
