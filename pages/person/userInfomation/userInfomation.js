@@ -80,7 +80,6 @@ Page({
       complete: function () {
         // complete
         console.log("获取用户信息完成！")
-        console.log(this.province)
       }
     })
   
@@ -98,6 +97,7 @@ Page({
       region: [that.data.province, that.data.city, that.data.county],
       sex: that.sex,
     }
+    //存入缓存
     wx.setStorage({
       key: "user",
       data: user

@@ -1,2 +1,8 @@
-<!--pages/myEvaluate/myEvaluate.wxml-->
-<text>pages/myEvaluate/myEvaluate.wxml</text>
+<import src="/template/tab/tab.wxml" />
+ <view class="tab">
+    <template is="zan-tab" data="{{tab: tab1, componentId: 'tab1'}}"></template>
+  </view>
+<view class="tab-content1" >
+<image class="tab-image" src="../order/images/cart_pic.png"></image>
+<text>您还没有评语哦！</text>
+</view>

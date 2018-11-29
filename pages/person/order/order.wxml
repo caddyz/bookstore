@@ -1,9 +1,63 @@
-<!--pages/order/order.wxml-->
-<import src="/template/tab/tab.wxml" />
- <view class="tab">
-    <template is="zan-tab" data="{{tab: tab1, componentId: 'tab1'}}"></template>
-  </view>
-<view class="tab-content1" >
-<image class="tab-image" src="../order/images/cart_pic.png"></image>
-<text>您还没有相关订单哦！</text>
+<view bindtap="allOrderPage" class="allOrder">
+	<text class="allOrder-left">全部订单</text>
+	<!-- <text class="allOrder-right">查看全部订单</text> -->
 </view>
+<view class="navTopList" >
+	<view class="ywc order-info" bindtap='alreadOder'>
+		<view class="ywc-icon {{alreadOderColor}}"></view>
+		<text class="ywc-txt {{alreadOderColor}}">已完成</text>
+	</view>
+	<view class="dfk order-info" bindtap='waitingPay'>
+		<view class="dfk-icon {{waitingPayColor}}"></view>
+		<text class="dfk-txt {{waitingPayColor}}">待付款</text>
+	</view>
+	<view class="dfh order-info" bindtap='waitingSend'>
+		<view class="dfh-icon {{waitingSendColor}}" ></view>
+		<text class="dfh-txt {{waitingSendColor}}">待发货</text>
+	</view>
+	<view class="dsh order-info" bindtap='waitingReceive'>
+		<view class="dsh-icon {{waitingReceiveColor}}"></view>
+		<text class="dsh-txt {{waitingReceiveColor}}">待收货</text>
+	</view>
+	<view class="yqx order-info" bindtap='conceled'>
+		<view class="yqx-icon {{conceledColor}}" ></view>
+		<text class="yqx-txt {{conceledColor}}">已取消</text>
+	</view>
+	<view class="tkz order-info" bindtap='goodsRejecting'>
+		<view class="tkz-icon {{goodsRejectingColor}}"></view>
+		<text class="tkz-txt {{goodsRejectingColor}}">退款中</text>
+	</view>
+</view>
+
+ <!-- 要是够车内没有数据，就行显示没有数据 -->
+<view class="order" hidden="{{isOrder}}">
+    <image src="../order/images/order_pic.png"/>
+    <view>没有已经完成的订单，赶快去购物吧</view>
+</view>
+
+<view bindtap="toOrderDetail" class="orderDetails" hidden="{{!isOrder}}">
+
+	<block wx:for="{{showOrder}}" >
+   <view class="orderListTitle">
+  <!-- 用户头像 -->
+		<view class="userImg"><image src="{{userInfoAvatar}}"></image></view> 
+		<text class="userName">{{nickName}}</text>
+		<text class="orderStatus">{{item.orderStatus}}</text>
+	</view>
+	<view class="orderListDetails">
+		<view class="productImg">
+			<image src="{{item.imgUrl}}"></image>
+		</view>
+		<view class="productInfo">
+			<view class="productTitle">{{item.name}}</view>
+			<text class="productPrice">￥{{item.price}}</text>
+			<text class="productQuantity">x{{item.num}}</text>
+		</view>
+	</view>
+	<view class="productCount">
+		<view>合计：￥<text>{{item.price}}</text></view>
+	</view>
+
+    </block>
+
+</view>	
