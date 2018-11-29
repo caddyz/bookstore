@@ -1,5 +1,25 @@
 <!--pages/member/member.wxml-->
-<view class='top-button'>
-  <view class='left-button'>会员购买</view>
-  <view class='right-button'>购买记录</view>
-</view>
+
+  <view class='top-button'>
+    <view class="{{leftButton?'left-buttonchange':'left-button'}}" bindtap='buyClick'>会员购买</view>
+    <view class="{{rightButton?'right-buttonchange':'right-button'}}" bindtap='recordClick'>购买记录</view>
+  </view>
+  <view wx:if='{{leftButton}}' style=' width: 90%;  margin: 0 auto;'>
+    <block wx:for='{{memberInfo}}'>
+    <view style='height:28rpx'></view>
+    <view class='member-buy'>
+      <view class='member-buy-icon'>{{item.title}}</view>
+      <view class='member-buy-info'>
+        <view>缴纳会员费:{{item.price}}元</view>
+        <view>免费借阅：{{item.book}}本</view>
+      </view>
+      <view class='playment'>
+        <!-- 调用支付接口 -->
+        <button class='playClass' bindtap='playInterface'>立即支付</button>
+      </view>
+    </view>
+    </block>
+  </view>
+  <view wx:if='{{rightButton}}' style=' width: 90%;  margin: 0 auto;'>
+    这是购买记录显示的界面
+  </view>

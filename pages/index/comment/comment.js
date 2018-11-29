@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    showContent:false
   },
 
   /**
@@ -62,5 +62,12 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  commentClick:function(){
+    let that = this;
+    let boo = !(that.data.showContent);
+    that.setData({
+      showContent:boo
+    })
   }
 })

@@ -1,2 +1,21 @@
 <!--pages/comment/comment.wxml-->
-<text>pages/comment/comment.wxml</text>
+<block>
+  <view class='main-body'>
+    <view class='appraise-book'>
+      <view class='show-word'>评论书籍：</view>
+      <view>老子</view>
+    </view>
+    <view style='height:28rpx'></view>
+    <view class='appraise-score'>
+      <view class='show-word'>评价分数：</view>
+      <view>4.5</view>
+    </view>
+    <view style='height:28rpx'></view>
+    <view class='appraise-content'>
+      <view class='show-word'>评价内容：</view>
+      <view class='comment-click' bindtap='commentClick'>{{showContent?'收起':'展开'}}</view>
+    </view>
+    <view wx:if='{{showContent}}'>............</view>
+    <view style='height:56rpx'></view>
+  </view>
+</block>

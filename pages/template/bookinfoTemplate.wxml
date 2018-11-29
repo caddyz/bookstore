@@ -8,13 +8,16 @@
               style="width: 100%; height: 100%;background-color: #eeeeee;">
             </image> 
           </view>
-          <input type='text' class='book-info-title' value='{{item.bookName}}'></input>
+          <input type='text' class='book-info-title' value='{{item.bookName}}' 
+          disabled='true'></input>
           <view class='author-info'>
             <block wx:for="{{item.bookAuthor}}">
-              <input type='text' class='book-info-author' value='{{item.authorName}}  '></input>
+              <input type='text' class='book-info-author' value='{{item.authorName}}'
+               disabled='true' ></input>
             </block>
           </view>
-          <input type='text' class='book-info-price' value='{{item.bookSalesPrice}}'></input>
+          <input type='text' class='book-info-price' value='{{item.bookSalesPrice}}' 
+          disabled='true'></input>
         </button>
       </view>
     </block>

@@ -6,9 +6,39 @@ Page({
    * 页面的初始数据
    */
   data: {
-   list:[]
+   list:[],
+   mes:[]
   },
-  
+  deleteBookInfo: function (e) {
+    let that = this;
+    let listData = that.data.list;
+    console.log(listData)
+    let index = e.currentTarget.dataset.index;
+    console.log(listData[index].bookId)
+    console.log("index:" + index)
+    wx.request({
+      url: 'http://192.168.10.110:8080/bookstore-mall/delete/1/' + listData[index].bookId,
+      header: { 'content-type': 'application/json' },
+      success: function (res){
+        listData.splice(index, 1);
+        that.setData({
+          list: listData,
+          mes:res.data
+        });
+        wx.showToast({
+          title: that.data.mes.msg,
+          icon:'none'
+        })
+      },
+      fail:function(){
+        wx.showToast({
+          title: '删除失败',
+          icon:'none'
+        })
+      }
+    })
+    console.log(that.data.list)
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -73,7 +103,5 @@ Page({
   onShareAppMessage: function () {
 
   },
-  deleteBookInfo:function(e){
-    console.log("删除事件：")
-  }
+  
 })

@@ -5,7 +5,21 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    leftButton:true,
+    rightButton:false,
+    memberInfo:[{
+      'title':'会员套餐1',
+      'price':'2000.00',
+      'book':'5',
+    },{
+        'title': '会员套餐2',
+        'price': '20000.00',
+        'book': '15',
+    },{
+        'title': '会员套餐3',
+        'price': '200.00',
+        'book': '2',
+    }]
   },
 
   /**
@@ -62,5 +76,24 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  buyClick:function(){
+    let that = this;
+    that.setData({
+      leftButton: true,
+      rightButton: false
+    })
+  },
+  recordClick: function(){ 
+    let that = this;
+    that.setData({
+      leftButton: false,
+      rightButton: true
+    })
+  },
+  playInterface:function(){
+    wx.showToast({
+      title: '调用支付接口',
+    })
   }
 })

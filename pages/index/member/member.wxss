@@ -2,18 +2,54 @@
 .top-button{
   display: flex;
   flex-direction: row;
+  width: 90%;
   height: 100rpx;
   line-height: 100rpx;
-  border-bottom: 1rpx solid #8B636C;
-  background-color: #FA8072
+  margin: 0 auto;
 }
 .left-button,.right-button{
-   display: flex;
+  display: flex;
   width: 50%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.left-button{
-  border-right: 1rpx solid #8B636C;
+ .left-buttonchange,.right-buttonchange{
+  display: flex;
+  width: 50%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #FFA500;
+  color:#FFA500 
+} 
+.member-buy{
+  display: flex;
+  flex-direction: row;
+  height: 250rpx;
+  margin: 0 auto;
+  background-color: #FCFCFC
+}
+.member-buy-icon,.member-buy-info,.playment{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.playment{
+  width: 30%;
+}
+.member-buy-icon{
+  width: 20%;
+  font-size: 30rpx
+}
+.member-buy-info{
+  width: 50%;
+  font-size: 30rpx;
+}
+.playClass{
+  font-size: 30rpx;
+  width: 90%;
+  border-radius: 60rpx;
+  background-color: #FF7F24
 }
