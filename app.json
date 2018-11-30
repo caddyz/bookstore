@@ -5,6 +5,7 @@
     "pages/classify/detail/detail",
     "pages/find/find",
     "pages/cart/cart",
+
     "pages/person/person",
 
     "pages/index/more/more",
@@ -32,7 +33,8 @@
     "pages/person/addressList/addressList",
     "pages/person/userSaleRecord/userSaleRecord",
     "pages/person/myEvaluate/myEvaluate",
-	"pages/person/orderDetail/orderDetails"
+	  "pages/person/orderDetail/orderDetails",
+    "pages/cart/creatCart/creatCart"
   ],
     
   "window":{
