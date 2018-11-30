@@ -1,3 +1,4 @@
+var util = require('../../../utils/util.js')
 var app = getApp()
 Page({
   data: {
@@ -52,7 +53,9 @@ Page({
   //  加入购物车
 
   addCar: function (e) {
-    console.log(e.target.dataset.goodid);
+    var that = this;
+    var num = e.currentTarget.dataset.num
+    console.log('num :' + num);
     wx.showToast({
       title: '加入购物车成功',
       icon: 'success',
@@ -65,7 +68,25 @@ Page({
     })
 
   },
-
+  // 评论
+  formSubmit: function (e){
+    if (e.detail.value.liuyantext==''){
+      wx.showToast({
+        title: '请输入留言',
+        icon: 'loading',
+        duration: 1500
+      })
+       setTimeout(function () {
+        wx.hideToast()
+      }, 2000)
+    } else {
+      wx.showToast({
+        title: '评论成功',
+        icon: 'success',
+        duration: 1000
+      })
+    }
+  },
 
 
   //     加入购物车
@@ -205,7 +226,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    // 数据起始加载
+    let that = this
+    util.getSelectClassifyBookByIdSearch(1, function (data) {
+      console.log(data);
+      that.setData({
+        list: data
+      })
+    })
 
 
 

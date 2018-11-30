@@ -61,6 +61,19 @@ swiper-item image {
   font-size: 30rpx;
    margin: 10rpx;
 }
+/* 设置出版社 */
+.publish_name{
+  color: rebeccapurple;
+  font-size: 30rpx;
+   margin: 10rpx;
+}
+/* 设置简介 */
+.profile{
+  font-size: 30rpx;
+   margin: 10rpx;
+}
+
+
 .detail-nav {
   display: flex;
   flex-direction: row;
@@ -148,4 +161,15 @@ text {
 	border-left: 1px solid #ccc;
 	border-right: 1px solid #ccc;
 }
- 
+
+.btn{
+color: green
+}
+
+/* 设置背景图片 */
+.main{
+  background: url("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2284682437,2665896982&fm=26&gp=0.jpg");
+  
+}
+
+

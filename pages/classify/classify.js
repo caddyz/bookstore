@@ -1,4 +1,5 @@
-
+var util = require('../../utils/util.js')
+var app = getApp()
 Page({
   data: {
     books: [
@@ -108,7 +109,7 @@ Page({
       },
       {
         book_id: 4,
-        book_name: "科学",
+        book_name: "科幻",
         ishaveChild: true,
         children:
           [
@@ -359,16 +360,63 @@ Page({
     wx.navigateTo({
       url: '/pages/classify/detail/detail?id=' + id,
     })
-    // var that = this;
-    // var book_id = e.currentTarget.dataset.book_id;
-    // console.log('book_id:' + book_id);  
-    // wx.navigateTo({ url: '/pages/classify/detail/detail?book_id=' + book_id })
-    // wx.navigateTo({
-    //   url: '/pages/classify/detail/detail',
-    // })
   },
 
+  /**
+     * 生命周期函数--监听页面加载
+     */
+  onLoad: function (options) {
+     // 数据起始加载
+    let that = this
+    util.getSelectClassifyBookIdSearch(3,"AI迷航",function(data){
+      console.log(data);
+      that.setData({
+        list:data
+      })
+    })
+  },
 
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
 
 
 

@@ -57,9 +57,40 @@ function getUserSearch(phone, password, callback) {
     }
   })
 }
+
+// 书Id和书name 查询到此书
+function getSelectClassifyBookIdSearch(bookId,bookName, callback) {
+  wx.request({
+    url: 'http://localhost:8080/bookstore-mall/'+bookId +'/'+bookName+'/classifyBookFind',
+    header: { 'content-type': 'application/json' },
+    method: 'GET',
+    success: function (res) {
+      if (res.statusCode === 200) {
+        callback(res.data)
+      }
+    }
+  })
+}
+
+// 书Id获取全部信息
+function getSelectClassifyBookByIdSearch(bookId, callback) {
+  wx.request({
+    url: 'http://localhost:8080/bookstore-mall/'+ bookId + '/classifyFind',
+    header: { 'content-type': 'application/json' },
+    method: 'GET',
+    success: function (res) {
+      if (res.statusCode === 200) {
+        callback(res.data)
+      }
+    }
+  })
+}
+
 module.exports = {
   formatTime: formatTime,
   getSearchBook: getSearchBook,
   getKeywordSearch: getKeywordSearch,
-  getUserSearch: getUserSearch
+  getUserSearch: getUserSearch,
+  getSelectClassifyBookIdSearch: getSelectClassifyBookIdSearch,
+  getSelectClassifyBookByIdSearch: getSelectClassifyBookByIdSearch,
 }
