@@ -1,5 +1,4 @@
 // pages/favorite/favorite.js
-
 Page({
 
   /**
@@ -10,6 +9,9 @@ Page({
    mes:[],
    hiddeinfo:false
   },
+  /**
+   * 收藏删除
+   */
   deleteBookInfo: function (e) {
     let that = this;
     let listData = that.data.list;

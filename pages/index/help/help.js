@@ -22,6 +22,7 @@ Page({
     var index = e.currentTarget.dataset.index;//获取当前下标
     var key = "selectedFlag[" + index + "].flag";
     console.log(JSON.stringify(key))
+    console.log(JSON.stringify(that.data.selectedFlag))
     var val = that.data.selectedFlag[index].flag;
     console.log(JSON.stringify(val))
       that.setData({
@@ -89,11 +90,4 @@ Page({
   onShareAppMessage: function () {
 
   },
-  change: function () {
-    let that = this;
-    let b = !(that.data.isHide)
-    that.setData({
-      isHide: b
-    })
-  }
 })

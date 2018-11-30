@@ -1,2 +1,27 @@
 /* pages/hot/hot.wxss */
-/* display: flex; flex-direction: column; flex-wrap: wrap; align-content: space-between; */
+.hot-info{
+  display: flex;
+  flex-direction: row;
+  height: 250rpx;
+  width: 90%;
+  margin: 0 auto;
+}
+.hot-pic{
+  width: 30%;
+}
+.book-author{
+  width: 50%;
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+}
+.hot-sales{
+  width: 20%;
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  
+}
+.font-style{
+  font-size: 30rpx 
+}

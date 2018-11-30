@@ -18,3 +18,17 @@
 .comment-click{
   color: #5CACEE
 }
+.hidde-info{
+  width: 90%;
+  text-align: center;
+}
+.comment-contentinfo{
+  background-color: whitesmoke
+}
+.delete-button{
+  height:70rpx;
+  width: 50%;
+  border-radius: 60rpx;
+  background-color: #FFA07A;
+  line-height: 70rpx
+}

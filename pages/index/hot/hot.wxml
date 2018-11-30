@@ -1,2 +1,23 @@
 <!--pages/hot/hot.wxml-->
-<text>pages/hot/hot.wxml</text>
+<block wx:for="{{list}}" wx:key="item">
+  <view style='height:38rpx;background-color: #F7F7F7'></view>
+  <view class='hot-info' bindtap='hotSkip'>
+    <view class='hot-pic'>
+      <image src='http://images.bookstore.com/{{item.bookCoverImage}}' mode='scaleToFill'  style="width: 100%; height: 100%;background-color: #eeeeee;"></image>
+    </view>
+    <view class='book-author'>
+      <view>
+        <view><text class='font-style'>{{item.bookName}}</text></view>
+        <view><text class='font-style'>作者：{{item.authorName}}</text></view>
+      </view>
+    </view>
+  <view class='hot-sales'>
+      <view>
+        <view><text class='font-style'>销量</text></view>
+        <view><text class='font-style'>{{item.totalSales}}本</text></view>
+      </view>
+  </view>
+  </view>
+</block>
+<view class="loading" hidden="{{!searchLoading}}">正在加载...</view>
+<view class="loading complete" hidden="{{!searchLoadingComplete}}">已经到底了...</view>

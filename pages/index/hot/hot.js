@@ -5,14 +5,25 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    list:[],
+    searchLoading: true,
+    searchLoadingComplete: false,
+    loadingpageNum: 1,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let that = this;
+    wx.request({
+      url: 'http://192.168.10.110:8080/bookstore-mall/1/findhotbook',
+      success:function(res){
+        that.setData({
+          list:res.data
+        })
+      }
+    })
   },
 
   /**
@@ -54,7 +65,27 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    let that = this;
+    that.data.loadingpageNum += 1;
+    wx.request({
+      url: 'http://192.168.10.110:8080/bookstore-mall/'+that.data.loadingpageNum+'/findhotbook',
+      success:function(res){
+        let searchList = [];
+        if (res.data.length != 0) {
+          searchList = that.data.list.concat(res.data);
+          that.setData({
+            list: searchList
+          })
+        } else {
+          searchList = that.data.list.concat(res.data);
+          that.setData({
+            list: searchList,
+            searchLoadingComplete: true, //把“没有数据”设为true，显示
+            searchLoading: false  //把"上拉加载"的变量设为false，隐藏
+          });
+        }
+      }
+    })
   },
 
   /**
@@ -62,5 +93,10 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  hotSkip:function(){
+    wx.navigateTo({
+      url: '/pages/classify/detail/detail',
+    })
   }
 })

@@ -1,21 +1,31 @@
 <!--pages/comment/comment.wxml-->
-<block>
+<block wx:for='{{list}}' >
   <view class='main-body'>
     <view class='appraise-book'>
       <view class='show-word'>评论书籍：</view>
-      <view>老子</view>
+      <block wx:for='{{item.books}}'>
+        <view>{{item.bookName}}</view>
+      </block>
     </view>
     <view style='height:28rpx'></view>
     <view class='appraise-score'>
       <view class='show-word'>评价分数：</view>
-      <view>4.5</view>
+      <view>{{item.commentGrade}}</view>
     </view>
     <view style='height:28rpx'></view>
     <view class='appraise-content'>
       <view class='show-word'>评价内容：</view>
-      <view class='comment-click' bindtap='commentClick'>{{showContent?'收起':'展开'}}</view>
+      <view class='comment-click' bindtap='commentClick' data-index='{{index}}'>{{item.flag?'收起':'展开'}}</view>
     </view>
-    <view wx:if='{{showContent}}'>............</view>
+    <view class='comment-contentinfo' wx:if='{{item.flag}}'>
+      <view>时间：{{item.commentDatatime}}</view>
+      <view>内容:{{item.commentContent}}</view>
+      <view style='height:18rpx'></view>
+      <button class='delete-button' bindtap='deleteComment' data-index='{{index}}'><text>删除书评</text></button>
+    </view>
     <view style='height:56rpx'></view>
   </view>
 </block>
+<view class='hidde-info' wx:if='{{hiddeinfo}}'>
+  <view>你没有评论任何书籍！</view>
+</view>
