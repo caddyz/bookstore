@@ -35,27 +35,27 @@
     <view>没有已经完成的订单，赶快去购物吧</view>
 </view>
 
-<view bindtap="toOrderDetail" class="orderDetails" hidden="{{!isOrder}}">
+<view class="orderDetails" hidden="{{!isOrder}}">
 
 	<block wx:for="{{showOrder}}" >
    <view class="orderListTitle">
   <!-- 用户头像 -->
 		<view class="userImg"><image src="{{userInfoAvatar}}"></image></view> 
 		<text class="userName">{{nickName}}</text>
-		<text class="orderStatus">{{item.orderStatus}}</text>
+		<text class="orderStatus" bindtap='operatingOrder' data-statues='{{item.orderStatus}}' data-id='{{item.id}}'>{{item.orderStatus}}</text>
 	</view>
 	<view class="orderListDetails">
-		<view class="productImg">
+		<view class="productImg"  catchtap="toOrderDetail" data-order='{{item.orderId}}'>
 			<image src="{{item.imgUrl}}"></image>
 		</view>
-		<view class="productInfo">
+		<view class="productInfo"  catchtap="toOrderDetail" data-order='{{item.orderId}}'>
 			<view class="productTitle">{{item.name}}</view>
-			<text class="productPrice">￥{{item.price}}</text>
+			<text class="productPrice" >￥{{item.price}}</text>
 			<text class="productQuantity">x{{item.num}}</text>
 		</view>
 	</view>
 	<view class="productCount">
-		<view>合计：￥<text>{{item.price}}</text></view>
+		<view >合计：￥<text>{{item.totalPrice}}</text></view>
 	</view>
 
     </block>

@@ -4,68 +4,68 @@ Page({
     iscart: false,//是否在购物车中
     selectAllStatus:false,//是否全部选中
     cart: [{
-      id: "001",
+      bookId: "001",
       imgUrl: "../cart/images/history-21.jpg",
-      name: "燃烧的远征",
-      price: "65.00",
-      statuse:false,
-      num:'2'
+      BookName: "燃烧的远征",
+      BookPrice: "65.00",
+      isStatus:false,
+      BookNum:'2'
     },
       {
-        id: "002",
+        bookId: "002",
         imgUrl: "../cart/images/history-22.jpg",
-        name: "人类简史",
-        price: "68.00",
-        statuse: true,
-        num: '1'
+        BookName: "人类简史",
+        BookPrice: "68.00",
+        isStatus: true,
+        BookNum: '1'
       },
       {
-        id: "003",
+        bookId: "003",
         imgUrl: "../cart/images/history-23.jpg",
-        name: "日本现代史",
-        price: "86.00",
-        statuse: true,
-        num: '1'
+        BookName: "日本现代史",
+        BookPrice: "86.00",
+        isStatus: true,
+        BookNum: '1'
       },
       {
-        id: "004",
+        bookId: "004",
         imgUrl: "../cart/images/history-24.jpg",
-        name: "十字军的故事",
-        price: "119.00",
-        statuse: true,
-        num: '1'
+        BookName: "十字军的故事",
+        BookPrice: "119.00",
+        isStatus: true,
+        BookNum: '1'
       },
       {
-        id: "005",
+        bookId: "005",
         imgUrl: "../cart/images/history-25.jpg",
-        name: "丝绸之路",
-        price: "69.00",
-        statuse: true,
-        num: '1'
+        BookName: "丝绸之路",
+        BookPrice: "69.00",
+        isStatus: true,
+        BookNum: '1'
       },
       {
-        id: "006",
+        bookId: "006",
         imgUrl: "../cart/images/history-26.jpg",
-        name: "宋徽宗",
-        price: "86.00",
-        statuse: true,
-        num: '1'
+        BookName: "宋徽宗",
+        BookPrice: "86.00",
+        isStatus: true,
+        BookNum: '1'
       },
       {
-        id: "007",
+        bookId: "007",
         imgUrl: "../cart/images/history-27.jpg",
-        name: "万历十五年",
-        price: "119.00",
-        statuse: true,
-        num: '1'
+        BookName: "万历十五年",
+        BookPrice: "119.00",
+        isStatus: true,
+        BookNum: '1'
       },
       {
-        id: "008",
+        bookId: "008",
         imgUrl: "../cart/images/history-28.jpg",
-        name: "未来简史",
-        price: "69.00",
-        statuse: true,
-        num: '3'
+        BookName: "未来简史",
+        BookPrice: "69.00",
+        isStatus: true,
+        BookNum: '3'
       },], //数据
     count: 1,   //商品数量默认是1
     totalPrice: 0,    //总金额
@@ -75,7 +75,7 @@ Page({
   onLoad: function (options) {
     // //数据库获取初始数据
     // wx.request({
-    //   url: 'http://192.168.10.162:8080/bookstore/cart/', //提交的网络地址
+    //   url: 'http://192.168.10.110:8080/bookstore-mall/cart', //提交的网络地址
     //   method: "GET",
     //   dataType: "json",
     //   header: {
@@ -119,8 +119,8 @@ Page({
     // 有数据的话，就遍历数据， 总数量
     if (arr.length > 0) {
       for (var i in arr) {
-        if(arr[i].statuse){
-          goodsCount += Number(arr[i].num);
+        if (arr[i].isStatus){
+          goodsCount += Number(arr[i].BookNum);
         }
       }
       // 更新数据
@@ -153,13 +153,13 @@ Page({
     console.log(e)
     // 获取购物车该商品的数量
     // [获取设置在该btn的id,即list的index值]
-    if (this.data.cart[e.target.id.substring(3)].num <= 1) {
+    if (this.data.cart[e.target.id.substring(3)].BookNum <= 1) {
       return;
     }
     // 商品总数量-1
     this.data.goodsCount -= 1;
     // 购物车主体数据对应的项的数量-1  并赋给主体数据对应的项内
-    this.data.cart[e.target.id.substring(3)].num = --this.data.cart[e.target.id.substring(3)].num;
+    this.data.cart[e.target.id.substring(3)].BookNum = --this.data.cart[e.target.id.substring(3)].BookNum;
     // 更新data数据对象
     this.setData({
       cart: this.data.cart,
@@ -178,7 +178,7 @@ Page({
     // 商品总数量+1
     this.data.goodsCount += 1;
     // 购物车主体数据对应的项的数量+1  并赋给主体数据对应的项内
-    this.data.cart[e.target.id.substring(3)].num = ++this.data.cart[e.target.id.substring(3)].num;
+    this.data.cart[e.target.id.substring(3)].BookNum = ++this.data.cart[e.target.id.substring(3)].BookNum;
     // 更新data数据对象
     this.setData({
       cart: this.data.cart,
@@ -195,7 +195,7 @@ Page({
   /* 删除item */
   delGoods: function (e) {
     // 商品总数量  减去  对应删除项的数量
-    this.data.goodsCount = this.data.goodsCount - this.data.cart[e.target.id.substring(3)].num;
+    this.data.goodsCount = this.data.goodsCount - this.data.cart[e.target.id.substring(3)].BookNum;
     // 主体数据的数组移除该项
     this.data.cart.splice(e.target.id.substring(3), 1);
     // 更新data数据对象
@@ -216,13 +216,13 @@ Page({
   selectList(e) {
     const index = e.currentTarget.dataset.index;    // 获取data- 传进来的index
     let carts = this.data.cart;                    // 获取购物车列表
-    const statuse = carts[index].statuse;         // 获取当前商品的选中状态
-    carts[index].statuse = !statuse;              // 改变状态
+    const isStatus = carts[index].isStatus;         // 获取当前商品的选中状态
+    carts[index].isStatus = !isStatus;              // 改变状态
     //改变商品数量
-    if (carts[index].statuse){
-      this.data.goodsCount = this.data.goodsCount + Number(this.data.cart[index].num);
+    if (carts[index].isStatus){
+      this.data.goodsCount = this.data.goodsCount + Number(this.data.cart[index].BookNum);
     }else{
-      this.data.goodsCount = this.data.goodsCount - this.data.cart[index].num;
+      this.data.goodsCount = this.data.goodsCount - this.data.cart[index].BookNum;
     }
     this.setData({
       cart: carts,
@@ -240,12 +240,12 @@ Page({
     var that=this;
 
     for (let i = 0; i < carts.length; i++) {
-      carts[i].statuse = selectAllStatus;            // 改变所有商品状态
+      carts[i].isStatus = selectAllStatus;            // 改变所有商品状态
     }
     //统计商品数量
      if (selectAllStatus){
        for (var i in carts) {    
-         goodsCount += Number(carts[i].num);
+         goodsCount += Number(carts[i].BookNum);
        }
      }
     this.setData({
@@ -262,9 +262,9 @@ getTotalPrice() {
   let total = 0;
   let totalNum = 0;
   for (let i = 0; i < carts.length; i++) {         // 循环列表得到每个数据
-    if (carts[i].statuse) {                   // 判断选中才会计算价格
-      total += carts[i].num * carts[i].price;     // 所有价格加起来
-      totalNum += carts[i].num; 
+    if (carts[i].isStatus) {                   // 判断选中才会计算价格
+      total += carts[i].BookNum * carts[i].BookPrice;     // 所有价格加起来
+      totalNum += carts[i].BookNum; 
     }
   }
   this.setData({                                // 最后赋值到data中渲染到页面
@@ -274,8 +274,36 @@ getTotalPrice() {
   });
 },
   //结算函数，生成商品订单并将数据提交到订单界面进行处理
-  toSettlement() {
-
+  toSettlement:function(e) {
+    var that=this;
+    let carts = this.data.cart; 
+    let newcart=[];
+    wx.showModal({
+      title: '提示',
+      content: '是否结算？',
+      success: function (res) {
+        if (res.confirm) {
+          console.log("确认付钱订单生成")
+      
+                console.log('我付钱了该生成订单了 并将结算了书本从购车数据库中删除');
+                for (let i = 0; i < carts.length; i++) {         // 循环列表得到每个数据
+                  if (!carts[i].isStatus) {                   // 判断留下未选中的
+                    newcart = newcart.concat(carts[i]);
+                  }
+              }
+         
+          // 将数据更新
+          that.setData({
+            cart:newcart
+          });
+          console.log("创建订单并将订单数据存入书库！")
+          
+        } else {
+          console.log('弹框后点取消')
+          return;
+        }
+      }
+    })
   },
   //商品详细信息介绍界面
   toBookDetail(e){
@@ -283,7 +311,7 @@ getTotalPrice() {
     let id = this.data.cart[e.currentTarget.dataset.id].id
     // console.log("获得书的id是"+id)
     wx.navigateTo({
-      url: '../detail/detail?id='+id,
+      url: '/pages/classify/detail/detail?id='+id,
     })
   }
 

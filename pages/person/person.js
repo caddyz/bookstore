@@ -70,7 +70,7 @@ Page({
     // })
     var that = this
     //调用应用实例的方法获取全局数据
-    this.getUserInfo(function (userinfo) {
+    wx.getUserInfo(function (userinfo) {
       //更新数据
       that.setData({
         userInfo: userInfo

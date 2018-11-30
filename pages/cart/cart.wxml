@@ -12,7 +12,7 @@
     <block wx:for="{{cart}}">
         <view class="goods">
         <!-- wx:if 是否选择显示不同图标 -->
-        <icon wx:if="{{item.statuse}}" type="success" color="red" bindtap="selectList" data-index="{{index}}" />
+        <icon wx:if="{{item.isStatus}}" type="success" color="red" bindtap="selectList" data-index="{{index}}" />
         <icon wx:else type="circle" bindtap="selectList" data-index="{{index}}"/>
             <!--左侧图片-->
             <view catchtap='toBookDetail' data-id="{{index}}">
@@ -22,15 +22,15 @@
             <view class="good-cont">
                 <!--文字说明-->
                 <view class="goods-navigator">
-                    <text class="good-name">{{item.name}}</text>
+                    <text class="good-name">{{item.BookName}}</text>
                 </view>
                 <!--价钱和购物加减的父盒子-->
                 <view class="good-price">
-                    <text class="price">￥{{item.price}}</text>
+                    <text class="price">￥{{item.BookPrice}}</text>
                     <view class="btn-box">
                         <view class="btn">
                             <button id="del{{index}}" type="default" size="mini" bindtap="delCount">-</button>
-                            <input  value="{{item.num}}"/>
+                            <input  value="{{item.BookNum}}"/>
                             <button id="add{{index}}" type="default" size="mini" bindtap="addCount">+</button>
                         </view>
                          <!-- 删除按钮 -->
@@ -48,6 +48,6 @@
       <icon wx:else type="circle"  bindtap="selectAll"/>
       <text>全选</text>
           <view class="total_text">合计：<text>￥{{totalPrice}}</text></view>
-          <button class="total_js" size="mini" catchtap='Settlement'>去结算({{goodsCount}})</button>
+          <button class="total_js" size="mini" catchtap='toSettlement'>去结算({{goodsCount}})</button>
     </view>
 </view>
