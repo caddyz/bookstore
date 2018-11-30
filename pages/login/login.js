@@ -1,11 +1,12 @@
 // pages/login/login.js
-var util = require('../../utils/util.js')
+//var util = require('../../utils/util.js')
 Page({
   //定义全局变量data
   data: {
     phone: '',
     password: ''
   
+
   },
 
   // 获取输入账号 
@@ -23,7 +24,7 @@ Page({
     })
   },
   //点击登陆的时候触发的事件
-  signin: function () {
+  login: function () {
     var that = this;
     //登陆的时候要传过来的参数
     var phone = that.data.phone
@@ -41,7 +42,7 @@ Page({
     //发送ajax请求到服务器-登录
     wx.request({
       //开发者服务器接口地址
-      url: 'http://localhost:8080/bookstore-mall/findUser',
+      url: 'http://192.168.10.110:8080/bookstore-mall/' + phone + '/' + password + '/findUser',
       //请求的参数
       data: {
        phone:phone,

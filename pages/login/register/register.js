@@ -19,7 +19,7 @@ Page({
   /**
     * 获取验证码
     */
-  return_home: function (e) {
+  return_login: function (e) {
     wx.navigateTo({
       url: '/pages/login/login',
     })
@@ -69,7 +69,7 @@ Page({
       url: '', //后端判断是否已被注册， 已被注册返回1 ，未被注册返回0
       method: "GET",
       header: {
-        'content-type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/json'
       },
       success: function (res) {
         that.setData({
@@ -105,12 +105,12 @@ Page({
         else {
           wx.request({
             url: '', //填写发送验证码接口
-            method: "POST",
+            method: "GET",
             data: {
               phone: that.data.phone
             },
             header: {
-              'content-type': 'application/x-www-form-urlencoded'
+              'Content-Type': 'application/json'
             },
             success: function (res) {
               console.log(res.data)
@@ -195,16 +195,17 @@ Page({
     } else {
       var that = this
       var phone = that.data.phone;
+      var username=that.data.username
       wx.request({
         url: getApp().globalData.baseUrl + '/Coachs/insert',
-        method: "POST",
+        method: "GET",
         data: {
           phone: phone,
           username:username,
-          coachpassword: that.data.NewChanges
+          password: that.data.NewChanges
         },
         header: {
-          "content-type": "application/x-www-form-urlencoded"
+          'Content-Type': 'application/json'
         },
         success: function (res) {
           wx.showToast({

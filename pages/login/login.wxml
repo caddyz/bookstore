@@ -1,10 +1,10 @@
 <!--pages/person/person.wxml-->
+
 <view class="container1"> 
  <view class="login-icon"> 
  <image class="login-img" src="../img/loginLog.jpg"></image> 
  </view> 
  
-  
  <!--账号-->
  <view class="inputView"> 
   <image class="nameImage" src="../img/name.png"></image> 
@@ -20,10 +20,13 @@
    <input class="inputText" name='password' placeholder="密码" type="password" bindinput="passwordinput"/>
  </view> 
  <!--按钮-->
- <view class="signin">
-      <button type="submit" catchtap="signin">登录</button>
-      <button type="submit" catchtap="register">注册</button>
-      <button type='submit' catchtap='retrieve'>找回密码</button>
+ 
+ <view class='login'>
+  <button  type="primary" catchtap="login">登录</button>
+ </view>
+ <view class="signIn">
+      <button  class='left' type="submit" catchtap="register">注册</button>
+      <button  class='right' type='submit' catchtap='retrieve'>找回密码</button>
     </view>
 </view>
 <view>{{message}}</view>

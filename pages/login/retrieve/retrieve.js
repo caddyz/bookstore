@@ -1,137 +1,188 @@
 // pages/retrieve/retrieve.js
 const app = getApp();
-//倒计时
-function countdown(that) {
-  var second = that.data.second
-  if (second == 0) {
-    that.setData({
-      disabled: true //只要点击了按钮就让按钮禁用
-    });
-    return;
-  }
-  var time = setTimeout(function () {
-    that.setData({
-      second: second - 1
-    });
-    countdown(that);
-  }
-    , 1000)
-}
-
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
-    username: null,
-    form_index: 0,
-    second: 30,
-    disabled: false,
-    mask: true
+    text: '获取验证码', //按钮文字
+    currentTime: 61, //倒计时
+    disabled: false, //按钮是否禁用
+    phone: '', //获取到的手机栏中的值
+    VerificationCode: '',
+    code:'',
+    newPassword: '',
+    success: false,
+    state: ''
   },
-  switchChange: function (e) {
-    // console.log(e.detail.value)
-    this.setData({ mask: !e.detail.value })
-  },
-  submit_phone: function (e) {
-    // console.log(e);
-    var username = e.detail.value.username;
-    var phone = e.detail.value.phone;
-    if (phone == null || phone == '') {
-      wx.showToast({
-        title: '请输入电话号码',
-        icon: 'none',
-        duration: 2000
-      })
-      return;
-    }
-    wx.showLoading({
-      title: '加载中...',
-    })
-    wx.request({
-      url: 'http:localhost:8080/API/login',//接口
-      method: 'POST',
-      data: {
-        username: username,
-        phone: phone
-      },
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      success: function (res) {
-        wx.hideLoading();
-        console.log(res.data);
-        if (res.data.error) {
-          wx.showToast({
-            title: res.data.msg,
-            icon: 'none',
-            duration: 2000
-          })
-        } else {
-          this.setData({ username: username, second: res.data.expire });
-          countdown(this);
-          wx.showToast({
-            title: res.data.msg,
-            icon: 'none',
-            duration: 2000
-          })
-          setTimeout(() => {
-            this.setData({ form_index: 1 });
-          }, 2000)
-        }
-      }
+  /**
+     * 获取验证码
+     */
+    //返回登陆页面
+  return_login: function (e) {
+    wx.navigateTo({
+      url: '/pages/login/login',
     })
 
   },
+  inputPhone: function (e) {
+    this.setData({
+      phone: e.detail.value
+    })
+  },
+  varCode: function (e) {
+    console.log(e);
+    this.setData({
+      Code: e.detail.value
+    })
+  },
+  newPssword: function (e) {
+    console.log(e);
+    this.setData({
+      userPssword: e.detail.value
+    })
+  },
+  doGetCode: function () {
+    var that = this;
+    that.setData({
+      disabled: true, //只要点击了按钮就让按钮禁用 （避免正常情况下多次触发定时器事件）
+      color: '#ccc',
+    })
+    var phone = that.data.phone;
+    var currentTime = that.data.currentTime //把手机号跟倒计时值变例成js值
+    var warn = null; //warn为当手机号为空或格式不正确时提示用户的文字，默认为空
+    wx.request({
+      url: '', //后端判断是否已被注册， 已被注册返回1 ，未被注册返回0
+      method: "GET",
+      header: {
+        'Content-Type': 'application/json'
+      },
+      success: function (res) {
+        that.setData({
+          state: res.data
+        })
+        if (phone == '') {
+          warn = "号码不能为空";
+        } else if (phone.trim().length != 11 || !/^1[3|4|5|6|7|8|9]\d{9}$/.test(phone)) {
+          warn = "手机号格式不正确";
+        } //手机号已被注册提示信息
+        else if (that.data.state == 0) {  //判断是否被注册
+          warn = "手机号未注册";
+
+        }else {
+          wx.request({
+            url: '', //填写发送验证码接口
+            method: "GET",
+            data: {
+              phone: that.data.phone
+            },
+            header: {
+              'Content-Type': 'application/json'
+            },
+            success: function (res) {
+              console.log(res.data)
+              that.setData({
+                VerificationCode: res.data.verifycode
+              })
+
+
+              //当手机号正确的时候提示用户短信验证码已经发送
+              wx.showToast({
+                title: '短信验证码已发送',
+                icon: 'none',
+                duration: 2000
+              });
+              //设置一分钟的倒计时
+              var interval = setInterval(function () {
+                currentTime--; //每执行一次让倒计时秒数减一
+                that.setData({
+                  text: currentTime + 's', //按钮文字变成倒计时对应秒数
+
+                })
+                //如果当秒数小于等于0时 停止计时器 且按钮文字变成重新发送 且按钮变成可用状态 倒计时的秒数也要恢复成默认秒数 即让获取验证码的按钮恢复到初始化状态只改变按钮文字
+                if (currentTime <= 0) {
+                  clearInterval(interval)
+                  that.setData({
+                    text: '重新发送',
+                    currentTime: 61,
+                    disabled: false,
+                    color: '#33FF99'
+                  })
+                }
+              }, 100);
+            }
+          })
+        };
+        //判断 当提示错误信息文字不为空 即手机号输入有问题时提示用户错误信息 并且提示完之后一定要让按钮为可用状态 因为点击按钮时设置了只要点击了按钮就让按钮禁用的情况
+        if (warn != null) {
+          wx.showModal({
+            title: '提示',
+            content: warn
+          })
+          that.setData({
+            disabled: false,
+            color: '#33FF99'
+          })
+          return;
+        }
+      }
+
+    })
+  },
   //重设密码
   submit_password: function (e) {
-    // console.log(e);
-    var password = e.detail.value.password;
-    var validcode = e.detail.value.validcode;
-    if (validcode == '' || validcode == null || password == '' || password == null) {
+    var that = this
+    if (this.data.Code == '') {
       wx.showToast({
-        title: '验证码和密码不能为空',
+        title: '请输入验证码',
         icon: 'none',
         duration: 2000
       })
+      return
+    } else if (this.data.Code != this.data.VerificationCode) {
+      wx.showToast({
+        title: '验证码错误',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    } else if (this.data.newPassword == '') {
+      wx.showToast({
+        title: '请输入密码',
+        icon: 'none',
+        duration: 2000
+      })
+      return
     } else {
+      var that = this
+      var phone = that.data.phone;
+      var newPassword=that.data.newPassword
       wx.request({
-        url:'http:localhost:8080/API/login1',//接口
-        method: 'POST',
+        url: getApp().globalData.baseUrl + '/Coachs/insert',
+        method: "GET",
         data: {
-          username: this.data.username,
-          password: password,
-          validcode: validcode
+          phone: phone,
+          newPassword: newPassword
         },
         header: {
-          'content-type': 'application/x-www-form-urlencoded'
+          'Content-Type': 'application/json'
         },
         success: function (res) {
-          // wx.hideLoading();
-          console.log(res.data);
-          if (res.data.error) {
-            wx.showToast({
-              title: res.data.msg,
-              icon: 'none',
-              duration: 2000
-            })
-          } else {
-            wx.showToast({
-              title: res.data.msg,
-              icon: 'success',
-              duration: 2000
-            })
-            // 点击确定后跳转登录页面并关闭当前页面
-            wx.redirectTo({
-              //成功后跳转的路径
-              url: '../person/person'
-            })
-          }
-        }
+          wx.showToast({
+            title: '提交成功~',
+            icon: 'loading',
+            duration: 2000
+          })
+          console.log(res)
+          that.setData({
+            success: true
+          })
+         }
       })
     }
   },
+        
+  
   /**
    * 生命周期函数--监听页面加载
    */
