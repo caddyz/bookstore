@@ -16,6 +16,8 @@
     "pages/index/hot/hot",
     "pages/index/help/help",
     "pages/index/search/search",
+    "pages/index/discount/discount",
+    "pages/index/coupon/coupon",
     "pages/index/slideshow/slideshow0",
     "pages/index/slideshow/slideshow1",
     "pages/index/slideshow/slideshow2",
