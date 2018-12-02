@@ -1,2 +1,15 @@
 <!--pages/index/slideshow/slideshow1.wxml-->
-<text>pages/index/slideshow/slideshow1.wxml</text>
+<view class='page-title'>必看书单</view>
+<view class='preface'>编者按：
+  <view class='preface-info'>编者现在什么都没有想出来！！！</view>
+</view>
+<block>
+  <view class='recommend-book'>
+    <view><image></image></view>
+    <view>书名</view>
+  </view>
+  <view class='recommend-word'>
+    推荐语：
+    <view class='recommend-info'>nothing is porblome</view>
+  </view>
+</block>

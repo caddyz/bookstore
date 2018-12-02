@@ -1,2 +1,4 @@
 <!--pages/index/slideshow/slideshow0.wxml-->
-<text>pages/index/slideshow/slideshow0.wxml</text>
+<view class='top-title'>新用户享福利</view>
+<view class='top-info'>你有XX元代金劵可领</view>
+<button type='primary' bindtap='discounts'>点击领取</button>

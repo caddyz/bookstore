@@ -1,1 +1,6 @@
 /* pages/index/slideshow/slideshow0.wxss */
+.top-title,.top-info{
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+}

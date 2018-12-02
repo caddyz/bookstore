@@ -1,2 +1,4 @@
 <!--pages/index/slideshow/slideshow4.wxml-->
-<text>pages/index/slideshow/slideshow4.wxml</text>
+<view class='title'>当前活动有：</view>
+<view class='book'>书本限时折扣销售<text class='word-sty' bindtap='slideSkip'>查看详情>>></text></view>
+<view class='user'>用户领券<text class='word-sty' bindtap='discountSkip'>去领取>>></text></view>

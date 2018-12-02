@@ -62,5 +62,15 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  slideSkip:function(){
+    wx.navigateTo({
+      url: '/pages/index/discount/discount',
+    })
+  },
+  discountSkip: function () {
+    wx.navigateTo({
+      url: '/pages/index/coupon/coupon',
+    })
   }
 })

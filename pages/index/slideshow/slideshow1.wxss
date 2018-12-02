@@ -1,1 +1,19 @@
 /* pages/index/slideshow/slideshow1.wxss */
+.page-title{
+  display: flex;
+  justify-self: center;
+  align-items: center
+}
+.preface{
+  background-color: #FFEC8B
+}
+.preface-info,.recommend-info{
+  text-indent: 2rem
+}
+.recommend-book{
+  display: flex;
+  flex-direction: row;
+}
+.recommend-word{
+  background-color: #F7F7F7
+}

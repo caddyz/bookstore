@@ -1,4 +1,4 @@
-// pages/index/slideshow/slideshow0.js
+// pages/index/coupon/coupon.js
 Page({
 
   /**
@@ -62,8 +62,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-  discounts:function(){
-    console.log("优惠券操作")
   }
 })

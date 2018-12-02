@@ -1,1 +1,9 @@
 /* pages/index/slideshow/slideshow4.wxss */
+.title,.book,.user{
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+}
+.word-sty{
+  color: blue;
+}
