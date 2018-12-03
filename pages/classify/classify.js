@@ -44,8 +44,8 @@ Page({
             },
             {
               child_id: 2,
-              name: '',
-              image: ""
+              name: '海',
+              image: "http://img5.imgtn.bdimg.com/it/u=1539976553,73815174&fm=26&gp=0.jpg"
             },
             {
               child_id: 3,
@@ -87,13 +87,13 @@ Page({
           [
             {
               child_id: 1,
-              name: '',
-              image: ""
+              name: '家乡',
+              image: "http://img4.imgtn.bdimg.com/it/u=524600297,1173145445&fm=26&gp=0.jpg"
             },
             {
               child_id: 2,
-              name: '',
-              image: ""
+              name: '我的家',
+              image: "http://n.sinaimg.cn/translate/20160923/WdMw-fxwevmh8824713.jpg"
             },
             {
               child_id: 3,
@@ -418,72 +418,7 @@ Page({
 
   },
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // 连接后台
-  // ,
-  // headtest: function () {
-  //   var that = this;
-  //   wx.request({
-  //     url: 'http://localhost:8080/bookstore-mall/1/open',//所需要查询的路径地址
-  //     data: {
-  //       classify_id:"1",
-  //       classify_name:"恐怖",
-
-  //     },
-  //     method: 'GET',
-  //     header: {
-  //       'content-type': 'application/json' // 默认值
-  //     },
-  //     success: function (res) {
-  //       console.log(res.data);//打印到控制台
-  //       that.setData({
-  //         Items: res.data,
-  //       })
-  //     },
-  //     fail: function (res) {
-  //       console.log(".....fail.....");
-  //     }
-  //   })
-  // },
-  //选择图片上传图片到服务器
-  // choosepic: function () {
-  //   wx.chooseImage({
-  //     success: function (res) {
-  //       var tempFilePaths = res.tempFilePaths
-  //       wx.uploadFile({
-  //         url: 'http://localhost:8080/',
-  //         filePath: tempFilePaths[0],
-  //         name: 'pic',
-  //         header: { "Content-Type": "multipart/form-data" },
-  //         formData: {
-
-  //         },
-  //         success: function (res) {
-  //           var data = res.data
-  //           console.log(data)
-  //         }
-  //       })
-  //     },
-  //   })
-  // }
-
+  
 })
 
 

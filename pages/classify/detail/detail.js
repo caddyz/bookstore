@@ -1,7 +1,16 @@
 var util = require('../../../utils/util.js')
 var app = getApp()
 Page({
-  data: {
+  data:{
+    book_name:'书名',
+    book_sales_price:'金额',
+    book_cover_image:'图片',
+    book_category:'类型',
+    book_profile:'简介',
+    author_name:'作者',
+    "book_status":"1",
+    "id":'0',
+    history:[],
     detailObj: {},
     index: null,
     isCollected: false,
@@ -53,9 +62,8 @@ Page({
   //  加入购物车
 
   addCar: function (e) {
-    var that = this;
-    var num = e.currentTarget.dataset.num
-    console.log('num :' + num);
+    var cartList = this.data.cartList
+    console.log(e.target.dataset.goodid);
     wx.showToast({
       title: '加入购物车成功',
       icon: 'success',
@@ -63,11 +71,13 @@ Page({
     });
     //加入购物车数据，存入缓存
     wx.setStorage({
-      key: 'cartItems',
+      key: 'cartList',
 
     })
 
   },
+
+
   // 评论
   formSubmit: function (e){
     if (e.detail.value.liuyantext==''){
@@ -89,64 +99,7 @@ Page({
   },
 
 
-  //     加入购物车
-  // addCar: function (e) {
-  //   var goods = this.data.goods;
-  //   goods.isSelect = false;
-  //   var count = this.data.goods.count;
-  //   var title = this.data.goods.title;
-  //   if (title.length > 13) {
-  //     goods.title = title.substring(0, 13) + '...';
-  //   }
-  //   // 获取购物车的缓存数组（没有数据，则赋予一个空数组）  
-  //   var arr = wx.getStorageSync('cart') || [];
-  //   console.log("arr,{}", arr);
-  //   if (arr.length > 0) {
-  //     // 遍历购物车数组  
-  //     for (var j in arr) {
-  //       // 判断购物车内的item的id，和事件传递过来的id，是否相等  
-  //       if (arr[j].goodsId == goodsId) {
-  //         // 相等的话，给count+1（即再次添加入购物车，数量+1）  
-  //         arr[j].count = arr[j].count + 1;
-  //         // 最后，把购物车数据，存放入缓存（此处不用再给购物车数组push元素进去，因为这个是购物车有的，直接更新当前数组即可）  
-  //         try {
-  //           wx.setStorageSync('cart', arr)
-  //         } catch (e) {
-  //           console.log(e)
-  //         }
-  //         //关闭窗口
-  //         wx.showToast({
-  //           title: '加入购物车成功！',
-  //           icon: 'success',
-  //           duration: 2000
-  //         });
-  //         this.closeDialog();
-  //         // 返回（在if内使用return，跳出循环节约运算，节约性能） 
-  //         return;
-  //       }
-  //     }
-  //   // 遍历完购物车后，没有对应的item项，把goodslist的当前项放入购物车数组  
-  //   arr.push(goods);
-  //   } else {
-  //     arr.push(goods);
-  //   }
-  //   // 最后，把购物车数据，存放入缓存  
-  //   try {
-  //     wx.setStorageSync('cart', arr)
-  //     // 返回（在if内使用return，跳出循环节约运算，节约性能） 
-  //     //关闭窗口
-  //     wx.showToast({
-  //       title: '加入购物车成功！',
-  //       icon: 'success',
-  //       duration: 2000
-  //     });
-  //     this.closeDialog();
-  //     return;
-  //   } catch (e) {
-  //     console.log(e)
-  //   }
-
-  // },
+ 
 
   // 立即购买,跳转到购物车结算
   nowBuy() {
@@ -222,13 +175,15 @@ Page({
 
   },
 
+  
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     // 数据起始加载
     let that = this
-    util.getSelectClassifyBookByIdSearch(1, function (data) {
+    util.getSelectClassifyBookByIdSearch(3, function (data) {
       console.log(data);
       that.setData({
         list: data
@@ -254,6 +209,7 @@ Page({
     //   })
     // }
   },
+  
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -303,100 +259,6 @@ Page({
   onShareAppMessage: function () {
 
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // // 分类数据库查询
-  // onLoad:function(options){
-  //   var that = this
-  //   var name = options.name
-  //   console.log(name)
-  //   wx.request({
-  //     url: '',//地址
-  //     data:{
-  //       q:name,
-  //       p:1
-  //     },
-  //     header:{
-  //       'content-type':'application/x-www-urlencoded'
-  //     },
-  //     method:'GET',
-  //     success:function(res){
-  //       console.log(res.data.goods_list)
-  //       this.setData({
-  //         categoodlist:res.data.result.goods_list,
-  //       })
-  //     }
-  //   })
-  // },
-  //  nowBuy: function (event) {  //获取cartId
-  //   //判断是否登陆,如果未登陆跳到登陆界面，如果登陆就调接口，跳转确认订单界面
-  //   var CuserInfo = wx.getStorageSync('CuserInfo');
-  //   console.log(CuserInfo.token)
-  //   if (!CuserInfo.token) {
-  //     //跳转到login
-  //     wx.navigateTo({
-  //       url: '../login/login?goodsId=' + goodsId + '&specId=' + specId,
-  //     })
-  //   } else {
-  //     var that = this;
-  //     request.req(uribuy, {
-  //       specId: specId,
-  //       count: '1',
-  //       saveType: '1',
-  //       goodsId: goodsId
-  //     }, (err, res) => {
-  //       var result = res.data;
-  //       console.log(result);
-  //       if (result.result == 1) { //获取cartId
-  //         //拿着cartId跳转到确认订单界面
-  //         wx.navigateTo({   //获取cartId
-  //           url: '../orderConfirm/orderConfirm?cartIds=' + result.data[0].cartIds,
-  //         })
-  //       } else {
-  //         that.setData({
-  //           tips: res.data.msg
-  //         })
-  //         console.log(res.data.msg)
-  //       }
-  //     })
-  //   }
-  // },
 
 
 })
