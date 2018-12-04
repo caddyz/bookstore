@@ -3,69 +3,78 @@ Page({
   data: {
     iscart: false,//是否在购物车中
     selectAllStatus:false,//是否全部选中
+    // cart:[],
     cart: [{
       bookId: "001",
+      userId:"02",
       imgUrl: "../cart/images/history-21.jpg",
-      BookName: "燃烧的远征",
-      BookPrice: "65.00",
+      bookName: "燃烧的远征",
+      bookPrice: "65.00",
       isStatus:false,
-      BookNum:'2'
+      bookNum:'2'
     },
       {
         bookId: "002",
+        userId: "02",
         imgUrl: "../cart/images/history-22.jpg",
-        BookName: "人类简史",
-        BookPrice: "68.00",
+        bookName: "人类简史",
+        bookPrice: "68.00",
         isStatus: true,
-        BookNum: '1'
+        bookNum: '1'
       },
       {
         bookId: "003",
+        userId: "02",
         imgUrl: "../cart/images/history-23.jpg",
-        BookName: "日本现代史",
-        BookPrice: "86.00",
+        bookName: "日本现代史",
+        bookPrice: "86.00",
         isStatus: true,
-        BookNum: '1'
+        bookNum: '1'
       },
       {
         bookId: "004",
+        userId: "02",
         imgUrl: "../cart/images/history-24.jpg",
-        BookName: "十字军的故事",
-        BookPrice: "119.00",
+        bookName: "十字军的故事",
+        bookPrice: "119.00",
         isStatus: true,
-        BookNum: '1'
+        bookNum: '1'
       },
       {
         bookId: "005",
+        userId: "02",
         imgUrl: "../cart/images/history-25.jpg",
-        BookName: "丝绸之路",
-        BookPrice: "69.00",
+        bookName: "丝绸之路",
+        bookPrice: "69.00",
         isStatus: true,
-        BookNum: '1'
+        bookNum: '1'
       },
       {
         bookId: "006",
+        userId: "02",
         imgUrl: "../cart/images/history-26.jpg",
-        BookName: "宋徽宗",
-        BookPrice: "86.00",
+        bookName: "宋徽宗",
+        bookPrice: "86.00",
         isStatus: true,
-        BookNum: '1'
+        bookNum: '1'
       },
       {
         bookId: "007",
+        userId: "02",
         imgUrl: "../cart/images/history-27.jpg",
-        BookName: "万历十五年",
-        BookPrice: "119.00",
+        bookName: "万历十五年",
+        bookPrice: "119.00",
         isStatus: true,
-        BookNum: '1'
+        bookNum: '1'
       },
       {
         bookId: "008",
+        userId: "02",
         imgUrl: "../cart/images/history-28.jpg",
-        BookName: "未来简史",
-        BookPrice: "69.00",
+        bookName: "未来简史",
+        bookPrice: "69.00",
         isStatus: true,
-        BookNum: '3'
+        bookNum: '3'
       },], //数据
     count: 1,   //商品数量默认是1
     totalPrice: 0,    //总金额
@@ -73,9 +82,10 @@ Page({
   },
   //初始加载页面
   onLoad: function (options) {
+    var that=this
     // //数据库获取初始数据
     // wx.request({
-    //   url: 'http://192.168.10.110:8080/bookstore-mall/cart', //提交的网络地址
+    //   url: 'http://192.168.10.162:8080/bookstore-mall/selectCart/'+1, //提交的网络地址
     //   method: "GET",
     //   dataType: "json",
     //   header: {
@@ -84,11 +94,14 @@ Page({
     //   success: function (res) {
     //     //--init data
     //     if (res.data!=null) {
-    //       this.setData({
+          
+    //       that.setData({
     //           cart:res.data
     //       })
+    //       that.onShow();
+    //       console.log(that.data.cart)
     //     } else {
-    //      this.setData({
+    //       that.setData({
     //        cart:cart
     //      })
     //     }
@@ -103,6 +116,8 @@ Page({
     // })
    
   },
+
+  //画面显示
   onShow: function () {
     var that = this;
     // 获取缓存李里面的数据并加入购物车
@@ -120,7 +135,7 @@ Page({
     if (arr.length > 0) {
       for (var i in arr) {
         if (arr[i].isStatus){
-          goodsCount += Number(arr[i].BookNum);
+          goodsCount += Number(arr[i].bookNum);
         }
       }
       // 更新数据
@@ -135,6 +150,30 @@ Page({
   //离开界面是执行这个方法
   onHide: function () {
    // 清除数据
+    console.log("我是页面隐藏时执行的方法");
+    var Carts = this.data.cart;
+    var that = this
+    // //数据库获取初始数据
+    wx.request({
+      url: 'http://192.168.10.162:8080/bookstore-mall/insertCart', //提交的网络地址
+      method: "POST",
+      dataType: "json",
+      data: JSON.stringify(Carts),
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        //--init data
+
+      },
+      fail: function () {
+        // fail
+        wx.showToast({
+          title: '网络异常！',
+          duration: 30000
+        });
+      }
+    });
     this.setData({
       iscart: false,
       // cart: [], //数据
@@ -147,19 +186,20 @@ Page({
  onUnload:function(){
    //当页面卸载时清除缓存
   //  wx.clearStorageSync('cart');
+  
  },
   /* 减数 */
   delCount: function (e) {
     console.log(e)
     // 获取购物车该商品的数量
     // [获取设置在该btn的id,即list的index值]
-    if (this.data.cart[e.target.id.substring(3)].BookNum <= 1) {
+    if (this.data.cart[e.target.id.substring(3)].bookNum <= 1) {
       return;
     }
     // 商品总数量-1
     this.data.goodsCount -= 1;
     // 购物车主体数据对应的项的数量-1  并赋给主体数据对应的项内
-    this.data.cart[e.target.id.substring(3)].BookNum = --this.data.cart[e.target.id.substring(3)].BookNum;
+    this.data.cart[e.target.id.substring(3)].bookNum = --this.data.cart[e.target.id.substring(3)].bookNum;
     // 更新data数据对象
     this.setData({
       cart: this.data.cart,
@@ -178,7 +218,7 @@ Page({
     // 商品总数量+1
     this.data.goodsCount += 1;
     // 购物车主体数据对应的项的数量+1  并赋给主体数据对应的项内
-    this.data.cart[e.target.id.substring(3)].BookNum = ++this.data.cart[e.target.id.substring(3)].BookNum;
+    this.data.cart[e.target.id.substring(3)].bookNum = ++this.data.cart[e.target.id.substring(3)].bookNum;
     // 更新data数据对象
     this.setData({
       cart: this.data.cart,
@@ -195,7 +235,7 @@ Page({
   /* 删除item */
   delGoods: function (e) {
     // 商品总数量  减去  对应删除项的数量
-    this.data.goodsCount = this.data.goodsCount - this.data.cart[e.target.id.substring(3)].BookNum;
+    this.data.goodsCount = this.data.goodsCount - this.data.cart[e.target.id.substring(3)].bookNum;
     // 主体数据的数组移除该项
     this.data.cart.splice(e.target.id.substring(3), 1);
     // 更新data数据对象
@@ -220,9 +260,9 @@ Page({
     carts[index].isStatus = !isStatus;              // 改变状态
     //改变商品数量
     if (carts[index].isStatus){
-      this.data.goodsCount = this.data.goodsCount + Number(this.data.cart[index].BookNum);
+      this.data.goodsCount = this.data.goodsCount + Number(this.data.cart[index].bookNum);
     }else{
-      this.data.goodsCount = this.data.goodsCount - this.data.cart[index].BookNum;
+      this.data.goodsCount = this.data.goodsCount - this.data.cart[index].bookNum;
     }
     this.setData({
       cart: carts,
@@ -245,7 +285,7 @@ Page({
     //统计商品数量
      if (selectAllStatus){
        for (var i in carts) {    
-         goodsCount += Number(carts[i].BookNum);
+         goodsCount += Number(carts[i].bookNum);
        }
      }
     this.setData({
@@ -263,8 +303,8 @@ getTotalPrice() {
   let totalNum = 0;
   for (let i = 0; i < carts.length; i++) {         // 循环列表得到每个数据
     if (carts[i].isStatus) {                   // 判断选中才会计算价格
-      total += carts[i].BookNum * carts[i].BookPrice;     // 所有价格加起来
-      totalNum += carts[i].BookNum; 
+      total += carts[i].bookNum * carts[i].bookPrice;     // 所有价格加起来
+      totalNum += carts[i].bookNum; 
     }
   }
   this.setData({                                // 最后赋值到data中渲染到页面
@@ -307,9 +347,9 @@ getTotalPrice() {
   },
   //商品详细信息介绍界面
   toBookDetail(e){
-    // console.log("获得的id是" + e.currentTarget.dataset.id)
-    let id = this.data.cart[e.currentTarget.dataset.id].id
-    // console.log("获得书的id是"+id)
+    console.log("获得的id是" + e.currentTarget.dataset.id)
+    let id = this.data.cart[e.currentTarget.dataset.id].bookId
+    console.log("获得书的id是"+id)
     wx.navigateTo({
       url: '/pages/classify/detail/detail?id='+id,
     })

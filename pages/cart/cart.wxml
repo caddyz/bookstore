@@ -3,6 +3,9 @@
 <view class="cart" hidden="{{iscart}}">
     <image src="../cart/images/cart_pic.png"/>
     <view>购物车什么都没有，赶快去购物吧</view>
+    <view wx:for="{{cart}}">
+    姓名：{{item.isStatus}}
+    </view>
 </view>
 <!--要是有数据，就显示数据-->
 <view class="cartList" hidden="{{!iscart}}">
@@ -22,15 +25,15 @@
             <view class="good-cont">
                 <!--文字说明-->
                 <view class="goods-navigator">
-                    <text class="good-name">{{item.BookName}}</text>
+                    <text class="good-name">{{item.bookName}}</text>
                 </view>
                 <!--价钱和购物加减的父盒子-->
                 <view class="good-price">
-                    <text class="price">￥{{item.BookPrice}}</text>
+                    <text class="price">￥{{item.bookPrice}}</text>
                     <view class="btn-box">
                         <view class="btn">
                             <button id="del{{index}}" type="default" size="mini" bindtap="delCount">-</button>
-                            <input  value="{{item.BookNum}}"/>
+                            <input  value="{{item.bookNum}}"/>
                             <button id="add{{index}}" type="default" size="mini" bindtap="addCount">+</button>
                         </view>
                          <!-- 删除按钮 -->
