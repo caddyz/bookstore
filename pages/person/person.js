@@ -64,10 +64,10 @@ Page({
     })
   },
   onLoad: function () {
-    //  console.log('onLoad')
-    // wx.navigateTo({
-    //   url: "/pages/login/login"
-    // })
+      console.log('onLoad')
+		wx.navigateTo({
+      url: "/pages/login/login"
+     })
     var that = this
     //调用应用实例的方法获取全局数据
     wx.getUserInfo(function (userinfo) {

@@ -11,8 +11,8 @@ Page({
     VerificationCode: '',
     Code: '',
     username: '',
-    NewChanges: '',
-    NewChangesAgain: '',
+    password: '',
+    passwordAgain: '',
     success: false,
     state: ''
   },
@@ -25,36 +25,42 @@ Page({
     })
 
   },
+  //手机号
   handleInputPhone: function (e) {
     this.setData({
       phone: e.detail.value
     })
   },
+  //验证码
   handleVerificationCode: function (e) {
     console.log(e);
     this.setData({
       Code: e.detail.value
     })
   },
+  //用户名
   handleNewName: function (e) {
     console.log(e);
     this.setData({
       username: e.detail.value
     })
   },
+  //密码
   handleNewChanges: function (e) {
     console.log(e);
     this.setData({
-      NewChanges: e.detail.value
+     password: e.detail.value
     })
   },
+  //确认密码
   handleNewChangesAgain: function (e) {
     console.log(e);
     this.setData({
-      NewChangesAgain: e.detail.value
+     passwordAgain: e.detail.value
     })
 
   },
+  //点击获取验证码触发的事件
   doGetCode: function () {
     var that = this;
     that.setData({
@@ -66,7 +72,7 @@ Page({
     var currentTime = that.data.currentTime //把手机号跟倒计时值变例成js值
     var warn = null; //warn为当手机号为空或格式不正确时提示用户的文字，默认为空
     wx.request({
-      url: '', //后端判断是否已被注册， 已被注册返回1 ，未被注册返回0
+      url: 'http://localhost:8080/bookstore-mall/' + phone + '/' + username + '/searchPhone', //后端判断是否已被注册， 已被注册返回1 ，未被注册返回0
       method: "GET",
       header: {
         'Content-Type': 'application/json'
@@ -104,10 +110,11 @@ Page({
         }
         else {
           wx.request({
-            url: '', //填写发送验证码接口
+            url: 'http://localhost:8080/bookstore-mall/code', //填写发送验证码接口
             method: "GET",
             data: {
-              phone: that.data.phone
+              phone: that.data.phone,
+              VerificationCode: that.data.VerificationCode
             },
             header: {
               'Content-Type': 'application/json'
@@ -115,7 +122,7 @@ Page({
             success: function (res) {
               console.log(res.data)
               that.setData({
-                VerificationCode: res.data.verifycode
+                VerificationCode: res.data.VerificationCode
               })
 
 
@@ -123,7 +130,7 @@ Page({
               wx.showToast({
                 title: '短信验证码已发送',
                 icon: 'none',
-                duration: 2000
+                duration: 1000
               });
               //设置一分钟的倒计时
               var interval = setInterval(function () {
@@ -142,7 +149,7 @@ Page({
                     color: '#33FF99'
                   })
                 }
-              }, 100);
+              }, 1000);
             }
           })
         };
@@ -178,14 +185,21 @@ Page({
         duration: 2000
       })
       return
-    }else if (this.data.NewChanges == '') {
+    } else if (this.data.username ==" ") {
+      wx.showToast({
+        title: '请输入用户名',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }else if (this.data.password == '') {
       wx.showToast({
         title: '请输入密码',
         icon: 'none',
         duration: 2000
       })
       return
-    } else if (this.data.NewChangesAgain != this.data.NewChanges) {
+    } else if (this.data.passwordAgain != this.data.password) {
       wx.showToast({
         title: '两次密码不一致',
         icon: 'none',
@@ -197,12 +211,12 @@ Page({
       var phone = that.data.phone;
       var username=that.data.username
       wx.request({
-        url: getApp().globalData.baseUrl + '/Coachs/insert',
+        url: 'http://localhost:8080/bookstore-mall/' + phone + '/' + username + '/' + password + '/searchUser',
         method: "GET",
         data: {
           phone: phone,
           username:username,
-          password: that.data.NewChanges
+          password: that.data.password
         },
         header: {
           'Content-Type': 'application/json'

@@ -52,7 +52,7 @@ Page({
     var currentTime = that.data.currentTime //把手机号跟倒计时值变例成js值
     var warn = null; //warn为当手机号为空或格式不正确时提示用户的文字，默认为空
     wx.request({
-      url: '', //后端判断是否已被注册， 已被注册返回1 ，未被注册返回0
+      url: 'http://localhost:8080/bookstore-mall/' + phone + '/updatePhone', //后端判断是否已被注册
       method: "GET",
       header: {
         'Content-Type': 'application/json'
@@ -71,7 +71,7 @@ Page({
 
         }else {
           wx.request({
-            url: '', //填写发送验证码接口
+            url: 'http://localhost:8080/bookstore-mall/code', //填写发送验证码接口
             method: "GET",
             data: {
               phone: that.data.phone
@@ -109,7 +109,7 @@ Page({
                     color: '#33FF99'
                   })
                 }
-              }, 100);
+              }, 1000);
             }
           })
         };
@@ -158,7 +158,7 @@ Page({
       var phone = that.data.phone;
       var newPassword=that.data.newPassword
       wx.request({
-        url: getApp().globalData.baseUrl + '/Coachs/insert',
+        url: 'http://localhost:8080/bookstore-mall/'+ phone + ' /' + newPassword + '/updateUser',
         method: "GET",
         data: {
           phone: phone,

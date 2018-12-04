@@ -4,12 +4,11 @@ Page({
   //定义全局变量data
   data: {
     phone: '',
-    password: ''
-  
-
+    password: '',
+    message:''
   },
 
-  // 获取输入账号 
+  //从页面获取输入账号 
   phoneinput: function (e) {
     this.setData({
       phone: e.detail.value,
@@ -29,20 +28,27 @@ Page({
     //登陆的时候要传过来的参数
     var phone = that.data.phone
     var password = that.data.password
-    if (phone.length==0||password.length==0) {
+    if (this.data.phone=="") {
       wx.showToast({
-        title: '手机号和密码不能为空！',
+        title: '手机号不能为空！',
         icon: 'none',
         //延迟时间
         //duration: 1000,
       })
-    } 
-     else{
+    }else if(this.data.password==""){
+      wx.showToast({
+        title: '密码不能为空！',
+        icon: 'none',
+        //延迟时间
+        //duration: 1000,
+      })
+      
+    }else{
     console.log("用户名：" + phone + "，密码：" + password)
     //发送ajax请求到服务器-登录
     wx.request({
       //开发者服务器接口地址
-      url: 'http://192.168.10.110:8080/bookstore-mall/' + phone + '/' + password + '/findUser',
+      url: 'http://localhost:8080/bookstore-mall/' + phone + '/' + password + '/findUser',
       //请求的参数
       data: {
        phone:phone,
@@ -58,16 +64,16 @@ Page({
       success: function (res) {  // 服务器响应成功的回调函数
         //调试，相当于alert
         //console.log("成功")
-        if (res.statusCode == 200) {
-          //存入缓存
-          wx.setStorage({
-            key: username,
-          data: res.data.username
-          })
+        if (res.statusCode === 200) {
+          // //存入缓存
+          // wx.setStorage({
+          //   key: phone,
+          // data: res.data.phone
+          // })
           // 点击确定后跳转登录页面并关闭当前页面
-          wx.redirectTo({
+          wx.switchTab({
             //成功后跳转的路径
-            url: '../person/person'
+            url: '/pages/index/index'
           })
         } else {
           //显示消息提示框
