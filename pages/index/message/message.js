@@ -6,11 +6,11 @@ Page({
    */
   data: {
     list:[{
-      "text":"最好玩的活动等着你",
+      "text":"新用户钜享优惠",
       "url":"../slideshow/slideshow0"
     },{
-      "text":"这里有折扣信息哟！",
-      "url":"../slideshow/slideshow1",
+      "text":"更多活动！",
+      "url":"../slideshow/slideshow4",
     }]
   },
   messageSkip:function(e){

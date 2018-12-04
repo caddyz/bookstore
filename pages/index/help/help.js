@@ -21,10 +21,7 @@ Page({
     let that = this;
     var index = e.currentTarget.dataset.index;//获取当前下标
     var key = "selectedFlag[" + index + "].flag";
-    console.log(JSON.stringify(key))
-    console.log(JSON.stringify(that.data.selectedFlag))
     var val = that.data.selectedFlag[index].flag;
-    console.log(JSON.stringify(val))
       that.setData({
           [key]: !val //控制显示
         });

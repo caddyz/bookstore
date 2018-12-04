@@ -1,2 +1,14 @@
 /* pages/search/search.wxss */
 @import "../../template/bookinfoTemplate.wxss";
+.bi-tr{
+  display: flex;
+  flex-direction: row;
+  /* flex-wrap 是否换行 */
+  flex-wrap: wrap; 
+  justify-content: space-around;
+}
+.view-controller{
+  width: 35%;
+  height: 430rpx;
+  margin-left: 30rpx;
+}

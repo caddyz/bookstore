@@ -127,7 +127,7 @@ Page({
     })
   },
   //模板点击事件
-  bookInfoSkip: function (event){
-    templates.bookInfoSkip(event)
+  itemclick(event) {
+    templates.onclick(event)
   }
 })

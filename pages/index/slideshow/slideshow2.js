@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    author:"刘慈欣",
+    author:"马克思",
     list:[]
   },
 
@@ -72,5 +72,13 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  skipDetail:function(e){
+    let index = e.currentTarget.dataset.index;
+    console.log(index)
+    console.log(JSON.stringify(this.data.list[index]))
+    wx.navigateTo({
+      url: '../../classify/detail/detail?book=' + JSON.stringify(this.data.list[index]),
+    })
   }
 })

@@ -93,7 +93,7 @@ Page({
   onShareAppMessage: function () {
 
   },
-  bookInfoSkip: function (event) {
-    templates.bookInfoSkip(event)
+  itemclick(event) {
+    templates.onclick(event)
   }
 })

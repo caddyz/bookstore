@@ -2,7 +2,7 @@
 <view class='page'>
 <view style='text-align:center;'>{{author}}系列专题</view>
   <block wx:for="{{list}}" wx:key="index">
-      <view class='book-info'>
+      <view class='book-info' data-index='{{index}}' bindtap='skipDetail'>
         <view class='book-pic'><image  src='http://images.bookstore.com/{{item.bookCoverImage}}'              mode='scaleToFill' style="width: 100%; height: 100%;background-color: #eeeeee; ">                   </image></view>
         <view class='book'>
           <view>
