@@ -33,6 +33,9 @@
 <view class="order" hidden="{{isOrder}}">
     <image src="../order/images/order_pic.png"/>
     <view>没有已经完成的订单，赶快去购物吧</view>
+      <view wx:for="{{cart}}">
+    姓名：{{item.isStatus}}
+    </view>
 </view>
 
 <view class="orderDetails" hidden="{{!isOrder}}">
@@ -42,16 +45,16 @@
   <!-- 用户头像 -->
 		<view class="userImg"><image src="{{userInfoAvatar}}"></image></view> 
 		<text class="userName">{{nickName}}</text>
-		<text class="orderStatus" bindtap='operatingOrder' data-statues='{{item.orderStatus}}' data-id='{{item.id}}'>{{item.orderStatus}}</text>
+		<text class="orderStatus" bindtap='operatingOrder' data-statues='{{item.orderStatus}}' data-id='{{item.orderId}}'>{{item.orderStatus}}</text>
 	</view>
 	<view class="orderListDetails">
 		<view class="productImg"  catchtap="toOrderDetail" data-order='{{item.orderId}}'>
 			<image src="{{item.imgUrl}}"></image>
 		</view>
 		<view class="productInfo"  catchtap="toOrderDetail" data-order='{{item.orderId}}'>
-			<view class="productTitle">{{item.name}}</view>
-			<text class="productPrice" >￥{{item.price}}</text>
-			<text class="productQuantity">x{{item.num}}</text>
+			<view class="productTitle">{{item.bookName}}</view>
+			<text class="productPrice" >￥{{item.bookPrice}}</text>
+			<text class="productQuantity">x{{item.bookNum}}</text>
 		</view>
 	</view>
 	<view class="productCount">

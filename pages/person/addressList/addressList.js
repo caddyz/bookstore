@@ -9,55 +9,71 @@ Page({
     mydata: ['广东省', '广州市', '海珠区'],
     addressList: [],
     messges:"你是个大坏蛋",
-    regions:[
-      { id:'1',
-        userId:'456',
-        consignee:'小李',
-        mobile:'123456',
-        province:"四川",
-        city:"成都",
-        county:"高新区",
-        details:"我不知道"
-      },
-      {
-        id: '2',
-        userId: '456',
-        consignee: '小李',
-        mobile: '123456',
-        province: "四川",
-        city: "成都",
-        county: "高新区",
-        details: "我不"
-      }, 
-      {
-        id: '3',
-        userId: '456',
-        consignee: '小李',
-        mobile: '123456',
-        province: "四川",
-        city: "成都",
-        county: "高新区",
-        details: "我不"
-      }
-    ]
+    regions:[],
+    // regions:[
+    //   {
+    //     addressId:'1',
+    //     userId:'456',
+    //     addressConsignee:'小李',
+    //     addressMobile:'123456',
+    //     addressProvince:"四川",
+    //     addressCity:"成都",
+    //     addressCounty:"高新区",
+    //     addressDetail:"我不知道"
+    //   },
+    //   {
+    //     addressId: '1',
+    //     userId: '456',
+    //     addressConsignee: '小李',
+    //     addressMobile: '123456',
+    //     addressProvince: "四川",
+    //     addressCity: "成都",
+    //     addressCounty: "高新区",
+    //     addressDetail: "我不知道"
+    //   },
+    //   {
+    //     addressId: '1',
+    //     userId: '456',
+    //     addressConsignee: '小李',
+    //     addressMobile: '123456',
+    //     addressProvince: "四川",
+    //     addressCity: "成都",
+    //     addressCounty: "高新区",
+    //     addressDetail: "我不知道"
+    //   }
+    // ]
   },
   // 这是页面初次加载的方法
   onLoad: function (options) {
-    var that=this;
-    var userNmae=that.data.userNmae//用户名字
-    //从数据库中获取数据
+    var that = this;
+    // //数据库获取初始数据
     wx.request({
-      url: '',//后台的连接地址
+      url: 'http://192.168.10.162:8080/bookstore-mall/selectReceiveAddress/' + 1, //提交的网络地址
+      method: "GET",
+      dataType: "json",
       header: {
         'content-type': 'application/json' // 默认值
       },
-      method: 'GET',
       success: function (res) {
+        //--init data
+
         if (res.data != null) {
           that.setData({
-            regions: res.data
+            regions: res.data,
+          })
+        } else {
+          that.setData({
+            regions: this.data.regions
           })
         }
+        console.log(that.data.regions)
+      },
+      fail: function () {
+        // fail
+        wx.showToast({
+          title: '网络异常！',
+          duration: 30000
+        });
       }
     })
   },
