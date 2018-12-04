@@ -1,8 +1,12 @@
 /* pages/index/slideshow/slideshow1.wxss */
+.page{
+  width: 90%;
+  margin: 0 auto;
+}
 .page-title{
   display: flex;
   justify-self: center;
-  align-items: center
+  align-items: center;
 }
 .preface{
   background-color: #FFEC8B
@@ -13,7 +17,14 @@
 .recommend-book{
   display: flex;
   flex-direction: row;
+  height: 200rpx;
 }
 .recommend-word{
-  background-color: #F7F7F7
+  background-color: #F7F7F7;
+}
+.book-name{
+  width: 50%;
+  display: flex;
+  justify-content: center;  
+  align-items: center;
 }

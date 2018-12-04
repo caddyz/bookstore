@@ -8,11 +8,11 @@ const app = getApp()
 Page({
   data: {
     imgUrls: [
-      '/pages/img/history-1.jpg',
-      '/pages/img/history-2.jpg',
-      '/pages/img/history-3.jpg',
-      '/pages/img/history-4.jpg',
-      '/pages/img/history-5.jpg'
+      'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3384185388,3937888800&fm=26&gp=0.jpg',
+      'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543818622208&di=44d3a17727672a028860d62a12ba83cd&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Ff603918fa0ec08fa9b707a5353ee3d6d54fbdad6.jpg',
+      'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543818649675&di=94eea3dec7185bc39c931de75a916080&imgtype=0&src=http%3A%2F%2Fwww.whb.cn%2Fu%2Fcms%2Fwww%2F201803%2F30095624xd1b.jpg',
+      'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3313104465,2591523589&fm=200&gp=0.jpg',
+      'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543818487436&di=2f8462538133f784a63225ca858357c2&imgtype=0&src=http%3A%2F%2Fscimg.jb51.net%2Fallimg%2F161009%2F102-161009142Pc96.jpg'
     ],
     indicatorDots: true,
     autoplay: true,

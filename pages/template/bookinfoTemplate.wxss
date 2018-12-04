@@ -8,7 +8,7 @@
 .view-controller{
   width: 35%;
   height: 430rpx;
-  margin-left: 45rpx;
+  margin-left: 30rpx;
 }
 .book-data{
   height: 420rpx;

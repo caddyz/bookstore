@@ -59,3 +59,7 @@
   margin-top: 10rpx;
   font-size: 30rpx;
 }
+.enevt-planning{
+  width: 90%;
+  margin: 0 auto;
+}

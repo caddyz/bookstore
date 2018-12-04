@@ -1,1 +1,14 @@
 /* pages/index/coupon/coupon.wxss */
+.page{
+  width: 90%;
+  margin: 0 auto;
+}
+.title{
+  text-align: center
+}
+.coupon-info{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: #C1FFC1
+}

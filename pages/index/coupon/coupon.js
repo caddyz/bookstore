@@ -5,14 +5,23 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    list:[],
+    msg:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let that = this;
+    wx.request({
+      url: 'http://192.168.10.110:8080/bookstore-mall/findcoupon/0',
+      success:function(res){
+        that.setData({
+          list:res.data
+        })
+      }
+    })
   },
 
   /**
@@ -62,5 +71,28 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  draw:function(e){
+    let that = this;
+    let index = e.currentTarget.dataset.index;
+    let couponId = that.data.list[index].couponId;
+    wx.request({
+      url: 'http://192.168.10.110:8080/bookstore-mall/getCoupon/3/'+couponId,
+      success:function(res){
+        that.setData({
+          msg:res.data
+        })
+        wx.showToast({
+          title: that.data.msg.msg,
+          icon:'none'
+        })
+      },
+      fail:function(){
+        wx.showToast({
+          title: '领取失败',
+          icon:'none'
+        })
+      }
+    })
   }
 })

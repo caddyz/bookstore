@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    msg: [],
   },
 
   /**
@@ -64,6 +64,24 @@ Page({
 
   },
   discounts:function(){
-    console.log("优惠券操作")
+    let that = this;
+    wx.request({
+      url: 'http://192.168.10.110:8080/bookstore-mall/newUsergetCoupon/3/7',
+      success:function(res){
+        that.setData({
+          msg:res.data
+        })
+        wx.showToast({
+          title: that.data.msg.msg,
+          icon:'none'
+        })
+      },
+      fail:function(){
+        wx.showToast({
+          title: '领取失败',
+          icon:'none'
+        })
+      }
+    })
   }
 })

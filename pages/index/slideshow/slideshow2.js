@@ -5,14 +5,24 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    author:"刘慈欣",
+    list:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let that = this;
+    let author = that.data.author
+    wx.request({
+      url: 'http://192.168.10.110:8080/bookstore-mall/author/' + author,
+      success: function (res) {
+        that.setData({
+          list: res.data
+        })
+      }
+    })
   },
 
   /**

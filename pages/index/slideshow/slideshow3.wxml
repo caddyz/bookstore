@@ -1,2 +1,17 @@
 <!--pages/index/slideshow/slideshow3.wxml-->
-<text>不可不看的科幻十大经典</text>
+<view class='page'>
+<view style='text-align:center;'>不可不看的{{bookKind}}十大经典</view>
+  <block wx:for="{{list}}" wx:key="index">
+      <view class='book-info'>
+        <view class='book-pic'><image  src='http://images.bookstore.com/{{item.bookCoverImage}}'              mode='scaleToFill' style="width: 100%; height: 100%;background-color: #eeeeee;">
+        </image></view>
+        <view class='book'>
+          <view>
+            <view>{{item.bookName}}</view>
+          </view>
+        </view>
+      </view>
+      <view class='book-profile'>{{item.bookProfile}}</view>
+      <view style='height:28rpx'></view>
+  </block>
+</view>
