@@ -21,13 +21,13 @@ Page({
             },
             {
               child_id: 3,
-              name: '',
-              image: ""
+              name: '风',
+              image: "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2670795854,3778606258&fm=26&gp=0.jpg"
             },
             {
               child_id: 4,
-              name: '',
-              image: ""
+              name: '虚幻',
+              image: "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2737924243,3582615236&fm=11&gp=0.jpg"
             }
           ]
       },
@@ -341,6 +341,8 @@ Page({
     curIndex: 0
   },
 
+
+
   //事件处理函数  
   switchRightTab: function (e) {
     // 获取item项的id，和数组的下标值  
@@ -361,19 +363,13 @@ Page({
       url: '/pages/classify/detail/detail?id=' + id,
     })
   },
-
+ 
   /**
      * 生命周期函数--监听页面加载
      */
   onLoad: function (options) {
      // 数据起始加载
-    let that = this
-    util.getSelectClassifyBookIdSearch(3,"AI迷航",function(data){
-      console.log(data);
-      that.setData({
-        list:data
-      })
-    })
+    
   },
 
   /**
@@ -421,5 +417,35 @@ Page({
   
 })
 
+// 图片上传
+// wx.chooseImage({
+//   count:1,
+//   sizeType:['original','compressed'],
+//   sourceType:['album','camera'],
+//   success:function(res){
+//     var tempFilePaths = res.tempFilePaths;
+//     wx.uploadFile({
+//       url: '',
+//       filePath: tempFilePaths[0],
+//       name: '',
+//       header:{
+//         'Context-type':'multipart/form-data',
+//         'accept':'application/json',
+//         'Authorization':'Bearer',
+//       },
+//     formData:{
+//       'user':'img'
+//     },
+//       success: function (res) {
+//         var data = res.data;
+//         console.log('data');
+//       },
+//       fail: function (res) {
+//         console.log('fail');
 
+//       },
+
+//     })
+//   }
+// })
 

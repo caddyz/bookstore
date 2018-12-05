@@ -2,25 +2,7 @@ var util = require('../../../utils/util.js')
 var app = getApp()
 Page({
   data:{
-    book_name:'书名',
-    book_sales_price:'金额',
-    book_cover_image:'图片',
-    book_category:'类型',
-    book_profile:'简介',
-    author_name:'作者',
-    "book_status":"1",
-    "id":'0',
-    history:[],
-    detailObj: {},
-    index: null,
-    isCollected: false,
-    isLike: true,
-    // banner
-    // 加减框
-    // input默认是1
-    num: 1,
-    // 使用data数据对象设置样式名
-    minusStatus: 'disabled',
+    
     imgUrls: [
       //图片的地址
       "http://file2.rrxh5.cc/g2/c1/2017/09/07/1504777332491.png",
@@ -30,6 +12,27 @@ Page({
     autoplay: true, //是否自动切换
     interval: 3000, //自动切换时间间隔
     duration: 1000, //  滑动动画时长
+    bookId: '书Id:',
+    bookName: '书名:',
+    bookSalesPrice: '金额:',
+    bookCoverImage: '图片:',
+    bookCategory: '类型:',
+    bookProfile: '简介:',
+    authorName: '作者:',
+    publishName: '出版社:',
+    stockNum: '库存:',
+    stockSales: '销量:',
+    commentContent: '评论:',
+
+
+    history: [],
+    isCollected: false,
+    // banner
+    // 加减框
+    // input默认是1
+    num: 1,
+    // 使用data数据对象设置样式名
+
 
     // 商品详情介绍
     detailImg: [
@@ -47,19 +50,46 @@ Page({
       urls: this.data.imgUrls // 需要预览的图片http链接列表  
     })
   },
+ 
 
-  // 收藏
-  // addLike() {
-  //   wx.showToast({
-  //     title: '收藏成功',
-  //     icon: 'success',
-  //     duration: 2000,
-  //   });
-  //   this.setData({
-  //     isLike: !this.data.isLike
-  //   });
-  // },
-  //  加入购物车
+  // 收藏事件
+  handleCollection() {
+    let isCollected = !this.data.isCollected
+    this.setData({
+      isCollected
+    })
+    wx.showToast({
+      title: isCollected ? '收藏成功' : '取消收藏',
+      icon: 'success'
+    });
+    wx.setStorage({
+      key:'item-text',
+      data:'id',
+    })
+    try {
+      console.log('数据缓存成功')
+      wx.setStorageSync('item-text', 'id')
+    } catch (e) { 
+
+    }
+    // 获取缓存
+    wx.getStorageInfo({
+      success: function (res) {
+        console.log(res.keys)
+        console.log(res.currentSize)
+        console.log(res.limitSize)
+      }
+    })
+    // 读取缓存
+    wx.getStorage({
+      key: 'item-text',
+      success(res) {
+        console.log(res.data)
+        console.log('数据读取成功')
+      }
+    })
+  },
+
 
   addCar: function (e) {
     var cartList = this.data.cartList
@@ -72,9 +102,26 @@ Page({
     //加入购物车数据，存入缓存
     wx.setStorage({
       key: 'cartList',
-
+      data:'id',
     })
-
+    try {
+      wx.setStorageSync('cartList', 'id')
+    } catch (e) {
+    }
+    // 同步获取当前storage的相关信息
+    wx.getStorageInfo({
+      success: function (res) {
+        console.log(res.keys)
+        console.log(res.currentSize)
+        console.log(res.limitSize)
+      }
+    })
+    wx.getStorage({
+      key: 'cartList',
+      success(res) {
+        console.log(res.data)
+      }
+    })
   },
 
 
@@ -143,37 +190,7 @@ Page({
       num: num
     });
   },
-  handleCollection() {
-    let isCollected = !this.data.isCollected
-    this.setData({
-      isCollected
-    })
-    wx.showToast({
-      title: isCollected ? '收藏成功' : '取消收藏',
-      icon: 'success'
-    })
-    //点击收藏图标后缓存数据到本地
-    //把data中的index放到新let出来的index中,因为下面要把index也存进去,要用index来判断你收藏了哪个页面
-    let { index } = this.data;
-
-    //首先去看一下缓存的数据
-    wx.getStorage({
-      key: 'isCollected',
-      success: (data) => {
-        let obj = data.data;
-        //如果有,则刷新,没有则追加
-        obj[index] = isCollected;
-        wx.setStorage({
-          key: 'isCollected',
-          data: obj,
-          success: () => {
-
-          }
-        });
-      }
-    })
-
-  },
+  
 
   
 
@@ -181,33 +198,29 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // 数据起始加载
-    let that = this
-    util.getSelectClassifyBookByIdSearch(3, function (data) {
-      console.log(data);
-      that.setData({
-        list: data
-      })
+    
+    console.log('传入的数据'+options.bookId)
+
+   var that = this;
+   wx.request({
+     url: 'http://localhost:8080/bookstore-mall/5/allContext',
+     data:{
+       bookName:'bookName',
+     },
+     header:{
+       'content-type':'application/json'
+     },
+     success:function(res){
+       console.log(res.data)
+       that.setData({
+          Industry: res.data //设置数据
+        })
+      },
+      fail: function (err) {
+        console.log(err)
+      }
     })
 
-
-
-
-
-
-    //根据本地缓存的数据判读用户是否收藏当前文章
-    // let dateilStorage = wx.getStorageSync("isCollected");
-    //如果没有收藏
-    // if (!detailStorage) {
-    //初始化一个空的对象
-    //   wx.setStorageSync('isCollected', {});
-    // }
-    //如果收藏了
-    // if (detailStorage[index]) {
-    //   this.setData({
-    //     isCollected: true
-    //   })
-    // }
   },
   
 

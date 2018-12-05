@@ -68,10 +68,11 @@ page{
   }
   /* 设置图片 */
   .num_right .num_right_items image{
-      width: 100px;  
-      height: 100px;  
+      width: 80px;  
+      height: 61px;  
       /* 设置元素的上外边距 */
       margin-top: 14px;  
+      
   }
   /* 设置文字 */
   .num_right .num_right_items text{
@@ -86,7 +87,8 @@ page{
       white-space: nowrap;  
       /* 文本溢出时不显示 */
       text-overflow: ellipsis;  
-
+ 
+    
   }
   /* 暂无数据 */
   .nodata_text

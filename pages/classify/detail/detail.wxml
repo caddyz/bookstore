@@ -60,8 +60,7 @@ js文件中的data中imgUrls数组的数据，并直接将数组展开了。 -->
   <view class="separate"></view>
 
 
-  <text>商品详情</text>
-  <text class='text-detail' bindtap='bookdetail'>作者在最艰难的时候写的</text>
+  <text></text>
   <block wx:for-items="{{detailImg}}" wx:key="name">
     <image class="image_detail" src="{{item}}" />
   </block>
@@ -70,11 +69,6 @@ js文件中的data中imgUrls数组的数据，并直接将数组展开了。 -->
 </view>
 <!-- 底部的悬浮栏 -->
 <view class="detail-nav">
- <!-- 需要修改,底部悬浮栏里面的那个收藏按钮，我们要如何做用户点击一下就更换收藏图标，
-  是通过isLike这个Boolean值来做判断的， 用户每触发一次addLike事件，
-  就更换一次Boolean值，按钮的更换效果就实现了 -->
-  <!-- <image bindtap="addLike" src="{{isLike?'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3411382528,345291280&fm=26&gp=0.jpg':'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=971562027,3284667727&fm=26&gp=0.jpg'}}" /> -->
-
 <image catchtap='handleCollection' wx:if='{{!isCollected}}' 
 src='https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3411382528,345291280&fm=26&gp=0.jpg'></image>
 <image catchtap='handleCollection' wx:if='{{isCollected}}' 
