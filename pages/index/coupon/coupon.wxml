@@ -3,8 +3,9 @@
   <view class='title'>您有：</view>
   <block wx:for='{{list}}' wx:key='{{index}}'>
     <view class='coupon-info'>
-      <view>{{item.couponName}} 可领</view>
-      <view style='color:#98F5FF;' data-index='{{index}}' bindtap='draw'>>>领取</view>
+      <view>{{item.couponName}} {{flage?'可领':'已领'}}</view>
+      <view style='color:#98F5FF;' data-index='{{index}}' bindtap="{{flage?'draw':''}}">
+      >>领取</view>
     </view>
     <view style='height:38rpx'></view>
   </block>

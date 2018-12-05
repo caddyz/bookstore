@@ -21,7 +21,7 @@ Page({
     // this.data.list = JSON.parse(options.list);
     let taht = this;
     util.getSearchBook(1, function (data) {
-      console.log(data);
+      // console.log(data);
       taht.setData({
         list: data
       })

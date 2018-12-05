@@ -53,3 +53,10 @@
   border-radius: 60rpx;
   background-color: #FF7F24
 }
+.recordstyle{
+  background-color: #FCFCFC
+}
+.record-layout{
+   display: flex;
+  flex-direction: row;
+}

@@ -6,7 +6,8 @@ Page({
    */
   data: {
     list:[],
-    msg:[]
+    msg:[],
+    flage:true
   },
 
   /**

@@ -8,18 +8,25 @@
     <block wx:for='{{memberInfo}}'>
     <view style='height:28rpx'></view>
     <view class='member-buy'>
-      <view class='member-buy-icon'>{{item.title}}</view>
+      <view class='member-buy-icon'>会员{{item.memberName}}</view>
       <view class='member-buy-info'>
-        <view>缴纳会员费:{{item.price}}元</view>
-        <view>免费借阅：{{item.book}}本</view>
+        <view>缴纳会员费:{{item.memberMoney}}元</view>
+        <view>免费借阅：{{item.Book}}本</view>
       </view>
       <view class='playment'>
         <!-- 调用支付接口 -->
-        <button class='playClass' bindtap='playInterface'>立即支付</button>
+        <button class='playClass' bindtap='playInterface' data-item='{{item}}'>立即支付</button>
       </view>
     </view>
     </block>
   </view>
   <view wx:if='{{rightButton}}' style=' width: 90%;  margin: 0 auto;'>
-    这是购买记录显示的界面
+    <view class='recordstyle' wx:for='{{recordList}}' wx:key=''>
+      <view>购买时间：{{item.createTime}}</view>
+      <view class='record-layout'>
+        <view style='width:50%;'>购买套餐：{{item.memberName}}</view>
+        <view style='width:50%;'>购买金额：{{item.memberMoney}}</view>
+      </view>
+      <view style='height:28rpx;background-color: white;'></view>
+    </view>
   </view>

@@ -75,10 +75,10 @@ Page({
   },
   skipDetail:function(e){
     let index = e.currentTarget.dataset.index;
-    console.log(index)
-    console.log(JSON.stringify(this.data.list[index]))
+    // console.log(index)
+    // console.log("bookId"+JSON.stringify(this.data.list[index].bookId))
     wx.navigateTo({
-      url: '../../classify/detail/detail?book=' + JSON.stringify(this.data.list[index]),
+      url: '../../classify/detail/detail?bookId=' + JSON.stringify(this.data.list[index].bookId),
     })
   }
 })
