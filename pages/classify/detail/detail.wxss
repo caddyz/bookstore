@@ -24,53 +24,54 @@ swiper-item image {
   margin-bottom: 0rpx;
 }
 /* 设置名字 */
-.detail .bookName {
+ .detail .book-name {
   font-size: 40rpx;
   margin: 10rpx;
-  color: black;
+  color: teal;
   /* text-align: justify; */
   text-align: justify;
 }
 /* 设置金额 */
-.detail .price {
+.detail .book-price {
   color: red;
   font-size: 40rpx;
   margin: 10rpx;
 }
 /* 设置作者 */
-.detail .author{
+.detail .book-author{
   color: rgb(27, 184, 40);
   font-size: 30rpx;
    margin: 10rpx;
 }
 /* 设置销量 */
-.detail .totalSold{
+.detail .book-num{
   color: blue;
   font-size: 30rpx;
    margin: 10rpx;
 }
 /* 设置余量 */
-.detail .totalStore{
+.detail .book-sales{
   color: blue;
   font-size: 30rpx;
    margin: 10rpx;
 }
 /* 设置商品详情 */
-.text-detail{
+.detail .book-profile{
   color: yellow;
   font-size: 30rpx;
    margin: 10rpx;
 }
 /* 设置出版社 */
-.publish_name{
+.detail .book-publish{
   color: rebeccapurple;
   font-size: 30rpx;
    margin: 10rpx;
 }
-/* 设置简介 */
-.profile{
+/* 设置种类 */
+.detail .book-cotegory{
   font-size: 30rpx;
    margin: 10rpx;
+   color: goldenrod;
 }
 
 
@@ -167,9 +168,9 @@ color: green
 }
 
 /* 设置背景图片 */
-/* .main{
+ .main{
   background: url("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2284682437,2665896982&fm=26&gp=0.jpg");
   
-} */
+}
 
 

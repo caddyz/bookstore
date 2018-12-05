@@ -8,9 +8,9 @@
       <!--当前项的id等于item项的id-->
       <!--用data-index记录这个数据在数组的下标位置，使用data-id设置每个item的id值，
       供打开2级页面使用-->
-      <view class="num_left_items {{curNum == item.book_id ? 'active' : ''}}" 
+      <view class="num_left_items {{curNum == item.bookId ? 'active' : ''}}" 
             bindtap="switchRightTab" data-index="{{index}}" 
-            data-id="{{item.book_id}}">{{item.book_name}}
+            data-id="{{item.bookId}}">{{item.bookCategory}}
       </view>
     </block>
   </view>

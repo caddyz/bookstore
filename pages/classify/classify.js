@@ -2,343 +2,21 @@ var util = require('../../utils/util.js')
 var app = getApp()
 Page({
   data: {
-    books: [
-      {
-        book_id: 1,
-        book_name: "言情",
-        ishaveChild: true,
-        children:
-          [
-            {
-              child_id: 1,
-              name: '三体',
-              image: "http://tp.yiaedu.com/showimg.php?url=http://uploads.xuexila.com/allimg/1703/867-1F330164643.jpg"
-            },
-            {
-              child_id: 2,
-              name: '十二个明天',
-              image: "http://img.zcool.cn/community/015da9554971170000019ae9f43459.jpg@2o.jpg"
-            },
-            {
-              child_id: 3,
-              name: '风',
-              image: "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2670795854,3778606258&fm=26&gp=0.jpg"
-            },
-            {
-              child_id: 4,
-              name: '虚幻',
-              image: "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2737924243,3582615236&fm=11&gp=0.jpg"
-            }
-          ]
-      },
-      {
-        book_id: 2,
-        book_name: "玄幻",
-        ishaveChild: true,
-        children:
-          [
-            {
-              child_id: 1,
-              name: '遮天',
-              image: "http://img4.imgtn.bdimg.com/it/u=2731848340,1311961800&fm=26&gp=0.jpg"
-            },
-            {
-              child_id: 2,
-              name: '海',
-              image: "http://img5.imgtn.bdimg.com/it/u=1539976553,73815174&fm=26&gp=0.jpg"
-            },
-            {
-              child_id: 3,
-              name: '',
-              image: ""
-            },
-            {
-              child_id: 4,
-              name: '',
-              image: ""
-            },
-            {
-              child_id: 5,
-              name: '',
-              image: ""
-            },
-            {
-              child_id: 6,
-              name: '',
-              image: ""
-            },
-            {
-              child_id: 7,
-              name: '',
-              image: ""
-            },
-            {
-              child_id: 8,
-              name: '',
-              image: ""
-            }
-          ]
-      },
-      {
-        book_id: 3,
-        book_name: "都市",
-        ishaveChild: true,
-        children:
-          [
-            {
-              child_id: 1,
-              name: '家乡',
-              image: "http://img4.imgtn.bdimg.com/it/u=524600297,1173145445&fm=26&gp=0.jpg"
-            },
-            {
-              child_id: 2,
-              name: '我的家',
-              image: "http://n.sinaimg.cn/translate/20160923/WdMw-fxwevmh8824713.jpg"
-            },
-            {
-              child_id: 3,
-              name: '',
-              image: ""
-            },
-            {
-              child_id: 4,
-              name: '',
-              image: ""
-            }
-          ]
-      },
-      {
-        book_id: 4,
-        book_name: "科幻",
-        ishaveChild: true,
-        children:
-          [
-            {
-              child_id: 1,
-              name: '',
-              image: ""
-            },
-            {
-              child_id: 2,
-              name: '',
-              image: ""
-            },
-            {
-              child_id: 3,
-              name: '',
-              image: ""
-            },
-            {
-              child_id: 4,
-              name: '',
-              image: ""
-            }
-          ]
-      },
-      {
-        book_id: 5,
-        book_name: "竞技",
-        ishaveChild: true,
-        children:
-          [
-            {
-              child_id: 1,
-              name: '',
-              image: ""
-            },
-            {
-              child_id: 2,
-              name: '',
-              image: ""
-            },
-            {
-              child_id: 3,
-              name: '',
-              image: ""
-            },
-            {
-              child_id: 4,
-              name: '',
-              image: ""
-            }
-          ]
-      },
-      {
-        book_id: 6,
-        book_name: "军事",
-        ishaveChild: true,
-        children:
-          [
-            {
-              child_id: 1,
-              name: '',
-              image: ""
-            },
-            {
-              child_id: 2,
-              name: '',
-              image: ""
-            },
-            {
-              child_id: 3,
-              name: '',
-              image: ""
-            },
-            {
-              child_id: 4,
-              name: '',
-              image: ""
-            }
-          ]
-      },
-      {
-        book_id: 7,
-        book_name: "历史",
-        ishaveChild: true,
-        children:
-          [
-            {
-              child_id: 1,
-              name: '',
-              image: ""
-            },
-            {
-              child_id: 2,
-              name: '',
-              image: ""
-            },
-            {
-              child_id: 3,
-              name: '',
-              image: ""
-            },
-            {
-              child_id: 4,
-              name: '',
-              image: ""
-            }
-          ]
-      },
-      {
-        book_id: 8,
-        book_name: "游戏",
-        ishaveChild: true,
-        children:
-          [
-            {
-              child_id: 1,
-              name: '',
-              image: ""
-            },
-            {
-              child_id: 2,
-              name: '',
-              image: ""
-            },
-            {
-              child_id: 3,
-              name: '',
-              image: ""
-            },
-            {
-              child_id: 4,
-              name: '',
-              image: ""
-            }
-          ]
-      },
-      {
-        book_id: 9,
-        book_name: "武侠",
-        ishaveChild: true,
-        children:
-          [
-            {
-              child_id: 1,
-              name: '',
-              image: ""
-            },
-            {
-              child_id: 2,
-              name: '',
-              image: ""
-            },
-            {
-              child_id: 3,
-              name: '',
-              image: ""
-            },
-            {
-              child_id: 4,
-              name: '',
-              image: ""
-            }
-          ]
-      },
-      {
-        book_id: 10,
-        book_name: "奇幻",
-        ishaveChild: true,
-        children:
-          [
-            {
-              child_id: 1,
-              name: '',
-              image: ""
-            },
-            {
-              child_id: 2,
-              name: '',
-              image: ""
-            },
-            {
-              child_id: 3,
-              name: '',
-              image: ""
-            },
-            {
-              child_id: 4,
-              name: '',
-              image: ""
-            }
-          ]
-      },
-      {
-        book_id: 11,
-        book_name: "校园",
-        ishaveChild: true,
-        children:
-          [
-            {
-              child_id: 1,
-              name: '',
-              image: ""
-            },
-            {
-              child_id: 2,
-              name: '',
-              image: ""
-            },
-            {
-              child_id: 3,
-              name: '',
-              image: ""
-            },
-            {
-              child_id: 4,
-              name: '',
-              image: ""
-            }
-          ]
-      }, {
-        book_id: 12,
-        book_name: "文化",
-        ishaveChild: false,
-        children: []
-      }
+    books: [{
+      bookId: '',
+      bookCategory:[],
+      ishaveChild: true,
+      children:[
+        {
+          bookId:'',
+          bookName:'',
+          image:[],
+        }
+      ]
+    }
     ],
     curNum: 1,
-    curIndex: 0
+    curIndex: 1
   },
 
 
@@ -357,10 +35,13 @@ Page({
   // 跳转
   items: function (e) {
     var that = this;
-    var id = e.currentTarget.dataset.id
-    console.log('id :' + id);
+    var bookCategory = e.currentTarget.dataset.bookCategory
+    var bookName = e.currentTarget.dataset.bookName
+    var bookCoverImage = e.currentTarget.dataset.bookCoverImage
+    var bookId = e.currentTarget.dataset.id
+    console.log('查询数据 :' + bookId);
     wx.navigateTo({
-      url: '/pages/classify/detail/detail?id=' + id,
+      url: '/pages/classify/detail/detail?bookId=' + bookId,
     })
   },
  
@@ -369,7 +50,25 @@ Page({
      */
   onLoad: function (options) {
      // 数据起始加载
-    
+     console.log("bookId:"+options.bookId)
+    var that = this;
+    wx.request({
+      url: 'http://localhost:8080/bookstore-mall/' + bookId + '/allContext',
+      data: {},
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          Industry: res.data //设置数据
+        })
+      },
+      fail: function (err) {
+        console.log(err)
+      }
+    })
+
   },
 
   /**

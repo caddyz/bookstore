@@ -2,7 +2,6 @@ var util = require('../../../utils/util.js')
 var app = getApp()
 Page({
   data:{
-    
     imgUrls: [
       //图片的地址
       "http://file2.rrxh5.cc/g2/c1/2017/09/07/1504777332491.png",
@@ -12,34 +11,13 @@ Page({
     autoplay: true, //是否自动切换
     interval: 3000, //自动切换时间间隔
     duration: 1000, //  滑动动画时长
-    bookId: '书Id:',
-    bookName: '书名:',
-    bookSalesPrice: '金额:',
-    bookCoverImage: '图片:',
-    bookCategory: '类型:',
-    bookProfile: '简介:',
-    authorName: '作者:',
-    publishName: '出版社:',
-    stockNum: '库存:',
-    stockSales: '销量:',
-    commentContent: '评论:',
-
-
-    history: [],
+    list: [],
     isCollected: false,
     // banner
     // 加减框
     // input默认是1
     num: 1,
     // 使用data数据对象设置样式名
-
-
-    // 商品详情介绍
-    detailImg: [
-      // 都是书的图片。
-      "http://img4.imgtn.bdimg.com/it/u=3415244797,3645437497&fm=26&gp=0.jpg",
-      "http://img1.imgtn.bdimg.com/it/u=865111090,4158915163&fm=26&gp=0.jpg"
-    ],
   },
   //预览图片
   previewImage: function (e) {
@@ -202,8 +180,9 @@ Page({
     console.log('传入的数据'+options.bookId)
 
    var that = this;
+   
    wx.request({
-     url: 'http://localhost:8080/bookstore-mall/5/allContext',
+     url: 'http://localhost:8080/bookstore-mall/' + options.bookId+'/allContext',
      data:{
        bookName:'bookName',
      },
@@ -213,7 +192,7 @@ Page({
      success:function(res){
        console.log(res.data)
        that.setData({
-          Industry: res.data //设置数据
+          list: res.data //设置数据
         })
       },
       fail: function (err) {
@@ -222,7 +201,6 @@ Page({
     })
 
   },
-  
 
   /**
    * 生命周期函数--监听页面初次渲染完成

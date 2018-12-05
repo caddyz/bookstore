@@ -22,15 +22,27 @@ js文件中的data中imgUrls数组的数据，并直接将数组展开了。 -->
 <view class='main'>
 <!-- scroll-view垂直滚动 -->
 <scroll-view scroll-y="true">
-  <view class="detail" bindtap='allSelect'>
-    <text class="bookName">书名:</text>
-    <text class="price">金额:</text>
-     <text class="author">作者:</text>
-       <text class="totalSold">销量:</text>
-         <text class="totalStore">余量:</text>
-          <text class='publish_name'>出版社:</text>
-         <text class='profile'>作品简介:</text>
+  <!-- 循环遍历 -->
+    <block wx:for="{{list}}">
+  <view class="detail" bindtap='allSelect' data-item='{{item}}'>
+  书名:<input type='text' class='book-name' value='{{item.bookName}}' 
+          disabled='true'></input>
+   作者:<input type='text' class='book-author' value='{{item.authorName}}' 
+          disabled='true'></input>
+   金额:<input type='text' class='book-price' value='{{item.bookSalesPrice}}' 
+          disabled='true'></input>
+    种类:<input type='text' class='book-cotegory' value='{{item.bookCategory}}' 
+          disabled='true'></input>
+    出版社:<input type='text' class='book-publish' value='{{item.publishName}}' 
+          disabled='true'></input>
+    销量:<input type='text' class='book-num' value='{{item.stockNum}}' 
+          disabled='true'></input>
+    库存:<input type='text' class='book-sales' value='{{item.stockSales}}' 
+          disabled='true'></input>
+    简介:<input type='text' class='book-profile' value='{{item.bookProfile}}' 
+          disabled='true'></input>
   </view>
+    </block>
   <view class="separate"></view>
   <!-- 规格(sku)选择 -->
   <!-- bindtap=”previewImage”，图片预览功能 -->
