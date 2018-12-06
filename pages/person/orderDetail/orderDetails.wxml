@@ -43,7 +43,7 @@
 		<text class="userName">{{nickName}}</text>
 		<text class="orderStatus">{{oderDetail.orderStatus}}</text>
 	</view>
-	<view bindtap="toProductDetails" class="orderListDetails">
+	<view class="orderListDetails">
 		<view class="productImg">
 			<image src="{{oderDetail.imgUrl}}"></image>
 		</view>

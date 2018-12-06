@@ -13,15 +13,17 @@ Page({
       region: e.detail.value
     })
   },
+  
   //将新修改的信息添加到数据库进行储存
   saveAddress: function (e) {
     var receiveAddress={
-      consignee:e.detail.value.consignee,
-      mobile:e.detail.value.mobile,
-      province:e.detail.value.addressl[0],
-      city:e.detail.value.addressl[1],
-      county:e.detail.value.addressl[2],
-      details: e.detail.value.address
+      userId:'1',
+      addressConsignee:e.detail.value.consignee,
+      addressMobile:e.detail.value.mobile,
+      addressProvince:e.detail.value.addressl[0],
+      addressCity:e.detail.value.addressl[1],
+      addressCounty:e.detail.value.addressl[2],
+      addressDetail: e.detail.value.address
     }
     console.log('form发生了submit事件，携带数据为：', e.detail.value)
     //改变本地数据
@@ -30,21 +32,21 @@ Page({
     })
   
     wx.request({
-      url: 'http://192.168.10.162:8080/bookstore/address/' + JSON.stringify(receiveAddress), //提交的网络地址
-      method: "GET",
+      url: 'http://192.168.10.162:8080/bookstore-mall/addReceiveAddress', //提交的网络地址
+      method: "POST",
+      data: JSON.stringify(receiveAddress),
       dataType: "json",
       header: {
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        //--init data
-        var status = res.data.status;
-        if (status == 1) {
+        //--init data     
+        if (res.data ) {
           //数据存入缓存
-          wx.setStorage({
-            key: "regions",
-            data: e.detail.value
-          })
+          // wx.setStorage({
+          //   key: "regions",
+          //   data: e.detail.value
+          // })
           //提示
           wx.showToast({
             title: '提交成功！',

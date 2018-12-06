@@ -43,9 +43,15 @@ page{
   right: 10px;
 
   color: #585c64;
-
 }
+.moren{
 
+  position: absolute;
+
+  left: 20px;
+font-size: 10px;
+  color: #585c64;
+}
 .ui-list-item-editor{
 
   position: absolute;
@@ -148,3 +154,8 @@ page{
   transform: scaleY(.5);
   background-color: #9D9D9D;
 }
+.receiveAddress{  
+  height: 160rpx;
+  border-top: 1rpx solid #f3f3f3;
+  border-bottom: 20rpx solid #f3f3f3;
+  background-size: 40rpx 40rpx;}

@@ -12,7 +12,7 @@
 
       <view class="weui-cell__bd">
 
-        <input class="weui-input" name="consignee" placeholder="请输入收货人真实姓名" />
+        <input class="weui-input" name="consignee" placeholder="请输入修改的收货人真实姓名" />
 
       </view>
 
@@ -28,7 +28,7 @@
 
       <view class="weui-cell__bd">
 
-        <input class="weui-input" name="mobile" placeholder="请输入收货人手机号" />
+        <input class="weui-input" name="mobile" placeholder="请输入修改的收货人手机号" />
         
       </view>
 

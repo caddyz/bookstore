@@ -58,7 +58,7 @@
 		</view>
 	</view>
 	<view class="productCount">
-		<view >合计：￥<text>{{item.totalPrice}}</text></view>
+		<view >合计：￥<text>{{item.totalPrivce}}</text></view>
 	</view>
 
     </block>
