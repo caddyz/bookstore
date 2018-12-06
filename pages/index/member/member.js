@@ -1,5 +1,4 @@
 // pages/member/member.js
-var wxPay = require('../../../utils/wxPay.js')
 Page({
 
   /**
