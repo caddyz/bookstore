@@ -1,0 +1,63 @@
+<!--  
+ <view class="addressList">
+        <image class='addr_img' src='../addressList/images/recieve_user.png'></image>收货人: 
+      <view class='real'>小李 </view>
+      </view>
+
+         <view class="addressList">
+        <image class='addr_img' src='../addressList/images/receivePhone.png'></image>收货人电话:
+      <view class='real'>132654987 </view>
+      </view> -->
+
+    <form class='creatOrder' bindsubmit='toCreatOrder'>
+<!-- 收货地址的选择 -->
+    <view class="p_all bg_white mt10 font_14" bindtap='toAddressList'>
+	
+			<view class="df">
+				<view class="df_1 c6">
+        	<image class="x_right mt15" src="../creatOrder/images/x_right.png"></image>
+				<view class="l_h20">收货人：{{newAddress.addressConsignee}}<text class="fl_r mr10">  {{newAddress.addressMobile}}</text></view>
+        		
+				<view class="l_h20 mt5">地址：{{newAddress.addressProvince}}省{{newAddress.addressCity}}市 {{newAddressaddressCounty}}区(县){{newAddress.addressDetail}}</view>
+				</view>
+				
+			</view>
+	
+		</view>	
+<view><text>\n</text></view>
+<view class='list-msg'>
+    <view class='list-msg1'>
+        <text>商品金额</text>
+        <text>￥{{totalPrice}}</text>
+    </view>
+     <view><text>\n</text></view>
+<!--下拉框  -->
+    <view class='list-msg2' bindtap='bindShowSend'>
+        <text>{{sendWays}}</text>
+        <image style='height:20rpx;width:20rpx;' src='../creatOrder/images/down.png'></image>
+    </view>
+     <view><text>\n</text></view>
+    <view class='list-msg1'>
+        <text>运费</text>
+        <text></text>免邮</view>
+
+         <view class='list-msg1'>
+        <text>用户优惠券减免</text>
+        <text></text>-￥10</view>
+
+         <view class='list-msg1'>
+        <text>商品折扣</text>
+        <text></text>85折</view>
+    <view class='list-msg1'>
+        <text>实际付款</text>
+        <text style='color:red'>￥80.00</text>
+    </view>
+<!-- 下拉需要显示的列表 -->
+     <view class="select_box" wx:if="{{selectSend}}">
+        <block wx:for="{{sendWay}}">
+        <view class="select_one" bindtap="mySelectSend" data-send="{{index}}">{{item.name}}</view>
+        </block>
+    </view>
+</view>
+ <button class="weui-btn" type="primary" form-type="submit">确认</button>
+</form>

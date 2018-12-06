@@ -84,36 +84,36 @@ Page({
   onLoad: function (options) {
     var that=this
     // //数据库获取初始数据
-    // wx.request({
-    //   url: 'http://192.168.10.162:8080/bookstore-mall/selectCart/'+1, //提交的网络地址
-    //   method: "GET",
-    //   dataType: "json",
-    //   header: {
-    //     'content-type': 'application/json' // 默认值
-    //   },
-    //   success: function (res) {
-    //     //--init data
-    //     if (res.data!=null) {
+    wx.request({
+      url: 'http://192.168.10.162:8080/bookstore-mall/selectCart/'+1, //提交的网络地址
+      method: "GET",
+      dataType: "json",
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        //--init data
+        if (res.data!=null) {
           
-    //       that.setData({
-    //           cart:res.data
-    //       })
-    //       that.onShow();
-    //       console.log(that.data.cart)
-    //     } else {
-    //       that.setData({
-    //        cart:cart
-    //      })
-    //     }
-    //   },
-    //   fail: function () {
-    //     // fail
-    //     wx.showToast({
-    //       title: '网络异常！',
-    //       duration: 30000
-    //     });
-    //   }
-    // })
+          that.setData({
+              cart:res.data
+          })
+          that.onShow();
+          console.log(that.data.cart)
+        } else {
+          that.setData({
+           cart:cart
+         })
+        }
+      },
+      fail: function () {
+        // fail
+        wx.showToast({
+          title: '网络异常！',
+          duration: 30000
+        });
+      }
+    })
    
   },
 
@@ -154,32 +154,7 @@ Page({
     var Carts = this.data.cart;
     var that = this
     // //数据库获取初始数据
-    wx.request({
-      url: 'http://192.168.10.162:8080/bookstore-mall/insertCart', //提交的网络地址
-      method: "POST",
-      dataType: "json",
-      data: JSON.stringify(Carts),
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function (res) {
-        //--init data
-
-      },
-      fail: function () {
-        // fail
-        wx.showToast({
-          title: '网络异常！',
-          duration: 30000
-        });
-      }
-    });
-    this.setData({
-      iscart: false,
-      // cart: [], //数据
-      totalPrice: 0,    //总金额
-      goodsCount: 0 //数量
-    });
+   
   },
 
   //离开本页时需要消除的数据
@@ -238,6 +213,8 @@ Page({
     this.data.goodsCount = this.data.goodsCount - this.data.cart[e.target.id.substring(3)].bookNum;
     // 主体数据的数组移除该项
     this.data.cart.splice(e.target.id.substring(3), 1);
+    //将数据库中对应的数据删除
+
     // 更新data数据对象
     this.setData({
       cart: this.data.cart,
@@ -317,7 +294,8 @@ getTotalPrice() {
   toSettlement:function(e) {
     var that=this;
     let carts = this.data.cart; 
-    let newcart=[];
+    let newcart=[];//未选中结算的
+    let oldcart=[];//选中结算的
     wx.showModal({
       title: '提示',
       content: '是否结算？',
@@ -330,13 +308,26 @@ getTotalPrice() {
                   if (!carts[i].isStatus) {                   // 判断留下未选中的
                     newcart = newcart.concat(carts[i]);
                   }
+                  //将选中的交给定单处理
+                  else{
+                    oldcart = oldcart.concat(carts[i])
+                  }
               }
          
           // 将数据更新
           that.setData({
             cart:newcart
           });
-          console.log("创建订单并将订单数据存入书库！")
+          console.log("创建订单并将订单数据存入书库！");
+          //跳转到订单生成界面,将结算的商品传给订单生成界面
+        if(oldcart.length==0){
+          wx.showToast({
+            title: '未选定结算商品！',
+            duration:2000
+          })
+          return;
+        }
+          that.toCreatOrder(oldcart);
           
         } else {
           console.log('弹框后点取消')
@@ -353,6 +344,74 @@ getTotalPrice() {
     wx.navigateTo({
       url: '/pages/classify/detail/detail?id='+id,
     })
-  }
+  },
+  //将新增的购物车数据存入数据库的方法
+  insetCart:function(carts,userId){
+    var Carts=carts;
+    var userId=userId;
+    wx.request({
+      url: 'http://192.168.10.162:8080/bookstore-mall/insertCart', //提交的网络地址
+      method: "POST",
+      dataType: "json",
+      data: JSON.stringify(Carts),
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        //--init data
+        if(res.data){
+          console.log("修改成功！")
+        }
 
+      },
+      fail: function () {
+        // fail
+        wx.showToast({
+          title: '网络异常！',
+          duration: 30000
+        });
+      }
+    });
+    this.setData({
+      iscart: false,
+      // cart: [], //数据
+      totalPrice: 0,    //总金额
+      goodsCount: 0 //数量
+    });
+  },
+  //将购物车中的数据删除的方法
+  delCart:function(cartId,userId){
+    var cartId = cartId;
+    var userId = userId;
+    wx.request({
+      url: 'http://192.168.10.162:8080/bookstore-mall/delCart/' + cartId + '/' + userId, //提交的网络地址
+      method: "GET",
+      dataType: "json",
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        //--init data
+        if (res.data) {
+          console.log("删除成功！")
+        }
+
+      },
+      fail: function () {
+        // fail
+        wx.showToast({
+          title: '网络异常！',
+          duration: 30000
+        });
+      }
+    }); 
+  },
+  //跳转函数结算成功跳转到订单生成界面
+  toCreatOrder:function(oldcart){ 
+    let totalPrice=this.data.totalPrice;
+    console.log("我发送的数据：" + oldcart[0].bookName);
+    wx.navigateTo({
+      url: '../cart/creatOrder/creatOrder?oldcart=' + JSON.stringify(oldcart) + '&totalPrice=' + totalPrice,
+    })
+  }
 })
