@@ -1,0 +1,7 @@
+<!--pages/pay/pay.wxml-->
+<view class='layout'>
+  <view>
+    <view><icon type='success' size='130'></icon></view>
+    <view>支付成功</view>
+  </view>
+</view>

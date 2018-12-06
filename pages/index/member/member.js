@@ -1,4 +1,6 @@
 // pages/member/member.js
+const app = getApp();
+var pay = require('../../../utils/pay.js')
 Page({
 
   /**
@@ -17,7 +19,7 @@ Page({
   onLoad: function (options) {
     let that = this;
     wx.request({
-      url: 'http://192.168.10.110:8080/bookstore-mall/allmember',
+      url: 'http://localhost:8080/bookstore-mall/allmember',
       success:function(res){
         that.setData({
           memberInfo: res.data
@@ -25,7 +27,7 @@ Page({
       }
     })
     wx.request({
-      url: 'http://192.168.10.110:8080/bookstore-mall/memberrecord/1',
+      url: 'http://localhost:8080/bookstore-mall/memberrecord/1',
       success: function (res) {
         that.setData({
           recordList: res.data
@@ -98,29 +100,38 @@ Page({
   },
   playInterface:function(e){
     let that = this;
-    let m = e.currentTarget.dataset.item
-    // console.log(JSON.stringify(m))
-    wx.showModal({
-      title: '会员支付',
-      content: '确认支付' + m.memberMoney+'元',
-      success(res) {
-        if (res.confirm) {
-          wx.request({
-            url: 'http://192.168.10.110:8080/bookstore-mall/memberpay/1/' + m.memberId,
-            success:function(res){
-              wx.showToast({
-                title: res.data.msg,
-                icon:'none'
-              })
-            }
-          })
-        } else if (res.cancel) {
-          wx.showToast({
-            title: '取消支付',
-            icon:'none'
-          })
-        }
-      }
+    let m = e.currentTarget.dataset.item;
+    app.orderInfo.total_fee = m.memberMoney;
+    app.orderInfo.body = '会员支付'; 
+    app.orderInfo.detail = '购买会员服务';
+    app.orderInfo.out_trade_no = Date.parse(new Date()); 
+    pay.oreder(app.orderInfo,function(data){
+      wx.showToast({
+        title: data.return_msg,
+        icon:'none'
+      })
     })
+    // wx.showModal({
+    //   title: '会员支付',
+    //   content: '确认支付' + m.memberMoney+'元',
+    //   success(res) {    
+    //     if (res.confirm) {
+    //       wx.request({
+    //         url: 'http://localhost:8080/bookstore-mall/memberpay/1/' + m.memberId,
+    //         success:function(res){
+    //           wx.showToast({
+    //             title: res.data.msg,
+    //             icon:'none'
+    //           })
+    //         }
+    //       })
+    //     } else if (res.cancel) {
+    //       wx.showToast({
+    //         title: '取消支付',
+    //         icon:'none'
+    //       })
+    //     }
+    //   }
+    // })
   }
 })

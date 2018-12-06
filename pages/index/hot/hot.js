@@ -17,7 +17,7 @@ Page({
   onLoad: function (options) {
     let that = this;
     wx.request({
-      url: 'http://192.168.10.110:8080/bookstore-mall/1/findhotbook',
+      url: 'http://localhost:8080/bookstore-mall/1/findhotbook',
       success:function(res){
         that.setData({
           list:res.data
@@ -68,7 +68,7 @@ Page({
     let that = this;
     that.data.loadingpageNum += 1;
     wx.request({
-      url: 'http://192.168.10.110:8080/bookstore-mall/'+that.data.loadingpageNum+'/findhotbook',
+      url: 'http://localhost:8080/bookstore-mall/'+that.data.loadingpageNum+'/findhotbook',
       success:function(res){
         let searchList = [];
         if (res.data.length != 0) {

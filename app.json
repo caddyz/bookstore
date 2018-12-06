@@ -8,6 +8,7 @@
 
     "pages/person/person",
 
+    "pages/pay/pay",
     "pages/index/more/more",
     "pages/index/favorite/favorite",
     "pages/index/comment/comment",

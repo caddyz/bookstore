@@ -31,7 +31,7 @@ const formatTimes = date => {
 // 分页查询
 function getSearchBook(pageNum, callback) {
   wx.request({
-    url: 'http://192.168.10.110:8080/bookstore-mall/' + pageNum + '/find',
+    url: 'http://localhost:8080/bookstore-mall/' + pageNum + '/find',
     header: {
       'content-type': 'application/json' // 默认值
     },
@@ -48,7 +48,7 @@ function getSearchBook(pageNum, callback) {
 // 关键字查询
 function getKeywordSearch(keyword, pageNum, callback) {
   wx.request({
-    url: 'http://192.168.10.110:8080/bookstore-mall/' + keyword + '/' + pageNum + '/keyword',
+    url: 'http://localhost:8080/bookstore-mall/' + keyword + '/' + pageNum + '/keyword',
     header: { 'content-type': 'application/json' },
     method: 'GET',
     success: function (res) {
@@ -62,7 +62,7 @@ function getKeywordSearch(keyword, pageNum, callback) {
 // 登陆
 function getUserSearch(phone, password, callback) {
   wx.request({
-    url: 'http://192.168.10.110:8080/bookstore-mall/' + phone + '/' + password + '/findUser',
+    url: 'http://localhost:8080/bookstore-mall/' + phone + '/' + password + '/findUser',
     header: { 'content-type': 'application/json' },
     method: 'GET',
     success: function (res) {

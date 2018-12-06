@@ -16,7 +16,7 @@ Page({
   onLoad: function (options) {
     let that = this;
     wx.request({
-      url: 'http://192.168.10.110:8080/bookstore-mall/findcoupon/3',
+      url: 'http://localhost:8080/bookstore-mall/findcoupon/3',
       success:function(res){
         that.setData({
           list:res.data
@@ -78,7 +78,7 @@ Page({
     let index = e.currentTarget.dataset.index;
     let couponId = that.data.list[index].couponId;
     wx.request({
-      url: 'http://192.168.10.110:8080/bookstore-mall/getCoupon/3/'+couponId,
+      url: 'http://localhost:8080/bookstore-mall/getCoupon/3/'+couponId,
       success:function(res){
         that.setData({
           msg:res.data

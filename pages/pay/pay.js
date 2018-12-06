@@ -1,5 +1,4 @@
-// pages/index/discount/discount.js
-var pay = require('../../../utils/pay.js')
+// pages/pay/pay.js
 Page({
 
   /**
@@ -63,8 +62,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-  click:function(){
-    pay.oreder()
   }
 })

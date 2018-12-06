@@ -1,9 +1,25 @@
 //app.js
 var scence=0;
 App({
+  orderInfo:[
+    {openid:''},
+    {spbill_create_ip:''},
+    {body:''},
+    {detail:''},
+    {out_trade_no: ''},
+    {total_fee:''}],
   code:null,
   payinfo:null,
   onLaunch: function () {
+    let that = this;
+    //获取本机的IP地址
+    wx.request({
+      url: 'http://ip-api.com/json/',
+      success(res){
+        // console.log("本机IP地址：" + res.data.query)
+        that.orderInfo.spbill_create_ip = res.data.query
+      }
+    })
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
@@ -12,10 +28,11 @@ App({
     wx.login({
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
       success(res) {
+        console.log("code:"+res.code)
         if (res.code) {
           //发起网络请求
           wx.request({
-            url: 'https://192.168.10.110/bookstore-mall/getopenid',//传送路径
+            url: 'https://localhost:8080/bookstore-mall/getopenid',//传送路径
             data: {
               code: res.code
             },
@@ -24,7 +41,8 @@ App({
               'content-type': 'application/x-www-form-urlencoded' 
             },
             success(res) {
-              payinfo:res.data
+              payinfo:res.data,
+              this.orderInfo.openid=res.data.openid
             }
           })
         } else {

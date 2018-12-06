@@ -17,7 +17,7 @@ Page({
     let that = this;
     
     wx.request({
-      url: 'http://192.168.10.110:8080/bookstore-mall/1/comment',
+      url: 'http://localhost:8080/bookstore-mall/1/comment',
       success:function(res){
         if(res.data.length != 0){
           that.setData({
@@ -103,7 +103,7 @@ Page({
     let bookjson = d.substr(1, d.length-2);
     console.log(JSON.parse(bookjson).bookId)
     wx.request({
-      url: 'http://192.168.10.110:8080/bookstore-mall/deletecomment/1/'+JSON.parse(bookjson).bookId,
+      url: 'http://localhost:8080/bookstore-mall/deletecomment/1/'+JSON.parse(bookjson).bookId,
       header: { 'content-type': 'application/json' },
       success: function (res) {
         listData.splice(index, 1);

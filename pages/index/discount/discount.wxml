@@ -1,2 +1,4 @@
 <!--pages/index/discount/discount.wxml-->
 <text>pages/index/discount/discount.wxml</text>
+
+<button bindtap='click'>点击</button>

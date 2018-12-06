@@ -17,7 +17,7 @@ Page({
     let listData = that.data.list;
     let index = e.currentTarget.dataset.index;//获取下标
     wx.request({
-      url: 'http://192.168.10.110:8080/bookstore-mall/delete/2/' + listData[index].bookId,
+      url: 'http://localhost:8080/bookstore-mall/delete/2/' + listData[index].bookId,
       header: { 'content-type': 'application/json' },
       success: function (res){
         listData.splice(index, 1);
@@ -50,7 +50,7 @@ Page({
   onLoad: function (options) {
     let that = this;
     wx.request({
-      url: 'http://192.168.10.110:8080/bookstore-mall/2/favorite',
+      url: 'http://localhost:8080/bookstore-mall/2/favorite',
       header: { 'content-type': 'application/json' },
       success: function (res) {
         if(res.data.length!=0){
