@@ -13,6 +13,21 @@ const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
 }
+//获得年月日的方法
+const formatDate = date =>{
+  const year = date.getFullYear()
+  const month = date.getMonth() + 1
+  const day = date.getDate()
+  return [year, month, day].map(formatNumber).join('-')
+}
+//获得时间的方法
+const formatTimes = date => {
+  const hour = date.getHours()
+  const minute = date.getMinutes()
+  const second = date.getSeconds()
+  return [hour, minute, second].map(formatNumber).join(':')
+}
+
 // 分页查询
 function getSearchBook(pageNum, callback) {
   wx.request({
@@ -87,6 +102,8 @@ function getSelectClassifyBookByIdSearch(bookId, callback) {
 }
 
 module.exports = {
+	formatTimes: formatTimes,
+  formatDate: formatDate,
   formatTime: formatTime,
   getSearchBook: getSearchBook,
   getKeywordSearch: getKeywordSearch,
