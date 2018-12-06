@@ -36,7 +36,7 @@
     "pages/person/userSaleRecord/userSaleRecord",
     "pages/person/myEvaluate/myEvaluate",
 	  "pages/person/orderDetail/orderDetails",
-    "pages/cart/creatCart/creatCart"
+   "pages/cart/creatOrder/creatOrder"
   ],
     
   "window":{
