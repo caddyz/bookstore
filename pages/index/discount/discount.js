@@ -1,19 +1,26 @@
 // pages/index/discount/discount.js
-var pay = require('../../../utils/pay.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    list:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let that = this;
+    wx.request({
+      url: 'http://localhost:8080/bookstore-mall/alldiscount',
+      success(res){
+        that.setData({
+          list:res.data
+        })
+      }
+    })
   },
 
   /**
@@ -64,7 +71,10 @@ Page({
   onShareAppMessage: function () {
 
   },
-  click:function(){
-    pay.oreder()
+  SkipDetail:function(e){
+    wx.navigateTo({
+      url: '/pages/classify/detail/detail?bookId='
+        + JSON.stringify(e.currentTarget.dataset.item.bookId),
+    })
   }
 })

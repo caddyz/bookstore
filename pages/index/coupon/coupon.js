@@ -16,7 +16,7 @@ Page({
   onLoad: function (options) {
     let that = this;
     wx.request({
-      url: 'http://localhost:8080/bookstore-mall/findcoupon/3',
+      url: 'http://localhost:8080/bookstore-mall/findcoupon/通用型',
       success:function(res){
         that.setData({
           list:res.data

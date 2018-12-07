@@ -13,7 +13,7 @@
                disabled='true' ></input>
             </block>
           </view>
-          <input type='text' class='book-info-price' value='{{item.bookSalesPrice}}' 
+          <input type='text' class='book-info-price' value='￥{{item.bookSalesPrice}}' 
           disabled='true'></input>
         </button>
 </template>
