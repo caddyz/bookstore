@@ -106,7 +106,7 @@ Page({
     app.orderInfo.detail = '购买会员服务';
     app.orderInfo.out_trade_no = Date.parse(new Date()); 
     // console.log(app.orderInfo)
-    pay.oreder(app.orderInfo,function(data){
+    pay.payOreder(app.orderInfo,function(data){
       wx.showToast({
         title: data.return_msg,
         icon:'none'
