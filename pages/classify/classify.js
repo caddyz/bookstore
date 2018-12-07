@@ -1,59 +1,62 @@
 var util = require('../../utils/util.js')
+import templates from '../template/bookinfoTemplate'
 var app = getApp()
 Page({
   data: {
-    books: [{
-      bookId: '',
-      bookCategory:[],
-      ishaveChild: true,
-      children:[
-        {
-          bookId:'',
-          bookName:'',
-          image:[],
-        }
-      ]
-    }
-    ],
-    curNum: 1,
-    curIndex: 1
+    booksLeft: [],
+    booksRight:[],
+    curIndex: 0,
   },
-
-
-
-  //事件处理函数  
   switchRightTab: function (e) {
-    // 获取item项的id，和数组的下标值  
-    let id = e.target.dataset.id,
-      index = parseInt(e.target.dataset.index);
+    let list = this.data.booksLeft;
+    let index = e.target.dataset.index;
+    let that = this
+    var id = e.target.dataset.id
+    var bookCategory = list[index].bookCategory
+    console.log("点击的种类是：" + list[index].bookCategory)
+    wx.request({
+      url: 'http://localhost:8080/bookstore-mall/' + bookCategory + '/allBook',
+      data: {
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          booksRight: res.data //设置数据
+        })
+      },
+      fail: function (err) {
+        console.log(err)
+      }
+    })
     // 把点击到的某一项，设为当前index  
     this.setData({
-      curNum: id,
-      curIndex: index
+      curIndex: index,
     })
   },
+
+
   // 跳转
-  items: function (e) {
-    var that = this;
-    var bookCategory = e.currentTarget.dataset.bookCategory
-    var bookName = e.currentTarget.dataset.bookName
-    var bookCoverImage = e.currentTarget.dataset.bookCoverImage
-    var bookId = e.currentTarget.dataset.id
-    console.log('查询数据 :' + bookId);
+  alljump: function (e) {
+    // e.target.dateset 来获取属性值
+    let bookId = e.currentTarget.dataset.item.bookId
+    console.log("点击的书ID是：" + JSON.stringify(bookId))
     wx.navigateTo({
       url: '/pages/classify/detail/detail?bookId=' + bookId,
     })
   },
+
  
   /**
      * 生命周期函数--监听页面加载
      */
   onLoad: function (options) {
      // 数据起始加载
-     console.log("bookId:"+options.bookId)
     var that = this;
     wx.request({
-      url: 'http://localhost:8080/bookstore-mall/' + bookId + '/allContext',
+      url: 'http://localhost:8080/bookstore-mall/selectBook',
       data: {},
       header: {
         'content-type': 'application/json'
@@ -61,14 +64,29 @@ Page({
       success: function (res) {
         console.log(res.data)
         that.setData({
-          Industry: res.data //设置数据
+          booksLeft: res.data //设置数据
         })
       },
       fail: function (err) {
         console.log(err)
       }
     })
-
+    wx.request({
+      url: 'http://localhost:8080/bookstore-mall/selectAllBook',
+      data: {},
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          booksRight: res.data //设置数据
+        })
+      },
+      fail: function (err) {
+        console.log(err)
+      }
+    })
   },
 
   /**
@@ -116,35 +134,5 @@ Page({
   
 })
 
-// 图片上传
-// wx.chooseImage({
-//   count:1,
-//   sizeType:['original','compressed'],
-//   sourceType:['album','camera'],
-//   success:function(res){
-//     var tempFilePaths = res.tempFilePaths;
-//     wx.uploadFile({
-//       url: '',
-//       filePath: tempFilePaths[0],
-//       name: '',
-//       header:{
-//         'Context-type':'multipart/form-data',
-//         'accept':'application/json',
-//         'Authorization':'Bearer',
-//       },
-//     formData:{
-//       'user':'img'
-//     },
-//       success: function (res) {
-//         var data = res.data;
-//         console.log('data');
-//       },
-//       fail: function (res) {
-//         console.log('fail');
 
-//       },
-
-//     })
-//   }
-// })
 

@@ -24,6 +24,7 @@ js文件中的data中imgUrls数组的数据，并直接将数组展开了。 -->
 <scroll-view scroll-y="true">
   <!-- 循环遍历 -->
     <block wx:for="{{list}}">
+        <text> \n </text>
   <view class="detail" bindtap='allSelect' data-item='{{item}}'>
   书名:<input type='text' class='book-name' value='{{item.bookName}}' 
           disabled='true'></input>
@@ -39,8 +40,8 @@ js文件中的data中imgUrls数组的数据，并直接将数组展开了。 -->
           disabled='true'></input>
     库存:<input type='text' class='book-sales' value='{{item.stockSales}}' 
           disabled='true'></input>
-    简介:<input type='text' class='book-profile' value='{{item.bookProfile}}' 
-          disabled='true'></input>
+    简介:<textarea bindblur="bindTextAreaBlur" class='book-profile'
+     value='{{item.bookProfile}}' disabled='true'/>
   </view>
     </block>
   <view class="separate"></view>
@@ -61,21 +62,20 @@ js文件中的data中imgUrls数组的数据，并直接将数组展开了。 -->
 <!-- 空行 -->
 <text> \n </text>
 <text> \n </text>
-  <text>商品评价</text>
+  <block wx:for="{{item}}">
+        <text> \n </text>
+  <view class="detail" data-item='{{item}}'>
+评论:<input type='text' class='comment-content' value='{{item.commentContent}}' 
+          disabled='true'></input>
+  </view>
+    </block>
   <!-- 表单 -->
 <form bindsubmit="formSubmit">
 <input type="text" name="liuyantext" placeholder='输入留言内容' class="input-style"/>
 <button formType="submit" class="btn" >留言</button>
 </form>
 
-
   <view class="separate"></view>
-
-
-  <text></text>
-  <block wx:for-items="{{detailImg}}" wx:key="name">
-    <image class="image_detail" src="{{item}}" />
-  </block>
   <view class="temp"></view>
 </scroll-view>
 </view>

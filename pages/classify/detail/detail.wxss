@@ -40,7 +40,7 @@ swiper-item image {
 /* 设置作者 */
 .detail .book-author{
   color: rgb(27, 184, 40);
-  font-size: 30rpx;
+  font-size: 40rpx;
    margin: 10rpx;
 }
 /* 设置销量 */
@@ -58,18 +58,18 @@ swiper-item image {
 /* 设置商品详情 */
 .detail .book-profile{
   color: yellow;
-  font-size: 30rpx;
+  font-size: 36rpx;
    margin: 10rpx;
 }
 /* 设置出版社 */
 .detail .book-publish{
   color: rebeccapurple;
-  font-size: 30rpx;
+  font-size: 40rpx;
    margin: 10rpx;
 }
 /* 设置种类 */
 .detail .book-cotegory{
-  font-size: 30rpx;
+  font-size: 40rpx;
    margin: 10rpx;
    color: goldenrod;
 }
@@ -168,9 +168,9 @@ color: green
 }
 
 /* 设置背景图片 */
- .main{
+ /* .main{
   background: url("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2284682437,2665896982&fm=26&gp=0.jpg");
   
-}
+} */
 
 

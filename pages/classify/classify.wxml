@@ -4,29 +4,32 @@
 <view class="container">
   <!--左边侧栏-->
   <view class="num_left">
-    <block wx:for="{{books}}">
+    <block wx:for="{{booksLeft}}" wx:key="id">
       <!--当前项的id等于item项的id-->
-      <!--用data-index记录这个数据在数组的下标位置，使用data-id设置每个item的id值，
+      <!--用data-index记录这个数据在数组的下标位置
       供打开2级页面使用-->
-      <view class="num_left_items {{curNum == item.bookId ? 'active' : ''}}" 
-            bindtap="switchRightTab" data-index="{{index}}" 
-            data-id="{{item.bookId}}">{{item.bookCategory}}
-      </view>
+      <view class="num_left_items" bindtap="switchRightTab" data-index="{{index}}" 
+      data-id="{{item.id}}">{{item.bookCategory}}</view>  
     </block>
   </view>
   <!--右边侧栏-->
   <view class="num_right">
     <!--如果有数据，就遍历项-->
-    <view wx:if="{{books[curIndex].ishaveChild}}">
-      <block wx:for="{{books[curIndex].children}}" wx:key="id">
-        <view class="num_right_items" bindtap='items' data-id="{{index}}">
-        <!--界面跳转 -->
-            <image src="{{item.image}}"></image>
-            <text>{{item.name}}</text>
-        </view>
+      <block wx:for="{{booksRight}}">
+        <button class="num_right_items" bindtap='alljump'  data-item='{{item}}'>
+          <view class='bookpic' >
+            <image src='http://images.bookstore.com/{{item.bookCoverImage}}' mode='scaleToFill'
+              style="width: 100%; height: 100%;background-color: #eeeeee;">
+            </image> 
+          </view>
+          <input type='text' class='book-name' value='{{item.bookName}}' 
+          disabled='true'></input>
+          <view class='author-info'>
+          </view>
+          <input type='text' class='book-price' value='{{item.bookSalesPrice}}' 
+          disabled='true'></input>
+        </button>
       </block>
-    </view>
-    <!--如果无数据，则显示-->
-    <view class="nodata_text" wx:else>该分类暂无数据</view>
   </view>
 </view>
+

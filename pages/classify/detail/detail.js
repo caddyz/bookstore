@@ -4,18 +4,19 @@ Page({
   data:{
     imgUrls: [
       //图片的地址
-      "http://file2.rrxh5.cc/g2/c1/2017/09/07/1504777332491.png",
-      "http://img.zcool.cn/community/014565554b3814000001bf7232251d.jpg@1280w_1l_2o_100sh.png"
+    "http://img.zcool.cn/community/014565554b3814000001bf7232251d.jpg@1280w_1l_2o_100sh.png"
     ],
     indicatorDots: true, //是否显示指示点
     autoplay: true, //是否自动切换
     interval: 3000, //自动切换时间间隔
     duration: 1000, //  滑动动画时长
-    list: [],
-    isCollected: false,
+    list: [],//动态页面
+    item:[],
+    isCollected: false,//收藏
     // banner
     // 加减框
     // input默认是1
+    minusStatus:'disabled',//预览退出
     num: 1,
     // 使用data数据对象设置样式名
   },
@@ -168,7 +169,6 @@ Page({
       num: num
     });
   },
-  
 
   
 
@@ -176,16 +176,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
-    console.log('传入的数据'+options.bookId)
+    console.log('传入的数据' + options.bookId)
 
    var that = this;
    
    wx.request({
      url: 'http://localhost:8080/bookstore-mall/' + options.bookId+'/allContext',
-     data:{
-       bookName:'bookName',
-     },
+     data:{},
      header:{
        'content-type':'application/json'
      },
@@ -197,11 +194,27 @@ Page({
       },
       fail: function (err) {
         console.log(err)
+     }
+    })
+    wx.request({
+      url: 'http://localhost:8080/bookstore-mall/' + options.bookId + '/allContext/kindAll',
+      data: {},
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          item: res.data //设置数据
+        })
+      },
+      fail: function (err) {
+        console.log(err)
       }
     })
-
   },
-
+  
+  
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -213,7 +226,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    
   },
 
   /**
