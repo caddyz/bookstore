@@ -28,21 +28,14 @@ App({
     wx.login({
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
       success(res) {
-        console.log("code:"+res.code)
+        // console.log("code:"+res.code)
         if (res.code) {
           //发起网络请求
           wx.request({
-            url: 'https://localhost:8080/bookstore-mall/getopenid',//传送路径
-            data: {
-              code: res.code
-            },
-            method: 'POST',
-            header: {
-              'content-type': 'application/x-www-form-urlencoded' 
-            },
+            url: 'http://localhost:8080/bookstore-mall/getopenid/'+res.code,//传送路径
             success(res) {
               payinfo:res.data,
-              this.orderInfo.openid=res.data.openid
+              that.orderInfo.openid=res.data.openid
             }
           })
         } else {

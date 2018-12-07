@@ -25,6 +25,8 @@ function oreder(orderInfo,callback){
              callback(res.data)
           }
         })
+      }else{
+        callback(res.data)
       }
     },
     fail(res){
