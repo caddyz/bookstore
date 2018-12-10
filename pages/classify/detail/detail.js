@@ -36,10 +36,16 @@ Page({
     this.setData({
       isCollected
     })
+    if (app.globalData.userInfo == null) {
+      wx.navigateTo({
+        url: '/pages/login/login',
+      })
+    } else {
     wx.showToast({
       title: isCollected ? '收藏成功' : '取消收藏',
       icon: 'success'
     });
+    }
   },
 
 
@@ -107,9 +113,15 @@ Page({
 
   // 立即购买,跳转到购物车结算
   nowBuy() {
+    if (app.globalData.userInfo == null) {
+      wx.navigateTo({
+        url: '/pages/login/login',
+      })
+    } else {
     wx.switchTab({
       url: '/pages/cart/cart'
     })
+    }
   },
 
   /**

@@ -1,4 +1,5 @@
 // pages/cart/cart.js
+var app=getApp()
 Page({
   data: {
     iscart: false,//是否在购物车中
@@ -278,6 +279,11 @@ getTotalPrice() {
     let carts = this.data.cart; 
     let newcart=[];//未选中结算的
     let oldcart=[];//选中结算的
+    if (app.globalData.userInfo == null) {
+      wx.navigateTo({
+        url: '/pages/login/login',
+      })
+    } else {
     wx.showModal({
       title: '提示',
       content: '是否结算？',
@@ -322,6 +328,7 @@ getTotalPrice() {
         }
       }
     })
+    }
   },
   //商品详细信息介绍界面
   toBookDetail(e){

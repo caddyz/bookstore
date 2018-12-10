@@ -90,25 +90,49 @@ Page({
   },
   //分类区事件
   // 跳转函数
-  favoriteSkip:function(){
-    wx.navigateTo({
-      url: '/pages/index/favorite/favorite',
-    })
+  favoriteSkip: function () {
+    if (app.globalData.userInfo == null) {
+      wx.navigateTo({
+        url: '/pages/login/login',
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/index/favorite/favorite',
+      })
+    }
   },
   commentSkip: function () {
-    wx.navigateTo({
-      url: '/pages/index/comment/comment',
-    })
+    if (app.globalData.userInfo == null) {
+      wx.navigateTo({
+        url: '/pages/login/login',
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/index/comment/comment',
+      })
+    }
   },
   messageSkip: function () {
-    wx.navigateTo({
-      url: '/pages/index/message/message',
-    })
+    if (app.globalData.userInfo == null) {
+      wx.navigateTo({
+        url: '/pages/login/login',
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/index/message/message',
+      })
+    }
   },
   vipSkip: function () {
-    wx.navigateTo({
-      url: '/pages/index/member/member',
-    })
+    if (app.globalData.userInfo == null) {
+      wx.navigateTo({
+        url: '/pages/login/login',
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/index/member/member',
+      })
+    }
   },
   hotSkip: function () {
     wx.navigateTo({
