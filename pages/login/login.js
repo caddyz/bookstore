@@ -70,7 +70,7 @@ Page({
     //发送ajax请求到服务器-登录
     wx.request({
       //开发者服务器接口地址
-      url: 'http://localhost:8080/bookstore-mall/' + phone + '/' + password + '/findUser',
+      url: app.URL+'bookstore-mall/' + phone + '/' + password + '/findUser',
       //请求的参数
       data: {
         phone:phone,
