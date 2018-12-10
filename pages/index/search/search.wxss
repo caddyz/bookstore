@@ -1,5 +1,18 @@
 /* pages/search/search.wxss */
 @import "../../template/bookinfoTemplate.wxss";
+.de-layout{
+  display: flex;
+  flex-direction: row
+} 
+.searchcion{
+  position: absolute;
+  margin-top: 13rpx;
+  margin-left: 20rpx
+}
+.searchValue{
+  position: absolute;
+  margin-left: 45rpx;
+}   
 .bi-tr{
   display: flex;
   flex-direction: row;
@@ -11,4 +24,43 @@
   width: 35%;
   height: 430rpx;
   margin-left: 30rpx;
+}
+.top-search{
+  margin: 0 auto;
+  text-align: center;
+  width: 80%;
+  border-radius: 30rpx;
+  background-color: #F7F7F7
+}
+.top{
+  margin: 0 auto;
+  display: flex;
+  flex-flow: row;
+  width: 90%;
+  height: 60rpx;
+}
+.text{
+  width: 30%;
+  text-align: center;  
+  background-color: #7FFFD4;
+  border-radius: 230rpx;
+}
+
+ .liclass { 
+ font-size: 14px; 
+ line-height: 34px; 
+ color: #575757; 
+ height: 34px; 
+ display: block; 
+ padding-left: 18px; 
+ background-color: #fff; 
+ border-bottom: 1px solid #dbdbdb; 
+}
+.hi_layout{
+  width: 90%;
+  margin: 0 auto;
+}
+.clearHi{
+  text-align:center;
+  font-size:36rpx;
 }

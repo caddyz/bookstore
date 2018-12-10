@@ -75,3 +75,12 @@
   height: 430rpx;
   margin-left: 30rpx;
 }
+.goTop{
+  height: 80rpx;
+  width: 80rpx;
+  position: fixed;
+  bottom: 50rpx;
+  background: rgba(252, 252, 252, 0.3);
+  right: 30rpx;
+  border-radius: 50%;
+}

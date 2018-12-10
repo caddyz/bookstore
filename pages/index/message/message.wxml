@@ -1,6 +1,6 @@
 <!--pages/message/message.wxml-->
 <button  class='message-button' bindtap="messageSkip0">欢迎来到bookstore商场</button>
-<block wx:for="{{list}}">
+<block wx:for="{{list}}" wx:key=''>
   <view style='height:28rpx'></view>
   <button class='message-button' data-index="{{index}}" bindtap="messageSkip">{{item.text}}</button>
 </block>

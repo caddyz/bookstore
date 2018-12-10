@@ -1,2 +1,22 @@
 <!--pages/find/find.wxml-->
-<text>pages/find/find.wxml</text>
+<view class='enevt-planning'>
+  <swiper indicator-dots="{{indicatorDots}}" circular='true' current='{{swiperCurrent}}' bindchange='swiperChange' autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+    <block wx:for="{{imgUrls}}" wx:key="index">
+      <swiper-item>
+          <image src="{{item}}" mode='scaleToFill' bindtap='swiperClick'></image>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+<view style='height:84rpx'></view>
+<block wx:for="{{list}}" wx:key="index">
+  <view bindtap='findSkip' data-index='{{index}}' >
+    <view class='i-layout'>
+      <view>
+        <view>{{item.dec}}</view>
+        <view><image src="{{item.img}}" mode='scaleToFill'></image></view>
+      </view>
+    </view>
+      <view style='height:48rpx;'></view>
+  </view>
+</block>

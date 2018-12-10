@@ -45,11 +45,12 @@ Page({
       wx.stopPullDownRefresh() //停止下拉刷新
     }, 150);
   },
+  //上拉事件
   onReachBottom: function () {
     let that = this;
     that.data.loadingpageNum += 1;
     util.getSearchBook(that.data.loadingpageNum, function (data) {
-      console.log("data长度：" + data.length);
+      // console.log("data长度：" + data.length);
       let searchList = [];
       if (data.length!= 0) {
         searchList = that.data.list.concat(data);
@@ -89,48 +90,24 @@ Page({
   //分类区事件
   // 跳转函数
   favoriteSkip:function(){
-    if (app.globalData.userInfo==null){
-      wx.navigateTo({
-        url: '/pages/login/login',
-      })
-    }else{
-      wx.navigateTo({
-        url: '/pages/index/favorite/favorite',
-      })
-    }
+    wx.navigateTo({
+      url: '/pages/index/favorite/favorite',
+    })
   },
   commentSkip: function () {
-    if (app.globalData.userInfo == null) {
-      wx.navigateTo({
-        url: '/pages/login/login',
-      })
-    } else {
     wx.navigateTo({
       url: '/pages/index/comment/comment',
     })
-    }
   },
   messageSkip: function () {
-    if (app.globalData.userInfo == null) {
-      wx.navigateTo({
-        url: '/pages/login/login',
-      })
-    } else {
     wx.navigateTo({
       url: '/pages/index/message/message',
     })
-    }
   },
   vipSkip: function () {
-    if (app.globalData.userInfo == null) {
-      wx.navigateTo({
-        url: '/pages/login/login',
-      })
-    } else {
     wx.navigateTo({
       url: '/pages/index/member/member',
     })
-    }
   },
   hotSkip: function () {
     wx.navigateTo({
@@ -142,16 +119,55 @@ Page({
       url: '/pages/index/help/help',
     })
   },
-  
-  //搜索区域事件
-  homepageSearch:function(e){
-    this.data.seekValue = e.detail.value
+  //搜索跳转
+  searchSkip:function(){
     wx.navigateTo({
-      url: '/pages/index/search/search?seekValue=' + this.data.seekValue,
+      url: './search/search',
     })
   },
+  // //搜索区域事件
+  // homepageSearch:function(e){
+  //   if (e.detail.value == "" || e.detail.value==null){
+  //     wx.showToast({
+  //       title: '你什么都没有输入',
+  //       icon:'none'
+  //     })
+  //   }else{
+  //     this.data.seekValue = e.detail.value
+  //     wx.navigateTo({
+  //       url: '/pages/index/search/search?seekValue=' + this.data.seekValue,
+  //     })
+  //   }
+  // },
   //模板点击事件
   itemclick(event) {
     templates.onclick(event)
-  }
+  },
+  // 获取滚动条当前位置
+  onPageScroll: function (e) {
+    if (e.scrollTop > 400) {
+      this.setData({
+        floorstatus: true
+      });
+    } else {
+      this.setData({
+        floorstatus: false
+      });
+    }
+  },
+
+  //回到顶部
+  goTop: function (e) {  // 一键回到顶部
+    if (wx.pageScrollTo) {
+      wx.pageScrollTo({
+        scrollTop: 0,
+        duration: 0
+      })
+    } else {
+      wx.showModal({
+        title: '提示',
+        content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。'
+      })
+    }
+  },
 })

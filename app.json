@@ -4,6 +4,10 @@
     "pages/classify/classify",
     "pages/classify/detail/detail",
     "pages/find/find",
+	"pages/find/slideshow/love0",
+    "pages/find/slideshow/love1",
+    "pages/find/slideshow/love2",
+    "pages/find/slideshow/love",
     "pages/cart/cart",
 
     "pages/person/person",

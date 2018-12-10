@@ -1,0 +1,2 @@
+<!--pages/find/slideshow/love.wxml-->
+<web-view src="{{src}}"></web-view>

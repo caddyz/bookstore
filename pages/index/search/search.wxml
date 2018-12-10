@@ -1,4 +1,29 @@
 <!--pages/search/search.wxml-->
+<view class='top'>
+  <view class='top-search'>
+    <view class='de-layout'>
+      <icon class="searchcion" size='18' type='search'></icon> 
+      <input class='searchValue' placeholder="{{controllerVo}}"     
+        confirm-type='search' bindfocus="input" bindinput='getValue' value='{{value}}'></input>
+      </view>
+  </view>
+  <view class='text' bindtap='search'>搜索</view>
+</view>
+<view style='height:20rpx;'></view>
+<view class='hi_layout' hidden='{{controllerHi}}'>
+  <view style='text-align:center;font-size:36rpx;background-color: #F7F7F7;color:#707070'>历史记录</view>
+  <view wx:for="{{serachHistory}}" wx:key="">
+      <view class="liclass" style="color:#9E9E9E;border-bottom:0;font-size:26rpx;"    
+        bindtap="tapSercherStorage" data-item='{{item}}'>
+        <text style="width:100rpx">{{item}}</text>
+      </view>
+  </view>
+  <view wx:if="{{serachHistory.length!==0}}" class='clearHi' bindtap="clearSearchStorage">
+      <text style='font-size:36rpx;color:#C6E2FF'>清除历史记录</text>
+</view>
+</view>
+
+<view style='height:80rpx'></view>       
 <import src='../../template/bookinfoTemplate'/>
 <view class='bi-tr'>
       <block wx:for="{{list}}" wx:key="">

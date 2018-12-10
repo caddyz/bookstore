@@ -7,37 +7,112 @@ Page({
    * 页面的初始数据
    */
   data: {
-    seekValue:null,
+    value:'',
+    controllerHi: true,
+    controllerVo: '请输入作者/书名',
+    seekValue:'',
     loadingpageNum: 1,
-    searchLoading: true,
+    searchLoading: false,
     searchLoadingComplete: false,
-    list:[]
+    list:[],
+    serachHistory:[],
+    historyCro:true
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
+  //修改默认值
+  input:function(){
+    this.setData({
+      controllerVo:'',
+      controllerHi:false,
+    })
+  },
+  //获取input的值
+  getValue:function(e){
+    this.setData({
+      seekValue:e.detail.value
+    })
+  },
+  //将选中的历史绑定到搜索框
+  tapSercherStorage:function(e){
+    let va = e.currentTarget.dataset.item;
+    // console.log(va)
+    this.setData({
+      value:va
+    })
+  },
+  //清除搜索历史
+  clearSearchStorage:function(){
+    this.setData({
+      serachHistory: []
+    })
+    wx.setStorageSync("serachHistory", [])
+  },
+  //搜索
+  search:function(){
     let that = this;
-    console.log("接收到的seekValue参数是：" + JSON.stringify(options.seekValue));
-    util.getKeywordSearch(options.seekValue,1,function(data){
-      console.log("关键字查询数据：" + JSON.stringify(data));
+    that.setData({
+      controllerHi: true
+    })
+    let keyword = that.data.seekValue;
+    let val = that.data.value
+    // console.log("获取到的值：" + keyword)
+    if((keyword==null||keyword=="")&&(val==null||val=="")){
+      wx.showToast({
+        title: '你神马都没有输！！！',
+        icon:'none'
+      })
+    }else{
+      keyword = val
+      util.getKeywordSearch(keyword,1,function(data){
       if(data.length < 10){
         that.setData({
           searchLoadingComplete: true,
           searchLoading: false,
           list:data,
-          seekValue: options.seekValue
+          seekValue: keyword,          
         })
       } else{
         that.setData({
           searchLoadingComplete: false,
           searchLoading: true,
           list: data,
-          seekValue: options.seekValue
+          seekValue: keyword,
         })
       }
     })
+    }
+    if (!that.data.seekValue) {
+      return
+    }
+    let serachHistory = wx.getStorageSync("serachHistory") || [];
+    serachHistory.push(keyword)
+   //添加缓存:
+    wx.setStorageSync("serachHistory", serachHistory);
+    // console.log("serachHistory:" + that.data.serachHistory)
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    // let that = this;
+    // console.log("接收到的seekValue参数是：" + JSON.stringify(options.seekValue));
+    // util.getKeywordSearch(options.seekValue,1,function(data){
+    //   console.log("关键字查询数据：" + JSON.stringify(data));
+    //   if(data.length < 10){
+    //     that.setData({
+    //       searchLoadingComplete: true,
+    //       searchLoading: false,
+    //       list:data,
+    //       seekValue: options.seekValue
+    //     })
+    //   } else{
+    //     that.setData({
+    //       searchLoadingComplete: false,
+    //       searchLoading: true,
+    //       list: data,
+    //       seekValue: options.seekValue
+    //     })
+    //   }
+    // })
   },
 
   /**
@@ -51,7 +126,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({
+      serachHistory: wx.getStorageSync("serachHistory") || []
+    })
   },
 
   /**

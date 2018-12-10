@@ -5,10 +5,8 @@
   <view style='height:28rpx'></view>
   <!-- 头部查询 -->
   <view class='page-section'>
-    <view class='top-search'>
-      <input name='searchValue' placeholder='请输入要查询的书/作者' confirm-type='search'
-        bindconfirm='homepageSearch' ></input>        
-    </view>
+    <view class='top-search' bindtap='searchSkip'>
+      <input name='searchValue' placeholder='请输入要查询的书/作者' confirm-type='search'></input>         </view>
   </view>
   <!-- 轮播 -->
   <view class='page-section'>
@@ -73,3 +71,4 @@
   <view class="loading complete" hidden="{{!searchLoadingComplete}}">已经到底了...</view>
   </view>
 </view>
+<image src='../img/fold.png' class='goTop' hidden='{{!floorstatus}}' bindtap="goTop"></image>
