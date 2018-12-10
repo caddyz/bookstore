@@ -69,7 +69,7 @@ Page({
     })
     var username=that.data.username;
     var email = that.data.email;
-    var currentTime = that.data.currentTime //把手机号跟倒计时值变例成js值
+    var currentTime = that.data.currentTime //把邮箱验证码跟倒计时值变例成js值
     var warn = null; //warn为当手机号为空或格式不正确时提示用户的文字，默认为空
     wx.request({
       url: 'http://localhost:8080/bookstore-mall/' + email + '/' + username + '/searchPhone', //后端判断是否已被注册， 已被注册返回1 ，未被注册返回0

@@ -3,6 +3,8 @@ var app = getApp()
 Page({
   data: {
     userInfo: {},
+    username:'',//用户名
+    userId:'',//用户id
     motto: 'Hello World',
     list:'',
     newAddress:'',
@@ -64,28 +66,73 @@ Page({
       url: '../person/myEvaluate/myEvaluate',
     })
   },
-  onLoad: function () {
-    //  console.log('onLoad')
-    // wx.navigateTo({
-    //   url: "/pages/login/login"
-    // })
-    var that = this
-    //调用应用实例的方法获取全局数据
-    wx.getUserInfo(function (userinfo) {
-      //更新数据
-      that.setData({
-        userInfo: userInfo
-      })
-    })
+
+  onLoad: function (options) {  
+    
   },
-  getUserInfo: function (e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
-  },
+  // onLoad:function(){
+    
+  //   wx.navigateTo({
+  //     url: '/pages/login/login',
+  //     success:function(res){
+      
+  //     }
+  //   });
+    onShow:function(){
+      var that=this;
+      let info = app.globalData.userInfo;
+      console.log("info:" + JSON.stringify(info));
+      if (info == null) {
+        wx.showModal({
+          title: '提示',
+          content: '是否登陆',
+          success(res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+              wx.navigateTo({
+                url: "/pages/login/login"
+              })
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+              wx.switchTab({
+                url: '/pages/index/index',
+              })
+            }
+          }
+        })
+        
+      } else {
+        //调用应用实例的方法获取全局数据
+        //更新数据
+        that.setData({
+          username: app.globalData.userInfo.username,
+          userId:app.globalData.userInfo.id
+        })
+      }
+    },
+  // },
+  // onShow:function(){
+  //   wx.checkSession({
+  //     success: function () {
+  //       //session_key 未过期，并且在本生命周期一直有效
+  //       return;
+  //     },
+  //     fail: function () {
+  //       // session_key 已经失效，需要重新执行登录流程
+  //       wx.navigateTo({
+  //         url: "/pages/login/login"
+  //       })
+  //     }
+  //   })    
+  // },
+  // getUserInfo: function (e) {
+  //   console.log(e)
+  //   app.globalData.userInfo = e.detail.userInfo
+  //   this.setData({
+  //     userInfo: e.detail.userInfo,
+  //     hasUserInfo: true
+  //   })
+  // },
   // 链接测试
   houduanButton1: function () {
     var that = this;
@@ -118,5 +165,4 @@ Page({
       }
     })
   }
-
 })

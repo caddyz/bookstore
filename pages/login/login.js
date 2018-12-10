@@ -6,7 +6,7 @@ Page({
   data: {
     phone: '',
     password: '',
-    user:'',
+    userInfo:'',
     message:''
   },
   // onLoad: function (options) {
@@ -98,11 +98,12 @@ Page({
           //console.log("成功")
           // 用于点击后改变页面信息或者刷新后与后台交互获取最新的信息
           that.setData({
-            user: res.data
+            userInfo: res.data
           });
           //信息正确,给userInfo赋值        
-          console.log("user"+that.data.user.id);
-          app.globalData.user = { user: that.data.user };
+          console.log("userInfo"+that.data.userInfo.username);
+          app.globalData.userInfo = that.data.userInfo;
+          console.log("用户名" + app.globalData.userInfo.username);
           //返回上一页 上一页的跳转只能用wx.navigateTo
           wx.navigateBack({
             delta: 1
