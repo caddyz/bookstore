@@ -11,7 +11,7 @@ interval="{{interval}}" duration="{{duration}}">
 
 <!-- 这里的<block>标签是用来组织代码的，wx:for="{{imgUrls}} 相当于绑定了.
 js文件中的data中imgUrls数组的数据，并直接将数组展开了。 -->
-
+  <!-- bindtap="previewImage"，图片预览功能 -->
 <block wx:for="{{imgUrls}}">
     <swiper-item>
       <image src="{{item}}" data-src="{{item}}" bindtap="previewImage"></image>
@@ -30,8 +30,15 @@ js文件中的data中imgUrls数组的数据，并直接将数组展开了。 -->
           disabled='true'></input>
    作者:<input type='text' class='book-author' value='{{item.authorName}}' 
           disabled='true'></input>
-   金额:<input type='text' class='book-price' value='{{item.bookSalesPrice}}' 
+   金额:<input type='text' class='book-price' value='￥{{item.bookSalesPrice}}' 
           disabled='true'></input>
+     <block wx:for="{{out}}">
+     <input type='text' class='activity-discount' value='折扣率:({{item.activityDiscount}})' disabled='true'></input>
+      <input type='text' class='activity-discountPrice' 
+value='打折后:({{item.discountPrice}})' disabled='true'></input>
+               <text> \n </text>
+    打折时间:  <input type='text' class='activity-date' value='({{item.activityStart}}~{{item.activityEnd}})' disabled='true'></input>
+            </block>
     种类:<input type='text' class='book-cotegory' value='{{item.bookCategory}}' 
           disabled='true'></input>
     出版社:<input type='text' class='book-publish' value='{{item.publishName}}' 
@@ -45,23 +52,6 @@ js文件中的data中imgUrls数组的数据，并直接将数组展开了。 -->
   </view>
     </block>
   <view class="separate"></view>
-  <!-- 规格(sku)选择 -->
-  <!-- bindtap=”previewImage”，图片预览功能 -->
-  <text bindtap="toggleDialog">请选择购买数量</text>
-  
-  
-  <view class="stepper">
-	<!-- 减号 -->
-	<text class="{{minusStatus}}" bindtap="bindMinus">-</text>
-	<!-- 数值 -->
-	<input type="number" bindchange="bindManual" value="{{num}}" />
-	<!-- 加号 -->
-	<text class="normal" bindtap="bindPlus">+</text>
-</view>
-
-<!-- 空行 -->
-<text> \n </text>
-<text> \n </text>
   <block wx:for="{{item}}">
         <text> \n </text>
   <view class="detail" data-item='{{item}}'>
@@ -81,9 +71,9 @@ js文件中的data中imgUrls数组的数据，并直接将数组展开了。 -->
 </view>
 <!-- 底部的悬浮栏 -->
 <view class="detail-nav">
-<image catchtap='handleCollection' wx:if='{{!isCollected}}' 
+<image bindtap='handleCollection' wx:if='{{!isCollected}}' data-item='{{item}}'
 src='https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3411382528,345291280&fm=26&gp=0.jpg'></image>
-<image catchtap='handleCollection' wx:if='{{isCollected}}' 
+<image bindtap='handleCollection' wx:if='{{isCollected}}' 
 src='https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=971562027,3284667727&fm=26&gp=0.jpg'></image>
   <button class="button-yellow" bindtap="addCar" formType="submit"
     data-goodid="1" >加入购物车</button>

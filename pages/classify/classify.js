@@ -4,7 +4,7 @@ var app = getApp()
 Page({
   data: {
     booksLeft: [],
-    booksRight:[],
+    booksRight: [],
     curIndex: 0,
   },
   switchRightTab: function (e) {
@@ -48,12 +48,12 @@ Page({
     })
   },
 
- 
+
   /**
      * 生命周期函数--监听页面加载
      */
   onLoad: function (options) {
-     // 数据起始加载
+    // 数据起始加载
     var that = this;
     wx.request({
       url: 'http://localhost:8080/bookstore-mall/selectBook',
@@ -131,7 +131,7 @@ Page({
 
   },
 
-  
+
 })
 
 

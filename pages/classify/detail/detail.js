@@ -11,14 +11,10 @@ Page({
     interval: 3000, //自动切换时间间隔
     duration: 1000, //  滑动动画时长
     list: [],//动态页面
-    item:[],
+    item:[],//显示所有书
+    out:[],//显示折扣
     isCollected: false,//收藏
-    // banner
-    // 加减框
-    // input默认是1
     minusStatus:'disabled',//预览退出
-    num: 1,
-    // 使用data数据对象设置样式名
   },
   //预览图片
   previewImage: function (e) {
@@ -32,7 +28,7 @@ Page({
  
 
   // 收藏事件
-  handleCollection() {
+  handleCollection:function(e) {
     let isCollected = !this.data.isCollected
     this.setData({
       isCollected
@@ -41,32 +37,6 @@ Page({
       title: isCollected ? '收藏成功' : '取消收藏',
       icon: 'success'
     });
-    wx.setStorage({
-      key:'item-text',
-      data:'id',
-    })
-    try {
-      console.log('数据缓存成功')
-      wx.setStorageSync('item-text', 'id')
-    } catch (e) { 
-
-    }
-    // 获取缓存
-    wx.getStorageInfo({
-      success: function (res) {
-        console.log(res.keys)
-        console.log(res.currentSize)
-        console.log(res.limitSize)
-      }
-    })
-    // 读取缓存
-    wx.getStorage({
-      key: 'item-text',
-      success(res) {
-        console.log(res.data)
-        console.log('数据读取成功')
-      }
-    })
   },
 
 
@@ -91,8 +61,6 @@ Page({
     wx.getStorageInfo({
       success: function (res) {
         console.log(res.keys)
-        console.log(res.currentSize)
-        console.log(res.limitSize)
       }
     })
     wx.getStorage({
@@ -133,44 +101,6 @@ Page({
       url: '/pages/cart/cart'
     })
   },
-  // 加减框
-  bindMinus: function () {
-    var num = this.data.num;
-    // 如果大于1时，才可以减
-    if (num > 1) {
-      num--;
-    }
-    // 只有大于一件的时候，才能normal状态，否则disable状态
-    var minusStatus = num <= 1 ? 'disabled' : 'normal';
-    // 将数值与状态写回
-    this.setData({
-      num: num,
-      minusStatus: minusStatus
-    });
-  },
-  /* 点击加号 */
-  bindPlus: function () {
-    var num = this.data.num;
-    // 不作过多考虑自增1
-    num++;
-    // 只有大于一件的时候，才能normal状态，否则disable状态
-    var minusStatus = num < 1 ? 'disabled' : 'normal';
-    // 将数值与状态写回
-    this.setData({
-      num: num,
-      minusStatus: minusStatus
-    });
-  },
-  /* 输入框事件 */
-  bindManual: function (e) {
-    var num = e.detail.value;
-    // 将数值与状态写回
-    this.setData({
-      num: num
-    });
-  },
-
-  
 
   /**
    * 生命周期函数--监听页面加载
@@ -206,6 +136,22 @@ Page({
         console.log(res.data)
         that.setData({
           item: res.data //设置数据
+        })
+      },
+      fail: function (err) {
+        console.log(err)
+      }
+    })
+    wx.request({
+      url: 'http://localhost:8080/bookstore-mall/selectActivity/' + options.bookId,
+      data: {},
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          out: res.data //设置数据
         })
       },
       fail: function (err) {
