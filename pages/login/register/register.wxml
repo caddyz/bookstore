@@ -3,7 +3,7 @@
   <view wx:if="{{!success}}">
  <view class='row'>
         <view class='info'>
-               <input  class= 'info-input1' bindinput="handleInputPhone" placeholder="请输入你的手机号" />
+               <input  class= 'info-input1' bindinput="handleInputEmail" placeholder="请输入你的邮箱账号" />
          </view>
           <button class='button' bindtap='doGetCode' disabled='{{disabled}}' style="background-color:{{color}}" >{{text}}</button>
  </view>

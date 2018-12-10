@@ -7,6 +7,7 @@
  
  <!--账号-->
  <view class="inputView"> 
+ 
   <image class="nameImage" src="../img/name.png"></image> 
   <label class="loginLab">账号</label> 
   <input class="inputText" name='phone' placeholder="用户名" type="text" bindinput="phoneinput"/>  

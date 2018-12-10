@@ -7,8 +7,8 @@ Page({
     text: '获取验证码', //按钮文字
     currentTime: 61, //倒计时
     disabled: false, //按钮是否禁用
-    phone: '', //获取到的手机栏中的值
-    VerificationCode: '',
+    email: '', //获取到的手机栏中的值
+    //VerificationCode: '',
     Code: '',
     username: '',
     password: '',
@@ -26,9 +26,9 @@ Page({
 
   },
   //手机号
-  handleInputPhone: function (e) {
+  handleInputEmail: function (e) {
     this.setData({
-      phone: e.detail.value
+      email: e.detail.value
     })
   },
   //验证码
@@ -67,12 +67,12 @@ Page({
       disabled: true, //只要点击了按钮就让按钮禁用 （避免正常情况下多次触发定时器事件）
       color: '#ccc',
     })
-    var username=username;
-    var phone = that.data.phone;
+    var username=that.data.username;
+    var email = that.data.email;
     var currentTime = that.data.currentTime //把手机号跟倒计时值变例成js值
     var warn = null; //warn为当手机号为空或格式不正确时提示用户的文字，默认为空
     wx.request({
-      url: 'http://localhost:8080/bookstore-mall/' + phone + '/' + username + '/searchPhone', //后端判断是否已被注册， 已被注册返回1 ，未被注册返回0
+      url: 'http://localhost:8080/bookstore-mall/' + email + '/' + username + '/searchPhone', //后端判断是否已被注册， 已被注册返回1 ，未被注册返回0
       method: "GET",
       header: {
         'Content-Type': 'application/json'
@@ -99,22 +99,22 @@ Page({
             duration: 2000
           })
         }
-        if (phone == '') {
-          warn = "号码不能为空";
-        } else if (phone.trim().length != 11 || !/^1[3|4|5|6|7|8|9]\d{9}$/.test(phone)) {
-          warn = "手机号格式不正确";
-        } //手机号已被注册提示信息
+        if (email == '') {
+          warn = "邮箱不能为空";
+        } else if (/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/.test(email)) {
+          warn = "邮箱格式不正确";
+        } //邮箱已被注册提示信息
         else if (that.data.state == 1) {  //判断是否被注册
-          warn = "手机号已被注册";
+          warn = "邮箱已被注册";
 
         }
         else {
           wx.request({
-            url: 'http://localhost:8080/bookstore-mall/code', //填写发送验证码接口
+            url: 'http://localhost:8080/bookstore-mall/'+code+'/codeNum', //填写发送验证码接口
             method: "GET",
             data: {
-              phone: that.data.phone,
-              VerificationCode: that.data.VerificationCode
+              email: that.data.email,
+              code: that.data.code
             },
             header: {
               'Content-Type': 'application/json'
@@ -122,11 +122,11 @@ Page({
             success: function (res) {
               console.log(res.data)
               that.setData({
-                VerificationCode: res.data.VerificationCode
+                code: res.data.code
               })
 
 
-              //当手机号正确的时候提示用户短信验证码已经发送
+              //当邮箱正确的时候提示用户短信验证码已经发送
               wx.showToast({
                 title: '短信验证码已发送',
                 icon: 'none',
@@ -178,13 +178,13 @@ Page({
         duration: 2000
       })
       return
-    } else if (this.data.Code != this.data.VerificationCode) {
-      wx.showToast({
-        title: '验证码错误',
-        icon: 'none',     
-        duration: 2000
-      })
-      return
+    // } else if (this.data.Code != this.data.VerificationCode) {
+    //   wx.showToast({
+    //     title: '验证码错误',
+    //     icon: 'none',     
+    //     duration: 2000
+    //   })
+    //   return
     } else if (this.data.username ==" ") {
       wx.showToast({
         title: '请输入用户名',
@@ -208,13 +208,13 @@ Page({
       return
     } else {
       var that = this
-      var phone = that.data.phone;
+      var email = that.data.email;
       var username=that.data.username
       wx.request({
-        url: 'http://localhost:8080/bookstore-mall/' + phone + '/' + username + '/' + password + '/searchUser',
+        url: 'http://localhost:8080/bookstore-mall/' + email + '/' + username + '/' + password + '/searchUser',
         method: "GET",
         data: {
-          phone: phone,
+          email: email,
           username:username,
           password: that.data.password
         },

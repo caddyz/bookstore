@@ -8,7 +8,7 @@ Page({
     text: '获取验证码', //按钮文字
     currentTime: 61, //倒计时
     disabled: false, //按钮是否禁用
-    phone: '', //获取到的手机栏中的值
+    email: '', //获取到的手机栏中的值
     VerificationCode: '',
     code:'',
     newPassword: '',
@@ -25,9 +25,9 @@ Page({
     })
 
   },
-  inputPhone: function (e) {
+  inputEmail: function (e) {
     this.setData({
-      phone: e.detail.value
+     email: e.detail.value
     })
   },
   varCode: function (e) {
@@ -48,11 +48,11 @@ Page({
       disabled: true, //只要点击了按钮就让按钮禁用 （避免正常情况下多次触发定时器事件）
       color: '#ccc',
     })
-    var phone = that.data.phone;
+    var email = that.data.email;
     var currentTime = that.data.currentTime //把手机号跟倒计时值变例成js值
     var warn = null; //warn为当手机号为空或格式不正确时提示用户的文字，默认为空
     wx.request({
-      url: 'http://localhost:8080/bookstore-mall/' + phone + '/updatePhone', //后端判断是否已被注册
+      url: 'http://localhost:8080/bookstore-mall/' + email + '/updatePhone', //后端判断是否已被注册
       method: "GET",
       header: {
         'Content-Type': 'application/json'
@@ -61,20 +61,20 @@ Page({
         that.setData({
           state: res.data
         })
-        if (phone == '') {
+        if (email == '') {
           warn = "号码不能为空";
-        } else if (phone.trim().length != 11 || !/^1[3|4|5|6|7|8|9]\d{9}$/.test(phone)) {
-          warn = "手机号格式不正确";
-        } //手机号已被注册提示信息
+        } else if (/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/.test(email)) {
+          warn = "邮箱格式不正确";
+        } //邮箱已被注册提示信息
         else if (that.data.state == 0) {  //判断是否被注册
-          warn = "手机号未注册";
+          warn = "邮箱未注册";
 
         }else {
           wx.request({
             url: 'http://localhost:8080/bookstore-mall/code', //填写发送验证码接口
             method: "GET",
             data: {
-              phone: that.data.phone
+              email: that.data.email
             },
             header: {
               'Content-Type': 'application/json'
@@ -155,13 +155,13 @@ Page({
       return
     } else {
       var that = this
-      var phone = that.data.phone;
+      var email = that.data.email;
       var newPassword=that.data.newPassword
       wx.request({
-        url: 'http://localhost:8080/bookstore-mall/'+ phone + ' /' + newPassword + '/updateUser',
+        url: 'http://localhost:8080/bookstore-mall/'+ email + ' /' + newPassword + '/updateUser',
         method: "GET",
         data: {
-          phone: phone,
+          email: email,
           newPassword: newPassword
         },
         header: {

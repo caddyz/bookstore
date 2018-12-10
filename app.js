@@ -92,6 +92,8 @@ App({
     // console.log(this.globalData.scence);
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+	 user:null
+	
   }
 })
