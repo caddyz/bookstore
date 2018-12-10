@@ -30,6 +30,9 @@ Page({
   // 收藏事件
   handleCollection:function(e) {
     let isCollected = !this.data.isCollected
+    wx.request({
+      url:app.URL + 'bookstore-mall/3/3/kindAdd',
+    })
     this.setData({
       isCollected
     })
@@ -41,35 +44,42 @@ Page({
 
 
   addCar: function (e) {
-    var cartList = this.data.cartList
-    console.log(e.target.dataset.goodid);
-    wx.showToast({
-      title: '加入购物车成功',
-      icon: 'success',
-      duration: 2000
-    });
+    //将购物车数据添加到缓存
+    var that = this
+    //获取缓存中的已添加购物车信息
+    var cartItems = wx.getStorageSync('cartItems') || []
+    console.log(cartItems)
+    //判断购物车缓存中是否已存在该货品
+    var exist = cartItems.find(function (ele) {
+      return ele.bookId === that.data.bookId
+    })
+    console.log(exist)
+      //如果不存在，传入该货品信息
+      cartItems.push({
+        bookId: that.data.bookId,
+        bookName:that.data.bookName,
+        price: that.data.bookPrice,  
+      })
+    
     //加入购物车数据，存入缓存
     wx.setStorage({
-      key: 'cartList',
-      data:'id',
-    })
-    try {
-      wx.setStorageSync('cartList', 'id')
-    } catch (e) {
-    }
-    // 同步获取当前storage的相关信息
-    wx.getStorageInfo({
+      key: 'cartItems',
+      data: cartItems,
       success: function (res) {
-        console.log(res.keys)
+        //添加购物车的消息提示框
+        wx.showToast({
+          title: "添加购物车",
+          icon: "success",
+          durantion: 2000
+        })
       }
     })
-    wx.getStorage({
-      key: 'cartList',
-      success(res) {
-        console.log(res.data)
-      }
-    })
+
+
   },
+
+
+
 
 
   // 评论
@@ -111,7 +121,7 @@ Page({
    var that = this;
    
    wx.request({
-     url: 'http://localhost:8080/bookstore-mall/' + options.bookId+'/allContext',
+     url: app.URL + 'bookstore-mall/' + options.bookId+'/allContext',
      data:{},
      header:{
        'content-type':'application/json'
@@ -127,7 +137,7 @@ Page({
      }
     })
     wx.request({
-      url: 'http://localhost:8080/bookstore-mall/' + options.bookId + '/allContext/kindAll',
+      url: app.URL + 'bookstore-mall/' + options.bookId + '/allContext/kindAll',
       data: {},
       header: {
         'content-type': 'application/json'
@@ -143,7 +153,7 @@ Page({
       }
     })
     wx.request({
-      url: 'http://localhost:8080/bookstore-mall/selectActivity/' + options.bookId,
+      url: app.URL + 'bookstore-mall/selectActivity/' + options.bookId,
       data: {},
       header: {
         'content-type': 'application/json'

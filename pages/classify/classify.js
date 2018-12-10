@@ -15,7 +15,7 @@ Page({
     var bookCategory = list[index].bookCategory
     console.log("点击的种类是：" + list[index].bookCategory)
     wx.request({
-      url: 'http://localhost:8080/bookstore-mall/' + bookCategory + '/allBook',
+      url: app.URL + 'bookstore-mall/' + bookCategory + '/allBook',
       data: {
       },
       header: {
@@ -56,7 +56,7 @@ Page({
     // 数据起始加载
     var that = this;
     wx.request({
-      url: 'http://localhost:8080/bookstore-mall/selectBook',
+      url: app.URL + 'bookstore-mall/selectBook',
       data: {},
       header: {
         'content-type': 'application/json'
@@ -72,7 +72,7 @@ Page({
       }
     })
     wx.request({
-      url: 'http://localhost:8080/bookstore-mall/selectAllBook',
+      url: app.URL + 'bookstore-mall/selectAllBook',
       data: {},
       header: {
         'content-type': 'application/json'
