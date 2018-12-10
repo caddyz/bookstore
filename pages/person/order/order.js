@@ -1,98 +1,105 @@
 Page({
   data:{
     
-    // order:[
-    //   // {
-    //   //   id: "001",
-    //   //    orderId: "12381",
-    //   //   imgUrl: "../order/images/history-21.jpg",
-    //   //   name: "燃烧的远征",
-    //   //   price: "65.00",
-    //   //   orderStatus: '已完成',
-    //   //   num: '2',
-    //   //  totalPrice: "86.00",    //总金额
-    //   // },
-    //   // {
-    //   //   id: "002",
-    //   //    orderId: "1239",
-    //   //   imgUrl: "../order/images/history-22.jpg",
-    //   //   name: "人类简史",
-    //   //   price: "68.00",
-    //   //   orderStatus: '已完成',
-    //   //   num: '1',
-    //   //  totalPrice: "86.00",    //总金额
-    //   // },
-    //   {
-    //     id: "003",
-    //     orderId:"123",
-    //     imgUrl: "../order/images/history-23.jpg",
-    //     bookName: "日本现代史",
-    //     bookPrice: "86.00",
-    //     orderStatus: '已完成',
-    //     bookNum: '1',
-    //     totalPrice:"86.00",    //总金额
-    //   },
-    //   {
-    //     id: "005",
-    //     orderId: "1233",
-    //     imgUrl: "../order/images/history-24.jpg",
-    //     bookName: "十字军的故事",
-    //     bookPrice: "十字军的故事",
-    //     orderStatus: '待付款',
-    //     num: '2',
-    //     totalPrice: "136.00",    //总金额
-    //   },
-    //   {
-    //     id: "006",
-    //     orderId: "1234",
-    //     imgUrl: "../order/images/history-25.jpg",
-    //     bookName: "丝绸之路",
-    //     bookPrice: "86.00",
-    //     orderStatus: '待付款',
-    //     bookNum: '1',
-    //     totalPrice: "86.00",    //总金额
-    //   }, 
-    //   {
-    //     id: "007",
-    //     orderId: "1235",
-    //     imgUrl: "../order/images/history-26.jpg",
-    //     bookName: "宋徽宗",
-    //     bookPrice: "86.00",
-    //     orderStatus: '待发货',
-    //     bookNum: '1',
-    //     totalPrice: "86.00",    //总金额
-    //   },
-    //   {
-    //     id: "008",
-    //     orderId: "1236",
-    //     imgUrl: "../order/images/history-27.jpg",
-    //     bookName: "万历十五年",
-    //     bookPrice: "86.00",
-    //     orderStatus: '待收货',
-    //     bookNum: '1',
-    //     totalPrice: "86.00",    //总金额
-    //   }, 
-    //   {
-    //     id: "007",
-    //     orderId: "1237",
-    //     imgUrl: "../order/images/history-28.jpg",
-    //     bookName: "未来简史",
-    //     bookPrice: "86.00",
-    //     orderStatus: '已经取消',
-    //     bookNum: '1',
-    //     totalPrice: "86.00",    //总金额
-    //   },
-    //   {
-    //     id: "007",
-    //     orderId: "1238",
-    //     imgUrl: "../order/images/history-29.jpg",
-    //     bookName: "曾国藩",
-    //     bookPrice: "86.00",
-    //     orderStatus: '退款中',
-    //     bookNum: '1',
-    //     totalPrice: "86.00",    //总金额
-    //   }
-    // ],//具体商品
+    order:[
+      // {
+      //   id: "001",
+      //    orderId: "12381",
+      //   imgUrl: "../order/images/history-21.jpg",
+      //   name: "燃烧的远征",
+      //   price: "65.00",
+      //   orderStatus: '已完成',
+      //   num: '2',
+      //  totalPrice: "86.00",    //总金额
+      // },
+      // {
+      //   id: "002",
+      //    orderId: "1239",
+      //   imgUrl: "../order/images/history-22.jpg",
+      //   name: "人类简史",
+      //   price: "68.00",
+      //   orderStatus: '已完成',
+      //   num: '1',
+      //  totalPrice: "86.00",    //总金额
+      // },
+      {
+        id: "003",
+        orderId:"123",
+        bookId: "",
+        bookCoverImage: "../order/images/history-23.jpg",
+        bookName: "日本现代史",
+        bookSalesPrice: "86.00",
+        orderStatus: '已完成',
+        bookNum: '1',
+        totalPrice:"86.00",    //总金额
+      },
+      {
+        id: "005",
+        orderId: "1233",
+        bookId: "",
+        imgUrl: "../order/images/history-24.jpg",
+        bookName: "十字军的故事",
+        bookPrice: "十字军的故事",
+        orderStatus: '待付款',
+        num: '2',
+        totalPrice: "136.00",    //总金额
+      },
+      {
+        id: "006",
+        orderId: "1234",
+        bookId: "",
+        imgUrl: "../order/images/history-25.jpg",
+        bookName: "丝绸之路",
+        bookPrice: "86.00",
+        orderStatus: '待付款',
+        bookNum: '1',
+        totalPrice: "86.00",    //总金额
+      }, 
+      {
+        id: "007",
+        orderId: "1235",
+        bookId: "",
+        imgUrl: "../order/images/history-26.jpg",
+        bookName: "宋徽宗",
+        bookPrice: "86.00",
+        orderStatus: '待发货',
+        bookNum: '1',
+        totalPrice: "86.00",    //总金额
+      },
+      {
+        id: "008",
+        orderId: "1236",
+        bookId: "",
+        imgUrl: "../order/images/history-27.jpg",
+        bookName: "万历十五年",
+        bookPrice: "86.00",
+        orderStatus: '待收货',
+        bookNum: '1',
+        totalPrice: "86.00",    //总金额
+      }, 
+      {
+        id: "007",
+        orderId: "1237",
+        bookId: "",
+        imgUrl: "../order/images/history-28.jpg",
+        bookName: "未来简史",
+        bookPrice: "86.00",
+        orderStatus: '已经取消',
+        bookNum: '1',
+        totalPrice: "86.00",    //总金额
+      },
+      {
+        id: "007",
+        orderId: "1238",
+        bookId:"",
+        imgUrl: "../order/images/history-29.jpg",
+        bookName: "曾国藩",
+        bookPrice: "86.00",
+        orderStatus: '退款中',
+        bookNum: '1',
+        totalPrice: "86.00",    //总金额
+      }
+    ],//具体商品
     order: [],//所有订单
     alreadOder:[],
     waitingPay: [],//具体商品
@@ -120,39 +127,8 @@ Page({
     */
   onLoad: function (options) {
     var that = this;
-     // //数据库获取初始数据
-    wx.request({
-      url: 'http://192.168.10.162:8080/bookstore-mall/selectOrder/'+1, //提交的网络地址
-      method: "GET",
-      dataType: "json",
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function (res) {
-        //--init data
-       
-        if (res.data!=null) {
-          that.setData({
-            order:res.data,
-              isOrder: true
-          })
-          that.getOrderGrouping();
-          that.onShow();
-        } else {
-         that.setData({
-           order:order
-         })
-        }
-        console.log(that.data.order)
-      },
-      fail: function () {
-        // fail
-        wx.showToast({
-          title: '网络异常！',
-          duration: 30000
-        });
-      }
-    })
+    
+    that.getUserOrder();//从数据库中获取用户订单信息
     //获取用户的头像和昵称
     wx.getUserInfo({
       success: function (res) {
@@ -224,7 +200,7 @@ Page({
       })
     } else {
       this.setData({
-        alreadOderColor: 'active',
+        waitingPayColor: 'active',
         isOrder: false
       })
     }  
@@ -338,11 +314,12 @@ Page({
         content: '是否确认付款？',
         success: function (res) {
           if (res.confirm) {
-            console.log('弹框后点确认');
+            console.log('弹框后点确认orderId'+id);
             for (var i in arr) {
               if (arr[i].orderId == id) {
                 arr[i].orderStatus = '待发货';
-                that.updateOrder(i, '待发货');
+                console.log('循环后orderId' + id);
+                that.updateOrder(id, '待发货');
               }
              
             }
@@ -416,10 +393,13 @@ Page({
     var goodsRejectings=[];
     var arr=[];
     arr = this.data.order;
+    
     var goodsCount = 0;
     // var arr =[]
     // 有数据的话，就遍历数据 进行分组
     if (arr.length > 0) {
+      console.log("order数据是:" + that.data.order[7].orderStatus);
+      console.log("arr数据是:" + arr[7].orderStatus);
       for (var i in arr) {
         switch (arr[i].orderStatus)
         {
@@ -447,7 +427,7 @@ Page({
               waitingReceive: waitingReceives
             });
             break;
-          case '已经取消':
+          case '已取消':
             conceleds = this.data.conceled.concat(arr[i]);
             this.setData({
               conceled: conceleds
@@ -481,10 +461,10 @@ Page({
   // 修改数据库中对应的订单状态
 
   updateOrder: function (orderId, orderStatus) {
-    var orderId = Number(orderId)+1;
+    var orderId = orderId;
     var orderStatus = orderStatus;
     wx.request({
-      url: 'http://192.168.10.162:8080/bookstore-mall/updateOrder/' + orderId +'/'+ orderStatus,
+      url: 'http://192.168.10.162:8080/bookstore-mall/updateOrders/' + orderId +'/'+ orderStatus,
       header: {
         'content-type': 'application/json' // 默认值
       },
@@ -499,6 +479,46 @@ Page({
         }
       }
     })
+  },
 
+   
+//从数据库中获取用户所有的商品
+  getUserOrder:function(){
+
+    var that = this;
+    // //数据库获取初始数据
+    wx.request({
+      url: 'http://192.168.10.162:8080/bookstore-mall/selectOrders/' + 1, //提交的网络地址
+      method: "GET",
+      dataType: "json",
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        //--init data
+
+        if (res.data != null) {
+          that.setData({
+            order: res.data,
+            isOrder: true
+          })
+          that.getOrderGrouping();
+          that.onShow();
+        } else {
+          that.setData({
+            order: order
+          })
+        }
+       
+      },
+      fail: function () {
+        // fail
+        wx.showToast({
+          title: '网络异常！',
+          duration: 30000
+        });
+      }
+    })
   }
+
 });

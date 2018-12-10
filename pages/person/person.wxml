@@ -1,9 +1,8 @@
 <!--pages/person/person.wxml-->
-<view catchtap='isLogin'>
+<view>
   <view class="userinfo">
     <open-data type="userAvatarUrl" class="userinfo-avatar" background-size="cover"></open-data>
-    <view class='userinfo-nickname'>{{username}}</view>
-    <!-- <open-data type="userNickName" class="userinfo-nickname"></open-data> -->
+    <open-data type="userNickName" class="userinfo-nickname"></open-data>
     <image src="../person/images/user_pic.png" class="user-bg">
     </image>
   </view>
@@ -52,8 +51,8 @@
   </view>
   <view class="separate"></view>
 </view>
-<!-- 链接测试
+<!-- 链接测试 -->
 <button bindtap='houduanButton1'>点击发起请求</button>
 <view wx:for="{{list}}">
-    姓名：{{username}}
-  </view> -->
+    姓名：{{item}}
+  </view>

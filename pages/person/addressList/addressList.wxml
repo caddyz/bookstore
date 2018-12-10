@@ -1,25 +1,29 @@
 <scroll-view class="scroll" scroll-y="true">
 <form class='receiveAddress'>
 
-<view wx:for="{{regions}}" wx:for-index="idx" wx:for-item="itemName">
+<view class="addressListshow" hidden="{{isAddressList}}">
+    <image src="../addressList/images/shouhuodizhi.png"/>
+    <view>你还没有添加您的收货地址，快去添加吧</view>
+</view>
+
+<view wx:for="{{regions}}" wx:for-index="idx" wx:for-item="itemName" hidden="{{!isAddressList}}">
 
   <view class="addressList">
 
    <!-- wx:if 是否选择显示不同图标 -->
-        <icon wx:if="{{itemName.isStatus}}" type="success" color="red" bindtap="selectList" data-index="{{idx}}" bindtap='to_confirm'/>
+        <icon wx:if="{{itemName.addressStatus}}" type="success" color="red" bindtap="selectList" data-index="{{idx}}" />
         <icon wx:else type="circle" bindtap="selectList" data-index="{{idx}}"/>
-        <p class="moren">默认</p>
-        
+        <p class="moren">默认</p>  
         <image class='addr_img' src='../addressList/images/recieve_user.png'></image>收货人: 
-      <view class='real'>{{itemName.addressConsignee}} </view>
+      <view class='real ' bindtap='to_confirm' data-index="{{idx}}">{{itemName.addressConsignee}} </view>
       </view>
 
-         <view class="addressList">
+         <view class="addressList" data-index="{{idx}}" bindtap='to_confirm'>
         <image class='addr_img' src='../addressList/images/receivePhone.png'></image>收货人电话:
       <view class='real'>{{itemName.addressMobile}} </view>
       </view>
 
-        <view class="addressList">
+        <view class="addressList" data-index="{{idx}}" bindtap='to_confirm'>
         <image class='addr_img' src='../addressList/images/receive_address.png'></image>收货地址: 
       <view class='real'>{{itemName.addressProvince}} {{itemName.addressCity}} {{itemName.addressCounty}} {{itemName.addressDetail}} </view>
       </view>

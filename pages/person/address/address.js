@@ -1,6 +1,6 @@
 Page({
   data: {
-   
+    
     multiIndex: [0, 0, 0],
     date: '2016-09-01',
     time: '12:01',

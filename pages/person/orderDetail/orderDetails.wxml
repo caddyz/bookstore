@@ -5,13 +5,13 @@
 	</view>
 	<view class="kuaidiInfo">
 		<view>
-			<text>承运来源：</text><text>{{oderDetail.express}}</text>
+			<text>承运来源：</text><text>{{oderDetail.expressName}}</text>
 		</view>
 		<view>
 			<text>运单编号：</text><text>{{oderDetail.expressId}}</text>
 		</view>
 		<view>
-			<text>物流状态：</text><text>{{oderDetail.logisticsStartues}}</text>
+			<text>物流状态：</text><text>{{oderDetail.expressStatus}}</text>
 		</view>
 	</view>
 </view>
@@ -19,10 +19,10 @@
 <!-- 收货地址 -->
 <view bindtap="todeliver" class="address">
 	<view>
-		<text class="name">收货人：{{oderDetail.receiveConsignee}}</text><text class="number">电话：{{oderDetail.receiveMobile}}</text>
+		<text class="name">收货人：{{oderDetail.addressConsignee}}</text><text class="number">电话：{{oderDetail.addressMobile}}</text>
 	</view>
 	<view>
-		地址：<text> {{oderDetail.receiveProvince}}省 {{oderDetail.receiveCity}}市 {{oderDetail.receiveCounty}}区（市） 详细{{oderDetail.receiveDetail}}</text>
+		地址：<text> {{oderDetail.addressProvince}}省 {{oderDetail.addressCity}}市 {{oderDetail.addressCounty}}区（市） 详细{{oderDetail.addressDetail}}</text>
 	</view>
 </view>
 
@@ -31,13 +31,14 @@
 	<view class="orderDetailsTit">订单详情</view>
 	<view class="orderDetailsStatus">
 		<view>订单编号:<text class="orderNum">{{oderDetail.orderId}}</text></view>
-		<view>下单时间:<text class="orderNum"></text> <text>{{oderDetail.orderDate}} {{oderDetail.orderTime}}</text></view>
+		<view>下单时间:<text class="orderNum"></text> <text>{{oderDetail.orderTime}}</text></view>
 		<view>订单状态<text class="orderStatus"> {{oderDetail.orderStatus}}</text></view>
 	</view>
 </view>
 
 <!-- 商品订单详情 -->
 <view class="productDetails">
+  <block wx:for="{{oderDetail.books}}">
 	<view class="orderListTitle">
 		<view class="userImg"><image src="{{userInfoAvatar}}"></image></view>
 		<text class="userName">{{nickName}}</text>
@@ -45,15 +46,17 @@
 	</view>
 	<view class="orderListDetails">
 		<view class="productImg">
-			<image src="{{oderDetail.imgUrl}}"></image>
+			<image src="{{item.bookCoverImage}}"></image>
 		</view>
 		<view class="productInfo">
-			<view class="productTitle">{{oderDetail.bookName}}</view>
-			<text class="productPrice">￥{{oderDetail.bookPrice}}</text>
-			<text class="productQuantity">x{{oderDetail.bookNum}}</text>
+			<view class="productTitle">{{item.bookName}}</view>
+			<text class="productPrice">￥{{item.bookSalesPrice}}</text>
+			<text class="productQuantity">x{{item.bookNum}}</text>
 		</view>
 	</view>
+</block>
+
 	<view class="productCount">
-		<view>合计：￥<text>{{oderDetail.tatolPrice}}</text></view>
+		<view>合计：￥<text>{{oderDetail.totalPrice}}</text></view>
 	</view>
 </view>	
