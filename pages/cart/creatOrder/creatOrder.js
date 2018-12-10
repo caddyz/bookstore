@@ -7,56 +7,28 @@ Page({
    */
   data: {
     oldcart:[],//购物车结算的商品 
+
     order:'',//订单
     totalPrice:'',//商品总价
+    realPayprice:'',//实际支付价格
     newAddress: {
-      addressId: '2',
-      userId: '456',
-      isStatus: false,
-      addressConsignee: '小李',
-      addressMobile: '123456',
-      addressProvince: "四川",
-      addressCity: "成都",
-      addressCounty: "高新区",
-      addressDetail: "我不知道"
+      // addressId: '2',
+      // userId: '456',
+      // isStatus: false,
+      // addressConsignee: '小李',
+      // addressMobile: '123456',
+      // addressProvince: "四川",
+      // addressCity: "成都",
+      // addressCounty: "高新区",
+      // addressDetail: "我不知道"
       },//地址信息
     select: false,
     selectSend:false,
-    tihuoWay: '门店自提',
-    sendWays:'顺丰',
-    sendWay: [{ name:'顺丰'}, {name: '韵达'}, {name: '京东'}, {name: '圆通'}],
-      regions:[
-      {
-        addressId:'1',
-        userId:'456',
-        addressConsignee:'小李',
-        addressMobile:'123456',
-        addressProvince:"四川",
-        addressCity:"成都",
-        addressCounty:"高新区",
-        addressDetail:"我不知道"
-      },
-      {
-        addressId: '2',
-        userId: '456',
-        addressConsignee: '小李',
-        addressMobile: '123456',
-        addressProvince: "四川",
-        addressCity: "成都",
-        addressCounty: "高新区",
-        addressDetail: "我不知道"
-      },
-      {
-        addressId: '3',
-        userId: '456',
-        addressConsignee: '小李',
-        addressMobile: '123456',
-        addressProvince: "四川",
-        addressCity: "成都",
-        addressCounty: "高新区",
-        addressDetail: "我不知道"
-      }
-    ]
+    sendWays:'',//货运方式
+    sendCost:'',//货运费用
+    expressId:'',
+    // sendWay: [{ name:'顺丰'}, {name: '韵达'}, {name: '京东'}, {name: '圆通'}],
+    sendWay:[]
   },
 
   /**
@@ -65,18 +37,25 @@ Page({
   onLoad: function (options) {
     var that=this;
     var oldcart = JSON.parse(options.oldcart);
-    console.log("我接受的数据是：" + oldcart[0].bookName);
-    console.log("我接受的总价是：" + options.totalPrice)
+    console.log("我接受的数据是：" + oldcart[0].bookNum);
+    // console.log("我接受的总价是：" + options.totalPrice)
     that.setData({
-      totalPrice:options.totalPrice
+      totalPrice:options.totalPrice,
+      oldcart: oldcart
     })
+  
+    that.getDefaultReceiveAddress();
+    that.getExpressWay();
   },
   //界面显示刷新
  onShow(){
-var that=this;
-that.setData({
-  newAddress:this.data.newAddress
-})
+
+      var that=this;
+      that.setData({
+        newAddress:that.data.newAddress
+      })
+  //  console.log("newAddress:" + that.data.newAddress.addressConsignee)
+   that.getRealPayprice();
  },
  //下拉框绑定事件
   bindShowSend() {
@@ -89,54 +68,201 @@ that.setData({
   
     var send = e.currentTarget.dataset.send
     this.setData({
-      sendWays: this.data.sendWay[send].name,
+      sendWays: this.data.sendWay[send].expressName,
+      sendCost: this.data.sendWay[send].expressCost,
+      expressId:this.data.sendWay[send].expressId,
       selectSend: false
     })
   },
+
   //点击确认生成订单事件触发需要产生的有快递单号，快递方式，收货地址id，订单的编号，下单时间
   // 及商品信息（就是书的id，名字，单价，总价）
   toCreatOrder:function(e){
+    var that = this;
     // console.log("现在的日期是：" + utils.formatDate(new Date()));
-    // console.log("现在的时间是：" + utils.formatTimes(new Date()),);
+    // console.log("现在的时间是：" + utils.formatTime(new Date()),);
     
-    console.log("我获得的地址信息是：" + this.data.newAddress.addressId );
-  let  order={
+    // console.log("我获得的地址信息是：" + this.data.newAddress.addressId );
     
-    expressId:'',
-    receiveAddressId: this.data.newAddress.addressId,
-    userId:'1',
-    // bookId:[],
-    orderDate: utils.formatDate(new Date()),
-    orderTime: utils.formatTimes(new Date()),
-    orderStatus:'待发货',
-    totalPrice: this.data.totalPrice,
+  let  order={   
+    expressId: this.data.expressId,//货运方式Id
+    receiveAddressId: this.data.newAddress.addressId,//收货地址Id
+    userId:'1',//用户Id
+    carts:this.data.oldcart,//商品
+    orderTime: utils.formatTime(new Date()),//下单时间
+    orderStatus:'待发货',//订单状态
+    totalPrice: this.data.totalPrice,//订单总价
   };
-  
-//   private Integer orderId;
-//   private Integer expressId;
-//   private Integer receiveAddressId;
-//   private Integer userId;
-//   private Integer bookId;
-//   private String orderDate;
-//   private String orderTime;
-//   private String orderStatus;
-
-//   private String imgUrl;
-//   private String bookName;
-//   private String bookPrice;
-//   private String totalPrivce;
-//   private String bookNum;
+    // console.log("booksId:" + order.booksId);
+    that.creatOrder(order);//将用户数据提交到数据库中
   },
+
+
   //用户选择收货地址
   toAddressList:function(){
     wx.navigateTo({
       url: '../../person/addressList/addressList',
     })
   },
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
+ 
+  //获取用户添加的默认收货地址
+  getDefaultReceiveAddress: function () {
+    var that = this;
+    // //数据库获取初始数据
+    wx.request({
+      url: 'http://192.168.10.162:8080/bookstore-mall/selectDefaultReceiveAddress/' + 1, //提交的网络地址
+      method: "GET",
+      dataType: "json",
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        //--init data
 
+        if (res.data != null) {
+          that.setData({
+            newAddress: res.data,//获取用户默认收货地址
+          })
+        } else {
+          that.setData({
+            newAddress: that.data.newAddress
+          })
+        }
+        // console.log("我获取的默认收货地址："+that.data.newAddress)
+      },
+      fail: function () {
+        // fail
+        wx.showToast({
+          title: '网络异常！',
+          duration: 30000
+        });
+      }
+    })
+  },
+
+  //获取商家提供的货运方式
+  getExpressWay: function () {
+    var that = this;
+    // //数据库获取初始数据
+    wx.request({
+      url: 'http://192.168.10.162:8080/bookstore-mall/getExpressWay', //提交的网络地址
+      method: "GET",
+      dataType: "json",
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        //--init data
+
+        if (res.data != null) {
+          that.setData({
+            sendWay: res.data,//获取商家提供的货运渠道
+            //初始化数据
+            sendWays: res.data[0].expressName,
+            sendCost: res.data[0].expressCost,
+            expressId: res.data[0].expressId,
+          })
+        } else {
+          that.setData({
+            sendWay: that.data.sendWay
+          })
+        }
+        // console.log("我获取的默认收货地址：" + that.data.sendWay)
+      },
+      fail: function () {
+        // fail
+        wx.showToast({
+          title: '网络异常！',
+          duration: 30000
+        });
+      }
+    })
+  },
+
+//生成订单后将订单数据提交到后台数据库的方法
+  creatOrder: function (order){
+
+  var that=this;
+  var order=order;
+    // //将用户生成的订单存入数据库
+    wx.request({
+      url: 'http://192.168.10.162:8080/bookstore-mall/creatOrder', //提交的网络地址
+      method: "POST",
+      dataType: "json",
+      data: JSON.stringify(order),
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        //--init data
+        if (res.data) {
+          console.log("添加成功！");
+          
+          that.deCartsAlreadyPay();//订单生成成功删除用户购物车中已经结算了的数据
+        } else {
+          console.log("添加失败！");
+        }
+      },
+      fail: function () {
+        // fail
+        wx.showToast({
+          title: '网络异常！',
+          duration: 30000
+        });
+      }
+    });
+  },
+
+
+  //当下单成功后删除存在数据库中购物车的数据
+  deCartsAlreadyPay:function(){
+    var that = this;
+    var booksId=[];
+    var oldcart=this.data.oldcart
+    //获取商品的Id
+    for (let i = 0; i < oldcart.length;i++){
+      booksId = booksId.concat(oldcart[i].bookId)
+    }
+    // //数据库获取初始数据
+    wx.request({
+      url: 'http://192.168.10.162:8080/bookstore-mall/deCartsAlreadyPay', //提交的网络地址
+      method: "POST",
+      dataType: "json",
+      data: JSON.stringify(booksId),
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        //--init data
+        if (res.data) {
+          wx.showToast({
+            title: '下单成功！',
+          })
+          wx.navigateBack();
+        } else {
+          wx.showToast({
+            title: '下单失败！',
+          })
+        }
+        // console.log("我获取的默认收货地址：" + that.data.sendWay)
+      },
+      fail: function () {
+        // fail
+        wx.showToast({
+          title: '网络异常！',
+          duration: 30000
+        });
+      }
+    })
+  },
+  getRealPayprice:function(){
+    var that=this;
+    var totalPrice = this.data.totalPrice//获得商品的初始总价
+    var sendCost = this.data.sendCost//获得货运的费用
+    var realPayPrice = Number(totalPrice) + Number(sendCost)-Number(10)
+    realPayPrice = Number(realPayPrice * Number(0.85)).toFixed(2);
+  that.setData({
+    realPayPrice: realPayPrice
+  })
   }
 })

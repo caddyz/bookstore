@@ -3,9 +3,10 @@ Page({
   data: {
     iscart: false,//是否在购物车中
     selectAllStatus:false,//是否全部选中
+  
     // cart:[],
     cart: [{
-      bookId: "001",
+      bookId: "101",
       userId:"02",
       imgUrl: "../cart/images/history-21.jpg",
       bookName: "燃烧的远征",
@@ -14,7 +15,7 @@ Page({
       bookNum:'2'
     },
       {
-        bookId: "002",
+        bookId: "102",
         userId: "02",
         imgUrl: "../cart/images/history-22.jpg",
         bookName: "人类简史",
@@ -23,7 +24,7 @@ Page({
         bookNum: '1'
       },
       {
-        bookId: "003",
+        bookId: "103",
         userId: "02",
         imgUrl: "../cart/images/history-23.jpg",
         bookName: "日本现代史",
@@ -49,87 +50,62 @@ Page({
         isStatus: true,
         bookNum: '1'
       },
-      {
-        bookId: "006",
-        userId: "02",
-        imgUrl: "../cart/images/history-26.jpg",
-        bookName: "宋徽宗",
-        bookPrice: "86.00",
-        isStatus: true,
-        bookNum: '1'
-      },
-      {
-        bookId: "007",
-        userId: "02",
-        imgUrl: "../cart/images/history-27.jpg",
-        bookName: "万历十五年",
-        bookPrice: "119.00",
-        isStatus: true,
-        bookNum: '1'
-      },
-      {
-        bookId: "008",
-        userId: "02",
-        imgUrl: "../cart/images/history-28.jpg",
-        bookName: "未来简史",
-        bookPrice: "69.00",
-        isStatus: true,
-        bookNum: '3'
-      },], //数据
+      // {
+      //   bookId: "006",
+      //   userId: "02",
+      //   imgUrl: "../cart/images/history-26.jpg",
+      //   bookName: "宋徽宗",
+      //   bookPrice: "86.00",
+      //   isStatus: true,
+      //   bookNum: '1'
+      // },
+      // {
+      //   bookId: "007",
+      //   userId: "02",
+      //   imgUrl: "../cart/images/history-27.jpg",
+      //   bookName: "万历十五年",
+      //   bookPrice: "119.00",
+      //   isStatus: true,
+      //   bookNum: '1'
+      // },
+      // {
+      //   bookId: "008",
+      //   userId: "02",
+      //   imgUrl: "../cart/images/history-28.jpg",
+      //   bookName: "未来简史",
+      //   bookPrice: "69.00",
+      //   isStatus: true,
+      //   bookNum: '3'
+      // },
+      ], //数据
     count: 1,   //商品数量默认是1
     totalPrice: 0,    //总金额
     goodsCount: 0, //数量
   },
   //初始加载页面
   onLoad: function (options) {
-    var that=this
-    // //数据库获取初始数据
-    wx.request({
-      url: 'http://192.168.10.162:8080/bookstore-mall/selectCart/'+1, //提交的网络地址
-      method: "GET",
-      dataType: "json",
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function (res) {
-        //--init data
-        if (res.data!=null) {
-          
-          that.setData({
-              cart:res.data
-          })
-          that.onShow();
-          console.log(that.data.cart)
-        } else {
-          that.setData({
-           cart:cart
-         })
-        }
-      },
-      fail: function () {
-        // fail
-        wx.showToast({
-          title: '网络异常！',
-          duration: 30000
-        });
-      }
-    })
-   
-  },
 
-  //画面显示
-  onShow: function () {
-    var that = this;
-    // 获取缓存李里面的数据并加入购物车
+   var that=this;
+      // 获取缓存李里面的数据并加入购物车
     // var bufferArr = wx.getStorageSync('cart') || [];
     // if(bufferArr.length>0){
     //   arr = this.data.cart.concat(bufferArr);
     // }else{
     //   arr = this.data.cart;
     // }
+    var carts = this.data.cart
+    // this.insetCart(carts);//将添加到购物车的数据存入数据库中
+    that.getAllCarts(2);//从数据库中获取购物车商品信息
+
+  },
+
+  //画面显示
+  onShow: function () {
+    var that = this;
+ 
     
     var arr=this.data.cart;
-   var goodsCount=0;
+    var goodsCount=0;
     // var arr =[]
     // 有数据的话，就遍历数据， 总数量
     if (arr.length > 0) {
@@ -209,8 +185,12 @@ Page({
   },
   /* 删除item */
   delGoods: function (e) {
-    // 商品总数量  减去  对应删除项的数量
-    this.data.goodsCount = this.data.goodsCount - this.data.cart[e.target.id.substring(3)].bookNum;
+    var that=this;
+    var cartId = that.data.cart[e.target.id.substring(3)].cartId;
+    // 如果商品是被选中的状态商品总数量  减去  对应删除项的数量
+    if (this.data.cart[e.target.id.substring(3)].isStatus){
+      this.data.goodsCount = this.data.goodsCount - this.data.cart[e.target.id.substring(3)].bookNum;
+    }
     // 主体数据的数组移除该项
     this.data.cart.splice(e.target.id.substring(3), 1);
     //将数据库中对应的数据删除
@@ -220,7 +200,9 @@ Page({
       cart: this.data.cart,
       goodsCount: this.data.goodsCount
     })
-    this.getTotalPrice();   
+    this.getTotalPrice(); 
+    // console.log("cartId:" + cartId)
+    that.delCart(cartId,2);//将数据库中用户的购物车数据删除  
     // // 主体数据重新赋入缓存内
     // try {
     //   wx.setStorageSync('cart', this.data.cart)
@@ -256,7 +238,7 @@ Page({
     let carts = this.data.cart;
     var that=this;
 
-    for (let i = 0; i < carts.length; i++) {
+    for (let i = 0; i<carts.length; i++) {
       carts[i].isStatus = selectAllStatus;            // 改变所有商品状态
     }
     //统计商品数量
@@ -296,11 +278,6 @@ getTotalPrice() {
     let carts = this.data.cart; 
     let newcart=[];//未选中结算的
     let oldcart=[];//选中结算的
-	 if (app.globalData.userInfo == null) {
-      wx.navigateTo({
-        url: '/pages/login/login',
-      })
-    } else{
     wx.showModal({
       title: '提示',
       content: '是否结算？',
@@ -313,18 +290,21 @@ getTotalPrice() {
                   if (!carts[i].isStatus) {                   // 判断留下未选中的
                     newcart = newcart.concat(carts[i]);
                   }
+
                   //将选中的交给定单处理
                   else{
-                    oldcart = oldcart.concat(carts[i])
+                    oldcart = oldcart.concat(carts[i]); //选中结算的商品
                   }
+
               }
          
           // 将数据更新
           that.setData({
             cart:newcart
           });
+
           console.log("创建订单并将订单数据存入书库！");
-          //跳转到订单生成界面,将结算的商品传给订单生成界面
+        //如果用户未选定商品
         if(oldcart.length==0){
           wx.showToast({
             title: '未选定结算商品！',
@@ -332,6 +312,8 @@ getTotalPrice() {
           })
           return;
         }
+
+          //跳转到订单生成界面,将结算的商品传给订单生成界面
           that.toCreatOrder(oldcart);
           
         } else {
@@ -340,7 +322,6 @@ getTotalPrice() {
         }
       }
     })
-	}
   },
   //商品详细信息介绍界面
   toBookDetail(e){
@@ -348,11 +329,11 @@ getTotalPrice() {
     let id = this.data.cart[e.currentTarget.dataset.id].bookId
     console.log("获得书的id是"+id)
     wx.navigateTo({
-      url: '/pages/classify/detail/detail?id='+id,
+      url: '/pages/classify/detail/detail?bookId='+id,
     })
   },
-  //将新增的购物车数据存入数据库的方法
-  insetCart:function(carts,userId){
+  //将新增的商品存入购物车数据存入数据库的方法
+  insetCart:function(carts){
     var Carts=carts;
     var userId=userId;
     wx.request({
@@ -366,7 +347,7 @@ getTotalPrice() {
       success: function (res) {
         //--init data
         if(res.data){
-          console.log("修改成功！")
+          console.log("添加成功！")
         }
 
       },
@@ -385,7 +366,7 @@ getTotalPrice() {
       goodsCount: 0 //数量
     });
   },
-  //将购物车中的数据删除的方法
+  //用户将购物车中的数据删除的方法
   delCart:function(cartId,userId){
     var cartId = cartId;
     var userId = userId;
@@ -415,9 +396,45 @@ getTotalPrice() {
   //跳转函数结算成功跳转到订单生成界面
   toCreatOrder:function(oldcart){ 
     let totalPrice=this.data.totalPrice;
-    console.log("我发送的数据：" + oldcart[0].bookName);
+    console.log("我发送的数据：" + oldcart[0]);
     wx.navigateTo({
       url: '../cart/creatOrder/creatOrder?oldcart=' + JSON.stringify(oldcart) + '&totalPrice=' + totalPrice,
     })
+  },
+  //从数据库中获取购物车的数据
+  getAllCarts: function (userId){
+    var that = this
+    // //数据库获取初始数据
+    wx.request({
+      url: 'http://192.168.10.162:8080/bookstore-mall/selectCart/' + userId, //提交的网络地址
+      method: "GET",
+      dataType: "json",
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        //--init data
+        if (res.data != null) {
+
+          that.setData({
+            cart: res.data
+          })
+          that.onShow();
+          console.log(that.data.cart)
+        } else {
+          that.setData({
+            cart: cart
+          })
+        }
+      },
+      fail: function () {
+        // fail
+        wx.showToast({
+          title: '网络异常！',
+          duration: 30000
+        });
+      }
+    })
+
   }
 })

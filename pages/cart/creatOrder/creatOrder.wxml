@@ -39,7 +39,7 @@
      <view><text>\n</text></view>
     <view class='list-msg1'>
         <text>运费</text>
-        <text></text>免邮</view>
+        <text></text>{{sendCost}}</view>
 
          <view class='list-msg1'>
         <text>用户优惠券减免</text>
@@ -50,12 +50,12 @@
         <text></text>85折</view>
     <view class='list-msg1'>
         <text>实际付款</text>
-        <text style='color:red'>￥80.00</text>
+        <text style='color:red'>￥{{realPayPrice}}</text>
     </view>
 <!-- 下拉需要显示的列表 -->
      <view class="select_box" wx:if="{{selectSend}}">
         <block wx:for="{{sendWay}}">
-        <view class="select_one" bindtap="mySelectSend" data-send="{{index}}">{{item.name}}</view>
+        <view class="select_one" bindtap="mySelectSend" data-send="{{index}}">{{item.expressName}}</view>
         </block>
     </view>
 </view>
