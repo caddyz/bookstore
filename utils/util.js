@@ -1,3 +1,4 @@
+const app = getApp()
 const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -31,7 +32,7 @@ const formatTimes = date => {
 // 分页查询
 function getSearchBook(pageNum, callback) {
   wx.request({
-    url: 'http://localhost:8080/bookstore-mall/' + pageNum + '/find',
+    url: app.URL +'bookstore-mall/' + pageNum + '/find',
     header: {
       'content-type': 'application/json' // 默认值
     },
@@ -39,7 +40,6 @@ function getSearchBook(pageNum, callback) {
     success: function (res) {
       // 设置服务器响应的状态码为200 200表示成功
       if(res.statusCode===200){
-
         callback(res.data)
       }
     }
@@ -48,7 +48,7 @@ function getSearchBook(pageNum, callback) {
 // 关键字查询
 function getKeywordSearch(keyword, pageNum, callback) {
   wx.request({
-    url: 'http://localhost:8080/bookstore-mall/' + keyword + '/' + pageNum + '/keyword',
+    url: app.URL+'bookstore-mall/' + keyword + '/' + pageNum + '/keyword',
     header: { 'content-type': 'application/json' },
     method: 'GET',
     success: function (res) {
@@ -62,7 +62,7 @@ function getKeywordSearch(keyword, pageNum, callback) {
 // 登陆
 function getUserSearch(phone, password, callback) {
   wx.request({
-    url: 'http://localhost:8080/bookstore-mall/' + phone + '/' + password + '/findUser',
+    url: app.URL +'bookstore-mall/' + phone + '/' + password + '/findUser',
     header: { 'content-type': 'application/json' },
     method: 'GET',
     success: function (res) {
@@ -76,7 +76,7 @@ function getUserSearch(phone, password, callback) {
 // 书Id和书name 查询到此书
 function getSelectClassifyBookIdSearch(bookId,bookName, callback) {
   wx.request({
-    url: 'http://localhost:8080/bookstore-mall/'+bookId +'/'+bookName+'/classifyBookFind',
+    url: app.URL +'bookstore-mall/'+bookId +'/'+bookName+'/classifyBookFind',
     header: { 'content-type': 'application/json' },
     method: 'GET',
     success: function (res) {
@@ -90,7 +90,7 @@ function getSelectClassifyBookIdSearch(bookId,bookName, callback) {
 // 书Id获取全部信息
 function getSelectClassifyBookByIdSearch(bookId, callback) {
   wx.request({
-    url: 'http://localhost:8080/bookstore-mall/'+ bookId + '/classifyFind',
+    url: app.URL +'bookstore-mall/'+ bookId + '/classifyFind',
     header: { 'content-type': 'application/json' },
     method: 'GET',
     success: function (res) {

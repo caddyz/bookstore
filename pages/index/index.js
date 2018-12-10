@@ -35,6 +35,7 @@ Page({
         list:data
       })
     })
+    console.log(app.URL)
   },
   onPullDownRefresh: function () {
     let that = this;

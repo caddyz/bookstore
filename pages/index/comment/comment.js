@@ -1,4 +1,5 @@
 // pages/comment/comment.js
+const app = getApp()
 Page({
 
   /**
@@ -17,7 +18,7 @@ Page({
     let that = this;
     
     wx.request({
-      url: 'http://localhost:8080/bookstore-mall/1/comment',
+      url: app.URL +'bookstore-mall/1/comment',
       success:function(res){
         if(res.data.length != 0){
           that.setData({
@@ -103,7 +104,7 @@ Page({
     let bookjson = d.substr(1, d.length-2);
     console.log(JSON.parse(bookjson).bookId)
     wx.request({
-      url: 'http://localhost:8080/bookstore-mall/deletecomment/1/'+JSON.parse(bookjson).bookId,
+      url: app.URL +'bookstore-mall/deletecomment/1/'+JSON.parse(bookjson).bookId,
       header: { 'content-type': 'application/json' },
       success: function (res) {
         listData.splice(index, 1);

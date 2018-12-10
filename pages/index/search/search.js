@@ -93,26 +93,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // let that = this;
-    // console.log("接收到的seekValue参数是：" + JSON.stringify(options.seekValue));
-    // util.getKeywordSearch(options.seekValue,1,function(data){
-    //   console.log("关键字查询数据：" + JSON.stringify(data));
-    //   if(data.length < 10){
-    //     that.setData({
-    //       searchLoadingComplete: true,
-    //       searchLoading: false,
-    //       list:data,
-    //       seekValue: options.seekValue
-    //     })
-    //   } else{
-    //     that.setData({
-    //       searchLoadingComplete: false,
-    //       searchLoading: true,
-    //       list: data,
-    //       seekValue: options.seekValue
-    //     })
-    //   }
-    // })
   },
 
   /**

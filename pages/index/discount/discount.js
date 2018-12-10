@@ -1,4 +1,5 @@
 // pages/index/discount/discount.js
+const app = getApp()
 Page({
 
   /**
@@ -14,7 +15,7 @@ Page({
   onLoad: function (options) {
     let that = this;
     wx.request({
-      url: 'http://localhost:8080/bookstore-mall/alldiscount',
+      url: app.URL +'bookstore-mall/alldiscount',
       success(res){
         that.setData({
           list:res.data

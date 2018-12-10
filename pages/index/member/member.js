@@ -19,7 +19,7 @@ Page({
   onLoad: function (options) {
     let that = this;
     wx.request({
-      url: 'http://localhost:8080/bookstore-mall/allmember',
+      url: app.URL +'bookstore-mall/allmember',
       success:function(res){
         that.setData({
           memberInfo: res.data
@@ -27,7 +27,7 @@ Page({
       }
     })
     wx.request({
-      url: 'http://localhost:8080/bookstore-mall/memberrecord/1',
+      url: app.URL +'bookstore-mall/memberrecord/1',
       success: function (res) {
         that.setData({
           recordList: res.data
