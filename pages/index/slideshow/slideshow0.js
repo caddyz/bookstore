@@ -66,7 +66,7 @@ Page({
   discounts:function(){
     let that = this;
     wx.request({
-      url: 'http://192.168.10.110:8080/bookstore-mall/newUserGetCoupon/1/7',
+      url: 'http://192.168.10.110:8080/bookstore-mall/newUserGetCoupon/' + app.globalData.userInfo.userId +'/7',
       success:function(res){
         that.setData({
           msg:res.data

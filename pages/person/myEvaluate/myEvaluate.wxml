@@ -1,8 +1,29 @@
-<import src="/template/tab/tab.wxml" />
- <view class="tab">
-    <template is="zan-tab" data="{{tab: tab1, componentId: 'tab1'}}"></template>
-  </view>
-<view class="tab-content1" >
-<image class="tab-image" src="../order/images/cart_pic.png"></image>
-<text>您还没有评语哦！</text>
+<view class="tab-content1" hidden='{{hiddenCon}}'>
+  <image class="tab-image" src="../order/images/cart_pic.png"></image>
+  <view>您还没有评语哦！<text style='color:blue;' bindtap='toMyOrder'>去评论</text></view>
 </view>
+<block wx:for='{{list}}' >
+  <view class='main-body'>
+    <view class='appraise-order'>
+      <view class='show-word'>订单编号：</view>   
+        <view>{{item.orderId}}</view>
+    </view>
+    <view style='height:28rpx'></view>
+    <view class='appraise-score'>
+      <view class='show-word'>评价分数：</view>
+      <view>{{item.orderCommentScore}}</view>
+    </view>
+    <view style='height:28rpx'></view>
+    <view class='appraise-content'>
+      <view class='show-word'>评价内容：</view>
+      <view class='comment-click' bindtap='commentClick' data-index='{{index}}'>{{item.flag?'收起':'展开'}}</view>
+    </view>
+    <view class='comment-contentinfo' wx:if='{{item.flag}}'>
+      <view>时间：{{item.orderCommentCreatetime}}</view>
+      <view>内容:{{item.orderCommentContent}}</view>
+      <view style='height:18rpx'></view>
+      <button class='delete-button' bindtap='deleteComment' data-index='{{index}}'><text>删除评论</text></button>
+    </view>
+    <view style='height:56rpx'></view>
+  </view>
+</block>

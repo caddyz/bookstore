@@ -79,7 +79,7 @@ Page({
     let index = e.currentTarget.dataset.index;
     let couponId = that.data.list[index].couponId;
     wx.request({
-      url: app.URL +'bookstore-mall/getCoupon/3/'+couponId,
+      url: app.URL + 'bookstore-mall/getCoupon/' + app.globalData.userInfo.userId +'/'+couponId,
       success:function(res){
         that.setData({
           msg:res.data

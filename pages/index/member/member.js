@@ -27,7 +27,7 @@ Page({
       }
     })
     wx.request({
-      url: app.URL +'bookstore-mall/memberrecord/1',
+      url: app.URL + 'bookstore-mall/memberrecord/' + app.globalData.userInfo.userId,
       success: function (res) {
         that.setData({
           recordList: res.data

@@ -30,14 +30,12 @@ Page({
     // this.getData();
     let taht = this;
     util.getSearchBook(1,function(data){
-      // console.log(data);
       taht.setData({
         list:data
       })
     })
-    console.log(app.URL)
   },
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function () {    
     let that = this;
     wx.showNavigationBarLoading()
     setTimeout(function () {
@@ -51,7 +49,6 @@ Page({
     let that = this;
     that.data.loadingpageNum += 1;
     util.getSearchBook(that.data.loadingpageNum, function (data) {
-      // console.log("data长度：" + data.length);
       let searchList = [];
       if (data.length!= 0) {
         searchList = that.data.list.concat(data);
@@ -90,49 +87,25 @@ Page({
   },
   //分类区事件
   // 跳转函数
-  favoriteSkip: function () {
-    if (app.globalData.userInfo == null) {
-      wx.navigateTo({
-        url: '/pages/login/login',
-      })
-    } else {
-      wx.navigateTo({
-        url: '/pages/index/favorite/favorite',
-      })
-    }
+  favoriteSkip:function(){
+    wx.navigateTo({
+      url: '/pages/index/favorite/favorite',
+    })
   },
   commentSkip: function () {
-    if (app.globalData.userInfo == null) {
-      wx.navigateTo({
-        url: '/pages/login/login',
-      })
-    } else {
-      wx.navigateTo({
-        url: '/pages/index/comment/comment',
-      })
-    }
+    wx.navigateTo({
+      url: '/pages/index/comment/comment',
+    })
   },
   messageSkip: function () {
-    if (app.globalData.userInfo == null) {
-      wx.navigateTo({
-        url: '/pages/login/login',
-      })
-    } else {
-      wx.navigateTo({
-        url: '/pages/index/message/message',
-      })
-    }
+    wx.navigateTo({
+      url: '/pages/index/message/message',
+    })
   },
   vipSkip: function () {
-    if (app.globalData.userInfo == null) {
-      wx.navigateTo({
-        url: '/pages/login/login',
-      })
-    } else {
-      wx.navigateTo({
-        url: '/pages/index/member/member',
-      })
-    }
+    wx.navigateTo({
+      url: '/pages/index/member/member',
+    })
   },
   hotSkip: function () {
     wx.navigateTo({
@@ -150,20 +123,6 @@ Page({
       url: './search/search',
     })
   },
-  // //搜索区域事件
-  // homepageSearch:function(e){
-  //   if (e.detail.value == "" || e.detail.value==null){
-  //     wx.showToast({
-  //       title: '你什么都没有输入',
-  //       icon:'none'
-  //     })
-  //   }else{
-  //     this.data.seekValue = e.detail.value
-  //     wx.navigateTo({
-  //       url: '/pages/index/search/search?seekValue=' + this.data.seekValue,
-  //     })
-  //   }
-  // },
   //模板点击事件
   itemclick(event) {
     templates.onclick(event)
@@ -180,7 +139,6 @@ Page({
       });
     }
   },
-
   //回到顶部
   goTop: function (e) {  // 一键回到顶部
     if (wx.pageScrollTo) {

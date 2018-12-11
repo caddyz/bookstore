@@ -16,9 +16,8 @@ Page({
    */
   onLoad: function (options) {
     let that = this;
-    
     wx.request({
-      url: app.URL +'bookstore-mall/1/comment',
+      url: app.URL + 'bookstore-mall/' + app.globalData.userInfo.userId+'/comment',
       success:function(res){
         if(res.data.length != 0){
           that.setData({
@@ -27,7 +26,6 @@ Page({
           for (var i in that.data.list) {
             that.data.list[i].flag = false; // 添加新属性
           };
-          console.log(that.data.list)
         }else{
           that.setData({
             hiddeinfo: true
@@ -104,7 +102,7 @@ Page({
     let bookjson = d.substr(1, d.length-2);
     console.log(JSON.parse(bookjson).bookId)
     wx.request({
-      url: app.URL +'bookstore-mall/deletecomment/1/'+JSON.parse(bookjson).bookId,
+      url: app.URL + 'bookstore-mall/deletecomment/' + app.globalData.userInfo.userId +'/'+JSON.parse(bookjson).bookId,
       header: { 'content-type': 'application/json' },
       success: function (res) {
         listData.splice(index, 1);

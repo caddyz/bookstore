@@ -1,33 +1,83 @@
-// pages/order/order.js
-var Zan = require('../../cart/cart.js');
-Page(Object.assign({}, Zan.Tab, {
-  data: {
-    tab1: {
-      list: [{
-        id: 0,
-        title: '全部'
-      }, {
-        id: 1,
-        title: '待付款'
-      }, {
-        id: 2,
-        title: '待发货'
-      }, {
-        id: 3,
-        title: '待收货'
-      }, {
-        id: 4,
-        title: '待评价'
-      }],
-      selectedId: 0,
-      scroll: false,
-    },
+const app = getApp()
+Page({
+  data:{
+    hiddenCon:true,
+    list:[]
   },
-  handleZanTabChange(e) {
-    var componentId = e.componentId;
-    var selectedId = e.selectedId;
-    this.setData({
-      $: { componentId }.selectedId = selectedId
-    });
+  //订单评价跳转
+  toMyOrder: function () {
+    wx.navigateTo({
+      url: '../order/order',
+    })
+  },
+  //加载时获取所有的评论信息
+  onLoad: function (options){
+    let that = this;
+    wx.request({
+      url: app.URL + 'bookstore-mall/allOrderComment/' + app.globalData.userInfo.userId,
+      success(res){
+        console.log(JSON.stringify(res.data))
+        if (res.data.length != 0){
+          that.setData({
+            list:res.data
+          })
+          for (var i in that.data.list) {
+            that.data.list[i].flag = false; // 添加新属性
+          };
+        }else{
+          this.setData({
+            hiddenCon:false
+          })
+        }
+      },
+      fail(){
+        wx.showToast({
+          title: '请求失败',
+          icon:'none'
+        })
+      }
+    })
+  },
+  // 展开
+  commentClick: function (e) {
+    let that = this;
+    let index = e.currentTarget.dataset.index,
+      key = 'list[' + index + '].flag',
+      val = that.data.list[index].flag;
+    that.setData({
+      [key]: !val
+    })
+  },
+  // 评论删除
+  deleteComment: function (e) {
+    let that = this;
+    let listData = that.data.list;
+    let index = e.currentTarget.dataset.index;//获取下标
+    wx.request({
+      url: app.URL + 'bookstore-mall/deleteOrderComment/' + app.globalData.userInfo.userId +'/' + listData[index].orderId,
+      header: { 'content-type': 'application/json' },
+      success: function (res) {
+        listData.splice(index, 1);
+        that.setData({
+          list: listData,
+          mes: res.data
+        });
+        wx.showToast({
+          title: that.data.mes.msg,
+          icon: 'none'
+        })
+      },
+      fail: function () {
+        wx.showToast({
+          title: '删除失败',
+          icon: 'none'
+        })
+      }
+    })
+    if (that.data.list.length - 1 == 0) {
+      that.setData({
+        hiddenCon: false
+      })
+    }
   }
-}));
+});
