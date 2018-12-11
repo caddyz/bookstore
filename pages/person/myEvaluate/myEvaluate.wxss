@@ -12,32 +12,3 @@
   margin-top: 130rpx;
   margin-bottom: 50rpx;
 }
-.main-body{
-  width: 90%;
-  margin: 0 auto;
-}
-.show-word{
-  color: red;
-  text-align:right
-}
-.appraise-order,.appraise-score,.appraise-content{
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1rpx solid #f1f1f1;
-}
-.get-word{
-  text-align: right
-}
-.comment-click{
-  color: #5CACEE
-}
-.comment-contentinfo{
-  background-color: whitesmoke
-}
-.delete-button{
-  height:70rpx;
-  width: 50%;
-  border-radius: 60rpx;
-  background-color: #FFA07A;
-  line-height: 70rpx
-}

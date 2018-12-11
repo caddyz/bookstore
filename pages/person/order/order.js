@@ -140,7 +140,6 @@ Page({
       }
     });
   
-    // that.onShow();
   },
   //页面显示
   onShow: function () {
@@ -338,8 +337,8 @@ Page({
       }
       });
     } else if (statues == '待收货'){
-      
-        console.log("确认收货")//如果用户已经付款了就改变订单状态
+
+       console.log("确认收货")//如果用户已经付款了就改变订单状态
        wx.showModal({
         title: '提示',
         content: '是否确认收货？',
@@ -398,8 +397,8 @@ Page({
     // var arr =[]
     // 有数据的话，就遍历数据 进行分组
     if (arr.length > 0) {
-      console.log("order数据是:" + that.data.order[7].orderStatus);
-      console.log("arr数据是:" + arr[7].orderStatus);
+      console.log("order数据是:" + that.data.order[0].orderStatus);
+      console.log("arr数据是:" + arr[0].orderStatus);
       for (var i in arr) {
         switch (arr[i].orderStatus)
         {
