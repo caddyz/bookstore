@@ -16,8 +16,7 @@
 			<view class="df">
 				<view class="df_1 c6">
         	<image class="x_right mt15" src="../creatOrder/images/x_right.png"></image>
-				<view class="l_h20">收货人：{{newAddress.addressConsignee}}<text class="fl_r mr10">  {{newAddress.addressMobile}}</text></view>
-        		
+				<view class="l_h20">收货人：{{newAddress.addressConsignee}}<text class="fl_r mr10">  {{newAddress.addressMobile}}</text></view>       		
 				<view class="l_h20 mt5">地址：{{newAddress.addressProvince}}省{{newAddress.addressCity}}市 {{newAddressaddressCounty}}区(县){{newAddress.addressDetail}}</view>
 				</view>
 				
@@ -37,13 +36,20 @@
         <image style='height:20rpx;width:20rpx;' src='../creatOrder/images/down.png'></image>
     </view>
      <view><text>\n</text></view>
-    <view class='list-msg1'>
+        <view class='list-msg1'>
         <text>运费</text>
         <text></text>{{sendCost}}</view>
 
+ <view><text>\n</text></view>
+   <view class='list-msg3' bindtap='bindShowCoupon'>
+        <text>￥{{couponName}}</text>
+        <image style='height:20rpx;width:20rpx;' src='../creatOrder/images/down.png'></image>
+    </view>
+
+ <view><text>\n</text></view>
          <view class='list-msg1'>
-        <text>用户优惠券减免</text>
-        <text></text>-￥10</view>
+        <text>{{couponName}}</text>
+        <text></text>-￥{{couponMoney}}</view>
 
          <view class='list-msg1'>
         <text>商品折扣</text>
@@ -58,6 +64,13 @@
         <view class="select_one" bindtap="mySelectSend" data-send="{{index}}">{{item.expressName}}</view>
         </block>
     </view>
+
+     <view class="select_box2" wx:if="{{selectCoupon}}">
+        <view wx:for="{{userCoupon}}">
+        <view class="select_one2" bindtap="mySelectCoupon" data-coupon="{{index}}">{{item.couponName}}</view>
+        </view>
+    </view>
+
 </view>
  <button class="weui-btn" type="primary" form-type="submit">确认</button>
 </form>

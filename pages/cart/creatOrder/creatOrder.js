@@ -1,5 +1,6 @@
-
+var app=getApp()
 var utils=require("../../../utils/util.js")
+var pay=require("../../../utils/pay.js")
 Page({
 
   /**
@@ -24,8 +25,13 @@ Page({
       },//地址信息
     select: false,
     selectSend:false,
+    selectCoupon:false,
     sendWays:'',//货运方式
     sendCost:'',//货运费用
+    userCoupon:[],//用户的优惠券
+    couponName:'',//优惠券名字
+    couponMoney:'',//优惠金额
+    couponId:'',//优惠券的id号
     expressId:'',
     // sendWay: [{ name:'顺丰'}, {name: '韵达'}, {name: '京东'}, {name: '圆通'}],
     sendWay:[]
@@ -46,6 +52,7 @@ Page({
   
     that.getDefaultReceiveAddress();
     that.getExpressWay();
+    that.getuserCoupons();//获取数据库中用户的优惠券
   },
   //界面显示刷新
  onShow(){
@@ -65,7 +72,7 @@ Page({
   },
   //下拉框绑定事件
   mySelectSend(e) {
-  
+  var that=this;
     var send = e.currentTarget.dataset.send
     this.setData({
       sendWays: this.data.sendWay[send].expressName,
@@ -73,17 +80,37 @@ Page({
       expressId:this.data.sendWay[send].expressId,
       selectSend: false
     })
+    that.getRealPayprice();//实际支付价格的计算
   },
 
+
+  //2下拉框绑定事件
+  bindShowCoupon() {
+    this.setData({
+      selectCoupon: !this.data.selectCoupon
+    })
+  },
+  //2下拉框绑定事件
+  mySelectCoupon(e) {
+    var that = this;
+    var coupon = e.currentTarget.dataset.coupon
+    this.setData({
+      couponName: this.data.userCoupon[coupon].couponName,
+      couponMoney: this.data.userCoupon[coupon].couponMoney,
+      couponId:this.data.userCoupon[coupon].couponId,
+      selectCoupon: false
+    })
+    console.log("couponId=" + that.data.couponId);
+    that.getRealPayprice();//实际支付价格的计算
+  },
   //点击确认生成订单事件触发需要产生的有快递单号，快递方式，收货地址id，订单的编号，下单时间
   // 及商品信息（就是书的id，名字，单价，总价）
   toCreatOrder:function(e){
     var that = this;
     // console.log("现在的日期是：" + utils.formatDate(new Date()));
     // console.log("现在的时间是：" + utils.formatTime(new Date()),);
-    
     // console.log("我获得的地址信息是：" + this.data.newAddress.addressId );
-    
+    var couponId = this.data.couponId;
   let  order={   
     expressId: this.data.expressId,//货运方式Id
     receiveAddressId: this.data.newAddress.addressId,//收货地址Id
@@ -93,8 +120,22 @@ Page({
     orderStatus:'待发货',//订单状态
     totalPrice: this.data.totalPrice,//订单总价
   };
+    app.orderInfo.body = '会员支付';
+    app.orderInfo.detail = '购买会员服务';
+    app.orderInfo.out_trade_no = '1000001961768664';
+    app.orderInfo.total_fee = this.data.realPayprice;//商品金额
+    // console.log(app.orderInfo)
+    pay.payOreder(app.orderInfo, function (data) {
+      wx.showToast({
+        title: data.return_msg,
+        icon: 'none'
+      })
+      console.log("data.return_msg:"+data.return_msg);
+    })
+
     // console.log("booksId:" + order.booksId);
-    that.creatOrder(order);//将用户数据提交到数据库中
+    // that.updateUserCoupons(2, couponId, utils.formatTime(new Date()))//用户使用优惠券后改变数据库中优惠券的状态(用户id，优惠券id，优惠券使用时间)
+    // that.creatOrder(order);//将用户数据提交到数据库中
   },
 
 
@@ -179,9 +220,9 @@ Page({
     })
   },
 
+
 //生成订单后将订单数据提交到后台数据库的方法
   creatOrder: function (order){
-
   var that=this;
   var order=order;
     // //将用户生成的订单存入数据库
@@ -255,11 +296,96 @@ Page({
       }
     })
   },
+  //用户优惠券和折扣查询
+  getuserCoupons:function(){
+    var that=this;
+    var userCoupons=[];
+    // //数据库获取初始数据
+    wx.request({
+      url: 'http://localhost:8080/bookstore-mall/getUserCoupon/'+2, //提交的网络地址
+      method: "GET",
+      dataType: "json",
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        //--init data
+        if (res.data!=null) {
+         
+        //  for(let i=0;i<res.data.length;i++){
+        //    console.log("userCoupons:" + JSON.stringify((utils.formatTime(new Date(Number(res.data[i].couponEnd)*1000)))));
+        //    if ((utils.formatTime(new Date())) <= res.data[i].couponEnd && (utils.formatTime(new Date())) >= res.data[i].couponStart) {
+            
+        //      if (res.data[i].couponUseStatus == true) {
+        //        userCoupons = userCoupons.concat(res.data[i])//去掉用户不能使用的优惠券
+        //        console.log("userCoupons" + userCoupons[0]);
+        //      }
+        //    }
+        //  };
+         
+          that.setData({
+            userCoupon: res.data,
+            couponName: res.data[0].couponName,
+            couponMoney: res.data[0].couponMoney,
+            couponId:res.data[0].couponId
+          })
+          
+          console.log("成功获取用户优惠券：" + that.data.userCoupon[0].couponName);
+        } else {
+          console.log("没有获取用户优惠券：")
+        }
+        // console.log("我获取的默认收货地址：" + that.data.sendWay)
+      },
+      fail: function () {
+        // fail
+        wx.showToast({
+          title: '网络异常！',
+          duration: 30000
+        });
+      }
+    })
+  },
+  //修改用户优惠券状态的方法
+  updateUserCoupons:function(userId,couponId,couponUseTime){
+    var coupon={
+      userId: userId,
+      couponId: couponId,
+      couponUseTime: couponUseTime
+    };
+    wx.request({
+      url: 'http://localhost:8080/bookstore-mall/updateUserCoupons', //提交的网络地址
+      method: "POST",
+      dataType: "json",
+      data: JSON.stringify(coupon),
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        //--init data
+        if (res.data == true) {
+   
+          console.log("成功修改：");
+        } else {
+          console.log("没有使用成功：")
+        }
+   
+      },
+      fail: function () {
+        // fail
+        wx.showToast({
+          title: '网络异常！',
+          duration: 30000
+        });
+      }
+    })
+  },
+  //实际支付价格的算法
   getRealPayprice:function(){
     var that=this;
-    var totalPrice = this.data.totalPrice//获得商品的初始总价
-    var sendCost = this.data.sendCost//获得货运的费用
-    var realPayPrice = Number(totalPrice) + Number(sendCost)-Number(10)
+    var totalPrice = this.data.totalPrice;//获得商品的初始总价
+    var sendCost = this.data.sendCost;//获得货运的费用
+    var couponMoney = this.data.couponMoney;//优惠券优惠的金额
+    var realPayPrice = Number(totalPrice) + Number(sendCost) - Number(couponMoney);
     realPayPrice = Number(realPayPrice * Number(0.85)).toFixed(2);
   that.setData({
     realPayPrice: realPayPrice

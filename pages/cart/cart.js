@@ -1,5 +1,4 @@
 // pages/cart/cart.js
-var app=getApp()
 Page({
   data: {
     iscart: false,//是否在购物车中
@@ -279,11 +278,6 @@ getTotalPrice() {
     let carts = this.data.cart; 
     let newcart=[];//未选中结算的
     let oldcart=[];//选中结算的
-    if (app.globalData.userInfo == null) {
-      wx.navigateTo({
-        url: '/pages/login/login',
-      })
-    } else {
     wx.showModal({
       title: '提示',
       content: '是否结算？',
@@ -304,10 +298,7 @@ getTotalPrice() {
 
               }
          
-          // 将数据更新
-          that.setData({
-            cart:newcart
-          });
+        
 
           console.log("创建订单并将订单数据存入书库！");
         //如果用户未选定商品
@@ -321,6 +312,12 @@ getTotalPrice() {
 
           //跳转到订单生成界面,将结算的商品传给订单生成界面
           that.toCreatOrder(oldcart);
+
+          // 将数据更新
+          that.setData({
+            cart: newcart
+          });
+
           
         } else {
           console.log('弹框后点取消')
@@ -328,7 +325,6 @@ getTotalPrice() {
         }
       }
     })
-    }
   },
   //商品详细信息介绍界面
   toBookDetail(e){
