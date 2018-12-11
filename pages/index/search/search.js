@@ -7,10 +7,11 @@ Page({
    * 页面的初始数据
    */
   data: {
+    nothing:false,
     value:'',
     controllerHi: true,
     controllerVo: '请输入作者/书名',
-    seekValue:'',
+    seekValue:null,
     loadingpageNum: 1,
     searchLoading: false,
     searchLoadingComplete: false,
@@ -22,7 +23,11 @@ Page({
   input:function(){
     this.setData({
       controllerVo:'',
-      controllerHi:false,
+      controllerHi: false, 
+      nothing: false,
+      searchLoading: false,
+      searchLoadingComplete: false,
+      seekValue: null,
     })
   },
   //获取input的值
@@ -61,32 +66,47 @@ Page({
         icon:'none'
       })
     }else{
-      keyword = val
+      if(keyword == null || keyword == ""){
+        keyword = val 
+      } 
+      console.log("val：" + val)
+      console.log("keyword："+keyword)
       util.getKeywordSearch(keyword,1,function(data){
-      if(data.length < 10){
-        that.setData({
-          searchLoadingComplete: true,
-          searchLoading: false,
-          list:data,
-          seekValue: keyword,          
-        })
-      } else{
-        that.setData({
-          searchLoadingComplete: false,
-          searchLoading: true,
-          list: data,
-          seekValue: keyword,
-        })
-      }
+        if(data.length == 0){
+          that.setData({
+            nothing:true
+          })
+          return
+        }
+        if(data.length < 10){
+          that.setData({
+            searchLoadingComplete: true,
+            searchLoading: false,
+            nothing: false,
+            list:data,
+            seekValue: keyword,          
+          })
+        } else{
+          that.setData({
+            searchLoadingComplete: false,
+            searchLoading: true,
+            nothing: false,
+            list: data,
+            seekValue: keyword,
+          })
+        }
     })
     }
     if (!that.data.seekValue) {
       return
     }
     let serachHistory = wx.getStorageSync("serachHistory") || [];
-    serachHistory.push(keyword)
-   //添加缓存:
-    wx.setStorageSync("serachHistory", serachHistory);
+    //判断keyword是否在数组中
+    if (serachHistory.indexOf(keyword) === -1){
+      serachHistory.push(keyword)
+    //添加缓存:
+      wx.setStorageSync("serachHistory", serachHistory);
+    }
     // console.log("serachHistory:" + that.data.serachHistory)
   },
   /**
@@ -139,7 +159,6 @@ Page({
     let that = this;
     that.data.loadingpageNum += 1;
     util.getKeywordSearch(that.data.seekValue,that.data.loadingpageNum, function (data) {
-      console.log("数据长度：" + data.length)
       let searchList = [];
       if (data.length != 0) {
         searchList = that.data.list.concat(data);
@@ -150,6 +169,7 @@ Page({
         searchList = that.data.list.concat(data);
         that.setData({
           list: searchList,
+          nothing: false,
           searchLoadingComplete: true, //把“没有数据”设为true，显示
           searchLoading: false  //把"上拉加载"的变量设为false，隐藏
         });
@@ -165,5 +185,5 @@ Page({
   },
   itemclick(event) {
     templates.onclick(event)
-  }
+  },
 })

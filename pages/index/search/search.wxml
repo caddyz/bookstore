@@ -23,15 +23,20 @@
 </view>
 </view>
 
-<view style='height:80rpx'></view>       
-<import src='../../template/bookinfoTemplate'/>
-<view class='bi-tr'>
-      <block wx:for="{{list}}" wx:key="">
-        <view class='view-controller' bindtap='itemclick' data-item='{{item}}'>
-          <!--和普通标签一样使用，is对应的是templates中的name  data是传入template值  -->
-          <template is="msgItem" data="{{item}}"/>
-        </view>
-      </block>
-  </view>
-  <view class="loading" hidden="{{!searchLoading}}">正在加载...</view>
-  <view class="loading complete" hidden="{{!searchLoadingComplete}}">已经到底了...</view>
+<view style='height:80rpx'></view>
+<view wx:if='{{!nothing}}'>       
+  <import src='../../template/bookinfoTemplate'/>
+  <view class='bi-tr'>
+        <block wx:for="{{list}}" wx:key="">
+          <view class='view-controller' bindtap='itemclick' data-item='{{item}}'>
+            <!--和普通标签一样使用，is对应的是templates中的name  data是传入template值  -->
+            <template is="msgItem" data="{{item}}"/>
+          </view>
+        </block>
+    </view>
+    <view class="loading" hidden="{{!searchLoading}}">正在加载...</view>
+    <view class="loading complete" hidden="{{!searchLoadingComplete}}">已经到底了...</view>
+</view>
+<view wx:if='{{nothing}}' style="text-align:center;color:#9E9E9E;border-bottom:0;font-size:26rpx;">
+  什么都没有...编辑君正在采购中...
+</view>
