@@ -66,9 +66,16 @@ Page({
         icon:'none'
       })
     }else{
-      if(keyword == null || keyword == ""){
+      if(keyword == null){
         keyword = val 
       } 
+      if (keyword == ""){
+        wx.showToast({
+          title: '你神马都没有输！！！',
+          icon: 'none'
+        })
+        return
+      }
       console.log("val：" + val)
       console.log("keyword："+keyword)
       util.getKeywordSearch(keyword,1,function(data){
