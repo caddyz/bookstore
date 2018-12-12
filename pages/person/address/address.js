@@ -1,3 +1,4 @@
+var app=getApp()
 Page({
   data: {
     
@@ -32,7 +33,7 @@ Page({
     })
   
     wx.request({
-      url: 'http://192.168.10.162:8080/bookstore-mall/addReceiveAddress', //提交的网络地址
+      url: app.URL + 'bookstore-mall/addReceiveAddress', //提交的网络地址
       method: "POST",
       data: JSON.stringify(receiveAddress),
       dataType: "json",

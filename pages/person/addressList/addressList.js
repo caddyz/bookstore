@@ -1,3 +1,4 @@
+var app=getApp()
 Page({
   /**
 
@@ -185,7 +186,7 @@ Page({
     var addressId = e.currentTarget.dataset.id;
     console.log('获取的数据addressId是' + addressId)
    wx.request({
-     url: 'http://192.168.10.162:8080/bookstore-mall/delReceiveAddress/' + 1 + '/' + addressId, //提交的网络地址
+     url: app.URL + 'bookstore-mall/delReceiveAddress/' + 1 + '/' + addressId, //提交的网络地址
       method: "get",
       dataType:"json",
       header: {
@@ -220,7 +221,7 @@ Page({
    var that = this;
    // //数据库获取初始数据
    wx.request({
-     url: 'http://192.168.10.162:8080/bookstore-mall/selectReceiveAddress/' + 1, //提交的网络地址
+     url: app.URL + 'bookstore-mall/selectReceiveAddress/' + 1, //提交的网络地址
      method: "GET",
      dataType: "json",
      header: {
@@ -275,7 +276,7 @@ Page({
     updateUserReceiveAddressStatus:function(userId,newAddressId,oldAddressId){
       var that=this;
       wx.request({
-        url: 'http://192.168.10.162:8080/bookstore-mall/updateUserReceiveAddressStatus/' + userId + '/' + newAddressId+'/'+oldAddressId, //提交的网络地址
+        url: app.URL + 'bookstore-mall/updateUserReceiveAddressStatus/' + userId + '/' + newAddressId+'/'+oldAddressId, //提交的网络地址
         method: "GET",
         dataType: "json",
         header: {

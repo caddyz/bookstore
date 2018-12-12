@@ -41,7 +41,7 @@
 </view>
 <view class="area">
   <text>地址</text>
-  <view class="real" name='region'>{{province}}省{{city}}市</view>
+  <view class="real" name='region'> {{province}} 省{{city}} 市 </view>
 </view>
 <view class="signature">
   <text>个性签名</text>

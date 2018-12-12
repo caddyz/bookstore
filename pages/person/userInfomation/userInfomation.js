@@ -1,4 +1,5 @@
 // pages/userInfomation/userInfomation.js
+var app=getApp()
 Page({
 
   /**
@@ -17,8 +18,8 @@ Page({
     mobile:'123456789',
     email:'1234568@163.com',
     signature:'书中自有黄金屋。',
-    province: '',
-    city: '',
+    province: '四川',
+    city: '成都',
     county:'',
     sex:'男',
  
@@ -52,8 +53,8 @@ Page({
         that.setData({
           nickName: res.userInfo.nickName,
           userInfoAvatar: res.userInfo.avatarUrl,
-          province: res.userInfo.province,
-          city: res.userInfo.city
+          // province: res.userInfo.province,
+          // city: res.userInfo.city
         })
         switch (res.userInfo.gender) {
           case 0:
@@ -108,58 +109,6 @@ Page({
       fail: function(res) {},
       complete: function(res) {},
     })
-  },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-    
-    this.setData({
-      message:"你好！这是刷新后的我"
-    })
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-    this.setData({
-      message: "你好！上拉后的我"
-    })
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
   }
+
 })

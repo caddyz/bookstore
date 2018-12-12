@@ -1,3 +1,4 @@
+var app=getApp()
 Page({
   data: {
 
@@ -52,7 +53,7 @@ Page({
     //   data: e.detail.value
     // })
     wx.request({
-      url: 'http://192.168.10.162:8080/bookstore-mall/editorReceiveAddress', //提交的网络地址
+      url: app.URL + 'bookstore-mall/editorReceiveAddress', //提交的网络地址
       method: "POST",
       data: JSON.stringify(editorAddress),
       dataType: "json",

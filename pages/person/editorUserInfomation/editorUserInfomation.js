@@ -138,53 +138,36 @@ Page({
       region: e.detail.value
     })
   },
- 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
+  
+ //修改数据库中用户数据的方法
+ editorUserInfomation:function(user){
+   var that = this;
+   // //数据库获取初始数据
+   wx.request({
+     url: 'http://localhost:8080/bookstore-mall/editorUserInfomation', //提交的网络地址
+     method: "POST",
+     dataType: "json",
+     data: JSON.stringify(user),
+     header: {
+       'content-type': 'application/json' // 默认值
+     },
+     success: function (res) {
+       //--init data
+       if (res.data != null) {
+         console.log("成功修改用户信息：");
+       } else {
+         console.log("没有修改用户信息：")
+       }
+       // console.log("我获取的默认收货地址：" + that.data.sendWay)
+     },
+     fail: function () {
+       // fail
+       wx.showToast({
+         title: '网络异常！',
+         duration: 30000
+       });
+     }
+   })
+ }
+  
 })

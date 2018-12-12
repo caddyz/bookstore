@@ -1,3 +1,4 @@
+var app=getApp()
 Page({
   data:{
     
@@ -463,7 +464,7 @@ Page({
     var orderId = orderId;
     var orderStatus = orderStatus;
     wx.request({
-      url: 'http://192.168.10.162:8080/bookstore-mall/updateOrders/' + orderId +'/'+ orderStatus,
+      url: app.URL + 'bookstore-mall/updateOrders/' + orderId +'/'+ orderStatus,
       header: {
         'content-type': 'application/json' // 默认值
       },
@@ -487,7 +488,7 @@ Page({
     var that = this;
     // //数据库获取初始数据
     wx.request({
-      url: 'http://192.168.10.162:8080/bookstore-mall/selectOrders/' + 1, //提交的网络地址
+      url: app.URL + 'bookstore-mall/selectOrders/' + 1, //提交的网络地址
       method: "GET",
       dataType: "json",
       header: {

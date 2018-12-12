@@ -1,4 +1,5 @@
 // pages/person/orderDetail/orderDetails.js
+var app=getApp()
 Page({
 
   /**
@@ -78,7 +79,7 @@ Page({
     // //数据库获取初始数据
     wx.request({
       //需要传输到后台的数据有订单的id还有用户的id
-      url: 'http://192.168.10.162:8080/bookstore-mall/getOrderDetails/' + orderId +'/'+ 1, //提交的网络地址
+      url: app.URL + 'bookstore-mall/getOrderDetails/' + orderId +'/'+ 1, //提交的网络地址
       method: "GET",
       dataType: "json",
       header: {
