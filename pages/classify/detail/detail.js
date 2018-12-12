@@ -34,15 +34,14 @@ Page({
   handleCollection:function(e) {
  
 	   var that = this
-    // if (app.globalData.userInfo == null) {
-    //   wx.navigateTo({
-    //     url: '/pages/login/login',
-    //   })
-    // } else {
-    // var userId = app.globalData.userInfo.userId
+    if (app.globalData.userInfo == null) {
+      wx.navigateTo({
+        url: '/pages/login/login',
+      })
+    } else {
+    var userId = app.globalData.userInfo.userId
     // console.log("传入的数据:" + userId)
-
-    var userId = 2
+    // var userId = 2
     var bookId = that.data.bookId
 
      //判断收藏的状态
@@ -56,7 +55,7 @@ Page({
          return;
         }
      })
-    
+    }
     },
 
   
