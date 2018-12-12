@@ -1,4 +1,5 @@
 // pages/cart/cart.js
+var app=getApp()
 Page({
   data: {
     iscart: false,//是否在购物车中
@@ -93,8 +94,9 @@ Page({
     // }else{
     //   arr = this.data.cart;
     // }
+      // this.insetCart(carts);//将添加到购物车的数据存入数据库中
     var carts = this.data.cart
-    // this.insetCart(carts);//将添加到购物车的数据存入数据库中
+  
     that.getAllCarts(2);//从数据库中获取购物车商品信息
 
   },
@@ -278,11 +280,6 @@ getTotalPrice() {
     let carts = this.data.cart; 
     let newcart=[];//未选中结算的
     let oldcart=[];//选中结算的
-    if (app.globalData.userInfo == null) {
-      wx.navigateTo({
-        url: '/pages/login/login',
-      })
-    }else{
     wx.showModal({
       title: '提示',
       content: '是否结算？',
@@ -330,7 +327,6 @@ getTotalPrice() {
         }
       }
     })
-    }
   },
   //商品详细信息介绍界面
   toBookDetail(e){
@@ -346,7 +342,7 @@ getTotalPrice() {
     var Carts=carts;
     var userId=userId;
     wx.request({
-      url: 'http://192.168.10.162:8080/bookstore-mall/insertCart', //提交的网络地址
+      url: app.URL + 'bookstore-mall/insertCart', //提交的网络地址
       method: "POST",
       dataType: "json",
       data: JSON.stringify(Carts),
@@ -380,7 +376,7 @@ getTotalPrice() {
     var cartId = cartId;
     var userId = userId;
     wx.request({
-      url: 'http://192.168.10.162:8080/bookstore-mall/delCart/' + cartId + '/' + userId, //提交的网络地址
+      url: app.URL + 'bookstore-mall/delCart/' + cartId + '/' + userId, //提交的网络地址
       method: "GET",
       dataType: "json",
       header: {
@@ -415,7 +411,7 @@ getTotalPrice() {
     var that = this
     // //数据库获取初始数据
     wx.request({
-      url: 'http://192.168.10.162:8080/bookstore-mall/selectCart/' + userId, //提交的网络地址
+      url: app.URL + 'bookstore-mall/selectCart/' + userId, //提交的网络地址
       method: "GET",
       dataType: "json",
       header: {

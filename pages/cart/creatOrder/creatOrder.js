@@ -103,6 +103,8 @@ Page({
     console.log("couponId=" + that.data.couponId);
     that.getRealPayprice();//实际支付价格的计算
   },
+
+
   //点击确认生成订单事件触发需要产生的有快递单号，快递方式，收货地址id，订单的编号，下单时间
   // 及商品信息（就是书的id，名字，单价，总价）
   toCreatOrder:function(e){
@@ -110,7 +112,8 @@ Page({
     // console.log("现在的日期是：" + utils.formatDate(new Date()));
     // console.log("现在的时间是：" + utils.formatTime(new Date()),);
     // console.log("我获得的地址信息是：" + this.data.newAddress.addressId );
-    var couponId = this.data.couponId;
+    var couponId = this.data.couponId;//优惠券id号
+    var realPayPrice = this.data.realPayPrice;//实际支付金额
   let  order={   
     expressId: this.data.expressId,//货运方式Id
     receiveAddressId: this.data.newAddress.addressId,//收货地址Id
@@ -120,23 +123,26 @@ Page({
     orderStatus:'待发货',//订单状态
     totalPrice: this.data.totalPrice,//订单总价
   };
-    app.orderInfo.body = '会员支付';
-    app.orderInfo.detail = '购买会员服务';
-    app.orderInfo.out_trade_no = '1000001961768664';
-    app.orderInfo.total_fee = this.data.realPayprice;//商品金额
-    // console.log(app.orderInfo)
+  console.log("appURL:"+app.URL);
+    app.orderInfo.body = '书本购买';
+    app.orderInfo.detail = '买了4本书！';
+    app.orderInfo.out_trade_no = Date.parse(new Date());
+    app.orderInfo.total_fee = realPayPrice;//实际支付的商品金额
+    console.log("app.orderInfo" + JSON.stringify(app.orderInfo) )
     pay.payOreder(app.orderInfo, function (data) {
       wx.showToast({
         title: data.return_msg,
         icon: 'none'
       })
-      console.log("data.return_msg:"+data.return_msg);
-    })
-
-    // console.log("booksId:" + order.booksId);
+        // console.log("booksId:" + order.booksId);
     // that.updateUserCoupons(2, couponId, utils.formatTime(new Date()))//用户使用优惠券后改变数据库中优惠券的状态(用户id，优惠券id，优惠券使用时间)
     // that.creatOrder(order);//将用户数据提交到数据库中
+      // console.log("data.return_msg:"+data.return_msg);
+    });
+ 
+  
   },
+
 
 
   //用户选择收货地址
@@ -151,7 +157,7 @@ Page({
     var that = this;
     // //数据库获取初始数据
     wx.request({
-      url: 'http://192.168.10.162:8080/bookstore-mall/selectDefaultReceiveAddress/' + 1, //提交的网络地址
+      url: app.URL + 'bookstore-mall/selectDefaultReceiveAddress/' + 1, //提交的网络地址
       method: "GET",
       dataType: "json",
       header: {
@@ -186,7 +192,7 @@ Page({
     var that = this;
     // //数据库获取初始数据
     wx.request({
-      url: 'http://192.168.10.162:8080/bookstore-mall/getExpressWay', //提交的网络地址
+      url: app.URL + 'bookstore-mall/getExpressWay', //提交的网络地址
       method: "GET",
       dataType: "json",
       header: {
@@ -227,7 +233,7 @@ Page({
   var order=order;
     // //将用户生成的订单存入数据库
     wx.request({
-      url: 'http://192.168.10.162:8080/bookstore-mall/creatOrder', //提交的网络地址
+      url: app.URL + 'bookstore-mall/creatOrder', //提交的网络地址
       method: "POST",
       dataType: "json",
       data: JSON.stringify(order),
@@ -266,7 +272,7 @@ Page({
     }
     // //数据库获取初始数据
     wx.request({
-      url: 'http://192.168.10.162:8080/bookstore-mall/deCartsAlreadyPay', //提交的网络地址
+      url: app.URL + 'bookstore-mall/deCartsAlreadyPay', //提交的网络地址
       method: "POST",
       dataType: "json",
       data: JSON.stringify(booksId),
@@ -302,7 +308,7 @@ Page({
     var userCoupons=[];
     // //数据库获取初始数据
     wx.request({
-      url: 'http://localhost:8080/bookstore-mall/getUserCoupon/'+2, //提交的网络地址
+      url: app.URL + 'bookstore-mall/getUserCoupon/'+2, //提交的网络地址
       method: "GET",
       dataType: "json",
       header: {
@@ -353,7 +359,7 @@ Page({
       couponUseTime: couponUseTime
     };
     wx.request({
-      url: 'http://localhost:8080/bookstore-mall/updateUserCoupons', //提交的网络地址
+      url: app.URL + 'bookstore-mall/updateUserCoupons', //提交的网络地址
       method: "POST",
       dataType: "json",
       data: JSON.stringify(coupon),
