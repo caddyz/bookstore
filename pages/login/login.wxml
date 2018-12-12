@@ -27,7 +27,7 @@
  </view>
  <view class="signIn">
       <button  class='left' type="submit" catchtap="register">注册</button>
-      <button  class='right' type='submit' catchtap='retrieve'>找回密码</button>
+      <button  class='right' type='submit' catchtap='retrieve'>忘记密码</button>
     </view>
 </view>
 <view>{{message}}</view>
