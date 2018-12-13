@@ -122,6 +122,10 @@ Page({
     },
 // 点击事件 测试的
   commentAll: function (e) {
+    if (app.globalData.userInfo == null) {
+      wx.navigateTo({
+        url: '/pages/login/login',
+      })}
     console.log("是什么？:" + this.data.commentContent);
   },
 
@@ -132,11 +136,7 @@ Page({
     var bookId = that.data.bookId
     var userId = app.globalData.userInfo.userId
     var commentContent = this.data.commentContent
-	 if (app.globalData.userInfo == null) {
-      wx.navigateTo({
-        url: '/pages/login/login',
-      })
-    } else{
+
     wx.request({
       url: app.URL +'bookstore-mall/'+userId+'/'+bookId+'/'+commentContent+'/commentAdd',
     })
@@ -156,7 +156,7 @@ Page({
         duration: 1000
       })
     }
-	}
+	
   },
 
 
