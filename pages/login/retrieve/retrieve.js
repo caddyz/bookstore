@@ -51,7 +51,7 @@ Page({
         },
         success: function(res) {
           // console.log(res.data);
-          if (res.data.email == null) {
+          if (res.data.status==false) {
             wx.showModal({
               title: '提示',
               content: '邮箱未被注册',
@@ -64,7 +64,8 @@ Page({
               duration: 2000
             })
             that.setData({
-              show_content: false, show_content2: true
+              show_content: false, show_content2: true,
+              email:email
             })
           }
         }
@@ -80,6 +81,7 @@ Page({
 
   submit: function (e) {
     var that=this;
+    var email=that.data.email;
     var newPassword =that.data.newPassword;
     var againNewPassword = that.data.againNewPassword
     if (newPassword == '' || newPassword == null) {
@@ -98,33 +100,34 @@ Page({
       return
     } else {
       wx.request({
-        url: app.URL + 'bookstore-mall/' + email + '/' + newPassword +'/updateUser',
+        url: app.URL + 'bookstore-mall/' + email + '/'+newPassword +'/updateUser',
         method: 'GET',
         data: {
           email:email,
-          newPassword: newPassword,
+          newPassword: newPassword
 
         },
         header: {
           'Content-Type': 'application/json'
         },
         success: function(res) {
-          console.log(res.data);
-          if (res.data.false) {
-            wx.showToast({
-              title: res.data.msg,
-              icon: 'none',
-              duration: 2000
-            })
-          } else {
+          //console.log(res.data);
+          if (res.data.status==true) {
             wx.showToast({
               title: res.data.msg,
               icon: 'success',
               duration: 2000
             })
-              wx.navigateTo({
-                url: 'pages/login/login',
-              })
+            wx.redirectTo({
+              url: '/pages/login/login',
+            })
+          } else {
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'none',
+              duration: 2000
+            })
+           
           }
         }
       })

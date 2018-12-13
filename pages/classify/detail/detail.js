@@ -132,6 +132,11 @@ Page({
     var bookId = that.data.bookId
     var userId = app.globalData.userInfo.userId
     var commentContent = this.data.commentContent
+	 if (app.globalData.userInfo == null) {
+      wx.navigateTo({
+        url: '/pages/login/login',
+      })
+    } else{
     wx.request({
       url: app.URL +'bookstore-mall/'+userId+'/'+bookId+'/'+commentContent+'/commentAdd',
     })
@@ -151,6 +156,7 @@ Page({
         duration: 1000
       })
     }
+	}
   },
 
 

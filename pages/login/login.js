@@ -4,35 +4,16 @@ var app=getApp();
 Page({
   //定义全局变量data
   data: {
-    phone: '',
+    account: '',
     password: '',
     userInfo:'',
     message:''
   },
-  // onLoad: function (options) {
-  //   //获取缓存的信息
-  //   var phone = wx.getStorageSync("phone")
-  //   var password = wx.getStorageSync("password")
-
-  //   //判断用户名是否为null,如果为null,默认显示'请输入用户名'
-  //   if (phone == null) {
-  //     phone = '请输入用户名'
-  //   }
-  //   //判断密码是否为null,如果为null,默认显示'请输入密码'
-  //   if (password == null) {
-  //     password = '请输入密码'
-  //   }
-  //   this.setData({
-  //     phone: phone,
-  //     password: password
-  //   })
-  // },
   //从页面获取输入账号 
-  phoneinput: function (e) {
+  accountInput: function (e) {
     var user=this.data.user;
     this.setData({
-      phone: e.detail.value,
-      
+      account: e.detail.value,
     })
   },
 
@@ -46,11 +27,11 @@ Page({
   login: function () {
     var that = this;
     //登陆的时候要传过来的参数
-    var phone = that.data.phone
+    var account = that.data.account;
     var password = that.data.password
-    if (that.data.phone=="") {
+    if (that.data.account=="") {
       wx.showToast({
-        title: '手机号不能为空！',
+        title: '账号不能为空！',
         icon: 'none',
         //延迟时间
         //duration: 1000,
@@ -66,16 +47,16 @@ Page({
       })
       return
     }
-    console.log("用户名：" + phone + "，密码：" + password)
+    console.log("用户名：" + account + "，密码：" + password)
     //发送ajax请求到服务器-登录
     wx.request({
       //开发者服务器接口地址
-      url: app.URL+'bookstore-mall/' + phone + '/' + password + '/findUser',
+      url: app.URL + 'bookstore-mall/' + account + '/' + password + '/findUser',
       //请求的参数
-      data: {
-        phone:phone,
-        password:password
-      },
+      // data: {
+      //   // account: account,
+      //   // password:password
+      // },
       //设置请求的 header
       header: {
         //'content-type': 'application/x-www-form-urlencoded' // post默认值
@@ -88,14 +69,8 @@ Page({
         //调试，相当于alert    
         if (res.statusCode === 200) {
           //将用户名和密码缓存下来,留着实现不用重复登录  
-          //  wx.setStorageSync("phone", that.data.phone)
-          //  wx.setStorageSync("password", that.data.password)
-          // 点击确定后跳转登录页面并关闭当前页面
-          // wx.switchTab({
-          //   //成功后跳转的路径
-          //   url: '/pages/index/index',
-          // })        
-          //console.log("成功")
+            wx.setStorageSync("account", that.data.account)
+            wx.setStorageSync("password", that.data.password)
           // 用于点击后改变页面信息或者刷新后与后台交互获取最新的信息
           that.setData({
             userInfo: res.data
@@ -106,14 +81,14 @@ Page({
           console.log("用户名" + app.globalData.userInfo.username);
           //返回上一页 上一页的跳转只能用wx.navigateTo
           wx.navigateBack({
-            delta: 1
+            delta: 3
           })
 
         } else {
           //显示消息提示框
           wx.showModal({
             title: '提示',
-            content: '用户名或者密码错误',
+            content: '账号或者密码错误',
             showCancel: false
           })
         }
