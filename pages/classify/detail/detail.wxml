@@ -29,15 +29,16 @@ js文件中的data中imgUrls数组的数据，并直接将数组展开了。 -->
   书名:<input type='text' class='book-name' value='{{item.bookName}}' 
           disabled='true'></input>
    作者: <block wx:for="{{author}}">
-    <input type='text' class='book-author' value='￥{{item.authorName}}' 
+    <input type='text' class='book-author' value='{{item.authorName}}' 
           disabled='true'></input>
     </block>
-   金额:<input type='text' class='book-price' value='￥{{item.bookSalesPrice}}' 
+   金额:<input type='text' class='book-priced' value='￥{{item.bookSalesPrice}}' 
           disabled='true'></input>
      <block wx:for="{{out}}">
+      <input type='text' class='book-prices' value='原价:{{item.bookSalesPrice}}' disabled='true'></input>
      <input type='text' class='activity-discount' value='折扣率:({{item.activityDiscount}}折)' disabled='true'></input>
-      <input type='text' class='activity-discountPrice' 
-value='打折后:(￥{{item.discountPrice}})' disabled='true'></input>
+      <input type='text' class='book-price' 
+value='甩卖价:￥{{item.discountPrice}}' disabled='true'></input>
                <text> \n </text>
     打折时间:  <input type='text' class='activity-date' value='({{item.activityStart}}~{{item.activityEnd}})' disabled='true'></input>
             </block>
@@ -45,26 +46,29 @@ value='打折后:(￥{{item.discountPrice}})' disabled='true'></input>
           disabled='true'></input>
     出版社:<input type='text' class='book-publish' value='{{item.publishName}}' 
           disabled='true'></input>
+           <block wx:for="{{Nums}}">
     库存:<input type='text' class='book-num' value='{{item.stockNum}}' 
           disabled='true'></input>
+            </block>
     销量:<input type='text' class='book-sales' value='{{item.stockSales}}' 
           disabled='true'></input>
     简介:<textarea bindblur="bindTextAreaBlur" class='book-profile'
      value='{{item.bookProfile}}' disabled='true'/>
   </view>
     </block>
+     <text> \n </text>
   <view class="separate"></view>
-  <block wx:for="{{item}}">
-        <text> \n </text>
+ 评论: <block wx:for="{{item}}">
   <view class="detail" data-item='{{item}}'>
-评论:<input type='text' class='comment-content' value='{{item.commentContent}}' 
+<input type='text' class='comment-content' value='{{item.commentContent}}' 
           disabled='true'></input>
   </view>
     </block>
   <!-- 表单 -->
 <form bindsubmit="formSubmit">
-<input type="text" name="liuyantext" placeholder='输入留言内容' class="input-style"/>
-<button formType="submit" class="btn" >留言</button>
+<input type="text" name="commentContent" placeholder='请输入评论内容' 
+class="input-comment" bindinput="handNewComment"/>
+<button formType="submit" class="btn" bindtap='commentAll'>评论</button>
 </form>
 
   <view class="separate"></view>

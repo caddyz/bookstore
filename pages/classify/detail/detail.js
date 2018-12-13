@@ -14,9 +14,11 @@ Page({
     list: [],//动态页面
     item:[],//显示所有书
     out:[],//显示折扣
+    Nums:[],//显示库存
     author:[],//显示一个或多个作者
     minusStatus:'disabled',//预览退出
     isCollected:'',//收藏
+    
 
   },
   //预览图片
@@ -45,12 +47,22 @@ Page({
     var bookId = that.data.bookId
 
      //判断收藏的状态
-    that.isCollector(userId,bookId,function(data){
+    that.isCollector(userId,bookId,function(data){//callback返回
        if(data==false){
+         wx.showToast({
+           title: "收藏成功",
+           icon: "success",
+           durantion: 2000
+         })
          that.insertCollector(userId,bookId);//添加收藏
          return;
        }
         else{
+         wx.showToast({
+           title: "取消收藏",
+           icon: "none",
+           durantion: 2000
+         })
          that.delCollector(userId,bookId);//取消收藏
          return;
         }
@@ -60,8 +72,13 @@ Page({
 
   
   addCar: function (e) {
+    // 默认书本为1
+    var bookNum = 1
     //将购物车数据添加到缓存
     var that = this
+  //  提取bookId
+    var bookId = that.data.bookId
+    console.log("传入的数据:" + bookId)
     //获取缓存中的已添加购物车信息
     var cartItems = wx.getStorageSync('cartItems') || []
     console.log(cartItems)
@@ -74,7 +91,11 @@ Page({
       cartItems.push({
         bookId: that.data.bookId,
         bookName:that.data.bookName,
-        price: that.data.bookPrice,  
+        bookPrice: that.data.bookSalesPrice, 
+        bookCoverImage: that.data.bookCoverImage, 
+        bookStatus: that.data.bookStatus, 
+        bookNum:1,
+
       })
     
     //加入购物车数据，存入缓存
@@ -93,16 +114,30 @@ Page({
 
 
   },
-
-
-
-
+// 获取输入的评论
+  handNewComment: function (e) {
+    this.setData({
+      commentContent: e.detail.value
+    })
+    },
+// 点击事件 测试的
+  commentAll: function (e) {
+    console.log("是什么？:" + this.data.commentContent);
+  },
 
   // 评论
   formSubmit: function (e){
-    if (e.detail.value.liuyantext==''){
+    console.log("用户名：" + this.data.text)
+    var that = this
+    var bookId = that.data.bookId
+    var userId = app.globalData.userInfo.userId
+    var commentContent = this.data.commentContent
+    wx.request({
+      url: app.URL +'bookstore-mall/'+userId+'/'+bookId+'/'+commentContent+'/commentAdd',
+    })
+    if (e.detail.value.commentContent==''){
       wx.showToast({
-        title: '请输入留言',
+        title: '请输入评论',
         icon: 'loading',
         duration: 1500
       })
@@ -140,7 +175,7 @@ Page({
   onLoad: function (options) {
     console.log('传入的数据' + options.bookId)
     var bookId = options.bookId;
-    var userId=2;
+    // var userId=2;
 // 调用查询所有书籍信息
    var that = this;
    wx.request({
@@ -153,7 +188,7 @@ Page({
        console.log(res.data)
        that.setData({
           list: res.data, //设置数据
-         bookId: options.bookId
+         bookId: options.bookId,
         })
       },
       fail: function (err) {
@@ -211,6 +246,24 @@ Page({
         console.log(err)
       }
     })
+    // 显示所有库存
+    wx.request({
+      url: app.URL + 'bookstore-mall/' + options.bookId + '/selectNum',
+      data: {},
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          Nums: res.data //设置数据
+        })
+      },
+      fail: function (err) {
+        console.log(err)
+      }
+    })
+    // 收藏回调
     this.isCollector(userId,bookId,function(data){});
    
   },
@@ -228,7 +281,6 @@ Page({
        console.log("panduanshoucang :"+res.data)
        console.log(res.data)
        if (res.data == false) {
-      console.log("nishshabi")
          callback(false);//返回false说明这本书没有被收藏 
          that.setData({
            isCollected: false

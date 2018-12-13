@@ -24,10 +24,6 @@
           </view>
           <input type='text' class='book-name' value='{{item.bookName}}' 
           disabled='true'></input>
-          <view class='author-info'>
-          </view>
-          <input type='text' class='book-price' value='{{item.bookSalesPrice}}' 
-          disabled='true'></input>
         </button>
       </block>
   </view>
