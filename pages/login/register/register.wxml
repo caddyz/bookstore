@@ -1,6 +1,6 @@
 <!--pages/register/register.wxml-->
 <!--判断是否需要渲染该代码块 wx:if是用来判断某个条件是否成立，如果返回值为true，则渲染这个元素，否则不渲染；还可以使用wx:if显示或隐藏一个元素-->
-  <view wx:if="{{!success}}">
+  <view>
  <view class='row'>
         <view class='info'>
                <input  class= 'info-input1' bindinput="handleInputEmail" placeholder="请输入你的邮箱账号" />
@@ -23,9 +23,9 @@
  </view>
  <button class='submit' bindtap='submit'>提交</button>
  </view>
- <view class = 'success' wx:if="{{success}}">
+ <!-- <view class = 'success' wx:if="{{success}}">
  <view class='cheer'><icon type="success" size="24"/> 恭喜您注册成功!</view>
  <button type = "default" class = 'return' bindtap='return_login'>返回登陆页面</button>
- </view>
+ </view> -->
 
 

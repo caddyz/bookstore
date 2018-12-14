@@ -9,18 +9,17 @@ Page({
     username: '',
     password: '',
     passwordAgain: '',
-    success: false,
+   // success: false,
     status:''
   },
   /**
     *
     */
-  return_login: function (e) {
-    wx.navigateTo({
-      url: '/pages/login/login',
-    })
-
-  },
+  // return_login: function (e) {
+  //   wx.navigateTo({
+  //     url: '/pages/login/login',
+  //   })
+  // },
   //邮箱账号
   handleInputEmail: function (e) {
     this.setData({
@@ -50,44 +49,18 @@ Page({
   },
   submit: function (e) {
     var that = this
-    if(this.data.email==""){
+    var passwordAgain = that.data.passwordAgain;
+    var username = that.data.username;
+    var password = that.data.password
+    var email=that.data.email
+    if(that.data.email==""){
       wx.showToast({
         title: '请输入邮箱',
         icon: 'none',
         duration: 2000
       })
       return
-    }else{
-      var that=this;
-      var email=that.data.eamil
-      wx.request({
-        url: app.URL + +'bookstore-mall/' + email +'/searchPhone',
-        method: "GET",
-        data: {
-          email: email,
-        },
-        header: {
-          'Content-Type': 'application/json'
-        },
-        success:function(res){
-          if(res.data.status==true){
-            wx.showToast({
-              title: res.data.msg,
-              icon: 'none',
-              duration: 2000
-            })
-          }else{
-            wx.showToast({
-              title: res.data.msg,
-              icon: 'success',
-              duration: 2000
-            })
-          }
-        }
-      })
-    };
-    
-    if (this.data.username ==" ") {
+    } else if (this.data.username == '') {
       wx.showToast({
         title: '请输入用户名',
         icon: 'none',
@@ -109,10 +82,34 @@ Page({
       })
       return
     } else {
-      var that = this
-      var email = that.data.email;
-      var username=that.data.username;
-      var password=that.data.password
+      wx.request({
+        url: app.URL + 'bookstore-mall/' + email +'/'+username+ '/searchPhone',
+        method: "GET",
+        data: {
+          email: email,
+          username:username
+        },
+        header: {
+          'Content-Type': 'application/json'
+        },
+        success: function (res) {
+          //console.log("邮箱状态：" + JSON.stringify(res.data))
+          if (res.data.status == false) {
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'none',
+              duration: 2000
+            })
+          } else {
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'success',
+              duration: 2000
+            })
+          }
+        }
+      })
+    }
       wx.request({
         url: app.URL +'bookstore-mall/' + email + '/' + username + '/' + password + '/searchUser',
         method: "GET",
@@ -125,18 +122,23 @@ Page({
           'Content-Type': 'application/json'
         },
         success: function (res) {
+          if(res.data.status==true){
           wx.showToast({
-            title: '提交成功~',
+            title: '注册成功~',
             icon: 'loading',
             duration: 2000
           })
-          console.log(res)
-          that.setData({
-            success: true
+            wx.navigateTo({
+              url: '/pages/login/login',
+            })
+        }else{
+          wx.showModal({
+            title: '提示',
+            content: '用户名已存在',
           })
         }
+        }
       })
-    }
   },
 
   /**

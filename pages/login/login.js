@@ -76,9 +76,9 @@ Page({
             userInfo: res.data
           });
           //信息正确,给userInfo赋值        
-          console.log("userInfo"+that.data.userInfo.username);
+         // console.log("userInfo"+that.data.userInfo.username);
           app.globalData.userInfo = that.data.userInfo;
-          console.log("用户名" + app.globalData.userInfo.username);
+          //console.log("用户名" + app.globalData.userInfo.username);
           //返回上一页 上一页的跳转只能用wx.navigateTo
           wx.navigateBack({
             delta: 3
