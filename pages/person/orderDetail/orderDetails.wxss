@@ -154,3 +154,13 @@ page{  background: #fff;}
 	margin-right: 20rpx;
 	font-size: 34rpx;
 }
+.modifier {
+  width: 84%;
+  color: #fff;
+  height: 69rpx;
+  line-height: 69rpx;
+  font-size: 30rpx;
+  font-family: "微软雅黑", "黑体";
+  top: 103rpx;
+  background: red;
+}

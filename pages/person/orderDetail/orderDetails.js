@@ -1,11 +1,14 @@
 // pages/person/orderDetail/orderDetails.js
-var app=getApp()
+
+var app=getApp();
+var utils=require("../../../utils/util.js")
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    orderId:'',//订单的Id
     oderDetail:
       { 
         expressId: '123456',
@@ -44,6 +47,9 @@ Page({
     console.log("我接收的订单id是：" + orderId);
     var that=this;
     that.getOrderDetails(orderId);
+    that.setData({
+      orderId: orderId
+    })
     //获取用户的头像和昵称
     wx.getUserInfo({
       success: function (res) {
@@ -58,18 +64,37 @@ Page({
 
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  //用户点击退货后执行的方法
+  returnGoods:function(){
+    var id = this.data.orderId;
+    var oderDetail = this.data.oderDetail;
+    if (oderDetail.orderStatus=='退款中'){
+      wx.showToast({
+        title: '商品已退款中',
+        duration:2000,
+      });
+      return;
+    };
+    if (oderDetail.orderStatus == '待付款'){
+      wx.showToast({
+        title: '商品未付款',
+        duration: 2000,
+      });
+      return;
+    };
+    wx.showModal({
+      title: '提示',
+      content: '是否确认退货',
+      success:function(res){
+        if(res.confirm){
+          //改变订单状态为退款中
+          console.log("修改订单状态为退款");
+          utils.updateOrder(id, '退款中');//改变数据库中订单的相应状态
+        }else{
+          return;
+        }
+      }
+    })
   },
 
   //获取订单详情页面数据的方法

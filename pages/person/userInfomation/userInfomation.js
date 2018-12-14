@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    user:'',//用户信息
     message:"你好我是用户信息界面",
     tempFilePaths: '',
     nickName: '',
@@ -46,7 +47,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
     var that = this;
+    var user=app.globalData.userInfo;//获取用户信息
+    that.setData({
+      user:user
+    })
+
     wx.getUserInfo({
       success: function (res) {
         // success
@@ -96,7 +103,7 @@ Page({
       email: that.data.email,
       signature: that.data.signature,
       region: [that.data.province, that.data.city, that.data.county],
-      sex: that.sex,
+      sex: that.sex
     }
     //存入缓存
     wx.setStorage({

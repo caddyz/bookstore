@@ -48,10 +48,14 @@ Page({
           //   key: "regions",
           //   data: e.detail.value
           // })
-          //提示
-          wx.showToast({
-            title: '提交成功！',
-          })
+          //提示if
+          if(res.data==true){
+            wx.showToast({
+              title: '提交成功！',
+            });
+            wx.navigateBack();//返回上一页面
+          }
+        
         } else {
           wx.showToast({
             title: '添加失败！',

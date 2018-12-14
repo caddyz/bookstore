@@ -17,7 +17,7 @@
 </view>
 
 <!-- 收货地址 -->
-<view bindtap="todeliver" class="address">
+<view class="address">
 	<view>
 		<text class="name">收货人：{{oderDetail.addressConsignee}}</text><text class="number">电话：{{oderDetail.addressMobile}}</text>
 	</view>
@@ -53,10 +53,12 @@
 			<text class="productPrice">￥{{item.bookSalesPrice}}</text>
 			<text class="productQuantity">x{{item.bookNum}}</text>
 		</view>
+
 	</view>
 </block>
 
 	<view class="productCount">
-		<view>合计：￥<text>{{oderDetail.totalPrice}}</text></view>
+		<view>折扣价格：￥<text>{{oderDetail.totalPrice}}</text></view>
 	</view>
+  <button hover-class='button-hover'  bindtap='returnGoods' class='modifier' >退货</button>
 </view>	

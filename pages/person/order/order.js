@@ -1,4 +1,5 @@
-var app=getApp()
+var app=getApp();
+var utils=require("../../../utils/util.js");
 Page({
   data:{
     
@@ -306,69 +307,88 @@ Page({
     let id = e.currentTarget.dataset.id;
     let arr=this.data.order;
     console.log("我获得的状态是：" + statues + "获得的id是" + id);
-    if (statues =='待付款')//如果获得的订单状态是待付款对应的操作
-    {
-      console.log("我结账去了")//如果用户已经付款了就改变订单状态
+    //如果获得的订单状态是待付款对应的操作
+    switch (statues){
+      case '待付款':
+        console.log("我结账去了")//如果用户已经付款了就改变订单状态
+        wx.showModal({
+          title: '提示',
+          content: '是否确认付款？',
+          success: function (res) {
+            if (res.confirm) {
+              console.log('弹框后点确认orderId' + id);
+              for (var i in arr) {
+                if (arr[i].orderId == id) {
+                  arr[i].orderStatus = '待发货';
+                  console.log('循环后orderId' + id);
+                  utils.updateOrder(id, '待发货');//改变数据库中订单的相应状态
+                }
+
+              }
+              that.setData({
+                order: arr
+              });
+              that.clearGrouping();//清除分组
+              that.getOrderGrouping();//重新分组
+              that.waitingPay();//再次显示
+              console.log("调用函数修改数据库中订单的状态书的id=" + id + '修改后的状态是：' + '待发货')
+              console.log("确认收货后的操作");
+            } else {
+              console.log('弹框后点取消')
+              return;
+            }
+          }
+        });
+      break;
+
+      case '待收货':
+        console.log("确认收货")//如果用户已经付款了就改变订单状态
+        wx.showModal({
+          title: '提示',
+          content: '是否确认收货？',
+          success: function (res) {
+            if (res.confirm) {
+              console.log('弹框后点确认');
+              for (var i in arr) {
+                if (arr[i].orderId == id) {
+                  arr[i].orderStatus = '已完成';
+                  utils.updateOrder(id, '已完成');//改变数据库中订单的相应状态
+                }
+              }
+              that.setData({
+                order: arr
+              });
+              that.clearGrouping();//清除分组
+              that.getOrderGrouping();//重新分组
+              that.waitingReceive();//再次显示
+              console.log("确认收货后的操作");
+            } else {
+              console.log('弹框后点取消')
+              return;
+            }
+          }
+        });
+      break;
+      case'已完成':
       wx.showModal({
         title: '提示',
-        content: '是否确认付款？',
-        success: function (res) {
-          if (res.confirm) {
-            console.log('弹框后点确认orderId'+id);
-            for (var i in arr) {
-              if (arr[i].orderId == id) {
-                arr[i].orderStatus = '待发货';
-                console.log('循环后orderId' + id);
-                that.updateOrder(id, '待发货');
-              }
-             
-            }
-            that.setData({
-              order: arr
-            });
-            that.clearGrouping();//清除分组
-            that.getOrderGrouping();//重新分组
-            that.waitingPay();//再次显示
-            console.log("调用函数修改数据库中订单的状态书的id=" + id + '修改后的状态是：' + '待发货')
-            console.log("确认收货后的操作");
-          } else {
-            console.log('弹框后点取消')
+        content: '是否评价订单？',
+        success:function(res){
+          if(res.confirm){
+            wx.navigateTo({
+              url: '../myOrderRate/myOrderRate?orderId=' + id,
+            })
+          }
+          else{
             return;
           }
-      }
-      });
-    } else if (statues == '待收货'){
-
-       console.log("确认收货")//如果用户已经付款了就改变订单状态
-       wx.showModal({
-        title: '提示',
-        content: '是否确认收货？',
-        success: function (res) {
-          if (res.confirm) {
-            console.log('弹框后点确认');
-            for (var i in arr) {
-              if (arr[i].orderId == id) {
-                arr[i].orderStatus = '已完成';
-                that.updateOrder(i, '已完成');
-              }
-            }
-            that.setData({
-              order: arr
-            });
-            that.clearGrouping();//清除分组
-            that.getOrderGrouping();//重新分组
-            that.waitingReceive();//再次显示
-            console.log("确认收货后的操作");
-          } else {
-            console.log('弹框后点取消')
-            return;
-          }
-        }        
-      });
-     
-    }else{
-      return;
+        }
+      })
+      break;
+      default:
+        return;
     }
+  
   },
 
   //清除分组中的数据
@@ -445,11 +465,7 @@ Page({
       }
     }
   },
-  allOrderPage: function () {
-    wx.navigateTo({
-      url: '../seller_allOrder/seller_allOrder'
-    })
-  },
+//查看订单详细信息界面
   toOrderDetail: function (e) {
     let orderId = e.currentTarget.dataset.order;
     console.log("我获得的订单号：" + orderId)
@@ -458,28 +474,6 @@ Page({
     })
   },
 
-  // 修改数据库中对应的订单状态
-
-  updateOrder: function (orderId, orderStatus) {
-    var orderId = orderId;
-    var orderStatus = orderStatus;
-    wx.request({
-      url: app.URL + 'bookstore-mall/updateOrders/' + orderId +'/'+ orderStatus,
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      method: 'GET',
-      success: function (res) {
-        // 设置服务器响应的状态码为200 200表示成功
-        if (res.statusCode === 200) { 
-          if(res.data){
-            console.log("修改成功") ;
-          }  
-                     
-        }
-      }
-    })
-  },
 
    
 //从数据库中获取用户所有的商品
