@@ -35,38 +35,38 @@ Page({
     ],
   },
   //页面加载函数
-    //   onShow:function(){
-    //   var that=this;
-    //   let info = app.globalData.userInfo;
-    //   console.log("info:" + JSON.stringify(info));
-    //   if (info == null) {
-    //     wx.showModal({
-    //       title: '提示',
-    //       content: '是否登陆',
-    //       success(res) {
-    //         if (res.confirm) {
-    //           console.log('用户点击确定')
-    //           wx.navigateTo({
-    //             url: "/pages/login/login"
-    //           })
-    //         } else if (res.cancel) {
-    //           console.log('用户点击取消')
-    //           wx.switchTab({
-    //             url: '/pages/index/index',
-    //           })
-    //         }
-    //       }
-    //     })
+      onShow:function(){
+      var that=this;
+      let info = app.globalData.userInfo;
+      console.log("info:" + JSON.stringify(info));
+      if (info == null) {
+        wx.showModal({
+          title: '提示',
+          content: '是否登陆',
+          success(res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+              wx.navigateTo({
+                url: "/pages/login/login"
+              })
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+              wx.switchTab({
+                url: '/pages/index/index',
+              })
+            }
+          }
+        })
         
-    //   } else {
-    //     //调用应用实例的方法获取全局数据
-    //     //更新数据
-    //     that.setData({
-    //       username: app.globalData.userInfo.username,
-    //       userId:app.globalData.userInfo.id
-    //     })
-    //   }
-    // },
+      } else {
+        //调用应用实例的方法获取全局数据
+        //更新数据
+        that.setData({
+          username: app.globalData.userInfo.username,
+          userId:app.globalData.userInfo.id
+        })
+      }
+    },
   //事件处理函数
   toOrder: function () {
     wx.navigateTo({

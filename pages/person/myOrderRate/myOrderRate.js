@@ -242,6 +242,7 @@ Page({
         that.setData({
           book:res.data             //将获取的数据提取出来
         })
+        console.log("我获得的信息是："+JSON.stringify(res.data))
         } else {
          that.setData({
            book:this.data.book

@@ -36,11 +36,11 @@ view{
   overflow: hidden;
 }
 .panel-content-subTitle{
-  font-size: 21rpx;
+  font-size: 25rpx;
   color: #999999;
   margin-top: 16rpx;
   margin-left: -4rpx;
-  line-height: 21rpx;
+  line-height: 25rpx;
 }
 .panel-content-price{
   margin-top: 58rpx;
@@ -52,7 +52,7 @@ view{
   position: absolute;
   right: 55rpx;
   bottom: 18rpx;
-  font-size:21rpx;
+  font-size:30rpx;
 }
 .panel-bottom-rate{
   width: 100%;

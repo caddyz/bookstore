@@ -272,8 +272,8 @@ Page({
     wx.navigateBack() //返回上级页面  
   },
   
-      //修改用户数据库中默认收货地址的方法
-    updateUserReceiveAddressStatus:function(userId,newAddressId,oldAddressId){
+   //修改用户数据库中默认收货地址的方法
+ updateUserReceiveAddressStatus:function(userId,newAddressId,oldAddressId){
       var that=this;
       wx.request({
         url: app.URL + 'bookstore-mall/updateUserReceiveAddressStatus/' + userId + '/' + newAddressId+'/'+oldAddressId, //提交的网络地址

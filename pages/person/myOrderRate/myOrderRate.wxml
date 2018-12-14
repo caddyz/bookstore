@@ -2,12 +2,11 @@
 <view class='container-con' style='margin-bottom:201rpx;'>
   <view class="panel">
     <view class='panel-content'>
-      <image class='panel-content-img' src='{{book.bookCoverImage}}'></image>
+      <image class='panel-content-img' src="{{book.bookCoverImage}}"></image>
       <view class='panel-content-right'>
         <view class='panel-content-title'>{{book.bookName}}</view>
-        <view class='panel-content-subTitle'>
-          <text>简介： </text>
-          <text> </text>
+        <view class='panel-content-subTitle'>      
+         <view>作者：</view> <view wx:for="{{book.bookAuthor}}" wx:for-item="itemName" >{{itemName.authorName}}</view>
         </view>
         <view class='panel-content-price'>
           <text>￥</text>
