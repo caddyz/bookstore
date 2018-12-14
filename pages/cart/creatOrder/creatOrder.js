@@ -123,14 +123,14 @@ Page({
   let  order={   
     expressId: this.data.expressId,//货运方式Id
     receiveAddressId: this.data.newAddress.addressId,//收货地址Id
-    userId:'1',//用户Id
+    userId: app.globalData.userInfo.userId,//用户Id
     carts:this.data.oldcart,//商品
     orderTime: utils.formatTime(new Date()),//下单时间
     orderStatus:'待发货',//订单状态
     totalPrice: this.data.totalPrice,//订单总价
   };
 
-  // that.creatOrder(order);//将用户数据提交到数据库中
+  that.creatOrder(order);//将用户数据提交到数据库中
   //支付接口
   // console.log("appURL:"+app.URL);
   //   app.orderInfo.body = '书本购买';
@@ -145,7 +145,7 @@ Page({
   //     })
   // });
         // console.log("booksId:" + order.booksId);
-    // that.updateUserCoupons(2, couponId, utils.formatTime(new Date()))//用户使用优惠券后改变数据库中优惠券的状态(用户id，优惠券id，优惠券使用时间)
+    that.updateUserCoupons(app.globalData.userInfo.userId, couponId, utils.formatTime(new Date()))//用户使用优惠券后改变数据库中优惠券的状态(用户id，优惠券id，优惠券使用时间)
   
   },
 
@@ -171,7 +171,7 @@ Page({
     var that = this;
     // //数据库获取初始数据
     wx.request({
-      url: app.URL + 'bookstore-mall/selectDefaultReceiveAddress/'+1, //提交的网络地址
+      url: app.URL + 'bookstore-mall/selectDefaultReceiveAddress/' + app.globalData.userInfo.userId, //提交的网络地址
       method: "GET",
       dataType: "json",
       header: {
@@ -324,7 +324,7 @@ Page({
     var userCoupons=[];
     // //数据库获取初始数据
     wx.request({
-      url: app.URL + 'bookstore-mall/getUserCoupon/'+2, //提交的网络地址
+      url: app.URL + 'bookstore-mall/getUserCoupon/' + app.globalData.userInfo.userId, //提交的网络地址
       method: "GET",
       dataType: "json",
       header: {

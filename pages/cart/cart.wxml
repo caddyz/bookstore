@@ -19,7 +19,7 @@
         <icon wx:else type="circle" bindtap="selectList" data-index="{{index}}"/>
             <!--左侧图片-->
             <view catchtap='toBookDetail' data-id="{{index}}">
-                <image src="{{item.imgUrl}}" class="good-img"/>
+                <image src="http://192.168.10.110/{{item.imgUrl}}" class="good-img"/>
             </view>
             <!--右侧说明部分-->
             <view class="good-cont">

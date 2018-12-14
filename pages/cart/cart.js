@@ -6,79 +6,7 @@ Page({
     selectAllStatus:false,//是否全部选中
   
     // cart:[],
-    cart: [{
-      bookId: "101",
-      userId:"02",
-      imgUrl: "../cart/images/history-21.jpg",
-      bookName: "燃烧的远征",
-      bookPrice: "65.00",
-      isStatus:false,
-      bookNum:'2'
-    },
-      {
-        bookId: "102",
-        userId: "02",
-        imgUrl: "../cart/images/history-22.jpg",
-        bookName: "人类简史",
-        bookPrice: "68.00",
-        isStatus: true,
-        bookNum: '1'
-      },
-      {
-        bookId: "103",
-        userId: "02",
-        imgUrl: "../cart/images/history-23.jpg",
-        bookName: "日本现代史",
-        bookPrice: "86.00",
-        isStatus: true,
-        bookNum: '1'
-      },
-      {
-        bookId: "004",
-        userId: "02",
-        imgUrl: "../cart/images/history-24.jpg",
-        bookName: "十字军的故事",
-        bookPrice: "119.00",
-        isStatus: true,
-        bookNum: '1'
-      },
-      {
-        bookId: "005",
-        userId: "02",
-        imgUrl: "../cart/images/history-25.jpg",
-        bookName: "丝绸之路",
-        bookPrice: "69.00",
-        isStatus: true,
-        bookNum: '1'
-      },
-      // {
-      //   bookId: "006",
-      //   userId: "02",
-      //   imgUrl: "../cart/images/history-26.jpg",
-      //   bookName: "宋徽宗",
-      //   bookPrice: "86.00",
-      //   isStatus: true,
-      //   bookNum: '1'
-      // },
-      // {
-      //   bookId: "007",
-      //   userId: "02",
-      //   imgUrl: "../cart/images/history-27.jpg",
-      //   bookName: "万历十五年",
-      //   bookPrice: "119.00",
-      //   isStatus: true,
-      //   bookNum: '1'
-      // },
-      // {
-      //   bookId: "008",
-      //   userId: "02",
-      //   imgUrl: "../cart/images/history-28.jpg",
-      //   bookName: "未来简史",
-      //   bookPrice: "69.00",
-      //   isStatus: true,
-      //   bookNum: '3'
-      // },
-      ], //数据
+    cart: [], //数据
     count: 1,   //商品数量默认是1
     totalPrice: 0,    //总金额
     goodsCount: 0, //数量
@@ -88,9 +16,8 @@ Page({
 
    var that=this;
     var carts = this.data.cart
-	     that.getAllCarts(2);//如果用户登录状态从数据库中获取购物车商品信息
+    that.getAllCarts(app.globalData.userInfo.userId);//如果用户登录状态从数据库中获取购物车商品信息
     //验证用户是否登录
-   
 
   },
 
