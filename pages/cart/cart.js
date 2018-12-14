@@ -87,10 +87,10 @@ Page({
   onLoad: function (options) {
 
    var that=this;
-    
     var carts = this.data.cart
-  
-    that.getAllCarts(2);//从数据库中获取购物车商品信息
+	     that.getAllCarts(2);//如果用户登录状态从数据库中获取购物车商品信息
+    //验证用户是否登录
+   
 
   },
 
@@ -98,11 +98,12 @@ Page({
   //画面显示
   onShow: function () {
     var that = this;
- 
+
+    // this.userOfStatus() //验证用户是否登录显示不同
+
       // 获取缓存李里面的数据并加入购物车
     // var bufferCart = wx.getStorageSync('cart') || [];
     // this.insetCart(bufferCart);//将添加到购物车的数据存入数据库中
-    this.getAllCarts(2);//从数据库中获取购物车商品信息
 
     var arr=this.data.cart;
     var goodsCount=0;
@@ -126,7 +127,6 @@ Page({
   //离开界面是执行这个方法
   onHide: function () {
    // 清除数据
-
     wx.clearStorageSync('cart')//隐藏页面时将缓存清除
   },
 
@@ -275,56 +275,103 @@ getTotalPrice() {
                    wx.navigateTo({
                      url: "/pages/login/login"
                    })
+               }else{
+
+        //用户未登录结算
+       wx.showModal({
+      title: '提示',
+      content: '是否结算？',
+      success: function (res) {
+        if (res.confirm) {     
+
+                for (let i = 0; i < carts.length; i++) {         // 循环列表得到每个数据
+                  if (!carts[i].isStatus) {                   // 判断留下未选中的
+                    newcart = newcart.concat(carts[i]);
+                  }
+
+                  //将选中的交给定单处理
+                  else{
+                    oldcart = oldcart.concat(carts[i]); //选中结算的商品
+                  }
+
+              }
+          console.log("创建订单并将订单数据存入书库！");
+        //如果用户未选定商品
+        if(oldcart.length==0){
+          wx.showToast({
+            title: '未选定结算商品！',
+            duration:2000
+          })
+          return;
+        }
+          //跳转到订单生成界面,将结算的商品传给订单生成界面
+          that.toCreatOrder(oldcart);
+
+          // 将数据更新
+          that.setData({
+            cart: newcart
+          });
+
+
+        } else {
+          console.log('弹框后点取消')
+          return;
+        }
+      }
+    })
                }
              }           
               })
                 }
                 }
             })       
+        }else{
+
+      //用户登录后结算
+      wx.showModal({
+        title: '提示',
+        content: '是否结算？',
+        success: function (res) {
+          if (res.confirm) {
+
+            for (let i = 0; i < carts.length; i++) {         // 循环列表得到每个数据
+              if (!carts[i].isStatus) {                   // 判断留下未选中的
+                newcart = newcart.concat(carts[i]);
+              }
+
+              //将选中的交给定单处理
+              else {
+                oldcart = oldcart.concat(carts[i]); //选中结算的商品
+              }
+
+            }
+            console.log("创建订单并将订单数据存入书库！");
+            //如果用户未选定商品
+            if (oldcart.length == 0) {
+              wx.showToast({
+                title: '未选定结算商品！',
+                duration: 2000
+              })
+              return;
+            }
+            //跳转到订单生成界面,将结算的商品传给订单生成界面
+            that.toCreatOrder(oldcart);
+
+            // 将数据更新
+            that.setData({
+              cart: newcart
+            });
+
+
+          } else {
+            console.log('弹框后点取消')
+            return;
+          }
+        }
+      })
+
         }
     
-  
-    // wx.showModal({
-    //   title: '提示',
-    //   content: '是否结算？',
-    //   success: function (res) {
-    //     if (res.confirm) {     
-
-    //             for (let i = 0; i < carts.length; i++) {         // 循环列表得到每个数据
-    //               if (!carts[i].isStatus) {                   // 判断留下未选中的
-    //                 newcart = newcart.concat(carts[i]);
-    //               }
-
-    //               //将选中的交给定单处理
-    //               else{
-    //                 oldcart = oldcart.concat(carts[i]); //选中结算的商品
-    //               }
-
-    //           }
-    //       console.log("创建订单并将订单数据存入书库！");
-    //     //如果用户未选定商品
-    //     if(oldcart.length==0){
-    //       wx.showToast({
-    //         title: '未选定结算商品！',
-    //         duration:2000
-    //       })
-    //       return;
-    //     }
-    //       //跳转到订单生成界面,将结算的商品传给订单生成界面
-    //       that.toCreatOrder(oldcart);
-
-    //       // 将数据更新
-    //       that.setData({
-    //         cart: newcart
-    //       });
-
-          
-    //     } else {
-    //       console.log('弹框后点取消')
-    //       return;
-    //     }
-    //   }
-    // })
   },
   //商品详细信息介绍界面
   toBookDetail(e){
@@ -440,5 +487,19 @@ getTotalPrice() {
         });
       }
     })
+  },
+  //验证用户是否登录显示不同的
+  userOfStatus:function(){
+    var that=this;
+    //验证用户是否登录
+    if (app.globalData.userInfo != null) {
+      that.getAllCarts(2);//如果用户登录状态从数据库中获取购物车商品信息
+    } else {
+      //如果用户没有登录
+      var bufferCart = wx.getStorageSync('cart') || [];//直接读取缓存中的数据
+      that.setData({
+        cart: bufferCart
+      });
+    }
   }
 })

@@ -50,9 +50,15 @@ Page({
       oldcart: oldcart
     })
   
-    that.getDefaultReceiveAddress();
-    that.getExpressWay();
-    that.getuserCoupons();//获取数据库中用户的优惠券
+    
+    that.getExpressWay();//获取书店提供的货运方式
+    //验证用户是否登录
+    if (app.globalData.userInfo != null){
+      var userId = app.globalData.userInfo.userId; //如果登录获取用户的id
+      that.getuserCoupons();//获取数据库中用户的优惠券
+      that.getDefaultReceiveAddress();//获取用户的默认收货地址
+    }
+
   },
   //界面显示刷新
  onShow(){
@@ -147,9 +153,17 @@ Page({
 
   //用户选择收货地址
   toAddressList:function(){
-    wx.navigateTo({
-      url: '../../person/addressList/addressList',
-    })
+    //验证用户是否登录，如果用户登录的话跳向用户的地址管理界面，未登录的话跳向地址添加界面
+    if (app.globalData.userInfo != null){
+      wx.navigateTo({
+        url: '../../person/addressList/addressList',
+      })
+    }else{
+      wx.navigateTo({
+        url: '../../person/address/address',
+      })
+    }
+   
   },
  
   //获取用户添加的默认收货地址
@@ -157,7 +171,7 @@ Page({
     var that = this;
     // //数据库获取初始数据
     wx.request({
-      url: app.URL + 'bookstore-mall/selectDefaultReceiveAddress/' + 1, //提交的网络地址
+      url: app.URL + 'bookstore-mall/selectDefaultReceiveAddress/'+1, //提交的网络地址
       method: "GET",
       dataType: "json",
       header: {
@@ -166,16 +180,16 @@ Page({
       success: function (res) {
         //--init data
 
-        if (res.data==true) {
+        if (res.data!=null) {
           that.setData({
-            newAddress: res.data,//获取用户默认收货地址
+            newAddress: res.data, //获取用户默认收货地址
           })
         } else {
           that.setData({
             newAddress: that.data.newAddress
           })
         }
-        // console.log("我获取的默认收货地址："+that.data.newAddress)
+        console.log("我获取的默认收货地址：" + JSON.stringify(that.data.newAddress) )
       },
       fail: function () {
         // fail
@@ -214,7 +228,6 @@ Page({
             sendWay: that.data.sendWay
           })
         }
-        // console.log("我获取的默认收货地址：" + that.data.sendWay)
       },
       fail: function () {
         // fail
@@ -293,7 +306,7 @@ Page({
             title: '下单失败！',
           })
         }
-        // console.log("我获取的默认收货地址：" + that.data.sendWay)
+      
       },
       fail: function () {
         // fail
@@ -304,6 +317,7 @@ Page({
       }
     })
   },
+
   //用户优惠券和折扣查询
   getuserCoupons:function(){
     var that=this;
@@ -353,6 +367,7 @@ Page({
       }
     })
   },
+
   //修改用户优惠券状态的方法
   updateUserCoupons:function(userId,couponId,couponUseTime){
     var coupon={
