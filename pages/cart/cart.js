@@ -87,25 +87,23 @@ Page({
   onLoad: function (options) {
 
    var that=this;
-      // 获取缓存李里面的数据并加入购物车
-    // var bufferArr = wx.getStorageSync('cart') || [];
-    // if(bufferArr.length>0){
-    //   arr = this.data.cart.concat(bufferArr);
-    // }else{
-    //   arr = this.data.cart;
-    // }
-      // this.insetCart(carts);//将添加到购物车的数据存入数据库中
+    
     var carts = this.data.cart
   
     that.getAllCarts(2);//从数据库中获取购物车商品信息
 
   },
 
+
   //画面显示
   onShow: function () {
     var that = this;
  
-    
+      // 获取缓存李里面的数据并加入购物车
+    // var bufferCart = wx.getStorageSync('cart') || [];
+    // this.insetCart(bufferCart);//将添加到购物车的数据存入数据库中
+    this.getAllCarts(2);//从数据库中获取购物车商品信息
+
     var arr=this.data.cart;
     var goodsCount=0;
     // var arr =[]
@@ -128,19 +126,11 @@ Page({
   //离开界面是执行这个方法
   onHide: function () {
    // 清除数据
-    console.log("我是页面隐藏时执行的方法");
-    var Carts = this.data.cart;
-    var that = this
-    // //数据库获取初始数据
-   
+
+    wx.clearStorageSync('cart')//隐藏页面时将缓存清除
   },
 
-  //离开本页时需要消除的数据
- onUnload:function(){
-   //当页面卸载时清除缓存
-  //  wx.clearStorageSync('cart');
-  
- },
+
   /* 减数 */
   delCount: function (e) {
     console.log(e)
@@ -158,13 +148,7 @@ Page({
       cart: this.data.cart,
       goodsCount: this.data.goodsCount
     })
-    this.getTotalPrice();     
-    // // 主体数据重新赋入缓存内
-    // try {
-    //   wx.setStorageSync('cart', this.data.cart)
-    // } catch (e) {
-    //   console.log(e)
-    // }
+    this.getTotalPrice(); //计算总价    
   },
   /* 加数 */
   addCount: function (e) {
@@ -177,13 +161,8 @@ Page({
       cart: this.data.cart,
       goodsCount: this.data.goodsCount
     })
-    this.getTotalPrice(); 
-    // // 主体数据重新赋入缓存内
-    // try {
-    //   wx.setStorageSync('cart', this.data.cart)
-    // } catch (e) {
-    //   console.log(e)
-    // }
+    this.getTotalPrice(); //计算总价
+ 
   },
   /* 删除item */
   delGoods: function (e) {
@@ -206,11 +185,7 @@ Page({
     // console.log("cartId:" + cartId)
     that.delCart(cartId,2);//将数据库中用户的购物车数据删除  
     // // 主体数据重新赋入缓存内
-    // try {
-    //   wx.setStorageSync('cart', this.data.cart)
-    // } catch (e) {
-    //   console.log(e)
-    // }
+   
   },
   
   //单选择商品事件
@@ -360,6 +335,7 @@ getTotalPrice() {
       url: '/pages/classify/detail/detail?bookId='+id,
     })
   },
+
   //将新增的商品存入购物车数据存入数据库的方法
   insetCart:function(carts){
     var Carts=carts;
