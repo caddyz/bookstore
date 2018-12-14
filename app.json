@@ -40,8 +40,9 @@
     "pages/person/addressList/addressList",
     "pages/person/userSaleRecord/userSaleRecord",
     "pages/person/myEvaluate/myEvaluate",
-	  "pages/person/orderDetail/orderDetails",
-   "pages/cart/creatOrder/creatOrder"
+	"pages/person/orderDetail/orderDetails",
+   "pages/cart/creatOrder/creatOrder",
+    "pages/person/myOrderRate/myOrderRate"
   ],
     
   "window":{
