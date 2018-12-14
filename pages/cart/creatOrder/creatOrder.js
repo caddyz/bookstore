@@ -123,23 +123,23 @@ Page({
     orderStatus:'待发货',//订单状态
     totalPrice: this.data.totalPrice,//订单总价
   };
-  console.log("appURL:"+app.URL);
-    app.orderInfo.body = '书本购买';
-    app.orderInfo.detail = '买了4本书！';
-    app.orderInfo.out_trade_no = Date.parse(new Date());
-    app.orderInfo.total_fee = realPayPrice;//实际支付的商品金额
-    console.log("app.orderInfo" + JSON.stringify(app.orderInfo) )
-    pay.payOreder(app.orderInfo, function (data) {
-      wx.showToast({
-        title: data.return_msg,
-        icon: 'none'
-      })
+
+  // that.creatOrder(order);//将用户数据提交到数据库中
+  //支付接口
+  // console.log("appURL:"+app.URL);
+  //   app.orderInfo.body = '书本购买';
+  //   app.orderInfo.detail = '买了4本书！';
+  //   app.orderInfo.out_trade_no = Date.parse(new Date());
+  //   app.orderInfo.total_fee = realPayPrice;//实际支付的商品金额
+  //   console.log("app.orderInfo" + JSON.stringify(app.orderInfo) )
+  //   pay.payOreder(app.orderInfo, function (data) {
+  //     wx.showToast({
+  //       title: data.return_msg,
+  //       icon: 'none'
+  //     })
+  // });
         // console.log("booksId:" + order.booksId);
     // that.updateUserCoupons(2, couponId, utils.formatTime(new Date()))//用户使用优惠券后改变数据库中优惠券的状态(用户id，优惠券id，优惠券使用时间)
-    // that.creatOrder(order);//将用户数据提交到数据库中
-      // console.log("data.return_msg:"+data.return_msg);
-    });
- 
   
   },
 
@@ -166,7 +166,7 @@ Page({
       success: function (res) {
         //--init data
 
-        if (res.data != null) {
+        if (res.data==true) {
           that.setData({
             newAddress: res.data,//获取用户默认收货地址
           })
@@ -242,10 +242,12 @@ Page({
       },
       success: function (res) {
         //--init data
-        if (res.data) {
-          console.log("添加成功！");
-          
+        if (res.data==true) {
+          console.log("添加成功！");        
           that.deCartsAlreadyPay();//订单生成成功删除用户购物车中已经结算了的数据
+          wx.navigateBack({
+            delta:2 //返回到购物车界面
+          })
         } else {
           console.log("添加失败！");
         }
@@ -281,7 +283,7 @@ Page({
       },
       success: function (res) {
         //--init data
-        if (res.data) {
+        if (res.data==true) {
           wx.showToast({
             title: '下单成功！',
           })

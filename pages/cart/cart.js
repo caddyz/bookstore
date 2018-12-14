@@ -277,68 +277,85 @@ getTotalPrice() {
   //结算函数，生成商品订单并将数据提交到订单界面进行处理
   toSettlement:function(e) {
     var that=this;
-    let carts = this.data.cart; 
-    let newcart=[];//未选中结算的
-    let oldcart=[];//选中结算的
-    if (app.globalData.userInfo == null) {
-      wx.navigateTo({
-        url: '/pages/login/login',
-      })
-    } else {
-    wx.showModal({
-      title: '提示',
-      content: '是否结算？',
-      success: function (res) {
-        if (res.confirm) {
-          console.log("确认付钱订单生成")
-      
-                console.log('我付钱了该生成订单了 并将结算了书本从购车数据库中删除');
-                for (let i = 0; i < carts.length; i++) {         // 循环列表得到每个数据
-                  if (!carts[i].isStatus) {                   // 判断留下未选中的
-                    newcart = newcart.concat(carts[i]);
-                  }
-
-                  //将选中的交给定单处理
-                  else{
-                    oldcart = oldcart.concat(carts[i]); //选中结算的商品
-                  }
-
-              }
-         
-        
-
-          console.log("创建订单并将订单数据存入书库！");
-        //如果用户未选定商品
-        if(oldcart.length==0){
-          wx.showToast({
-            title: '未选定结算商品！',
-            duration:2000
-          })
-          return;
+    let carts = this.data.cart;
+    let newcart = [];//未选中结算的
+    let oldcart = [];//选中结算的
+    console.log("用户账户：" + JSON.stringify(app.globalData.userInfo));
+    if (app.globalData.userInfo==null) {
+      wx.showModal({
+        title: '提示',
+        content: '是否登录？',
+        success:function(res){
+          if (res.confirm) {
+            //点击确认登录
+            wx.navigateTo({
+              url: "/pages/login/login"
+            })
+                }else{
+            wx.showModal({
+              title: '提示',
+              content: '未登录将无优惠！',
+              success: function (res) {
+                 if (res.confirm) {
+                   wx.navigateTo({
+                     url: "/pages/login/login"
+                   })
+               }
+             }           
+              })
+                }
+                }
+            })       
         }
+    
+  
+    // wx.showModal({
+    //   title: '提示',
+    //   content: '是否结算？',
+    //   success: function (res) {
+    //     if (res.confirm) {     
 
-          //跳转到订单生成界面,将结算的商品传给订单生成界面
-          that.toCreatOrder(oldcart);
+    //             for (let i = 0; i < carts.length; i++) {         // 循环列表得到每个数据
+    //               if (!carts[i].isStatus) {                   // 判断留下未选中的
+    //                 newcart = newcart.concat(carts[i]);
+    //               }
 
-          // 将数据更新
-          that.setData({
-            cart: newcart
-          });
+    //               //将选中的交给定单处理
+    //               else{
+    //                 oldcart = oldcart.concat(carts[i]); //选中结算的商品
+    //               }
+
+    //           }
+    //       console.log("创建订单并将订单数据存入书库！");
+    //     //如果用户未选定商品
+    //     if(oldcart.length==0){
+    //       wx.showToast({
+    //         title: '未选定结算商品！',
+    //         duration:2000
+    //       })
+    //       return;
+    //     }
+    //       //跳转到订单生成界面,将结算的商品传给订单生成界面
+    //       that.toCreatOrder(oldcart);
+
+    //       // 将数据更新
+    //       that.setData({
+    //         cart: newcart
+    //       });
 
           
-        } else {
-          console.log('弹框后点取消')
-          return;
-        }
-      }
-    })
-    }
+    //     } else {
+    //       console.log('弹框后点取消')
+    //       return;
+    //     }
+    //   }
+    // })
   },
   //商品详细信息介绍界面
   toBookDetail(e){
-    console.log("获得的id是" + e.currentTarget.dataset.id)
-    let id = this.data.cart[e.currentTarget.dataset.id].bookId
-    console.log("获得书的id是"+id)
+    // console.log("获得的id是" + e.currentTarget.dataset.id);
+    let id = this.data.cart[e.currentTarget.dataset.id].bookId;
+    console.log("获得书的id是"+id);
     wx.navigateTo({
       url: '/pages/classify/detail/detail?bookId='+id,
     })
@@ -357,7 +374,7 @@ getTotalPrice() {
       },
       success: function (res) {
         //--init data
-        if(res.data){
+        if(res.data==true){
           console.log("添加成功！")
         }
 
@@ -390,7 +407,7 @@ getTotalPrice() {
       },
       success: function (res) {
         //--init data
-        if (res.data) {
+        if (res.data==true) {
           console.log("删除成功！")
         }
 
@@ -407,6 +424,7 @@ getTotalPrice() {
   //跳转函数结算成功跳转到订单生成界面
   toCreatOrder:function(oldcart){ 
     let totalPrice=this.data.totalPrice;
+
     console.log("我发送的数据：" + oldcart[0]);
     wx.navigateTo({
       url: '../cart/creatOrder/creatOrder?oldcart=' + JSON.stringify(oldcart) + '&totalPrice=' + totalPrice,
@@ -446,6 +464,5 @@ getTotalPrice() {
         });
       }
     })
-
   }
 })
