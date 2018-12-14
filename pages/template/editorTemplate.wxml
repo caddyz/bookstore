@@ -1,0 +1,35 @@
+<template name="editor">
+ <view class='page-title'>{{theme.themeName}}</view>
+  <view class='preface'>
+    <view style='text-indent: 1rem;'>编者按：</view>
+    <view class='preface-info'>{{theme.recommendReason}}</view>
+  </view>
+  <view style='height:38rpx'></view>
+
+  <block wx:for='{{list}}' >
+      <view class='recommend-book' >
+        <view style='width: 60%;' data-item='{{item}}' bindtap='skip'>
+        <image src='http://images.bookstore.com/{{item.bookCoverImage}}' mode='scaleToFill'  
+        style="width: 100%; height: 100%;background-color: #eeeeee;"></image>
+        </view>
+        <view class='book-info'>
+          <view>
+            <view class='book-name'>书名：{{item.bookName}}</view>
+            <view class='book-author'>作者：{{item.authorName}}</view>
+            <view style='height:25rpx'></view>
+            <view class='reson'>
+              <view >推荐理由　</view>
+              <view style='color:#63B8FF' bindtap='click' data-index='{{index}}'>
+                  {{item.flag?'收起' : '展开'}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view style='height:12rpx'></view>
+        <view class='recommend-word' wx:if='{{item.flag}}'>
+              <view style='text-indent: 1rem;'>推荐语：</view>
+              <view class='recommend-info'>{{item.recommendWord}}</view>
+        </view>
+        <view class='bottom'></view>
+  </block>
+</template>

@@ -1,0 +1,34 @@
+.page-title{
+  text-align: center;
+  background-color: #FFFFF0;
+  color: #87CEFA;
+  font-size: 60rpx
+}
+.preface{
+  background-color: #FFFFF0
+}
+
+.preface-info,.recommend-info{
+  text-indent: 3rem;
+  font-style: italic;
+  font-size: small
+}
+.recommend-book{
+  display: flex;
+  flex-direction: row;
+  height: 325rpx;
+}
+.book-info{
+  width: 40%;
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+}
+.bottom{
+  height: 35rpx;
+  background-color: #F2F2F2;
+}
+.reson{
+  display: flex;
+  flex-direction: row
+}
