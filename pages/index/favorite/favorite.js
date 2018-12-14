@@ -51,14 +51,14 @@ Page({
   onLoad: function (options) {
     let that = this;
     wx.request({
-      url: app.URL + 'bookstore-mall/' + app.globalData.userInfo.userId +'/favorite',
+      url: app.URL + 'bookstore-mall/' + app.globalData.userInfo.userId + '/favorite',
       header: { 'content-type': 'application/json' },
       success: function (res) {
-        if(res.data.length!=0){
+        if (res.data.length != 0) {
           that.setData({
-            list:res.data
+            list: res.data
           })
-        }else{
+        } else {
           that.setData({
             hiddeinfo: true
           })
@@ -78,7 +78,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+  
   },
 
   /**

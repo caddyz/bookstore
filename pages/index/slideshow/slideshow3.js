@@ -1,28 +1,46 @@
 // pages/index/slideshow/slideshow3.js
+var util = require('../../../utils/util.js')
 Page({
 
   /**
-   * 页面的初始数据
-   */
+  * 页面的初始数据
+  */
   data: {
-    list:[],
-    bookKind:"科幻"
+    list: [],
+    theme: ''
   },
-
+  skip: function (e) {
+    wx.navigateTo({
+      url: '../../classify/detail/detail?bookId=' + e.currentTarget.dataset.item.bookId,
+    })
+  },
+  click: function (e) {
+    let that = this;
+    let index = e.currentTarget.dataset.index;
+    let key = "list[" + index + "].flag";
+    let val = that.data.list[index].flag;
+    that.setData({
+      [key]: !val
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     let that = this;
-    let kind = that.data.bookKind
-    wx.request({
-      url: 'http://192.168.10.110:8080/bookstore-mall/kind/'+kind,
-      success:function(res){
-        that.setData({
-          list:res.data
-        })
-      }
+    util.getTheme(3, function (data) {
+      that.setData({
+        theme: data
+      })
     })
+    util.slideshowConnection(3, function (data) {
+      that.setData({
+        list: data
+      })
+    })
+    for (var i in that.data.book) {
+      that.data.book[i].flag = false
+    }
   },
 
   /**

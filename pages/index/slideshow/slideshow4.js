@@ -1,4 +1,5 @@
 // pages/index/slideshow/slideshow4.js
+const app = getApp()
 Page({
 
   /**
@@ -69,8 +70,26 @@ Page({
     })
   },
   discountSkip: function () {
-    wx.navigateTo({
-      url: '/pages/index/coupon/coupon',
-    })
+    if (app.globalData.userInfo == null) {
+      wx.showModal({
+        title: '你还未登陆',
+        content: '要登录吗？',
+        success(res) {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: "/pages/login/login",
+            })
+          } else if (res.cancel) {
+            wx.switchTab({
+              url: '/pages/index/index',
+            })
+          }
+        }
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/index/coupon/coupon',
+      })  
+  }
   }
 })

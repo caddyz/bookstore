@@ -1,28 +1,2 @@
 /* pages/index/slideshow/slideshow3.wxss */
-.page{
-  width: 90%;
-  margin: 0 auto;
-}
-.book-info{
-  display: flex;
-  flex-direction: row;
-  height: 200rpx;
-}
-.book-pic{
-  width: 60%
-}
-.book{
-  width: 40%;
-  display: flex;
-  justify-content: center;  
-  align-items: center;
-}
-.book-profile{
-  text-overflow: -o-ellipsis-lastline;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  align-content: center;
-}
+@import "../../template/editorTemplate.wxss";

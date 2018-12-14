@@ -1,4 +1,5 @@
 /* pages/hot/hot.wxss */
+@import "../../template/bookinfoTemplate.wxss";
 .hot-info{
   display: flex;
   flex-direction: row;

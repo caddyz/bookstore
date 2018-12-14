@@ -1,17 +1,3 @@
 <!--pages/index/slideshow/slideshow2.wxml-->
-<view class='page'>
-<view style='text-align:center;'>{{author}}系列专题</view>
-  <block wx:for="{{list}}" wx:key="index">
-      <view class='book-info' data-index='{{index}}' bindtap='skipDetail'>
-        <view class='book-pic'><image  src='http://images.bookstore.com/{{item.bookCoverImage}}'              mode='scaleToFill' style="width: 100%; height: 100%;background-color: #eeeeee; ">                   </image></view>
-        <view class='book'>
-          <view>
-            <view>{{item.bookName}}</view>
-            <view>￥：{{item.bookSalesPrice}}</view>
-          </view>
-        </view>
-      </view>
-      <view class='book-profile'>{{item.bookProfile}}</view>
-      <view style='height:28rpx'></view>
-  </block>
-</view>
+<import src='../../template/editorTemplate'/>
+<template is="editor" data="{{list,theme}}"/>

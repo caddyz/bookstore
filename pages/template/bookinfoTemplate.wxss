@@ -20,6 +20,8 @@
 .loading{
   padding: 10rpx;
   text-align: center;
+  font-size: 34rpx;
+  color: #9E9E9E
 }
 .loading:before{
   display: inline-block;
@@ -33,9 +35,13 @@
   -moz-background-size:100% 100%;
   background-size: contain;
   animation: rotate 1s linear infinite;
+  font-size: 34rpx;
+  color: #9E9E9E
 }
 .loading.complete:before{
   display: none;
+  font-size: 34rpx;
+  color: #9E9E9E
 }
 .author-info{
   display: flex;

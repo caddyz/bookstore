@@ -76,8 +76,6 @@ Page({
         })
         return
       }
-      console.log("val：" + val)
-      console.log("keyword："+keyword)
       util.getKeywordSearch(keyword,1,function(data){
         if(data.length == 0){
           that.setData({

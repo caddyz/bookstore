@@ -95,9 +95,10 @@ Page({
   onShareAppMessage: function () {
 
   },
-  hotSkip:function(){
+  hotSkip:function(e){
     wx.navigateTo({
-      url: '/pages/classify/detail/detail',
+      url: '/pages/classify/detail/detail?bookId='
+        + JSON.stringify(e.currentTarget.dataset.item.bookId),
     })
   }
 })

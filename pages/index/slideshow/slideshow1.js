@@ -1,20 +1,47 @@
 // pages/index/slideshow/slideshow1.js
+var util = require('../../../utils/util.js')
 Page({
 
   /**
-   * 页面的初始数据
-   */
+  * 页面的初始数据
+  */
   data: {
-
+    list: [],
+    theme: ''
   },
-
+  skip: function (e) {
+    wx.navigateTo({
+      url: '../../classify/detail/detail?bookId=' + e.currentTarget.dataset.item.bookId,
+    })
+  },
+  click: function (e) {
+    let that = this;
+    let index = e.currentTarget.dataset.index;
+    let key = "list[" + index + "].flag";
+    let val = that.data.list[index].flag;
+    that.setData({
+      [key]: !val
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let that = this;
+    util.getTheme(1, function (data) {
+      that.setData({
+        theme: data
+      })
+    })
+    util.slideshowConnection(1, function (data) {
+      that.setData({
+        list: data
+      })
+    })
+    for (var i in that.data.book) {
+      that.data.book[i].flag = false
+    }
   },
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

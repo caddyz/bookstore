@@ -1,4 +1,5 @@
 // pages/index/slideshow/slideshow0.js
+const app = getApp()
 Page({
 
   /**
@@ -65,23 +66,41 @@ Page({
   },
   discounts:function(){
     let that = this;
-    wx.request({
-      url: 'http://192.168.10.110:8080/bookstore-mall/newUserGetCoupon/' + app.globalData.userInfo.userId +'/7',
-      success:function(res){
-        that.setData({
-          msg:res.data
-        })
-        wx.showToast({
-          title: that.data.msg.msg,
-          icon:'none'
-        })
-      },
-      fail:function(){
-        wx.showToast({
-          title: '领取失败',
-          icon:'none'
-        })
-      }
-    })
+    if (app.globalData.userInfo==null){
+      wx.showModal({
+        title: '你还未登陆',
+        content: '要登录吗？',
+        success(res) {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: "/pages/login/login",
+            })
+          } else if (res.cancel) {
+            wx.switchTab({
+                url: '/pages/index/index',
+              })
+          }
+        }
+      })
+    }else{
+      wx.request({
+        url: 'http://192.168.10.110:8080/bookstore-mall/newUserGetCoupon/' + app.globalData.userInfo.userId +'/7',
+        success:function(res){
+          that.setData({
+            msg:res.data
+          })
+          wx.showToast({
+            title: that.data.msg.msg,
+            icon:'none'
+          })
+        },
+        fail:function(){
+          wx.showToast({
+            title: '领取失败',
+            icon:'none'
+          })
+        }
+      })
+    }
   }
 })
