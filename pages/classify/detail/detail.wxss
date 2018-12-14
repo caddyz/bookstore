@@ -45,7 +45,7 @@ swiper-item image {
 }
 /* 设置书籍情况颜色 */
 .detail .book-status{
-  color:rgb(0, 255, 179);
+  /* color:rgb(0, 255, 179); */
   font-size: 50rpx;
   margin: 10rpx;
 }
@@ -58,31 +58,31 @@ swiper-item image {
 }
 /* 设置作者 */
 .detail .book-author{
-  color: rgb(27, 184, 40);
+  /* color: rgb(27, 184, 40); */
   font-size: 40rpx;
    margin: 10rpx;
 }
 /* 设置销量 */
 .detail .book-num{
-  color: blue;
+  /* color: blue; */
   font-size: 30rpx;
    margin: 10rpx;
 }
 /* 设置余量 */
 .detail .book-sales{
-  color: blue;
+  /* color: blue; */
   font-size: 30rpx;
    margin: 10rpx;
 }
 /* 设置商品详情 */
 .detail .book-profile{
-  color: yellow;
+  /* color: yellow; */
   font-size: 36rpx;
    margin: 10rpx;
 }
 /* 设置出版社 */
 .detail .book-publish{
-  color: rebeccapurple;
+  /* color: rebeccapurple; */
   font-size: 40rpx;
    margin: 10rpx;
 }
@@ -90,7 +90,7 @@ swiper-item image {
 .detail .book-cotegory{
   font-size: 40rpx;
    margin: 10rpx;
-   color: goldenrod;
+   /* color: goldenrod; */
 }
 
 

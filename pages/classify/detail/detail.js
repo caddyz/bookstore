@@ -87,8 +87,8 @@ Page({
     console.log("获取的图片为：" + this.data.list[0].bookCoverImage)
     var bookStatus = this.data.list[0].bookStatus
     console.log("获取的状态为：" + this.data.list[0].bookStatus)
-    var discountPrice = this.data.out[0].discountPrice
-    console.log("获取的折扣价为：" + this.data.out[0].discountPrice)
+    // var discountPrice = this.data.out[0].discountPrice
+    // console.log("获取的折扣价为：" + this.data.out[0].discountPrice)
 
     // 获取缓存中的已添加购物车信息
     var cartItems = wx.getStorageSync('cartItems') || []
@@ -105,7 +105,7 @@ Page({
         bookPrice: that.data.bookSalesPrice, 
         bookCoverImage: that.data.bookCoverImage, 
         bookStatus: that.data.bookStatus, 
-        discountPrice: that.data.discountPrice,
+        // discountPrice: that.data.discountPrice,
         bookNum:1,
       })
     
