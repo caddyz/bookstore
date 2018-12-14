@@ -100,6 +100,27 @@ function getSelectClassifyBookByIdSearch(bookId, callback) {
     }
   })
 }
+// 修改数据库中对应的订单状态
+function  updateOrder(orderId, orderStatus) {
+  var orderId = orderId;
+  var orderStatus = orderStatus;
+  wx.request({
+    url: app.URL + 'bookstore-mall/updateOrders/' + orderId + '/' + orderStatus,
+    header: {
+      'content-type': 'application/json' // 默认值
+    },
+    method: 'GET',
+    success: function (res) {
+      // 设置服务器响应的状态码为200 200表示成功
+      if (res.statusCode === 200) {
+        if (res.data == true) {
+          console.log("修改成功");
+        }
+
+      }
+    }
+  })
+}
 
 module.exports = {
 	formatTimes: formatTimes,
@@ -110,4 +131,5 @@ module.exports = {
   getUserSearch: getUserSearch,
   getSelectClassifyBookIdSearch: getSelectClassifyBookIdSearch,
   getSelectClassifyBookByIdSearch: getSelectClassifyBookByIdSearch,
+  updateOrder: updateOrder,
 }
