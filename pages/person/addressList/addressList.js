@@ -121,7 +121,7 @@ Page({
         newRegion=
           {
             id: index,
-            userId: 1,
+          userId: app.globalData.userInfo.userId,
             consignee: res.data.consignee,
             mobile: res.data.mobile,
             province: res.data.addressl[0],
@@ -173,7 +173,7 @@ Page({
           };
       regions[index].addressStatus = true; 
     };
-    that.updateUserReceiveAddressStatus(1, newAddressId, oldAddressId);//修改数据库中默认地址的状态
+    that.updateUserReceiveAddressStatus(app.globalData.userInfo.userId, newAddressId, oldAddressId);//修改数据库中默认地址的状态
     // console.log("newAddressId:" + newAddressId + "==oldAddressId:" + oldAddressId);
     this.setData({
       regions: regions,
@@ -186,7 +186,7 @@ Page({
     var addressId = e.currentTarget.dataset.id;
     console.log('获取的数据addressId是' + addressId)
    wx.request({
-     url: app.URL + 'bookstore-mall/delReceiveAddress/' + 1 + '/' + addressId, //提交的网络地址
+     url: app.URL + 'bookstore-mall/delReceiveAddress/' + app.globalData.userInfo.userId + '/' + addressId, //提交的网络地址
       method: "get",
       dataType:"json",
       header: {
@@ -219,9 +219,10 @@ Page({
   //获取用户添加的收货地址
  getReceiveAddress:function(){
    var that = this;
+   var userId = app.globalData.userInfo.userId;//用户的Id
    // //数据库获取初始数据
    wx.request({
-     url: app.URL + 'bookstore-mall/selectReceiveAddress/' + 1, //提交的网络地址
+     url: app.URL + 'bookstore-mall/selectReceiveAddress/' + userId, //提交的网络地址
      method: "GET",
      dataType: "json",
      header: {

@@ -46,7 +46,7 @@
 	</view>
 	<view class="orderListDetails">
 		<view class="productImg">
-			<image src="{{item.bookCoverImage}}"></image>
+			<image src="http://192.168.10.110/{{item.bookCoverImage}}"></image>
 		</view>
 		<view class="productInfo">
 			<view class="productTitle">{{item.bookName}}</view>

@@ -2,7 +2,7 @@ var app=getApp();
 var utils=require("../../../utils/util.js");
 Page({
   data:{
-    
+    userId:'',
     order:[
       // {
       //   id: "001",
@@ -129,7 +129,10 @@ Page({
     */
   onLoad: function (options) {
     var that = this;
-    
+    var userId = app.globalData.userInfo.userId;//获取用户Id
+    that.setData({
+      userId: userId
+    })
     that.getUserOrder();//从数据库中获取用户订单信息
     //获取用户的头像和昵称
     wx.getUserInfo({
@@ -141,7 +144,7 @@ Page({
         })
       }
     });
-  
+
   },
   //页面显示
   onShow: function () {
@@ -483,7 +486,7 @@ Page({
     var that = this;
     // //数据库获取初始数据
     wx.request({
-      url: app.URL + 'bookstore-mall/selectOrders/' + 1, //提交的网络地址
+      url: app.URL + 'bookstore-mall/selectOrders/' + app.globalData.userInfo.userId, //提交的网络地址
       method: "GET",
       dataType: "json",
       header: {

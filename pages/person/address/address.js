@@ -21,7 +21,7 @@ Page({
     //判断用户是否登录
     if (app.globalData.userInfo != null){
       var receiveAddress = {
-        userId: '1',
+        userId: app.globalData.userInfo.userId,
         addressConsignee: e.detail.value.consignee,
         addressMobile: e.detail.value.mobile,
         addressProvince: e.detail.value.addressl[0],

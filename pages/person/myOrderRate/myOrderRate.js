@@ -165,7 +165,7 @@ Page({
     var that = this
     //封装评价表单
     var evalution={
-      userId:'2',//用户的id
+      userId: app.globalData.userInfo.userId,//用户的id
       orderId:that.data.orderId,//被评价的订单号
       orderCommentContent:that.data.des,//用户的评语
       orderCommentSpScore: that.data.starSP,//商品的评分

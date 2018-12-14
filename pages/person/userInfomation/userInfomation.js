@@ -112,7 +112,9 @@ Page({
     })
     wx.navigateTo({
       url: '../editorUserInfomation/editorUserInfomation',
-      success: function(res) {},
+      success: function(res) {
+        
+      },
       fail: function(res) {},
       complete: function(res) {},
     })

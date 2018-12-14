@@ -42,44 +42,12 @@ Page({
   edituser: function (e) {
     console.log(e.detail.value);
     var that = this;
-    var formdata = e.detail.value;
+    var user = e.detail.value;
     var oldPossword = e.detail.value.oldPossword;
     console.log(e.detail.value)
     //原始密码验证
-    if (oldPossword == this.data.possword||oldPossword=='') {
-      wx.request({
-        url: 'http://192.168.10.110:8080/ssm/updateUser' + formdata,//提交到后台修改数据库中的数据
-        method: 'GET',
-        header: {
-          'content-type': 'application/json'
-        },
-        success: function (res) {
-          //--init data
-          var status = res.data.status;
-          if (status == 1) {
-            wx.showToast({
-              title: '提交成功！',
-            })
-          } else {
-            wx.showToast({
-              title: res.data.message,
-            })
-          }
-        },
-        fail: function () {
-          // fail
-          wx.showToast({
-            title: '网络异常！',
-            duration: 30000
-          });
-        }
-      })
-    } else {
-      wx.showToast({
-        title: '原始密码错误！'
-      });
-      wx.clearStorage("user");
-
+    if (oldPossword == this.data.possword||oldPossword=='') { 
+      that.editorUserInfomation(user);//修改数据库中用户的数据
     }
    
   },
@@ -144,7 +112,7 @@ Page({
    var that = this;
    // //数据库获取初始数据
    wx.request({
-     url: 'http://localhost:8080/bookstore-mall/editorUserInfomation', //提交的网络地址
+     url: 'http://localhost:8080/bookstore-mall/editorUserInfomation/', //提交的网络地址
      method: "POST",
      dataType: "json",
      data: JSON.stringify(user),

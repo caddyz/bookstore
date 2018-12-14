@@ -34,7 +34,7 @@ Page({
     if (e.detail.value.address != '') { addressDetail = e.detail.value.address };
     var editorAddress = {
       addressId:that.data.addressId,
-      userId:'1',
+      userId: app.globalData.userInfo.userId,
       addressConsignee: addressConsignee,
       addressMobile: addressMobile,
       addressProvince: addressProvince,
@@ -42,7 +42,7 @@ Page({
       addressCounty: addressCounty,
       addressDetail: addressDetail
     }
-    console.log('form发生了submit事件，携带数据为：', e.detail.value)
+  
     //改变本地数据
     this.setData({
       region: e.detail.value
@@ -95,7 +95,7 @@ Page({
   },
   onLoad: function (options) {
     var that=this;
-    console.log("接收到的参数是addressId=" + options.addressId);
+  
     //数据时数组的接收方法
     // that.data.list = JSON.parse(options.list);
     this.setData({
