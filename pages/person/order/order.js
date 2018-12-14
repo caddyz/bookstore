@@ -303,10 +303,11 @@ Page({
   //相应的订单操作
   operatingOrder:function(e){
     let statues = e.currentTarget.dataset.statues;
+    let bookId = e.currentTarget.dataset.book;
     let that=this;
     let id = e.currentTarget.dataset.id;
     let arr=this.data.order;
-    console.log("我获得的状态是：" + statues + "获得的id是" + id);
+    console.log("我获得的状态是：" + statues + "获得的id是" + id + "我获得的书的Id是" + bookId);
     //如果获得的订单状态是待付款对应的操作
     switch (statues){
       case '待付款':
@@ -376,7 +377,7 @@ Page({
         success:function(res){
           if(res.confirm){
             wx.navigateTo({
-              url: '../myOrderRate/myOrderRate?orderId=' + id,
+              url: '../myOrderRate/myOrderRate?orderId=' + id+'&bookId='+bookId,
             })
           }
           else{

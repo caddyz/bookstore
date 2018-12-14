@@ -1,0 +1,94 @@
+<!--pages/myOrderRate/myOrderRate.wxml-->
+<view class='container-con' style='margin-bottom:201rpx;'>
+  <view class="panel">
+    <view class='panel-content'>
+      <image class='panel-content-img' src='{{book.bookCoverImage}}'></image>
+      <view class='panel-content-right'>
+        <view class='panel-content-title'>{{book.bookName}}</view>
+        <view class='panel-content-subTitle'>
+          <text>简介： </text>
+          <text> </text>
+        </view>
+        <view class='panel-content-price'>
+          <text>￥</text>
+          <text style='font-size:33rpx;'>{{book.bookSalesPrice}}</text>
+        </view>
+      </view>
+      <view class='panel-content-num'>
+        <text style='color:#999999;margin-right:13rpx;'>数量：</text>
+        <text style='color:#f23030;'>{{book.bookNum}}</text>
+      </view>
+    </view>
+
+    <view class='panel-bottom-rate'>
+      <view class='rate-btn'>晒图评价</view>
+    </view>
+  </view>
+
+  <view class="panel">
+   
+    <view class='panel-comment'>
+      <textarea class='panel-comment-text' placeholder='宝贝满足你的期待吗？说说你的心得，分享给想买的他们吧' placeholder-class='panel-comment-ph' bindinput='desInput' value='{{des}}'>
+      </textarea>
+      <!-- <view>
+        <image class='upload-btn' src='../myOrderRate/images/upload-pic.png'></image>
+      </view> -->
+    </view>
+
+    <view class='panel-anonymous'>
+      <view class='panel-anonymous-left'>
+        <image src='../myOrderRate/images/choosed.png'></image>
+        <view class='text-justify'>匿名</view>
+      </view>
+
+      <view class='panel-anonymous-right'>
+        你写的评价会以匿名的形式展现
+      </view>
+    </view>
+  </view>
+
+  <view class='panel'>
+    <view class='panel-star'>
+
+      <view class='panel-star-content'>
+        <view class='panel-star-left'>商品评分</view>
+        <view class='panel-star-right'>
+          <image src='{{starSP>=1?"../myOrderRate/images/star.png":"../myOrderRate/images/gray-star.png"}}' bindtap='startSPTap' data-star='1'></image>
+          <image src='{{starSP>=2?"../myOrderRate/images/star.png":"../myOrderRate/images/gray-star.png"}}' bindtap='startSPTap' data-star='2'></image>
+          <image src='{{starSP>=3?"../myOrderRate/images/star.png":"../myOrderRate/images/gray-star.png"}}' bindtap='startSPTap' data-star='3'></image>
+          <image src='{{starSP>=4?"../myOrderRate/images/star.png":"../myOrderRate/images/gray-star.png"}}' bindtap='startSPTap' data-star='4'></image>
+          <image src='{{starSP>=5?"../myOrderRate/images/star.png":"../myOrderRate/images/gray-star.png"}}' bindtap='startSPTap' data-star='5'></image>
+        </view>
+        <view class='panel-level-right'>{{evaluation}}</view>
+      </view>
+
+      <view class='panel-star-content'>
+        <view class='panel-star-left'>服务评分</view>
+        <view class='panel-star-right'>
+          <image src='{{starFW>=1?"../myOrderRate/images/star.png":"../myOrderRate/images/gray-star.png"}}' bindtap='startFWTap' data-star='1'></image>
+          <image src='{{starFW>=2?"../myOrderRate/images/star.png":"../myOrderRate/images/gray-star.png"}}' bindtap='startFWTap' data-star='2'></image>
+          <image src='{{starFW>=3?"../myOrderRate/images/star.png":"../myOrderRate/images/gray-star.png"}}' bindtap='startFWTap' data-star='3'></image>
+          <image src='{{starFW>=4?"../myOrderRate/images/star.png":"../myOrderRate/images/gray-star.png"}}' bindtap='startFWTap' data-star='4'></image>
+          <image src='{{starFW>=5?"../myOrderRate/images/star.png":"../myOrderRate/images/gray-star.png"}}' bindtap='startFWTap' data-star='5'></image>
+        </view>
+        <view class='panel-level-right'>{{evaluationfu}}</view>
+      </view>
+
+      <view class='panel-star-content'>
+        <view class='panel-star-left'>物流评分</view>
+        <view class='panel-star-right'>
+          <image src='{{starWL>=1?"../myOrderRate/images/star.png":"../myOrderRate/images/gray-star.png"}}' bindtap='startWLTap' data-star='1'></image>
+          <image src='{{starWL>=2?"../myOrderRate/images/star.png":"../myOrderRate/images/gray-star.png"}}' bindtap='startWLTap' data-star='2'></image>
+          <image src='{{starWL>=3?"../myOrderRate/images/star.png":"../myOrderRate/images/gray-star.png"}}' bindtap='startWLTap' data-star='3'></image>
+          <image src='{{starWL>=4?"../myOrderRate/images/star.png":"../myOrderRate/images/gray-star.png"}}' bindtap='startWLTap' data-star='4'></image>
+          <image src='{{starWL>=5?"../myOrderRate/images/star.png":"../myOrderRate/images/gray-star.png"}}' bindtap='startWLTap' data-star='5'></image>
+        </view>
+        <view class='panel-level-right'>{{evaluationwl}}</view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class='bottom-box' bindtap='tiJiao'>
+  提交评价
+</view>

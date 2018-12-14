@@ -43,7 +43,7 @@
   <!-- 用户头像 -->
 		<view class="userImg"><image src="{{userInfoAvatar}}"></image></view> 
 		<text class="userName">{{nickName}}</text>
-		<text class="orderStatus" bindtap='operatingOrder' data-statues='{{item.orderStatus}}' data-id='{{item.orderId}}'>{{item.orderStatus}}</text>
+		<text class="orderStatus" bindtap='operatingOrder' data-statues='{{item.orderStatus}}' data-id='{{item.orderId}}' data-book='{{item.bookId}}'>{{item.orderStatus}}</text>
 	</view>
 	<view class="orderListDetails">
 		<view class="productImg"  catchtap="toOrderDetail" data-order='{{item.orderId}}'>
