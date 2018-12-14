@@ -16,13 +16,15 @@ Page({
     wx.request({
       url: app.URL + 'bookstore-mall/allOrderComment/' + app.globalData.userInfo.userId,
       success(res){
-        console.log(JSON.stringify(res.data))
         if (res.data.length != 0){
           that.setData({
             list:res.data
           })
           for (var i in that.data.list) {
-            that.data.list[i].flag = false; // 添加新属性
+            that.data.list[i].flag = false; // 添加分数展开属性
+          };
+          for (var i in that.data.list) {
+            that.data.list[i].scoreflag = false; // 添加内容展开属性
           };
         }else{
           this.setData({
@@ -38,7 +40,17 @@ Page({
       }
     })
   },
-  // 展开
+  // 分数展开
+  scoreClick: function (e) {
+    let that = this;
+    let index = e.currentTarget.dataset.index,
+      key = 'list[' + index + '].scoreflag',
+      val = that.data.list[index].scoreflag;
+    that.setData({
+      [key]: !val
+    })
+  },
+  // 内容展开
   commentClick: function (e) {
     let that = this;
     let index = e.currentTarget.dataset.index,

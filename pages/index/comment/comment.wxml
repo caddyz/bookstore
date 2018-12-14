@@ -8,11 +8,6 @@
       </block>
     </view>
     <view style='height:28rpx'></view>
-    <view class='appraise-score'>
-      <view class='show-word'>评价分数：</view>
-      <view>{{item.commentGrade}}</view>
-    </view>
-    <view style='height:28rpx'></view>
     <view class='appraise-content'>
       <view class='show-word'>评价内容：</view>
       <view class='comment-click' bindtap='commentClick' data-index='{{index}}'>{{item.flag?'收起':'展开'}}</view>
@@ -20,6 +15,11 @@
     <view class='comment-contentinfo' wx:if='{{item.flag}}'>
       <view>时间：{{item.commentDatatime}}</view>
       <view>内容:{{item.commentContent}}</view>
+      <view wx:if="{{item.commentReply!==null}}">
+        <view style='color:red;'>追加评论：</view>
+        <view >追加时间：{{item.commentReplyDatatime}}</view>
+        <view >追加内容：{{item.commentReply}}</view>
+      </view>
       <view style='height:18rpx'></view>
       <button class='delete-button' bindtap='deleteComment' data-index='{{index}}'><text>删除书评</text></button>
     </view>

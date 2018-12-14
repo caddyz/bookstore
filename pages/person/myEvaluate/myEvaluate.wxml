@@ -2,7 +2,7 @@
   <image class="tab-image" src="../order/images/cart_pic.png"></image>
   <view>您还没有评语哦！<text style='color:blue;' bindtap='toMyOrder'>去评论</text></view>
 </view>
-<block wx:for='{{list}}' >
+<block wx:for='{{list}}' wx:key=''>
   <view class='main-body'>
     <view class='appraise-order'>
       <view class='show-word'>订单编号：</view>   
@@ -11,7 +11,23 @@
     <view style='height:28rpx'></view>
     <view class='appraise-score'>
       <view class='show-word'>评价分数：</view>
-      <view>{{item.orderCommentScore}}</view>
+      <view class='comment-click' bindtap='scoreClick' data-index='{{index}}'>{{item.scoreflag?'收起':'展开'}}</view>
+    </view>
+    <view style='height:18rpx'></view>
+      <view class='comment-contentinfo' wx:if='{{item.scoreflag}}'>
+      <view class='sp'>
+        <view style='color:#BCD2EE'>商品评分：</view>
+        <view style='color:#EE6AA7'>{{item.orderCommentSpScore}}</view>
+      </view>
+      <view class='fw'>
+        <view style='color:#BCD2EE'>服务评分：</view>
+        <view style='color:#EE6AA7'>{{item.orderCommentFwScore}}</view>
+      </view>
+      <view class='wl'>
+        <view style='color:#BCD2EE'>物流评分：</view>
+        <view style='color:#EE6AA7'>{{item.orderCommentWlScore}}</view>
+      </view>
+      <view style='height:18rpx'></view>
     </view>
     <view style='height:28rpx'></view>
     <view class='appraise-content'>

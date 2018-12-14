@@ -20,7 +20,7 @@
   color: red;
   text-align:right
 }
-.appraise-order,.appraise-score,.appraise-content{
+.appraise-order,.appraise-score,.appraise-content,.sp,.fw,.wl{
   display: flex;
   justify-content: space-between;
   border-bottom: 1rpx solid #f1f1f1;

@@ -30,6 +30,7 @@ Page({
     // this.getData();
     let taht = this;
     util.getSearchBook(1,function(data){
+      // console.log("测试书的名字为：" + data[0].bookName)
       taht.setData({
         list:data
       })
