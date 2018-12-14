@@ -42,6 +42,8 @@ value='甩卖价:￥{{item.discountPrice}}' disabled='true'></input>
                <text> \n </text>
     打折时间:  <input type='text' class='activity-date' value='({{item.activityStart}}~{{item.activityEnd}})' disabled='true'></input>
             </block>
+    书籍情况:<input type='text' class='book-status' value='{{item.bookStatus}}' 
+          disabled='true'></input>
     种类:<input type='text' class='book-cotegory' value='{{item.bookCategory}}' 
           disabled='true'></input>
     出版社:<input type='text' class='book-publish' value='{{item.publishName}}' 
@@ -60,6 +62,8 @@ value='甩卖价:￥{{item.discountPrice}}' disabled='true'></input>
   <view class="separate"></view>
  评论: <block wx:for="{{item}}">
   <view class="detail" data-item='{{item}}'>
+  <input type='text' class='comment-name' value='用户名:{{item.userName}}' 
+          ></input>
 <input type='text' class='comment-content' value='{{item.commentContent}}' 
           disabled='true'></input>
   </view>
@@ -79,9 +83,9 @@ class="input-comment" bindinput="handNewComment"/>
 <view class="detail-nav">
 <image bindtap='handleCollection' wx:if='{{isCollected}}' 
 src='https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3411382528,345291280&fm=26&gp=0.jpg'></image>
-<image bindtap='handleCollection' wx:if='{{!isCollected}}' 
+<image bindtap='handleCollection' wx:else='{{!isCollected}}' 
 src='https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=971562027,3284667727&fm=26&gp=0.jpg'></image>
-  <button class="button-yellow" bindtap="addCar" formType="submit" >加入购物车</button>
+  <button class="button-yellow" bindtap="addCar" formType="submit">加入购物车</button>
   <button class="button-red" bindtap="nowBuy" formType="submit">立即购买</button>
 </view> 
 

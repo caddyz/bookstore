@@ -6,7 +6,6 @@ Page({
       //图片的地址
     "http://img.zcool.cn/community/014565554b3814000001bf7232251d.jpg@1280w_1l_2o_100sh.png"
     ],
-    bookId:'',
     indicatorDots: true, //是否显示指示点
     autoplay: true, //是否自动切换
     interval: 3000, //自动切换时间间隔
@@ -17,7 +16,8 @@ Page({
     Nums:[],//显示库存
     author:[],//显示一个或多个作者
     minusStatus:'disabled',//预览退出
-    isCollected:'',//收藏
+    isCollected: '' ? false : true,//收藏
+    bookId: '',
     
 
   },
@@ -72,14 +72,25 @@ Page({
 
   
   addCar: function (e) {
-    // 默认书本为1
-    var bookNum = 1
     //将购物车数据添加到缓存
     var that = this
+    // 默认书本为1
+    var bookNum = 1
   //  提取bookId
     var bookId = that.data.bookId
     console.log("传入的数据:" + bookId)
-    //获取缓存中的已添加购物车信息
+    var bookName = this.data.list[0].bookName
+    console.log("获取的名字为：" + bookName)
+    var bookSalesPrice = this.data.list[0].bookSalesPrice
+    console.log("获取的金额为：" + bookSalesPrice)
+    var bookCoverImage = this.data.list[0].bookCoverImage
+    console.log("获取的图片为：" + this.data.list[0].bookCoverImage)
+    var bookStatus = this.data.list[0].bookStatus
+    console.log("获取的状态为：" + this.data.list[0].bookStatus)
+    var discountPrice = this.data.out[0].discountPrice
+    console.log("获取的折扣价为：" + this.data.out[0].discountPrice)
+
+    // 获取缓存中的已添加购物车信息
     var cartItems = wx.getStorageSync('cartItems') || []
     console.log(cartItems)
     //判断购物车缓存中是否已存在该货品
@@ -94,18 +105,18 @@ Page({
         bookPrice: that.data.bookSalesPrice, 
         bookCoverImage: that.data.bookCoverImage, 
         bookStatus: that.data.bookStatus, 
+        discountPrice: that.data.discountPrice,
         bookNum:1,
-
       })
     
-    //加入购物车数据，存入缓存
+    // 加入购物车数据，存入缓存
     wx.setStorage({
       key: 'cartItems',
       data: cartItems,
       success: function (res) {
         //添加购物车的消息提示框
         wx.showToast({
-          title: "添加购物车",
+          title: "添加购物车成功",
           icon: "success",
           durantion: 2000
         })
@@ -120,27 +131,24 @@ Page({
       commentContent: e.detail.value
     })
     },
-// 点击事件 测试的
+// 点击事件 测试的 判断登陆
   commentAll: function (e) {
     if (app.globalData.userInfo == null) {
       wx.navigateTo({
         url: '/pages/login/login',
-      })}
+      })
+      }
     console.log("是什么？:" + this.data.commentContent);
   },
 
   // 评论
   formSubmit: function (e){
-    console.log("用户名：" + this.data.text)
     var that = this
     var bookId = that.data.bookId
     var userId = app.globalData.userInfo.userId
     var commentContent = this.data.commentContent
 
-    wx.request({
-      url: app.URL +'bookstore-mall/'+userId+'/'+bookId+'/'+commentContent+'/commentAdd',
-    })
-    if (e.detail.value.commentContent==''){
+    if (commentContent == undefined){
       wx.showToast({
         title: '请输入评论',
         icon: 'loading',
@@ -150,6 +158,9 @@ Page({
         wx.hideToast()
       }, 2000)
     } else {
+    wx.request({
+  url:app.URL + 'bookstore-mall/' + userId + '/' + bookId + '/'+commentContent+'/commentAdd',
+      })
       wx.showToast({
         title: '评论成功',
         icon: 'success',
@@ -168,11 +179,11 @@ Page({
       wx.navigateTo({
         url: '/pages/login/login',
       })
-    } else {
+    }
     wx.switchTab({
       url: '/pages/cart/cart'
     })
-    }
+    
   },
 
   /**
@@ -192,6 +203,7 @@ Page({
      },
      success:function(res){
        console.log(res.data)
+    
        that.setData({
           list: res.data, //设置数据
          bookId: options.bookId,
@@ -271,7 +283,6 @@ Page({
     })
     // 收藏回调
     this.isCollector(userId,bookId,function(data){});
-   
   },
   
   //判断数据库中的这本书是否被收藏
@@ -284,7 +295,7 @@ Page({
        'content-type': 'application/json'
      },
      success: function (res) {
-       console.log("panduanshoucang :"+res.data)
+       console.log("判断收藏 :"+res.data)
        console.log(res.data)
        if (res.data == false) {
          callback(false);//返回false说明这本书没有被收藏 
