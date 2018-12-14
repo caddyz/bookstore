@@ -122,6 +122,18 @@ function getTheme(themeId, callback){
     }
   })
 }
+//获取主题的内容与名称
+function updateOrder(orderId, orderStatus) {
+  wx.request({
+    url: app.URL + 'bookstore-mall/updateOrders/' + orderId + '/' + orderStatus,
+    success(res) {
+      if (res.data==true) {
+       console.log("修改成功")
+       wx.navigateBack();
+      }
+    }
+  })
+}
 module.exports = {
 	formatTimes: formatTimes,
   formatDate: formatDate,
@@ -132,5 +144,6 @@ module.exports = {
   getSelectClassifyBookIdSearch: getSelectClassifyBookIdSearch,
   getSelectClassifyBookByIdSearch: getSelectClassifyBookByIdSearch,
   slideshowConnection: slideshowConnection,
-  getTheme: getTheme
+  getTheme: getTheme,
+  updateOrder: updateOrder
 }
