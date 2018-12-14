@@ -179,7 +179,7 @@ Page({
       })
       return
     }else{
-      that.toSubmitEvalution(evalution);//将用户的评价表提交到数据库中
+      that.toSubmitEvaluation(evalution);//将用户的评价表提交到数据库中
     }
    console.log("用户的评价是："+that.data.des)
   },
