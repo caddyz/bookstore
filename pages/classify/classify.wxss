@@ -47,7 +47,7 @@ page{
         right: 0; 
          /*为盒状模型提供最大的灵活性  */
         flex: 1;  
-        width: 75%;  
+        width: 80%;  
         height: 100px; 
         /* 填充高度 */
         padding: 10px; 
@@ -67,6 +67,6 @@ page{
   /* 设置分类书名 */
   .book-name{
       font-size:30rpx;
-      margin-top:90%;
+      margin-top:80%;
   }
   

@@ -8,7 +8,7 @@ Page({
     Nums:[],//显示库存
     author:[],//显示一个或多个作者
     minusStatus:'disabled',//预览退出
-    isCollected: '' ? false : true,//收藏
+    isCollected:'' ? false : true,//收藏
     bookId: '',
   },
  
@@ -63,11 +63,12 @@ Page({
     var bookSalesPrice = this.data.list[0].bookSalesPrice
     console.log("获取的金额为：" + bookSalesPrice)
     var bookCoverImage = this.data.list[0].bookCoverImage
-    console.log("获取的图片为：" + this.data.list[0].bookCoverImage)
+    console.log("获取的图片为：" + bookCoverImage)
     var bookStatus = this.data.list[0].bookStatus
-    console.log("获取的状态为：" + this.data.list[0].bookStatus)
-    var discountPrice = this.data.out[0].discountPrice
-    console.log("获取的折扣价为：" + this.data.out[0].discountPrice)
+    console.log("获取的状态为：" + bookStatus)
+    // var discountPrice = this.data.out[0].discountPrice
+    // console.log("获取的折扣价为：" + this.data.out[0].discountPrice)
+    
 
     // 获取缓存中的已添加购物车信息
     var carts = [];
@@ -96,15 +97,14 @@ Page({
       carts = ncarts;
       console.log("ncarts" + JSON.stringify(ncarts));
     }
-
     //如果不存在，传入该货品信息
     var newcarts = {
       bookId: bookId,
       bookName: bookName,
       bookPrice: bookSalesPrice,
       imgUrl: bookCoverImage,
-      bookStatus: true,
-      discountPrice: discountPrice,
+      isStatus: true,
+      // discountPrice: discountPrice,
       bookNum: 1,
     }
     carts = carts.concat(newcarts);
@@ -120,11 +120,8 @@ Page({
           icon: "success",
           durantion: 2000
         })
-
       }
     })
-
-
   },
 // 获取输入的评论
   handNewComment: function (e) {
@@ -132,7 +129,7 @@ Page({
       commentContent: e.detail.value
     })
     },
-// 点击事件 测试的 判断登陆
+// 点击事件 判断登陆
   commentAll: function (e) {
     if (app.globalData.userInfo == null) {
       wx.navigateTo({
@@ -283,7 +280,11 @@ Page({
       }
     })
     // 收藏回调
-    this.isCollector(userId,bookId,function(data){});
+    this.isCollector(userId, bookId, function (isCollector){
+      that.setData({
+        isCollected: isCollected
+      })
+    });
   },
   
   //判断数据库中的这本书是否被收藏
@@ -303,7 +304,6 @@ Page({
          that.setData({
            isCollected: false
          })
-
          console.log("is:" + that.data.isCollected);
        }else{
          callback(true);

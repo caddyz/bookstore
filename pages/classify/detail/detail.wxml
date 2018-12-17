@@ -10,26 +10,32 @@
   <view class="detail" bindtap='allSelect' data-item='{{item}}'>
   书名:<input type='text' class='book-name' value='{{item.bookName}}' 
           disabled='true'></input>
+
    作者: <block wx:for="{{author}}">
     <input type='text' class='book-author' value='{{item.authorName}}' 
           disabled='true'></input>
     </block>
+
    金额:<input type='text' class='book-priced' value='￥{{item.bookSalesPrice}}' 
-          disabled='true'></input>
+   disabled='true'></input>
+
      <block wx:for="{{out}}">
-      <input type='text' class='book-prices' value='原价:{{item.bookSalesPrice}}' disabled='true'></input>
+  <input type='text' class='book-prices' value='原价:{{item.bookSalesPrice}}'
+      disabled='true'></input>
      <input type='text' class='activity-discount' value='折扣率:({{item.activityDiscount}}折)' disabled='true'></input>
-      <input type='text' class='book-price' 
-value='甩卖价:￥{{item.discountPrice}}' disabled='true'></input>
+      <input type='text' class='book-price' value='甩卖价:￥{{item.discountPrice}}'
+      disabled='true'></input>
                <text> \n </text>
     打折时间:  <input type='text' class='activity-date' value='({{item.activityStart}}~{{item.activityEnd}})' disabled='true'></input>
             </block>
+
     书籍情况:<input type='text' class='book-status' value='{{item.bookStatus}}' 
           disabled='true'></input>
     种类:<input type='text' class='book-cotegory' value='{{item.bookCategory}}' 
           disabled='true'></input>
     出版社:<input type='text' class='book-publish' value='{{item.publishName}}' 
           disabled='true'></input>
+
            <block wx:for="{{Nums}}">
     库存:<input type='text' class='book-num' value='{{item.stockNum}}' 
           disabled='true'></input>
@@ -42,10 +48,11 @@ value='甩卖价:￥{{item.discountPrice}}' disabled='true'></input>
     </block>
      <text> \n </text>
   <view class="separate"></view>
+  
  评论: <block wx:for="{{item}}">
   <view class="detail" data-item='{{item}}'>
   <input type='text' class='comment-name' value='用户名:{{item.userName}}' 
-          ></input>
+       disabled='true' ></input>
 <input type='text' class='comment-content' value='内容:{{item.commentContent}}' 
           disabled='true'></input>
   </view>
@@ -56,6 +63,8 @@ value='甩卖价:￥{{item.discountPrice}}' disabled='true'></input>
 class="input-comment" bindinput="handNewComment"/>
 <button formType="submit" class="btn" bindtap='commentAll'>评论</button>
 </form>
+<view class="separate"></view>
+  <view class="temp"></view>
 </scroll-view>
 </view>
 <!-- 底部的悬浮栏 -->

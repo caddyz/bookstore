@@ -134,11 +134,7 @@ button {
   height: 50rpx;
   margin: 20rpx 40rpx;
 }
-.line_nav {
-  width: 5rpx;
-  height: 100%;
-  background-color: gainsboro;
-}
+
 /* 占位 */
 .temp {
   height: 100rpx;
@@ -149,15 +145,6 @@ text {
   line-height: 60rpx;
   font-size: 30rpx;
   margin: 10rpx;
-}
-.text-remark {
-  display: block;
-  font-size: 25rpx;
-  margin: 10rpx;
-  color: firebrick
-}
-.btn{
-color: green
 }
 
 
