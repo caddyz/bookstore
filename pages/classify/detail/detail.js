@@ -2,11 +2,6 @@ var util = require('../../../utils/util.js')
 var app = getApp()
 Page({
   data:{
-    imgUrls: [],
-    indicatorDots: true, //是否显示指示点
-    autoplay: true, //是否自动切换
-    interval: 3000, //自动切换时间间隔
-    duration: 1000, //  滑动动画时长
     list: [],//动态页面
     item:[],//显示所有书
     out:[],//显示折扣
@@ -15,23 +10,10 @@ Page({
     minusStatus:'disabled',//预览退出
     isCollected: '' ? false : true,//收藏
     bookId: '',
-    
-
-  },
-  //预览图片
-  previewImage: function (e) {
-    var current = e.target.dataset.src;
-    wx.previewImage({
-      // current 传入当前图片路径
-      current: current, // 当前显示图片的http链接  
-      urls: this.data.imgUrls // 需要预览的图片http链接列表  
-    })
   },
  
-
   // 收藏事件
   handleCollection:function(e) {
- 
 	   var that = this
     if (app.globalData.userInfo == null) {
       wx.navigateTo({
@@ -73,7 +55,7 @@ Page({
     var that = this
     // 默认书本为1
     var bookNum = 1
-  //  提取bookId
+    //  提取bookId
     var bookId = that.data.bookId
     console.log("传入的数据:" + bookId)
     var bookName = this.data.list[0].bookName
@@ -84,49 +66,28 @@ Page({
     console.log("获取的图片为：" + this.data.list[0].bookCoverImage)
     var bookStatus = this.data.list[0].bookStatus
     console.log("获取的状态为：" + this.data.list[0].bookStatus)
-    var discountPrice = this.data.out[0].discountPrice
-    console.log("获取的折扣价为：" + this.data.out[0].discountPrice)
+    // var discountPrice = this.data.out[0].discountPrice
+    // console.log("获取的折扣价为：" + this.data.out[0].discountPrice)
 
     // 获取缓存中的已添加购物车信息
-    var carts=[];
-    carts = wx.getStorageSync('carts')||[];
+    var carts = wx.getStorageSync('carts') || []
     console.log(carts)
-   
     //判断购物车缓存中是否已存在该货品
-    // var exist = carts.find(function (ele) {
-    //   return ele.bookId === that.data.bookId
-    // })
-    // console.log(exist)
+    var exist = carts.find(function (ele) {
+      return ele.bookId === that.data.bookId
+    })
+    console.log(exist)
+    //如果不存在，传入该货品信息
+    carts.push({
+      bookId: that.data.bookId,
+      bookName: that.data.bookName,
+      bookPrice: that.data.bookSalesPrice,
+      bookCoverImage: that.data.bookCoverImage,
+      bookStatus: that.data.bookStatus,
+      // discountPrice: that.data.discountPrice,
+      bookNum: 1,
+    })
 
-    if(carts!=[]){
-      var ncarts=[];
-      for (var i in carts) {
-        if (bookId != carts[i].bookId) {
-         ncarts = ncarts.concat(carts[i]);
-        }else{
-          wx.showToast({
-            title: "购物车已经存在！",
-            icon: "success",
-            durantion: 2000
-          }) 
-        }
-      }
-      carts = ncarts;
-      console.log("ncarts" + JSON.stringify(ncarts));
-    }
-    
-      //如果不存在，传入该货品信息
-    var newcarts={
-        bookId: bookId,
-        bookName:bookName,
-        bookPrice: bookSalesPrice, 
-        imgUrl: bookCoverImage, 
-        bookStatus: true, 
-        discountPrice:discountPrice,
-        bookNum:1,
-      }
-    carts = carts.concat(newcarts);
-    console.log("添加的数据：" + JSON.stringify(carts));
     // 加入购物车数据，存入缓存
     wx.setStorage({
       key: 'carts',
@@ -138,7 +99,6 @@ Page({
           icon: "success",
           durantion: 2000
         })
-       
       }
     })
 

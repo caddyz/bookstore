@@ -1,29 +1,11 @@
-<!--pages/classify/detail/detail.wxml-->
-<!-- 实现轮播图效果 -->
-<!-- indicator-dots:是否显示面板指示点
-autoplay:是否自动切换
-interval:自动切换时间间隔
-duration:滑动动画时长
- -->
- 
-<swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" 
-interval="{{interval}}" duration="{{duration}}">
-
-<!-- 这里的<block>标签是用来组织代码的，wx:for="{{imgUrls}} 相当于绑定了.
-js文件中的data中imgUrls数组的数据，并直接将数组展开了。 -->
-  <!-- bindtap="previewImage"，图片预览功能 -->
-<block wx:for="{{imgUrls}}">
-    <swiper-item>
-      <image src="{{item}}" data-src="{{item}}" bindtap="previewImage"></image>
-    </swiper-item>
-  </block>
-</swiper>
-
 <view class='main'>
 <!-- scroll-view垂直滚动 -->
 <scroll-view scroll-y="true">
   <!-- 循环遍历 -->
     <block wx:for="{{list}}">
+     <view  bindtap="previewImage" class='img-detail'>
+      <image src='http://192.168.10.110/{{item.bookCoverImage}}'></image>
+  </view>
         <text> \n </text>
   <view class="detail" bindtap='allSelect' data-item='{{item}}'>
   书名:<input type='text' class='book-name' value='{{item.bookName}}' 
@@ -74,9 +56,6 @@ value='甩卖价:￥{{item.discountPrice}}' disabled='true'></input>
 class="input-comment" bindinput="handNewComment"/>
 <button formType="submit" class="btn" bindtap='commentAll'>评论</button>
 </form>
-
-  <view class="separate"></view>
-  <view class="temp"></view>
 </scroll-view>
 </view>
 <!-- 底部的悬浮栏 -->

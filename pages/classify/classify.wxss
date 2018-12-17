@@ -48,12 +48,14 @@ page{
          /*为盒状模型提供最大的灵活性  */
         flex: 1;  
         width: 75%;  
-        height: 1000px; 
+        height: 100px; 
         /* 填充高度 */
         padding: 10px; 
         /* 两个并排的带边框的框 */
         box-sizing: border-box;
         background: #f5f5f5;
+        display: inline-block;
+        
   }
   /* 右边侧栏的item */
   .num_right .num_right_items{
@@ -61,12 +63,10 @@ page{
       float: left;
        width: 50%;  
        height: 100px;  
-       /*文本的水平对齐 */
-       text-align: center; 
   }
   /* 设置分类书名 */
   .book-name{
-      font-size:35rpx;
-      margin: 10rpx;
+      font-size:30rpx;
+      margin-top:90%;
   }
   
