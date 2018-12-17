@@ -55,7 +55,7 @@ value='甩卖价:￥{{item.discountPrice}}' disabled='true'></input>
     销量:<input type='text' class='book-sales' value='{{item.stockSales}}' 
           disabled='true'></input>
     简介:<textarea bindblur="bindTextAreaBlur" class='book-profile'
-     value='{{item.bookProfile}}' disabled='true'/>
+     value='{{item.bookProfile}}' maxlength="-1" disabled='true'/>
   </view>
     </block>
      <text> \n </text>
@@ -64,7 +64,7 @@ value='甩卖价:￥{{item.discountPrice}}' disabled='true'></input>
   <view class="detail" data-item='{{item}}'>
   <input type='text' class='comment-name' value='用户名:{{item.userName}}' 
           ></input>
-<input type='text' class='comment-content' value='{{item.commentContent}}' 
+<input type='text' class='comment-content' value='内容:{{item.commentContent}}' 
           disabled='true'></input>
   </view>
     </block>

@@ -11,6 +11,10 @@ page{
     color: #939393;
    
 }
+.bookpic{
+    width: 5%;
+   height: 5%;
+}
 /* 左边侧栏盒子 */
 .num_left{
    /* 设置内块级元素，排满才换行 */

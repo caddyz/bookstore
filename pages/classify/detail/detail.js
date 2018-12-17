@@ -2,10 +2,7 @@ var util = require('../../../utils/util.js')
 var app = getApp()
 Page({
   data:{
-    imgUrls: [
-      //图片的地址
-    "http://img.zcool.cn/community/014565554b3814000001bf7232251d.jpg@1280w_1l_2o_100sh.png"
-    ],
+    imgUrls: [],
     indicatorDots: true, //是否显示指示点
     autoplay: true, //是否自动切换
     interval: 3000, //自动切换时间间隔
@@ -91,15 +88,15 @@ Page({
     // console.log("获取的折扣价为：" + this.data.out[0].discountPrice)
 
     // 获取缓存中的已添加购物车信息
-    var cartItems = wx.getStorageSync('cartItems') || []
-    console.log(cartItems)
+    var carts = wx.getStorageSync('carts') || []
+    console.log(carts)
     //判断购物车缓存中是否已存在该货品
-    var exist = cartItems.find(function (ele) {
+    var exist = carts.find(function (ele) {
       return ele.bookId === that.data.bookId
     })
     console.log(exist)
       //如果不存在，传入该货品信息
-      cartItems.push({
+    carts.push({
         bookId: that.data.bookId,
         bookName:that.data.bookName,
         bookPrice: that.data.bookSalesPrice, 
@@ -111,8 +108,8 @@ Page({
     
     // 加入购物车数据，存入缓存
     wx.setStorage({
-      key: 'cartItems',
-      data: cartItems,
+      key: 'carts',
+      data: carts,
       success: function (res) {
         //添加购物车的消息提示框
         wx.showToast({
