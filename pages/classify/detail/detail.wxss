@@ -104,7 +104,7 @@ swiper-item image {
   right: 0;
   /* z-index 属性指定一个元素的堆叠顺序,如果值设置为正数，越大这对应的view也会越在上面一层，
   负数就是在底层 */
-  z-index: 1;
+  z-index: 10;
   width: 100%;
   height: 100rpx;
 }
@@ -147,6 +147,8 @@ text {
   margin: 10rpx;
 }
 
-
+.btn{
+  color: red
+}
 
 
