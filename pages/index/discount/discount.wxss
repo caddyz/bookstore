@@ -7,3 +7,9 @@
   justify-content: center;  
   margin: 0 auto;
 }
+.bottom{
+  background-color: whitesmoke;
+  text-align: center;
+  font-size: 34rpx;
+  color: #9E9E9E
+}

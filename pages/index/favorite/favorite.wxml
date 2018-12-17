@@ -1,8 +1,8 @@
 <!--pages/favorite/favorite.wxml-->
 <block wx:for="{{list}}" wx:key="item">
   <view class='favorite-info'>
-    <view class='favorite-pic'>
-      <image src='http://images.bookstore.com/{{item.bookCoverImage}}' mode='aspectFit'  style="width: 100%; height: 100%;background-color: #eeeeee;"></image>
+    <view class='favorite-pic' data-item='{{item}}' bindtap='favoriteSkip'>
+      <image src='http://192.168.10.110/{{item.bookCoverImage}}' mode='aspectFit'  style="width: 100%; height: 100%;background-color: #eeeeee;"></image>
     </view>
     <view class='favorite-book'>
       <view><text>{{item.bookName}}</text></view>

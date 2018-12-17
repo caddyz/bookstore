@@ -16,7 +16,8 @@ Page({
     wx.request({
       url: app.URL + 'bookstore-mall/allOrderComment/' + app.globalData.userInfo.userId,
       success(res){
-        if (res.data.length != 0){
+        console.log("数据长度为："+res.data.length)
+        if (res.data.length !== 0){
           that.setData({
             list:res.data
           })
@@ -27,7 +28,7 @@ Page({
             that.data.list[i].scoreflag = false; // 添加内容展开属性
           };
         }else{
-          this.setData({
+          that.setData({
             hiddenCon:false
           })
         }

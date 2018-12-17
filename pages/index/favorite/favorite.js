@@ -11,6 +11,15 @@ Page({
    hiddeinfo:false
   },
   /**
+   * 收藏跳转
+   */
+  favoriteSkip:function(e){
+    wx.navigateTo({
+      url: '/pages/classify/detail/detail?bookId='
+        + e.currentTarget.dataset.item.bookId,
+    })
+  },
+  /**
    * 收藏删除
    */
   deleteBookInfo: function (e) {

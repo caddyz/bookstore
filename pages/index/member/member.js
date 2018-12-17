@@ -107,32 +107,47 @@ Page({
     app.orderInfo.out_trade_no = Date.parse(new Date()); 
     // console.log(app.orderInfo)
     pay.payOreder(app.orderInfo,function(data){
-      wx.showToast({
-        title: data.return_msg,
-        icon:'none'
-      })
+      if (data.return_code == 'SUCCESS' && data.result_code == 'SUCCESS') { //判断是否有效
+        console.log("nonceStr:"+data.nonce_str)
+        console.log("package:" + data.prepay_id)
+        console.log("paySign:" + data.sign)
+        wx.requestPayment({
+          timeStamp: Date.parse(new Date()) / 1000,
+          nonceStr: data.nonce_str,
+          package: data.prepay_id,
+          signType: 'MD5',
+          paySign: data.sign,
+          success(res) {
+            wx.request({
+              url: app.URL + 'bookstore-mall/memberpay/' + app.globalData.userInfo.userId + '/' +                   m.memberId,
+              success(res){
+                wx.showToast({
+                  title: res.data.msg,
+                  icon:'none'
+                })
+              },
+              fail(){
+                wx.showToast({
+                  title: '购买请求失败',
+                  icon:'none'
+                })
+              }
+            })
+          },
+          fail() {
+            wx.showToast({
+              title: '支付失败',
+              icon: 'none'
+            })
+          }
+        })
+      } else {
+        wx.showToast({
+          title: data.return_msg,
+          icon: 'none',
+          duration: 500
+        })
+      }     
     })
-    // wx.showModal({
-    //   title: '会员支付',
-    //   content: '确认支付' + m.memberMoney+'元',
-    //   success(res) {    
-    //     if (res.confirm) {
-    //       wx.request({
-    //         url: 'http://localhost:8080/bookstore-mall/memberpay/1/' + m.memberId,
-    //         success:function(res){
-    //           wx.showToast({
-    //             title: res.data.msg,
-    //             icon:'none'
-    //           })
-    //         }
-    //       })
-    //     } else if (res.cancel) {
-    //       wx.showToast({
-    //         title: '取消支付',
-    //         icon:'none'
-    //       })
-    //     }
-    //   }
-    // })
   }
 })

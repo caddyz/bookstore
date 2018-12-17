@@ -4,7 +4,7 @@
     <view class='info' data-item='{{item}}' bindtap='SkipDetail'>
       <view >
         <view >
-        <image src='http://images.bookstore.com/{{item.bookCoverImage}}'  mode='scaleToFill'
+        <image src='http://192.168.10.110/{{item.bookCoverImage}}'  mode='scaleToFill'
         ></image>
         </view>
         <view style='height:15rpx'></view>
@@ -18,3 +18,4 @@
     </view>
     <view style='height:80rpx; background-color: whitesmoke;'></view>
   </block>
+  <view class='bottom'>已经到底了...</view>

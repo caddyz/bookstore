@@ -13,6 +13,8 @@
     "pages/person/person",
 
     "pages/pay/pay",
+    "pages/pay/payfail",
+    "pages/pay/refound",
     "pages/index/more/more",
     "pages/index/favorite/favorite",
     "pages/index/comment/comment",
