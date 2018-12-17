@@ -16,7 +16,7 @@ Page({
 
    var that=this;
     var carts = this.data.cart
-    that.getAllCarts(app.globalData.userInfo.userId);//如果用户登录状态从数据库中获取购物车商品信息
+    // that.getAllCarts(app.globalData.userInfo.userId);//如果用户登录状态从数据库中获取购物车商品信息
     //验证用户是否登录
 
   },
@@ -25,13 +25,23 @@ Page({
   //画面显示
   onShow: function () {
     var that = this;
-
+    var carts=[];
     // this.userOfStatus() //验证用户是否登录显示不同
 
       // 获取缓存李里面的数据并加入购物车
-    // var bufferCart = wx.getStorageSync('cart') || [];
+    var bufferCart = wx.getStorageSync('carts') || [];
+    console.log("取出的缓存" + JSON.stringify(bufferCart));
+    carts = bufferCart;
+    // for (var i = 0; i < bufferCart.length;i++ ){
+    //   carts = this.data.cart.concat(bufferCart[i]);
+    //   console.log("购物车里的" + JSON.stringify(carts[i]));
+    // }
+   
     // this.insetCart(bufferCart);//将添加到购物车的数据存入数据库中
-
+   
+  that.setData({
+    cart:carts
+  })
     var arr=this.data.cart;
     var goodsCount=0;
     // var arr =[]
@@ -54,7 +64,11 @@ Page({
   //离开界面是执行这个方法
   onHide: function () {
    // 清除数据
-    wx.clearStorageSync('cart')//隐藏页面时将缓存清除
+    // wx.clearStorageSync('carts')//隐藏页面时将缓存清除
+    this.setData({
+      cart: [], //清除数据
+    })
+ 
   },
 
 
