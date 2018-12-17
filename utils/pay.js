@@ -107,5 +107,6 @@ function refoundQuery(refondNumber,callback){
 module.exports ={
   payOreder: payOreder,
   refund: refund,
-  orderQuery: orderQuery
+  orderQuery: orderQuery,
+  refoundQuery: refoundQuery
 }
