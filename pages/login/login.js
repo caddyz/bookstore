@@ -80,10 +80,16 @@ Page({
           app.globalData.userInfo = that.data.userInfo;
           //console.log("用户名" + app.globalData.userInfo.username);
           //返回上一页 上一页的跳转只能用wx.navigateTo
-          wx.navigateBack({
-            delta: 3
+          wx.showToast({
+            title: '登陆成功',
+            icon:"sccess",
+            duration:2000,
+            success:function(){
+               wx.navigateBack({
+              delta:1
           })
-
+          }
+          })
         } else {
           //显示消息提示框
           wx.showModal({
@@ -125,12 +131,20 @@ Page({
   },
   onShow: function () {
     // 页面显示
+    // var that = this
+    // //如果 isBack 为 true，就返回上一页
+    // if (wx.getStorageSync('goBack')) {
+    //   wx.navigateBack({
+    //     delta:3
+    //   })
+    // }
   },
   onHide: function () {
     // 页面隐藏
   },
   onUnload: function () {
     // 页面关闭
+   
   },
 
   onload: function (options) {

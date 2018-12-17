@@ -22,14 +22,14 @@ page{
 .info-input{
   height: 100rpx;
   margin-left: 50rpx;
-  color: #777;
+  color:black;
   /* 元素向左浮动 */
     float: left;
 }
 .info-input1{
   height: 100rpx;
   margin-left: 50rpx;
-  color: #777;
+  color:black;
     float: left;
     width: 420rpx;
 }

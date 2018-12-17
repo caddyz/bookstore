@@ -31,6 +31,7 @@ Page({
   next: function () {
     // console.log(e.detail.value);
     var that=this;
+    var re = new RegExp('^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$');; 
     var email=that.data.email
     if (that.data.email == '' || that.data.email == null) {
       wx.showToast({
@@ -38,7 +39,13 @@ Page({
         icon: 'none',
         duration: 1000
       })
-    } else {
+    } else if(re.test(email)){
+      wx.showToast({
+        title: '邮箱格式不正确',
+        icon:"none",
+        duration:2000
+      })
+    }else {
       console.log("email:"+email)
       wx.request({
         url: app.URL + 'bookstore-mall/' + email +  '/updatePhone',
@@ -116,11 +123,13 @@ Page({
             wx.showToast({
               title: res.data.msg,
               icon: 'success',
-              duration: 2000
-            })
-            wx.redirectTo({
-              url: '/pages/login/login',
-            })
+              duration: 2000,
+              success:function(res){
+                wx.navigateBack({
+                  delta:1
+                })
+              }
+            }) 
           } else {
             wx.showToast({
               title: res.data.msg,
@@ -153,7 +162,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
   },
 
   /**
@@ -167,7 +175,16 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    // var that = this
+    // //判断页面栈里面的页面数是否大于2
+    // if (getCurrentPages.length > 2) {
+    //   //获取页面栈
+    //   let pages = getCurrentPages()
+    //   //给上一个页面设置状态
+    //   let curPage = pages[pages.length - 2];
+    //   let data = curPage.data;
+    //   curPage.setData({ 'goBack': true });
+    // } 
   },
 
   /**

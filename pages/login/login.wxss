@@ -52,14 +52,15 @@ page{
 } 
 
 .inputText { 
- flex: block; 
+ flex: block;
+  /*向右浮动  */
  float: right; 
  text-align: right; 
  /* 右边距 */
  margin-right: 22px; 
  /* 对象上边的外距离 */
  margin-top: 11px; 
- color: #cccccc; 
+ color: black; 
  font-size: 14px
 } 
 

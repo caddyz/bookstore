@@ -4,6 +4,7 @@
  <view class='row'>
         <view class='info'>
                <input  class= 'info-input1' bindinput="handleInputEmail" placeholder="请输入你的邮箱账号" />
+               
          </view>
  </view>
   <view class='row'>
@@ -21,7 +22,7 @@
                <input  type='password' class= 'info-input' bindinput="handleNewChangesAgain" placeholder="请重新输入你的密码" />
          </view>
  </view>
- <button class='submit' bindtap='submit'>提交</button>
+ <button class='submit' bindtap='submit'>注册</button>
  </view>
  <!-- <view class = 'success' wx:if="{{success}}">
  <view class='cheer'><icon type="success" size="24"/> 恭喜您注册成功!</view>
