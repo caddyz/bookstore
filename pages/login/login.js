@@ -9,6 +9,8 @@ Page({
     userInfo:'',
     message:'',
     active:''
+	
+	
   },
   //从页面获取输入账号 
   accountInput: function (e) {
