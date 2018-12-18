@@ -47,11 +47,7 @@ Page({
     this.setData({
       region: e.detail.value
     })
-    //数据存入缓存
-    // wx.setStorage({
-    //   key: "editorRegions",
-    //   data: e.detail.value
-    // })
+   
     wx.request({
       url: app.URL + 'bookstore-mall/editorReceiveAddress', //提交的网络地址
       method: "POST",
@@ -63,11 +59,7 @@ Page({
       success: function (res) {
         //--init data
         if (res.data) {
-          //数据存入缓存
-          // wx.setStorage({
-          //   key: "editorRegions",
-          //   data: e.detail.value
-          // })
+      
           //提示
           wx.showToast({
             title: '修改成功！',

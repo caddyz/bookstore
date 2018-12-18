@@ -6,7 +6,8 @@ Page({
     date: '2016-09-01',
     time: '12:01',
     region: ['广东省', '广州市', '海珠区'],
-    customItem: '全部'
+    customItem: '全部',
+    first:''//判断用户是否是第一次添加收货地址
   },
   bindRegionChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
@@ -14,7 +15,13 @@ Page({
       region: e.detail.value
     })
   },
-  
+  onLoad: function (options){
+    var that=this;
+    var first = options.first;
+    that.setData({
+      first: first
+    })
+  },
   //将新修改的信息添加到数据库进行储存
   saveAddress: function (e) {
 
@@ -27,7 +34,8 @@ Page({
         addressProvince: e.detail.value.addressl[0],
         addressCity: e.detail.value.addressl[1],
         addressCounty: e.detail.value.addressl[2],
-        addressDetail: e.detail.value.address
+        addressDetail: e.detail.value.address,
+        addressStatus: this.data.first
       }
       console.log('form发生了submit事件，携带数据为：', e.detail.value)
       //改变本地数据

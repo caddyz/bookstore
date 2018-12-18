@@ -2,7 +2,7 @@
 <view>
   <view class="userinfo">
     <open-data type="userAvatarUrl" class="userinfo-avatar" background-size="cover"></open-data>
-    <open-data type="userNickName" class="userinfo-nickname"></open-data>
+    <view  type="userNickName" class="userinfo-nickname">{{username}}</view>
     <image src="../person/images/user_pic.png" class="user-bg">
     </image>
   </view>

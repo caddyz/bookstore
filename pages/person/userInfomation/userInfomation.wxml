@@ -4,7 +4,7 @@
   <text>头像</text>
   <view class="real">
     <!-- <image class="n" bindtap="chooseimage" src="../userInfomation/images/avatar_next.png"></image> -->
-    <image class="a" src="{{userInfoAvatar}}"/>
+ <open-data type="userAvatarUrl" class="a" background-size="cover"></open-data>
   </view>
 </view>
 <view class="nickName">
@@ -17,7 +17,7 @@
 </view>
 <view class="age">
   <text>年龄</text>
-  <view class="real" name='age'>{{user.age}}</view>
+  <view class="real" name='age'>{{age}}</view>
 </view>
 <view class="userLevel">
   <text>用户等级</text>

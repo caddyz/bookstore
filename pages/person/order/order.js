@@ -167,7 +167,6 @@ Page({
     // }
    
     this.alreadOder();
-    this.getOrderGrouping();//从新分组
   },
  
   //已经完成订单操作

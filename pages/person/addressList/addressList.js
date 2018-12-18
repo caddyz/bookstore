@@ -12,41 +12,7 @@ Page({
     addressList: [],
     messges:"你是个大坏蛋",
     regions:[],
-    // regions:[
-    //   {
-    //     addressId:'1',
-    //     userId:'456',
-    //     addressStatus:true,
-    //     addressConsignee:'小李',
-    //     addressMobile:'123456',
-    //     addressProvince:"四川",
-    //     addressCity:"成都",
-    //     addressCounty:"高新区",
-    //     addressDetail:"我不知道"
-    //   },
-    //   {
-    //     addressId: '2',
-    //     userId: '456',
-    //     addressStatus: false,
-    //     addressConsignee: '小李',
-    //     addressMobile: '123456',
-    //     addressProvince: "四川",
-    //     addressCity: "成都",
-    //     addressCounty: "高新区",
-    //     addressDetail: "我不知道"
-    //   },
-    //   {
-    //     addressId: '3',
-    //     userId: '456',
-    //     addressStatus: false,
-    //     addressConsignee: '小李',
-    //     addressMobile: '123456',
-    //     addressProvince: "四川",
-    //     addressCity: "成都",
-    //     addressCounty: "高新区",
-    //     addressDetail: "我不知道"
-    //   }
-    // ]
+    first: false//判断用户是不是第一次添加收货地址
   },
   // 这是页面初次加载的方法
   onLoad: function (options) {
@@ -68,7 +34,7 @@ Page({
 //添加新地址界面
   addAddress: function () {
     wx.navigateTo({
-      url: '../address/address',
+      url: '../address/address?first='+this.data.first,
     })
   },
 
@@ -77,17 +43,7 @@ Page({
    * 当用户离开时将数据存入数据库
    */
   onUnload: function () {
-    // wx.request({
-    //   url: 'test.java', //提交的网络地址
-    //   method: "get",
-    //   dataType:"json",
-    //   header: {
-    //     'content-type': 'application/json' // 默认值
-    //   },
-    //   success(res) {
-    //     console.log(res.data)
-    //   }
-    // })
+  
     wx.clearStorage("regions")
     wx.clearStorage("editorRegions")
   },
@@ -110,47 +66,7 @@ Page({
   }; 
     //先从数据库中获取数据
     that.getReceiveAddress();
-  //新添加的地址
-    wx.getStorage({
-      key: 'regions',
-      success(res) {
-        console.log(res.data.addressl)
-        console.log(res.data.length)
-        if(res.data!=null){
-          var index=that.data.regions.length+1;
-        newRegion=
-          {
-            id: index,
-          userId: app.globalData.userInfo.userId,
-            consignee: res.data.consignee,
-            mobile: res.data.mobile,
-            province: res.data.addressl[0],
-            city: res.data.addressl[1],
-            county: res.data.addressl[2],
-            details: res.data.address
-          }
-          region = that.data.regions.concat(newRegion)
-        that.setData({
-          regions:region
-        })
-        }  
-      }
-    }) 
   
-
-    //用户修改地址的更新
-    // wx.getStorage({
-    //   key: 'editorRegions',
-    //   success(res) {
-    //     console.log(res.data.addressl)
-    //     console.log(res.data.length)
-    //     if (res.data != null) {
-    //       var index = res.data.id;
-        
-    //     }
-
-    //   }
-    // })   
   },
   //修改默认地址状态
   selectList(e) {
@@ -174,7 +90,7 @@ Page({
       regions[index].addressStatus = true; 
     };
     that.updateUserReceiveAddressStatus(app.globalData.userInfo.userId, newAddressId, oldAddressId);//修改数据库中默认地址的状态
-    // console.log("newAddressId:" + newAddressId + "==oldAddressId:" + oldAddressId);
+
     this.setData({
       regions: regions,
     });
@@ -216,6 +132,7 @@ Page({
      }
     })
   },
+
   //获取用户添加的收货地址
  getReceiveAddress:function(){
    var that = this;
@@ -231,13 +148,15 @@ Page({
      success: function (res) {
        //--init data
 
-       if (res.data != null) {
+       if (res.data.length>0) {
          that.setData({
            regions: res.data,
+           first:false
          })
        } else {
          that.setData({
-           regions: this.data.regions
+           regions: that.data.regions,
+           first:true
          })
        }
 
@@ -259,6 +178,8 @@ Page({
      }
    })
  },
+
+
  //还会上级页面并带回数据
   to_confirm: function (e) {
     const index = e.currentTarget.dataset.index //获取页面数据信息
@@ -273,6 +194,7 @@ Page({
     wx.navigateBack() //返回上级页面  
   },
   
+
    //修改用户数据库中默认收货地址的方法
  updateUserReceiveAddressStatus:function(userId,newAddressId,oldAddressId){
       var that=this;
@@ -286,12 +208,7 @@ Page({
         success: function (res) {
           //--init data     
           if (res.data) {
-            //数据存入缓存
-            // wx.setStorage({
-            //   key: "regions",
-            //   data: e.detail.value
-            // })
-            //提示
+       
             wx.showToast({
               title: '修改成功！',
             })

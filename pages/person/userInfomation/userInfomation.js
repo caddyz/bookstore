@@ -1,4 +1,5 @@
 // pages/userInfomation/userInfomation.js
+var utils=require("../../../utils/util.js")
 var app=getApp()
 Page({
 
@@ -26,23 +27,6 @@ Page({
  
   },
 
-  // chooseimage: function () {
-  //   var _this = this;
-  //   wx.chooseImage({
-  //     count: 1, // 默认9
-  //     sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-  //     sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-  //     success: function (res) {
-  //       // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-  //       _this.setData({
-  //         userInfoAvatar: res.tempFilePaths
-  //       })
-  //     },
-  //     radioChange: function (e) {
-  //       console.log('radio发生change事件，携带value值为：', e.detail.value)
-  //     },
-  //   })
-  // },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -51,47 +35,20 @@ Page({
     var that = this;
     var user=app.globalData.userInfo;//获取用户信息
     console.log("user:" + JSON.stringify(user));
+    if (user.birthday!=null){
+      var birthday = utils.formatDate(new Date(user.birthday));
+      // console.log("获得的生日是：" + birthday);
+      this.jsGetAge(birthday,function(data){
+        // console.log("获得的年纪是："+data);
+        that.setData({
+          age:data
+        })
+      })
+    }
     that.setData({
       user:user
     })
-
-    wx.getUserInfo({
-      success: function (res) {
-        // success
-        that.setData({
-          nickName: res.userInfo.nickName,
-          userInfoAvatar: res.userInfo.avatarUrl,
-          // province: res.userInfo.province,
-          // city: res.userInfo.city
-        })
-        switch (res.userInfo.gender) {
-          case 0:
-            that.setData({
-              sex: '未知'
-            })
-            break;
-          case 1:
-            that.setData({
-              sex: '男'
-            })
-            break;
-          case 2:
-            that.setData({
-              sex: '女'
-            })
-            break;
-        }
-      },
-      fail: function () {
-        // fail
-        console.log("获取失败！")
-      },
-      complete: function () {
-        // complete
-        console.log("获取用户信息完成！")
-      }
-    })
-  
+ 
   },
   //用户信息修改跳转函数
   toEditor:function(){
@@ -110,6 +67,54 @@ Page({
       fail: function(res) {},
       complete: function(res) {},
     })
-  }
+  },
+  // JS根据出生日期 得到年龄
+//参数strBirthday已经是正确格式的2017-12-12这样的日期字符串  
+  jsGetAge:function (strBirthday,callback) {
+    var returnAge;
+    var strBirthdayArr = strBirthday.split("-");
+    var birthYear = strBirthdayArr[0];
+    // console.log("获得的年：" + birthYear);
+    var birthMonth = strBirthdayArr[1];
+    var birthDay = strBirthdayArr[2];
+
+    var d = utils.formatDate(new Date());
+   var dArr= d.split("-");
+    var nowYear = dArr[0];
+    // console.log("现在的年：" + nowYear);
+    var nowMonth = dArr[1];
+    var nowDay = dArr[2];
+
+    if (nowYear == birthYear) {
+      returnAge = 0;//同年 则为0岁  
+    }
+    else {
+      var ageDiff = nowYear - birthYear; //年之差  
+      if (ageDiff > 0) {
+        if (nowMonth == birthMonth) {
+          var dayDiff = nowDay - birthDay;//日之差  
+          if (dayDiff < 0) {
+            returnAge = ageDiff - 1;
+          }
+          else {
+            returnAge = ageDiff;
+          }
+        }
+        else {
+          var monthDiff = nowMonth - birthMonth;//月之差  
+          if (monthDiff < 0) {
+            returnAge = ageDiff - 1;
+          }
+          else {
+            returnAge = ageDiff;
+          }
+        }
+      }
+      else {
+        returnAge = -1;//返回-1 表示出生日期输入错误 晚于今天  
+      }
+    }
+    callback(returnAge) ;//返回周岁年龄  
+  }  
 
 })

@@ -204,11 +204,13 @@ Page({
           console.log("添加成功！");
           wx.showToast({
             title: '评价成功~！',
+            duration:2000
           })
           wx.navigateBack();//评价成功返回上一页
         } else {
           wx.showToast({
             title: '评价失败！',
+            duration: 2000
           })
           console.log("添加失败！");
         }
