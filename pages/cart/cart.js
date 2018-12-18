@@ -4,7 +4,7 @@ Page({
   data: {
     iscart: false,//是否在购物车中
     selectAllStatus:false,//是否全部选中
-  
+    first:false,//
     // cart:[],
     cart: [], //数据
     count: 1,   //商品数量默认是1
@@ -14,35 +14,31 @@ Page({
   //初始加载页面
   onLoad: function (options) {
 
-   var that=this;
-    var carts = this.data.cart
-    // that.getAllCarts(app.globalData.userInfo.userId);//如果用户登录状态从数据库中获取购物车商品信息
-    //验证用户是否登录
-
+  
   },
 
 
   //画面显示
   onShow: function () {
     var that = this;
-    var carts=[];
+
     // this.userOfStatus() //验证用户是否登录显示不同
+        if(this.data.first==false){
+          console.log("=============================================")
+          //验证用户是否登录
+          if (app.globalData.userInfo != null) {
+            this.getAllCarts(app.globalData.userInfo.userId);//如果用户登录状态从数据库中获取购物车商品信息
+            this.setData({
+              first:true
+            })
+          }
+        }
 
       // 获取缓存李里面的数据并加入购物车
-    var bufferCart = wx.getStorageSync('carts') || [];
-    console.log("取出的缓存" + JSON.stringify(bufferCart));
-    carts = bufferCart;
-    // for (var i = 0; i < bufferCart.length;i++ ){
-    //   carts = this.data.cart.concat(bufferCart[i]);
-    //   console.log("购物车里的" + JSON.stringify(carts[i]));
-    // }
-   
-    // this.insetCart(bufferCart);//将添加到购物车的数据存入数据库中
-   
-  that.setData({
-    cart:carts
-  })
-    var arr=this.data.cart;
+  var bufferCart = wx.getStorageSync('carts') || [];
+  console.log("取出的缓存" + JSON.stringify(bufferCart));
+   var arr = bufferCart;
+  
     var goodsCount=0;
     // var arr =[]
     // 有数据的话，就遍历数据， 总数量
@@ -58,19 +54,27 @@ Page({
         cart: arr,
         goodsCount: goodsCount
       });
+    }else{
+      // 更新数据
+      this.setData({
+        iscart: false,
+        cart: arr,
+        goodsCount: 0
+      });
     }
     that.getTotalPrice();  
   },
-  //离开界面是执行这个方法
+
+
+  //页面卸载时执行这个方法
   onHide: function () {
    // 清除数据
     // wx.clearStorageSync('carts')//隐藏页面时将缓存清除
     this.setData({
       cart: [], //清除数据
     })
- 
-  },
 
+  },
 
   /* 减数 */
   delCount: function (e) {
@@ -81,26 +85,46 @@ Page({
       return;
     }
     // 商品总数量-1
+    if (this.data.cart[e.target.id.substring(3)].isStatus) {
     this.data.goodsCount -= 1;
+    }
     // 购物车主体数据对应的项的数量-1  并赋给主体数据对应的项内
+    
     this.data.cart[e.target.id.substring(3)].bookNum = --this.data.cart[e.target.id.substring(3)].bookNum;
     // 更新data数据对象
     this.setData({
       cart: this.data.cart,
       goodsCount: this.data.goodsCount
     })
+
+    var carts = this.data.cart;
+    //存入缓存
+    wx.setStorage({  
+      key: 'carts',
+      data: carts
+    })
     this.getTotalPrice(); //计算总价    
   },
   /* 加数 */
   addCount: function (e) {
     // 商品总数量+1
+    if (this.data.cart[e.target.id.substring(3)].isStatus) {
     this.data.goodsCount += 1;
+    }
     // 购物车主体数据对应的项的数量+1  并赋给主体数据对应的项内
+    
     this.data.cart[e.target.id.substring(3)].bookNum = ++this.data.cart[e.target.id.substring(3)].bookNum;
+   
     // 更新data数据对象
     this.setData({
       cart: this.data.cart,
       goodsCount: this.data.goodsCount
+    })
+    var carts = this.data.cart;
+    //存入缓存
+    wx.setStorage({
+      key: 'carts',
+      data: carts
     })
     this.getTotalPrice(); //计算总价
  
@@ -124,9 +148,14 @@ Page({
     })
     this.getTotalPrice(); 
     // console.log("cartId:" + cartId)
-    that.delCart(cartId,2);//将数据库中用户的购物车数据删除  
+
     // // 主体数据重新赋入缓存内
-   
+    var carts = this.data.cart;
+    //存入缓存
+    wx.setStorage({
+      key: 'carts',
+      data: carts
+    })
   },
   
   //单选择商品事件
@@ -145,6 +174,13 @@ Page({
       cart: carts,
       goodsCount: this.data.goodsCount
     });
+    // // 主体数据重新赋入缓存内
+    var cartss = this.data.cart;
+    //存入缓存
+    wx.setStorage({
+      key: 'carts',
+      data: cartss
+    })
     this.getTotalPrice();                           // 重新获取总价
   },
   
@@ -170,6 +206,13 @@ Page({
       cart: carts,
       goodsCount: goodsCount
     });
+     // // 主体数据重新赋入缓存内
+     var cartss = this.data.cart;
+     //存入缓存
+     wx.setStorage({
+       key: 'carts',
+       data: cartss
+     })
     this.getTotalPrice();                               // 重新获取总价
   },
 
@@ -246,13 +289,7 @@ getTotalPrice() {
           return;
         }
           //跳转到订单生成界面,将结算的商品传给订单生成界面
-          that.toCreatOrder(oldcart);
-
-          // 将数据更新
-          that.setData({
-            cart: newcart
-          });
-
+          that.toCreatOrder(oldcart,newcart);
 
         } else {
           console.log('弹框后点取消')
@@ -279,12 +316,10 @@ getTotalPrice() {
               if (!carts[i].isStatus) {                   // 判断留下未选中的
                 newcart = newcart.concat(carts[i]);
               }
-
               //将选中的交给定单处理
               else {
                 oldcart = oldcart.concat(carts[i]); //选中结算的商品
               }
-
             }
             console.log("创建订单并将订单数据存入书库！");
             //如果用户未选定商品
@@ -296,14 +331,7 @@ getTotalPrice() {
               return;
             }
             //跳转到订单生成界面,将结算的商品传给订单生成界面
-            that.toCreatOrder(oldcart);
-
-            // 将数据更新
-            that.setData({
-              cart: newcart
-            });
-
-
+            that.toCreatOrder(oldcart, newcart);
           } else {
             console.log('弹框后点取消')
             return;
@@ -324,79 +352,23 @@ getTotalPrice() {
     })
   },
 
-  //将新增的商品存入购物车数据存入数据库的方法
-  insetCart:function(carts){
-    var Carts=carts;
-    var userId=userId;
-    wx.request({
-      url: app.URL + 'bookstore-mall/insertCart', //提交的网络地址
-      method: "POST",
-      dataType: "json",
-      data: JSON.stringify(Carts),
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function (res) {
-        //--init data
-        if(res.data==true){
-          console.log("添加成功！")
-        }
-
-      },
-      fail: function () {
-        // fail
-        wx.showToast({
-          title: '网络异常！',
-          duration: 30000
-        });
-      }
-    });
-    this.setData({
-      iscart: false,
-      // cart: [], //数据
-      totalPrice: 0,    //总金额
-      goodsCount: 0 //数量
-    });
-  },
-  //用户将购物车中的数据删除的方法
-  delCart:function(cartId,userId){
-    var cartId = cartId;
-    var userId = userId;
-    wx.request({
-      url: app.URL + 'bookstore-mall/delCart/' + cartId + '/' + userId, //提交的网络地址
-      method: "GET",
-      dataType: "json",
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function (res) {
-        //--init data
-        if (res.data==true) {
-          console.log("删除成功！")
-        }
-
-      },
-      fail: function () {
-        // fail
-        wx.showToast({
-          title: '网络异常！',
-          duration: 30000
-        });
-      }
-    }); 
-  },
+  
   //跳转函数结算成功跳转到订单生成界面
-  toCreatOrder:function(oldcart){ 
+  toCreatOrder:function(oldcart,newcart){ 
     let totalPrice=this.data.totalPrice;
 
     console.log("我发送的数据：" + oldcart[0]);
     wx.navigateTo({
-      url: '../cart/creatOrder/creatOrder?oldcart=' + JSON.stringify(oldcart) + '&totalPrice=' + totalPrice,
+      url: '../cart/creatOrder/creatOrder?oldcart=' + JSON.stringify(oldcart) + '&totalPrice=' + totalPrice + '&newcart=' + JSON.stringify(newcart),
     })
   },
+
+
   //从数据库中获取购物车的数据
   getAllCarts: function (userId){
     var that = this
+    var cart=wx.getStorageSync("carts");
+    console.log("userId=================" +userId);
     // //数据库获取初始数据
     wx.request({
       url: app.URL + 'bookstore-mall/selectCart/' + userId, //提交的网络地址
@@ -407,10 +379,18 @@ getTotalPrice() {
       },
       success: function (res) {
         //--init data
-        if (res.data != null) {
-
-          that.setData({
-            cart: res.data
+        if (res.data != []) {
+          for(var i in res.data){
+            for(var j in cart){
+              if(res.data[i].bookId!=cart[j].bookId){
+                cart = cart.concat(res.data[i]);
+              };
+            }
+          }
+          //存入缓存
+          wx.setStorage({
+            key: 'carts',
+            data: cart,
           })
           that.onShow();
           console.log(that.data.cart)
@@ -428,19 +408,5 @@ getTotalPrice() {
         });
       }
     })
-  },
-  //验证用户是否登录显示不同的
-  userOfStatus:function(){
-    var that=this;
-    //验证用户是否登录
-    if (app.globalData.userInfo != null) {
-      that.getAllCarts(2);//如果用户登录状态从数据库中获取购物车商品信息
-    } else {
-      //如果用户没有登录
-      var bufferCart = wx.getStorageSync('cart') || [];//直接读取缓存中的数据
-      that.setData({
-        cart: bufferCart
-      });
-    }
   }
 })

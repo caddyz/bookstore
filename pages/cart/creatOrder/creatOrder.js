@@ -8,21 +8,11 @@ Page({
    */
   data: {
     oldcart:[],//购物车结算的商品 
-
+    newcart:[],//购物车中未结算的商品
     order:'',//订单
     totalPrice:'',//商品总价
     realPayprice:'',//实际支付价格
-    newAddress: {
-      // addressId: '2',
-      // userId: '456',
-      // isStatus: false,
-      // addressConsignee: '小李',
-      // addressMobile: '123456',
-      // addressProvince: "四川",
-      // addressCity: "成都",
-      // addressCounty: "高新区",
-      // addressDetail: "我不知道"
-      },//地址信息
+    newAddress: {},//地址信息
     select: false,
     selectSend:false,
     selectCoupon:false,
@@ -43,11 +33,13 @@ Page({
   onLoad: function (options) {
     var that=this;
     var oldcart = JSON.parse(options.oldcart);
+    var newcart = JSON.parse(options.newcart);
     console.log("我接受的数据是：" + oldcart[0].bookNum);
     // console.log("我接受的总价是：" + options.totalPrice)
     that.setData({
       totalPrice:options.totalPrice,
-      oldcart: oldcart
+      oldcart: oldcart,
+      newcart: newcart
     })
   
     
@@ -276,46 +268,21 @@ Page({
   },
 
 
-  //当下单成功后删除存在数据库中购物车的数据
+  //当下单成功后删除缓存中购物车的数据
   deCartsAlreadyPay:function(){
     var that = this;
     var booksId=[];
-    var oldcart=this.data.oldcart
+    var newcart = this.data.newcart;
+    var carts=wx.getStorageInfoSync("carts")||[];
     //获取商品的Id
-    for (let i = 0; i < oldcart.length;i++){
-      booksId = booksId.concat(oldcart[i].bookId)
-    }
-    // //数据库获取初始数据
-    wx.request({
-      url: app.URL + 'bookstore-mall/deCartsAlreadyPay', //提交的网络地址
-      method: "POST",
-      dataType: "json",
-      data: JSON.stringify(booksId),
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function (res) {
-        //--init data
-        if (res.data==true) {
-          wx.showToast({
-            title: '下单成功！',
-          })
-          wx.navigateBack();
-        } else {
-          wx.showToast({
-            title: '下单失败！',
-          })
-        }
-      
-      },
-      fail: function () {
-        // fail
-        wx.showToast({
-          title: '网络异常！',
-          duration: 30000
-        });
-      }
+    console.log("newcart" + JSON.stringify(newcart));
+    //存入缓存
+    carts=newcart;
+    wx.setStorage({
+      key: 'carts',
+      data: carts,
     })
+   
   },
 
   //用户优惠券和折扣查询
