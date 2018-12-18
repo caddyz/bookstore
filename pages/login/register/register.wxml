@@ -1,32 +1,34 @@
 <!--pages/register/register.wxml-->
 <!--判断是否需要渲染该代码块 wx:if是用来判断某个条件是否成立，如果返回值为true，则渲染这个元素，否则不渲染；还可以使用wx:if显示或隐藏一个元素-->
-  <view>
- <view class='row'>
+<view class="login-icon"> 
+ <image class="login-img" src="/pages/img/zhuce.jpg"></image> 
+ </view> 
+ <view class='row' wx:if='{{show_row}}'>
         <view class='info'>
                <input  class= 'info-input1' bindinput="handleInputEmail" placeholder="请输入你的邮箱账号" />
-               
-         </view>
+</view>
  </view>
-  <view class='row'>
+ <view wx:if='{{one}}'>
+             <button  type="primary" catchtap="next">第一步</button>  
+    </view>
+  <view class='row' wx:if='{{show_row1}}'>
         <view class='info'>
                <input type='username' class= 'info-input' bindinput="handleNewName" placeholder="请输入你的用户名" />
          </view>
  </view>
-  <view class='row'>
+  <view wx:if='{{two}}'>
+         <button  type="primary" catchtap="next1">第二步</button>
+</view>
+  <view class='row' wx:if='{{show_row2}}'>
         <view class='info'>
                <input type='password' class= 'info-input' bindinput="handleNewChanges" placeholder="请输入你的密码" />
+               <input  type='password' class= 'info-input' bindinput="handleNewChangesAgain" placeholder="请重新输入你的密码" />
        </view>
  </view>
-  <view class='row'>
-        <view class='info'>
-               <input  type='password' class= 'info-input' bindinput="handleNewChangesAgain" placeholder="请重新输入你的密码" />
-         </view>
- </view>
+  <view wx:if='{{success}}'>
  <button class='submit' bindtap='submit'>注册</button>
- </view>
- <!-- <view class = 'success' wx:if="{{success}}">
- <view class='cheer'><icon type="success" size="24"/> 恭喜您注册成功!</view>
- <button type = "default" class = 'return' bindtap='return_login'>返回登陆页面</button>
- </view> -->
+</view>
+
+
 
 

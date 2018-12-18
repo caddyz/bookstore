@@ -8,7 +8,14 @@ Page({
     email: '', 
     username: '',
     password: '',
-    passwordAgain: ''
+    passwordAgain: '',
+    show_row:true,
+    show_row1:false,
+    show_row2: false,
+    one:true,
+    two:false,
+    success:false
+    
   },
   /**
     *
@@ -23,42 +30,6 @@ Page({
     this.setData({
       email: e.detail.value
     })
-    // var that=this;
-    // var email=that.data.email;
-    // if(email==""||email==null){
-    //   wx.showToast({
-    //     title: '请输入邮箱',
-    //     icon: 'none',
-    //     duration: 2000
-    //   })
-    // }else{
-    //   wx.request({
-    //     url: app.URL + 'bookstore-mall/' + email +  '/searchEmail',
-    //     method: "GET",
-    //     data: {
-    //       email: email
-        
-    //     },
-    //     header: {
-    //       'Content-Type': 'application/json'
-    //     },
-    //     success: function (res) {
-    //       if(res.data.status==true){
-    //         wx.showToast({
-    //           title: res.data.msg,
-    //           icon: 'none',
-    //           duration: 2000
-    //         })
-    //       }else{
-    //         wx.showToast({
-    //           title: res.data.msg,
-    //           icon: 'success',
-    //           duration: 2000
-    //         })
-    //       }
-    //     }
-    //   })
-    // }
   },
   //用户名
   handleNewName: function (e) {
@@ -66,41 +37,6 @@ Page({
     this.setData({
       username: e.detail.value
     })
-    // var that = this;
-    // var username= that.data.username;
-    // if (username == "" || username == null) {
-    //   wx.showToast({
-    //     title: '请输入邮箱',
-    //     icon: 'none',
-    //     duration: 2000
-    //   })
-    // } else {
-    //   wx.request({
-    //     url: app.URL + 'bookstore-mall/' + username + '/searchName',
-    //     method: "GET",
-    //     data: {
-    //       username: username
-    //     },
-    //     header: {
-    //       'Content-Type': 'application/json'
-    //     },
-    //     success: function (res) {
-    //       if (res.data.status == true) {
-    //         wx.showToast({
-    //           title: res.data.msg,
-    //           icon: 'none',
-    //           duration: 2000
-    //         })
-    //       } else {
-    //         wx.showToast({
-    //           title: res.data.msg,
-    //           icon: 'success',
-    //           duration: 2000
-    //         })
-    //       }
-    //     }
-    //   })
-    // }
   },
   //密码
   handleNewChanges: function (e) {
@@ -116,21 +52,24 @@ Page({
      passwordAgain: e.detail.value
     })
   },
-  //点击提交触发的事件
-  submit: function (e) {
-    var that = this
-    var passwordAgain = that.data.passwordAgain;
-    var username = that.data.username;
-    var password = that.data.password
+
+  next:function(){
+    var that=this;
     var email=that.data.email
-    if(that.data.email==""){
+   //var re =/ ^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
+    if (that.data.email == '' || that.data.email == null){
       wx.showToast({
         title: '请输入邮箱',
-        icon: 'none',
-        duration: 2000
+        icon:'none',
+        duration:2000
       })
-      return
-    } else {
+    // }else if(!re.test(email)){
+    //   wx.showToast({
+    //     title: '邮箱格式不正确',
+    //     icon: 'none',
+    //     duration: 2000
+    //   })
+     }else{
       wx.request({
         url: app.URL + 'bookstore-mall/' + email + '/searchEmail',
         method: "GET",
@@ -154,45 +93,62 @@ Page({
               icon: 'success',
               duration: 2000
             })
+            that.setData({
+              show_row: false,one:false, show_row1: true,two:true, show_row2: false
+            })
           }
         }
       })
     }
-     if (this.data.username == '') {
+  },
+  next1:function(){
+    var that = this;
+    var username = that.data.username
+    if(username==""||username==null){
       wx.showToast({
         title: '请输入用户名',
-        icon: 'none',
-        duration: 2000
+        icon:'none',
+        duration:2000
       })
-      return
-     } else {
-       wx.request({
-         url: app.URL + 'bookstore-mall/' + username + '/searchName',
-         method: "GET",
-         data: {
-           username: username
-         },
-         header: {
-           'Content-Type': 'application/json'
-         },
-         success: function (res) {
-           if (res.data.status == true) {
-             wx.showToast({
-               title: res.data.msg,
-               icon: 'none',
-               duration: 2000
-             })
-           } else {
-             wx.showToast({
-               title: res.data.msg,
-               icon: 'success',
-               duration: 2000
-             })
-           }
-         }
-       })
-     }
-     if (this.data.password == '') {
+    }else{
+      wx.request({
+        url: app.URL + 'bookstore-mall/' + username + '/searchName',
+        method: "GET",
+        data: {
+          username: username
+        },
+        header: {
+          'Content-Type': 'application/json'
+        },
+        success: function (res) {
+          if (res.data.status == true) {
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'none',
+              duration: 2000
+            })
+          } else {
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'success',
+              duration: 2000
+            })
+            that.setData({
+              show_row: false, show_row1: false, show_row2: true,success:true,two:false
+            })
+          }
+        }
+      })
+    }
+  },
+  //点击提交触发的事件
+  submit: function (e) {
+    var that = this
+    var passwordAgain = that.data.passwordAgain;
+    var username = that.data.username;
+    var password = that.data.password;
+    var email=that.data.email;
+    if (this.data.password == '') {
       wx.showToast({
         title: '请输入密码',
         icon: 'none',
@@ -207,35 +163,35 @@ Page({
       })
       return
     } else {
-       wx.request({
-           url: app.URL + 'bookstore-mall/' + email + '/' + username + '/' + password + '/searchUser',
-            method: "GET",
-             data: {
-             email: email,
-              username: username,
-               password: that.data.password
-              },
-              header: {
-                'Content-Type': 'application/json'
-               },
-               success: function (res) {
-                    //console.log("数据："+res.data)
-                    if (res.data.status == true) {
-                      wx.showToast({
-                        title: res.data.msg,
-                        icon: 'success',
-                        duration: 2000,
-                        success: function () {
-                          wx.navigateBack({
-                            delta: 1
-                          })
-                        }
-                      })
-                    } 
-                  }
-                })                          
+      wx.request({
+        url: app.URL + 'bookstore-mall/' + email + '/' + username + '/' + password + '/searchUser',
+        method: "GET",
+        data: {
+          email: email,
+          username: username,
+          password: that.data.password
+        },
+        header: {
+          'Content-Type': 'application/json'
+        },
+        success: function (res) {
+          //console.log("数据："+res.data)
+          if (res.data.status == true) {
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'success',
+              duration: 2000,
+              success: function () {
+                wx.navigateBack({
+                  delta: 1
+                })
+              }
+            })
+          }
+        }
+      })
     }
-    },
+  },
  
 
   /**

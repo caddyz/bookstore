@@ -7,7 +7,8 @@ Page({
     account: '',
     password: '',
     userInfo:'',
-    message:''
+    message:'',
+    active:''
   },
   //从页面获取输入账号 
   accountInput: function (e) {
@@ -53,10 +54,10 @@ Page({
       //开发者服务器接口地址
       url: app.URL + 'bookstore-mall/' + account + '/' + password + '/findUser',
       //请求的参数
-      // data: {
-      //   // account: account,
-      //   // password:password
-      // },
+      data: {
+        account: account,
+        password:password
+      },
       //设置请求的 header
       header: {
         //'content-type': 'application/x-www-form-urlencoded' // post默认值
@@ -69,27 +70,36 @@ Page({
         //调试，相当于alert    
         if (res.statusCode === 200) {
           //将用户名和密码缓存下来,留着实现不用重复登录  
-            wx.setStorageSync("account", that.data.account)
-            wx.setStorageSync("password", that.data.password)
+          wx.setStorageSync("account", that.data.account)
+          wx.setStorageSync("password", that.data.password)
           // 用于点击后改变页面信息或者刷新后与后台交互获取最新的信息
           that.setData({
             userInfo: res.data
           });
           //信息正确,给userInfo赋值        
-         // console.log("userInfo"+that.data.userInfo.username);
+          // console.log("userInfo"+that.data.userInfo.username);
           app.globalData.userInfo = that.data.userInfo;
           //console.log("用户名" + app.globalData.userInfo.username);
           //返回上一页 上一页的跳转只能用wx.navigateTo
+          if(that.data.userInfo.active==1){
           wx.showToast({
             title: '登陆成功',
-            icon:"sccess",
-            duration:2000,
-            success:function(){
-               wx.navigateBack({
-              delta:1
+            icon: "sccess",
+            duration: 2000,
+            success: function () {
+              wx.navigateBack({
+                delta: 1
+              })
+            }
           })
           }
-          })
+          else{
+            wx.showToast({
+              title: '用户状态未激活',
+              icon: "none",
+              duration: 2000
+            })
+          }
         } else {
           //显示消息提示框
           wx.showModal({

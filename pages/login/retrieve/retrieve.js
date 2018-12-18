@@ -6,6 +6,7 @@ Page({
    */
   data: {
     email:'',
+    password:'',
     newPassword:'',
     againNewPassword:'',
     // mask:true,
@@ -16,6 +17,11 @@ Page({
   inputEmail:function(e){
     this.setData({
       email:e.detail.value
+    })
+  },
+  handPassword:function(e){
+    this.setData({
+      password:e.detail.value
     })
   },
   inputPassword:function(e){
@@ -31,7 +37,7 @@ Page({
   next: function () {
     // console.log(e.detail.value);
     var that=this;
-    var re = new RegExp('^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$');; 
+    // var re = new RegExp('^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$'); 
     var email=that.data.email
     if (that.data.email == '' || that.data.email == null) {
       wx.showToast({
@@ -39,12 +45,13 @@ Page({
         icon: 'none',
         duration: 1000
       })
-    } else if(re.test(email)){
-      wx.showToast({
-        title: '邮箱格式不正确',
-        icon:"none",
-        duration:2000
-      })
+    // } else if(re.test(email)){
+    //   wx.showToast({
+    //     title: '邮箱格式不正确',
+    //     icon:"none",
+    //     duration:2000
+    //   })
+    // }
     }else {
       console.log("email:"+email)
       wx.request({
@@ -72,7 +79,7 @@ Page({
             })
             that.setData({
               show_content: false, show_content2: true,
-              email:email
+              email:email,
             })
           }
         }
@@ -89,9 +96,17 @@ Page({
   submit: function (e) {
     var that=this;
     var email=that.data.email;
+    var password=that.data.password;
     var newPassword =that.data.newPassword;
     var againNewPassword = that.data.againNewPassword
-    if (newPassword == '' || newPassword == null) {
+    if(password==""||password==null){
+      wx.showToast({
+        title: '请输入原密码',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }else if (newPassword == '' || newPassword == null) {
       wx.showToast({
         title: '请输入密码',
         icon: 'none',
@@ -119,7 +134,7 @@ Page({
         },
         success: function(res) {
           //console.log(res.data);
-          if (res.data.status==true) {
+          if (res.data.status) {
             wx.showToast({
               title: res.data.msg,
               icon: 'success',
@@ -132,7 +147,7 @@ Page({
             }) 
           } else {
             wx.showToast({
-              title: res.data.msg,
+              title: "修改失败",
               icon: 'none',
               duration: 2000
             })
