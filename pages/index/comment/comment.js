@@ -100,7 +100,6 @@ Page({
     let index = e.currentTarget.dataset.index;//获取下标
     let d = JSON.stringify(listData[index].books);
     let bookjson = d.substr(1, d.length-2);
-    console.log(JSON.parse(bookjson).bookId)
     wx.request({
       url: app.URL + 'bookstore-mall/deletecomment/' + app.globalData.userInfo.userId +'/'+JSON.parse(bookjson).bookId,
       header: { 'content-type': 'application/json' },
@@ -117,7 +116,7 @@ Page({
       },
       fail: function () {
         wx.showToast({
-          title: '删除失败',
+          title: '链接失败',
           icon: 'none'
         })
       }
@@ -127,5 +126,41 @@ Page({
         hiddeinfo: true
       })
     }
+  },
+  //删除追评
+  deleteReply:function(e){
+    let that = this;
+    let listData = that.data.list;
+    let index = e.currentTarget.dataset.index;
+    let d = JSON.stringify(listData[index].books);
+    let bookjson = d.substr(1, d.length - 2);
+    wx.request({
+      url: app.URL + 'bookstore-mall/deleteReplyComment/' + app.globalData.userInfo.userId + '/' + JSON.parse(bookjson).bookId,
+      success(res){
+        if(res.data.status === true){
+          listData[index].commentReply = null;
+          listData[index].commentReplyDatatime = null;
+          that.setData({
+            list: listData,
+            mes: res.data
+          })
+          wx.showToast({
+            title: that.data.mes.msg,
+            icon: 'none'
+          })
+        }else{
+          wx.showToast({
+            title: '删除失败',
+            icon: 'none'
+          })
+        }
+      },
+      fail: function () {
+        wx.showToast({
+          title: '链接失败',
+          icon: 'none'
+        })
+      }
+    })
   }
 })

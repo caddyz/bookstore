@@ -16,9 +16,12 @@
       <view>时间：{{item.commentDatatime}}</view>
       <view>内容:{{item.commentContent}}</view>
       <view wx:if="{{item.commentReply!==null}}">
-        <view style='color:red;'>追加评论：</view>
+        <view class='reply'>
+          <view style='color:red;'>追加评论：</view>  
+          <view style='color:#5CACEE' bindtap='deleteReply' data-index='{{index}}'>删除追评</view>
+        </view>
         <view >追加时间：{{item.commentReplyDatatime}}</view>
-        <view >追加内容：{{item.commentReply}}</view>
+        <view >追加内容：{{item.commentReply}}</view> 
       </view>
       <view style='height:18rpx'></view>
       <button class='delete-button' bindtap='deleteComment' data-index='{{index}}'><text>删除书评</text></button>

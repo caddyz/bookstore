@@ -7,7 +7,7 @@
   color: red;
   text-align:right
 }
-.appraise-book,.appraise-score,.appraise-content{
+.appraise-book,.appraise-score,.appraise-content,.reply{
   display: flex;
   justify-content: space-between;
   border-bottom: 1rpx solid #f1f1f1;

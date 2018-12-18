@@ -18,7 +18,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log("开始执行")
     let that = this;
     wx.request({
       url: app.URL +'bookstore-mall/findcoupon/通用型',
@@ -36,7 +35,6 @@ Page({
         for (var j in li){
           li[j].flag = true;
         }
-        console.log("li:"+console.log(JSON.stringify(li)))
         wx.request({
           url: app.URL + 'bookstore-mall/getUsersCoupon/' + app.globalData.userInfo.userId,
           success(res){
@@ -59,7 +57,6 @@ Page({
         })
       }
     })   
-    console.log("执行结束") 
   },
 
   /**
