@@ -1,5 +1,7 @@
 // pages/index/coupon/coupon.js
 const app = getApp()
+var li = [];
+var l = [];
 Page({
 
   /**
@@ -8,31 +10,64 @@ Page({
   data: {
     list:[],
     msg:[],
-    flage:true
+    reslut:[],
+    hi:true
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log("开始执行")
     let that = this;
     wx.request({
       url: app.URL +'bookstore-mall/findcoupon/通用型',
       success:function(res){
+        if (res.data.length == 0){
+          that.setData({
+            hi:!that.data.hi
+          })
+          return
+        }
         that.setData({
-          list:res.data
+          reslut:res.data
+        })
+        li = that.data.reslut
+        for (var j in li){
+          li[j].flag = true;
+        }
+        console.log("li:"+console.log(JSON.stringify(li)))
+        wx.request({
+          url: app.URL + 'bookstore-mall/getUsersCoupon/' + app.globalData.userInfo.userId,
+          success(res){
+            if (res.data.length == 0){
+              return 
+            }else{
+              for(var k in res.data){
+                l = l.concat(res.data[k].couponId)
+              }
+              for(var i in li){
+                if (!(l.indexOf(li[i].couponId) > -1)){
+                  li[i].flag = false 
+                }
+              }
+            }
+            that.setData({
+              list:li
+            })
+          }
         })
       }
-    })
+    })   
+    console.log("执行结束") 
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    
   },
-
   /**
    * 生命周期函数--监听页面显示
    */
@@ -76,13 +111,16 @@ Page({
   },
   draw:function(e){
     let that = this;
+    let arr = that.data.list;
     let index = e.currentTarget.dataset.index;
-    let couponId = that.data.list[index].couponId;
+    let couponId = arr[index].couponId;
     wx.request({
       url: app.URL + 'bookstore-mall/getCoupon/' + app.globalData.userInfo.userId +'/'+couponId,
       success:function(res){
+        arr[index].flag = true
         that.setData({
-          msg:res.data
+          msg:res.data,
+          list:arr
         })
         wx.showToast({
           title: that.data.msg.msg,

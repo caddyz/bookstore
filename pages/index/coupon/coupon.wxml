@@ -1,12 +1,15 @@
 <!--pages/index/coupon/coupon.wxml-->
-<view class='page'>
+<view class='page' hidden='{{!hi}}'>
   <view class='title'>您有：</view>
   <block wx:for='{{list}}' wx:key='{{index}}'>
     <view class='coupon-info'>
-      <view>{{item.couponName}} {{flage?'可领':'已领'}}</view>
-      <view style='color:#98F5FF;' data-index='{{index}}' bindtap="{{flage?'draw':''}}">
+      <view>{{item.couponName}} {{item.flag?'已领':'可领'}}</view>
+      <view style='color:#98F5FF;' data-index='{{index}}' bindtap="{{item.flag?'':'draw'}}">
       >>领取</view>
     </view>
     <view style='height:38rpx'></view>
   </block>
+</view>
+<view hidden='{{hi}}'  style='text-align: center'>
+    最近没有优惠券可领！！！
 </view>
