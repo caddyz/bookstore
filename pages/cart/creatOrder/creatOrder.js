@@ -137,7 +137,10 @@ Page({
   //     })
   // });
         // console.log("booksId:" + order.booksId);
-    that.updateUserCoupons(app.globalData.userInfo.userId, couponId, utils.formatTime(new Date()))//用户使用优惠券后改变数据库中优惠券的状态(用户id，优惠券id，优惠券使用时间)
+    if (app.globalData.userInfo!=null&&couponId!=''){
+      that.updateUserCoupons(app.globalData.userInfo.userId, couponId, utils.formatTime(new Date()))//用户使用优惠券后改变数据库中优惠券的状态(用户id，优惠券id，优惠券使用时间)
+    }
+   
   
   },
 
@@ -248,13 +251,21 @@ Page({
       success: function (res) {
         //--init data
         if (res.data==true) {
-          console.log("添加成功！");        
+          // console.log("添加成功！");        
           that.deCartsAlreadyPay();//订单生成成功删除用户购物车中已经结算了的数据
+          wx.showToast({
+            title: '下单成功！',
+            duration: 2000
+          })
           wx.navigateBack({
             delta:2 //返回到购物车界面
           })
         } else {
-          console.log("添加失败！");
+          // console.log("添加失败！");
+          wx.showToast({
+            title: '下单失败！',
+            duration: 2000
+          })
         }
       },
       fail: function () {
@@ -299,24 +310,23 @@ Page({
       },
       success: function (res) {
         //--init data
-        if (res.data!=null) {
+        if (res.data.length>0) {
          
-        //  for(let i=0;i<res.data.length;i++){
-        //    console.log("userCoupons:" + JSON.stringify((utils.formatTime(new Date(Number(res.data[i].couponEnd)*1000)))));
-        //    if ((utils.formatTime(new Date())) <= res.data[i].couponEnd && (utils.formatTime(new Date())) >= res.data[i].couponStart) {
+         for(let i=0;i<res.data.length;i++){
+           console.log("获得的时间：" + res.data[i].couponEnd)
+           if (( Date.parse(new Date())) <= res.data[i].couponEnd && (Date.parse(new Date())) >= res.data[i].couponStart) {
             
-        //      if (res.data[i].couponUseStatus == true) {
-        //        userCoupons = userCoupons.concat(res.data[i])//去掉用户不能使用的优惠券
-        //        console.log("userCoupons" + userCoupons[0]);
-        //      }
-        //    }
-        //  };
-         
+             if (res.data[i].couponUseStatus == true) {
+               userCoupons = userCoupons.concat(res.data[i])//去掉用户不能使用的优惠券
+               console.log("userCoupons" + JSON.stringify(userCoupons));
+             }
+           }
+         };   
           that.setData({
-            userCoupon: res.data,
-            couponName: res.data[0].couponName,
-            couponMoney: res.data[0].couponMoney,
-            couponId:res.data[0].couponId
+            userCoupon: userCoupons,
+            couponName: userCoupons[0].couponName,
+            couponMoney: userCoupons[0].couponMoney,
+            couponId: userCoupons[0].couponId
           })
           
           console.log("成功获取用户优惠券：" + that.data.userCoupon[0].couponName);
@@ -353,7 +363,7 @@ Page({
       success: function (res) {
         //--init data
         if (res.data == true) {
-   
+  
           console.log("成功修改：");
         } else {
           console.log("没有使用成功：")

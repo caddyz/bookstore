@@ -23,17 +23,8 @@ Page({
     var that = this;
 
     // this.userOfStatus() //验证用户是否登录显示不同
-        if(this.data.first==false){
-          console.log("=============================================")
-          //验证用户是否登录
-          if (app.globalData.userInfo != null) {
-            this.getAllCarts(app.globalData.userInfo.userId);//如果用户登录状态从数据库中获取购物车商品信息
-            this.setData({
-              first:true
-            })
-          }
-        }
-
+   
+ 
       // 获取缓存李里面的数据并加入购物车
   var bufferCart = wx.getStorageSync('carts') || [];
   console.log("取出的缓存" + JSON.stringify(bufferCart));
@@ -361,52 +352,8 @@ getTotalPrice() {
     wx.navigateTo({
       url: '../cart/creatOrder/creatOrder?oldcart=' + JSON.stringify(oldcart) + '&totalPrice=' + totalPrice + '&newcart=' + JSON.stringify(newcart),
     })
-  },
-
-
-  //从数据库中获取购物车的数据
-  getAllCarts: function (userId){
-    var that = this
-    var cart=wx.getStorageSync("carts");
-    console.log("userId=================" +userId);
-    // //数据库获取初始数据
-    wx.request({
-      url: app.URL + 'bookstore-mall/selectCart/' + userId, //提交的网络地址
-      method: "GET",
-      dataType: "json",
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function (res) {
-        //--init data
-        if (res.data != []) {
-          for(var i in res.data){
-            for(var j in cart){
-              if(res.data[i].bookId!=cart[j].bookId){
-                cart = cart.concat(res.data[i]);
-              };
-            }
-          }
-          //存入缓存
-          wx.setStorage({
-            key: 'carts',
-            data: cart,
-          })
-          that.onShow();
-          console.log(that.data.cart)
-        } else {
-          that.setData({
-            cart: cart
-          })
-        }
-      },
-      fail: function () {
-        // fail
-        wx.showToast({
-          title: '网络异常！',
-          duration: 30000
-        });
-      }
-    })
   }
+
+
+
 })
