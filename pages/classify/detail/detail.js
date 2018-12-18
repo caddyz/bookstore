@@ -7,9 +7,11 @@ Page({
     out:[],//显示折扣
     Nums:[],//显示库存
     author:[],//显示一个或多个作者
+    collector:[],//显示匹配收藏
     minusStatus:'disabled',//预览退出
-    isCollected:'' ? false : true,//收藏
+    isCollected:'' ,//收藏
     bookId: '',
+    userId:'',
   },
  
   // 收藏事件
@@ -24,7 +26,7 @@ Page({
     // console.log("传入的数据:" + userId)
     // var userId = 2
     var bookId = that.data.bookId
-
+  
      //判断收藏的状态
     that.isCollector(userId,bookId,function(data){//callback返回
        if(data==false){
@@ -66,9 +68,14 @@ Page({
     console.log("获取的图片为：" + bookCoverImage)
     var bookStatus = this.data.list[0].bookStatus
     console.log("获取的状态为：" + bookStatus)
-    // var discountPrice = this.data.out[0].discountPrice
-    // console.log("获取的折扣价为：" + this.data.out[0].discountPrice)
+    var discountPrice = this.data.out[0].discountPrice
+    console.log("获取的折扣价为：" + this.data.out[0].discountPrice)
     
+    if(this.data.out[0] != null){
+     discountPrice = this.data.out[0].discountPrice;
+    }else{
+      discountPrice = null;
+    }
 
     // 获取缓存中的已添加购物车信息
     var carts = [];
@@ -104,7 +111,7 @@ Page({
       bookPrice: bookSalesPrice,
       imgUrl: bookCoverImage,
       isStatus: true,
-      // discountPrice: discountPrice,
+      discountPrice: discountPrice,
       bookNum: 1,
     }
     carts = carts.concat(newcarts);
@@ -280,16 +287,33 @@ Page({
       }
     })
     // 收藏回调
-    this.isCollector(userId, bookId, function (isCollector){
+    this.isCollector(userId, bookId, function (isCollector) {
       that.setData({
         isCollected: isCollected
       })
     });
   },
   
+  
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    var that = this
+    var userId = app.globalData.userInfo.userId
+    var bookId = that.data.bookId
+    // 回调收藏
+    that.isCollector(bookId, userId, function (isCollected) {
+      console.log("????:" + isCollected)
+    })
+    that.onLoad()
+  },
+
   //判断数据库中的这本书是否被收藏
   isCollector: function (userId, bookId,callback){
    var that=this;
+    var userId = app.globalData.userInfo.userId
+    var bookId = that.data.bookId
    wx.request({
      url: app.URL + 'bookstore-mall/' + userId + '/' + bookId + '/isExit',
      data: {},
@@ -298,7 +322,6 @@ Page({
      },
      success: function (res) {
        console.log("判断收藏 :"+res.data)
-       console.log(res.data)
        if (res.data == false) {
          callback(false);//返回false说明这本书没有被收藏 
          that.setData({
@@ -318,6 +341,8 @@ Page({
 //添加收藏到数据库中的方法
   insertCollector: function (userId,bookId){
   var that = this;
+    var userId = app.globalData.userInfo.userId
+    var bookId = that.data.bookId
   wx.request({
     url: app.URL + 'bookstore-mall/' + userId + '/' + bookId + '/kindAdd',
     data: {},
@@ -338,6 +363,8 @@ Page({
 //取消收藏的方法
   delCollector: function ( userId,bookId) {
     var that = this;
+    var userId = app.globalData.userInfo.userId
+    var bookId = that.data.bookId
     wx.request({
       url: app.URL + 'bookstore-mall/delete/' + userId + '/' + bookId,
       data: {},

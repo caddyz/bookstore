@@ -11,7 +11,7 @@ page{
     color: #939393;
    
 }
-.bookpic{
+.num_right .bookpic{
     width: 5%;
    height: 5%;
 }
@@ -69,4 +69,4 @@ page{
       font-size:30rpx;
       margin-top:80%;
   }
-  
+

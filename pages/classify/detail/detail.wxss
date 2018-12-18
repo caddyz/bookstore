@@ -109,7 +109,7 @@ swiper-item image {
   height: 100rpx;
 }
 .button-yellow {
-  background-color: yellow; /* yellow */
+  background-color: green; /* yellow */
 }
 .button-red {
   background-color: red; /* 红色 */
