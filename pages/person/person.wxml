@@ -1,7 +1,7 @@
 <!--pages/person/person.wxml-->
 <view>
   <view class="userinfo">
-    <open-data type="userAvatarUrl" class="userinfo-avatar" background-size="cover"></open-data>
+   <view>{{username}}</view>
     <view  type="userNickName" class="userinfo-nickname">{{username}}</view>
     <image src="../person/images/user_pic.png" class="user-bg">
     </image>
