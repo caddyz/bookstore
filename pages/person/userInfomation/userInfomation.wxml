@@ -9,43 +9,43 @@
 </view>
 <view class="nickName">
   <text>昵称</text>
-  <view class="real" name='nickName'>{{nickName}}</view>
+  <view class="real" name='nickName'>{{user.username}}</view>
 </view>
 <view class="sex">
   <text>性别</text>
- <view class="real" name='sex'>{{sex}}</view>
+ <view class="real" name='sex'>{{user.sex}}</view>
 </view>
 <view class="age">
   <text>年龄</text>
-  <view class="real" name='age'>{{age}}</view>
+  <view class="real" name='age'>{{user.age}}</view>
 </view>
 <view class="userLevel">
   <text>用户等级</text>
-  <view class="real" name='userLevel'>{{userLevel}}<image class="star" src="../userInfomation/images/star.png"/></view>
+  <view class="real" name='userLevel'>{{user.level}}<image class="star" src="../userInfomation/images/star.png"/></view>
 </view>
 <view class="balance">
   <text>余额</text>
-  <view class="real" name='balance'>{{balance}}￥</view>
+  <view class="real" name='balance'>{{user.balance}}￥</view>
 </view>
 <view class="score">
   <text>积分</text>
-  <view class="real" name='score'>{{score}}</view>
+  <view class="real" name='score'>{{user.score}}</view>
 </view>
 <view class="mobile">
   <text>手机号</text>
-  <view class="real" name='mobile'>{{mobile}}</view>
+  <view class="real" name='mobile'>{{user.phone}}</view>
 </view>
 <view class="email">
   <text>邮箱</text>
-  <view class="real" name='email'>{{email}}</view>
+  <view class="real" name='email'>{{user.email}}</view>
 </view>
 <view class="area">
   <text>地址</text>
-  <view class="real" name='region'> {{province}} 省{{city}} 市 </view>
+  <view class="real" name='region'>{{user.address}} </view>
 </view>
 <view class="signature">
   <text>个性签名</text>
-  <view class="real" name='signature'>{{signature}}</view>
+  <view class="real" name='signature'>{{user.signature}}</view>
 </view>
 <button hover-class='button-hover' form-type="submit" class='modifier' >修改</button>
 </view>

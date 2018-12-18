@@ -2,7 +2,7 @@
 var app = getApp()
 Page({
   data: {
-    userInfo: {},
+    userInfo: '',
     motto: 'Hello World',
     list:'',
     newAddress:'',
@@ -56,14 +56,13 @@ Page({
               })
             }
           }
-        })
-        
+        })  
       } else {
         //调用应用实例的方法获取全局数据
         //更新数据
         that.setData({
           username: app.globalData.userInfo.username,
-          userId:app.globalData.userInfo.id
+          userId:app.globalData.userInfo.userId
         })
       }
     },
@@ -119,6 +118,5 @@ Page({
       hasUserInfo: true
     })
   }
- 
 
 })

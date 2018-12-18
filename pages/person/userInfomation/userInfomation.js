@@ -50,6 +50,7 @@ Page({
 
     var that = this;
     var user=app.globalData.userInfo;//获取用户信息
+    console.log("user:" + JSON.stringify(user));
     that.setData({
       user:user
     })
@@ -95,16 +96,7 @@ Page({
   //用户信息修改跳转函数
   toEditor:function(){
     var that=this
-    var user={
-      nickName:that.data.nickName,
-      sex: that.data.sex,
-      age: that.data.age,
-      mobile: that.data.mobile,
-      email: that.data.email,
-      signature: that.data.signature,
-      region: [that.data.province, that.data.city, that.data.county],
-      sex: that.sex
-    }
+    var user=this.data.user;
     //存入缓存
     wx.setStorage({
       key: "user",
