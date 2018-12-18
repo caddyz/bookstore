@@ -52,7 +52,7 @@ swiper-item image {
   font-size: 40rpx;
   margin: 10rpx;
   /* 金额划横线 */
-  text-decoration:line-through
+  /* text-decoration:line-through */
 }
 /* 设置作者 */
 .detail .book-author{

@@ -9,11 +9,11 @@ Page({
     author:[],//显示一个或多个作者
     collector:[],//显示匹配收藏
     minusStatus:'disabled',//预览退出
-    isCollected:'' ,//收藏
+    isCollected:'' ? false : true ,//收藏
     bookId: '',
     userId:'',
   },
- 
+  commentContent:'',
   // 收藏事件
   handleCollection:function(e) {
 	   var that = this
@@ -68,13 +68,14 @@ Page({
     console.log("获取的图片为：" + bookCoverImage)
     var bookStatus = this.data.list[0].bookStatus
     console.log("获取的状态为：" + bookStatus)
-    var discountPrice = this.data.out[0].discountPrice
-    console.log("获取的折扣价为：" + this.data.out[0].discountPrice)
+  
     
     if(this.data.out[0] != null){
-     discountPrice = this.data.out[0].discountPrice;
+      var discountPrice = this.data.out[0].discountPrice;
+      console.log("获取的状态为：" + discountPrice)
     }else{
-      discountPrice = null;
+      var discountPrice = null;
+      console.log("获取的状态为：" + discountPrice)
     }
 
     // 获取缓存中的已添加购物车信息
@@ -172,7 +173,11 @@ Page({
         duration: 1000
       })
     }
-	
+    // 不让用户一直按评论显示多条同样的语句
+    this.setData({
+      commentContent: ''//将data的commentContent清空
+    });
+
   },
 
 
@@ -287,11 +292,11 @@ Page({
       }
     })
     // 收藏回调
-    this.isCollector(userId, bookId, function (isCollector) {
-      that.setData({
-        isCollected: isCollected
-      })
-    });
+    // this.isCollector(userId, bookId, function (isCollector) {
+    //   that.setData({
+    //     isCollected: isCollected
+    //   })
+    // });
   },
   
   
@@ -306,14 +311,14 @@ Page({
     that.isCollector(bookId, userId, function (isCollected) {
       console.log("????:" + isCollected)
     })
-    that.onLoad()
   },
 
   //判断数据库中的这本书是否被收藏
   isCollector: function (userId, bookId,callback){
    var that=this;
     var userId = app.globalData.userInfo.userId
-    var bookId = that.data.bookId
+    var bookId = bookId
+    console.log("bookId:" + bookId)
    wx.request({
      url: app.URL + 'bookstore-mall/' + userId + '/' + bookId + '/isExit',
      data: {},
@@ -385,6 +390,3 @@ Page({
 
 
 })
-
-
-  
