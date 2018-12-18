@@ -13,14 +13,28 @@
     <button class='btn' type='primary' form-type='submit'>下一步</button>
   </form>
 </view>
-<view class='content2' wx:if='{{show_content2}}'>
-  <form bindsubmit='submit'>
+
+
+<view class='content1' wx:if='{{show_content1}}'>
+  <form bindsubmit='next1'>
     <view class='header'>
       <text>找回密码：第2步</text>
     </view>
+    <view class='section1'>
+      <input placeholder='请输入原密码' name='password' bindinput='inputOldPassword'></input>
+    </view>
+    <button class='btn' type='primary' form-type='submit'>下一步</button>
+  </form>
+</view>
+
+
+<view class='content2' wx:if='{{show_content2}}'>
+  <form bindsubmit='submit'>
+    <view class='header'>
+      <text>找回密码：第3步</text>
+    </view>
     <view class='section2'>
       <view class='section2_one'>
-         <input  placeholder='输入原密码' name='password' bindinput='handPassword'></input>
         <input  placeholder='输入新密码' name='newPassword' bindinput='inputPassword'></input>
         <input  placeholder='重新输入新密码' name='againNewPassword' bindinput='inputNewPassword'></input>
         <!-- <view class="body-view">

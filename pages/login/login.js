@@ -77,29 +77,22 @@ Page({
             userInfo: res.data
           });
           //信息正确,给userInfo赋值        
-          // console.log("userInfo"+that.data.userInfo.username);
+          console.log("userInfo" + that.data.userInfo.username);
           app.globalData.userInfo = that.data.userInfo;
-          //console.log("用户名" + app.globalData.userInfo.username);
+          console.log("用户名" + app.globalData.userInfo.username);
           //返回上一页 上一页的跳转只能用wx.navigateTo
           if(that.data.userInfo.active==1){
-          wx.showToast({
-            title: '登陆成功',
-            icon: "sccess",
-            duration: 2000,
-            success: function () {
-              wx.navigateBack({
-                delta: 1
-              })
-            }
+          wx.navigateBack({
+            delta: 1
           })
-          }
-          else{
+          }else{
             wx.showToast({
-              title: '用户状态未激活',
-              icon: "none",
-              duration: 2000
+              title:'用户未激活',
+              icon:'none',
+              duration:2000
             })
           }
+
         } else {
           //显示消息提示框
           wx.showModal({
@@ -116,10 +109,10 @@ Page({
           showCancel: false
         })
         //console.log("调用API失败");
-        
+
       },
       complete: function (res) {
-        
+
       },
     })
 

@@ -13,31 +13,34 @@ Page({
     show_content: true,
     show_content2: false
   },
-
+//从页面获取输入的邮箱
   inputEmail:function(e){
     this.setData({
       email:e.detail.value
     })
   },
-  handPassword:function(e){
+  //从页面获取输入的原密码
+  inputOldPassword:function(e){
     this.setData({
       password:e.detail.value
     })
   },
+  //从页面获取输入的新密码
   inputPassword:function(e){
     this.setData({
       newPassword:e.detail.value
     })
   },
+  //从页面获取第二次输入的新密码
   inputNewPassword: function (e) {
     this.setData({
       againNewPassword: e.detail.value
     })
   },
+  //点击输入邮箱触发的事件
   next: function () {
     // console.log(e.detail.value);
     var that=this;
-    // var re = new RegExp('^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$'); 
     var email=that.data.email
     if (that.data.email == '' || that.data.email == null) {
       wx.showToast({
@@ -45,13 +48,14 @@ Page({
         icon: 'none',
         duration: 1000
       })
-    // } else if(re.test(email)){
-    //   wx.showToast({
-    //     title: '邮箱格式不正确',
-    //     icon:"none",
-    //     duration:2000
-    //   })
-    // }
+      return
+      //判断邮箱格式
+    } else if(!(/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/.test(that.data.email))){
+      wx.showToast({
+        title: '邮箱格式不正确',
+        icon:"none",
+        duration:2000
+      })
     }else {
       console.log("email:"+email)
       wx.request({
@@ -78,7 +82,7 @@ Page({
               duration: 2000
             })
             that.setData({
-              show_content: false, show_content2: true,
+              show_content: false, show_content1: true, show_content: false,
               email:email,
             })
           }
@@ -87,26 +91,63 @@ Page({
 
     }
   },
-
-  // switchChange: function (e) {
-  //   // console.log(e.detail.value)
-  //   this.setData({ mask: !e.detail.value })
-  // },
-
-  submit: function (e) {
-    var that=this;
-    var email=that.data.email;
-    var password=that.data.password;
-    var newPassword =that.data.newPassword;
-    var againNewPassword = that.data.againNewPassword
-    if(password==""||password==null){
+  next1: function () {
+    var that = this;
+    var email=that.data.email
+    var password = that.data.password
+    if (password == "" || password == null) {
       wx.showToast({
         title: '请输入原密码',
         icon: 'none',
         duration: 2000
       })
       return
-    }else if (newPassword == '' || newPassword == null) {
+    } else {
+      wx.request({
+        url: app.URL + 'bookstore-mall/' + email + '/' + password + '/referUser',
+        method: "GET",
+        data: {
+          email: email,
+          password:password
+        },
+        header: {
+          'Content-Type': 'application/json'
+        },
+        //接口调用成功之后的回调函数
+        success: function (res) {
+          that.setData({
+            user:res.data
+          })
+          //用户名是否注册，已注册提示用户用户名也被注册，没注册则下一步
+          if (that.data.user.password!=that.data.password) {
+            wx.showToast({
+              title: "原密码输入错误",
+              icon: 'none',
+              duration: 2000
+            })
+          } else {
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'success',
+              duration: 2000
+            })
+            that.setData({
+              show_content: false, show_content1: false, show_content2: true,
+            })
+          }
+        }
+      })
+    }
+  },
+
+//点击提交触发的事件
+  submit: function (e) {
+    var that=this;
+    var email=that.data.email;
+    var password=that.data.password;
+    var newPassword =that.data.newPassword;
+    var againNewPassword = that.data.againNewPassword
+    if (newPassword == '' || newPassword == null) {
       wx.showToast({
         title: '请输入密码',
         icon: 'none',

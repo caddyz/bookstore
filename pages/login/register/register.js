@@ -53,23 +53,25 @@ Page({
     })
   },
 
+//输入邮箱触发的事件
   next:function(){
     var that=this;
     var email=that.data.email
-   //var re =/ ^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
     if (that.data.email == '' || that.data.email == null){
       wx.showToast({
         title: '请输入邮箱',
         icon:'none',
         duration:2000
       })
-    // }else if(!re.test(email)){
-    //   wx.showToast({
-    //     title: '邮箱格式不正确',
-    //     icon: 'none',
-    //     duration: 2000
-    //   })
+      //判断邮箱格式
+    } else if (!(/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/.test(that.data.email))){
+      wx.showToast({
+        title: '邮箱格式不正确',
+        icon: 'none',
+        duration: 2000
+      })
      }else{
+       //输入之后的请求
       wx.request({
         url: app.URL + 'bookstore-mall/' + email + '/searchEmail',
         method: "GET",
@@ -80,7 +82,9 @@ Page({
         header: {
           'Content-Type': 'application/json'
         },
+        //接口调用成功之后的回调函数
         success: function (res) {
+          //邮箱是否注册，已注册提示用户邮箱也被注册，没注册则下一步
           if (res.data.status == true) {
             wx.showToast({
               title: res.data.msg,
@@ -101,6 +105,7 @@ Page({
       })
     }
   },
+  //输入用户名触发的事件
   next1:function(){
     var that = this;
     var username = that.data.username
@@ -120,7 +125,9 @@ Page({
         header: {
           'Content-Type': 'application/json'
         },
+//接口调用成功之后的回调函数
         success: function (res) {
+            //用户名是否注册，已注册提示用户用户名也被注册，没注册则下一步
           if (res.data.status == true) {
             wx.showToast({
               title: res.data.msg,
@@ -174,8 +181,10 @@ Page({
         header: {
           'Content-Type': 'application/json'
         },
+        //接口调用成功之后的回调函数
         success: function (res) {
           //console.log("数据："+res.data)
+          //注册成功后跳转
           if (res.data.status == true) {
             wx.showToast({
               title: res.data.msg,
