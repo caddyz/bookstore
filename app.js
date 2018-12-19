@@ -11,6 +11,7 @@ App({
     {total_fee:''},
     {orderNumber:''}],
   userInfo:null,
+  userId:null,//游客的id号
   code:null,
   payinfo:null,
   onLaunch: function () {
@@ -51,13 +52,26 @@ App({
   onHide:function(){
     console.log("我是进入后台执行的方法" + JSON.stringify(this.globalData.userInfo));
     var that = this;
-    if (this.globalData.userInfo!=null)
+    if (this.globalData.userInfo!=null){
       var carts = wx.getStorageSync("carts")//获取缓存的数据
-    console.log("取出的缓存数据：" + JSON.stringify(carts));
-    that.insetCart(carts)//将数据存入数据库中
+      console.log("取出的缓存数据：" + JSON.stringify(carts));
+      that.insetCart(carts)//将数据存入数据库中
+    }
+    
   },
 
-  //将商品存入购物车数据存入数据库的方法
+onShow:function(){
+
+  console.log("我是后台进入前台执行的方法！");
+  //验证用户是否登录
+  if (this.globalData.userInfo != null) {
+    this.getAllCarts(this.globalData.userInfo.userId);//如果用户登录状态从数据库中获取购物车商品信息
+  }else{
+    this.globalData.userId = Number(new Date).toString(2, 5);//给一个时间戳
+    console.log(this.globalData.userId);
+  }
+}
+,  //将商品存入购物车数据存入数据库的方法
   insetCart: function (carts) {
   var that=this;
     var Carts = carts;
@@ -80,7 +94,6 @@ App({
         }
       }
     });
-   
   },
   //将用户数据添加到后台的方法
   insertCarts: function (carts) {
@@ -105,8 +118,47 @@ App({
       }
     });
   },
+  //从数据库中获取购物车的数据
+  getAllCarts: function(userId) {
+    var that = this
+    var url = this.URL;
+  var cart = wx.getStorageSync("carts") || [];
+    // //数据库获取初始数据
+    wx.request({
+      url: url + 'bookstore-mall/selectCart/' + userId, //提交的网络地址
+      method: "GET",
+      dataType: "json",
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        //--init data
+        if (res.data != null) {
+            //缓存中没有数据而数据库中有
+            cart = res.data;
+          
+          console.log("加入购物车的" + JSON.stringify(cart));
+          //存入缓存
+          wx.setStorage({
+            key: 'carts',
+            data: cart,
+          })
+        } 
+
+      },
+      fail: function () {
+        // fail
+        wx.showToast({
+          title: '网络异常！',
+          duration: 30000
+        });
+      }
+    })
+  },
+
   
   globalData: {
     userInfo: null,
+    userId:null,//游客的id
   }
 })
