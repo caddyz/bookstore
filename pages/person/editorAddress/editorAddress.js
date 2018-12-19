@@ -7,8 +7,11 @@ Page({
     // time: '12:01',
     region: ['', '', ''],
     customItem: '全部',
-    addressId:''
+    addressId:'',
+    first:''//判断收货地址的状态
   },
+
+
   //地址选择器内容发生改变的时候出发的事件
   bindRegionChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
@@ -40,7 +43,8 @@ Page({
       addressProvince: addressProvince,
       addressCity: addressCity,
       addressCounty: addressCounty,
-      addressDetail: addressDetail
+      addressDetail: addressDetail,
+      addressStatus:that.data.first
     }
   
     //改变本地数据
@@ -87,11 +91,13 @@ Page({
   },
   onLoad: function (options) {
     var that=this;
-  
+
+    
     //数据时数组的接收方法
     // that.data.list = JSON.parse(options.list);
     this.setData({
-      addressId: options.addressId
+      addressId: options.addressId,//收货地址的id
+          first: options.first //收货地址的状态
     })
   },
 })

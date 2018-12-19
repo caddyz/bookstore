@@ -23,11 +23,12 @@ Page({
   },
 //默认地址编辑
   editorAddress:function(e){
-    var addressId = e.target.dataset.id
+    var addressId = e.target.dataset.id;
+    var first = e.target.dataset.first;
     console.log(e.detail.value)
     console.log('获取的数据a是' + addressId)
     wx.navigateTo({
-      url: '../editorAddress/editorAddress?addressId=' + addressId,
+      url: '../editorAddress/editorAddress?addressId=' + addressId + '&first=' + first,
     })
   },
 

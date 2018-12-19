@@ -91,3 +91,13 @@
   background: lightgray;
   margin-left: 90rpx;
 }
+.quit {
+  width: 84%;
+  color: #fff;
+  height: 69rpx;
+  line-height: 69rpx;
+  font-size: 30rpx;
+  font-family: "微软雅黑", "黑体";
+  top: 103rpx;
+  background: red;
+}

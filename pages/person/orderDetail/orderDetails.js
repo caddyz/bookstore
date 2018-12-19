@@ -90,6 +90,7 @@ Page({
           //改变订单状态为退款中
           console.log("修改订单状态为退款");
           utils.updateOrder(id, '退款中');//改变数据库中订单的相应状态
+          wx.navigateBack();//返回上一页
         }else{
           return;
         }

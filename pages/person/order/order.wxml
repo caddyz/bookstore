@@ -47,7 +47,7 @@
 	</view>
 	<view class="orderListDetails">
 		<view class="productImg"  catchtap="toOrderDetail" data-order='{{item.orderId}}'>
-			<image src="http://192.168.10.110/{{item.bookCoverImage}}"></image>
+			<image src="http://129.204.105.64/{{item.bookCoverImage}}"></image>
 		</view>
 		<view class="productInfo"  catchtap="toOrderDetail" data-order='{{item.orderId}}'>
 			<view class="productTitle">{{item.bookName}}</view>

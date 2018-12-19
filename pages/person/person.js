@@ -1,5 +1,6 @@
 // pages/person/person.js
 var app = getApp()
+var utils=require("../../utils/util.js");
 Page({
   data: {
     user:{},
@@ -48,7 +49,7 @@ Page({
             console.log("=============================================")
             //验证用户是否登录
             if (app.globalData.userInfo != null) {
-              this.getAllCarts(app.globalData.userInfo.userId);//如果用户登录状态从数据库中获取购物车商品信息
+              utils.getAllCarts(app.globalData.userInfo.userId);//如果用户登录状态从数据库中获取购物车商品信息
               this.setData({
                 first: true
               })
@@ -123,59 +124,24 @@ Page({
       hasUserInfo: true
     })
   },
-  //从数据库中获取购物车的数据
-  getAllCarts: function (userId) {
-    var that = this
-    var cart = wx.getStorageSync("carts")||[];
-    console.log("userId=================" + userId);
-    // //数据库获取初始数据
-    wx.request({
-      url: app.URL + 'bookstore-mall/selectCart/' + userId, //提交的网络地址
-      method: "GET",
-      dataType: "json",
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
+
+  quit:function(){
+    wx.showModal({
+      title: '提示',
+      content: '是否退出？',
       success: function (res) {
-        //--init data
-        if (res.data != null) {
-          if(cart.length>0){
-            //缓存和数据库中都有数据
-            for (var i in res.data) {
-              for (var j in cart) {
-                if (res.data[i].bookId != cart[j].bookId) {
-                  cart = cart.concat(res.data[i]);
-                }
-              }
-            }
-          }else{
-            //缓存中没有数据而数据库中有
-            cart=res.data;
-          }
-
-          console.log("加入购物车的" + JSON.stringify(cart));
-          //存入缓存
-          wx.setStorage({
-            key: 'carts',
-            data: cart,
+        if(res.confirm){
+          app.globalData.userInfo = null;
+          wx.switchTab({
+            url: '/pages/index/index',
           })
-          that.onShow();
-          console.log(that.data.cart)
-        } else {
-
-          //数据库中没有数据
-          that.setData({
-            cart: cart
-          })
+        }else{
+          return;
         }
-      },
-      fail: function () {
-        // fail
-        wx.showToast({
-          title: '网络异常！',
-          duration: 30000
-        });
+
       }
+
     })
+  
   }
 })

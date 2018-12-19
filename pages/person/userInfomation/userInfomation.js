@@ -30,7 +30,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onShow: function () {
 
     var that = this;
     var user=app.globalData.userInfo;//获取用户信息

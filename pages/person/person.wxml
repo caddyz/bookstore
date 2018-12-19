@@ -1,7 +1,7 @@
 <!--pages/person/person.wxml-->
 <view>
   <view class="userinfo">
-   <view>{{username}}</view>
+    <open-data type="userAvatarUrl" class="userinfo-avatar" background-size="cover"></open-data>
     <view  type="userNickName" class="userinfo-nickname">{{username}}</view>
     <image src="../person/images/user_pic.png" class="user-bg">
     </image>
@@ -39,15 +39,12 @@
       <text class="item-text">收货地址</text>
     </view>
     <view class="person-line"></view>
-    <view class="list-item" catchtap='toUserSaleRecord'>
-      <image class="item-image" src="../person/images/user_sale_record.png"></image>
-      <text class="item-text">售后记录</text>
-    </view>
+  </view>
     <view class="person-line"></view>
     <view class="list-item" catchtap='toMyEvaluate'>
       <image class="item-image" src="../person/images/user_evaluate.png"></image>
       <text class="item-text">我的评价</text>
     </view>
   </view>
+  <button hover-class='button-hover' class='quit'  bindtap='quit'>退出账户</button>
   <view class="separate"></view>
-</view>

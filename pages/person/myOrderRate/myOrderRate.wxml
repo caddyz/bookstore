@@ -2,7 +2,7 @@
 <view class='container-con' style='margin-bottom:201rpx;'>
   <view class="panel">
     <view class='panel-content'>
-      <image class='panel-content-img' src="http://192.168.10.110/{{book.bookCoverImage}}"></image>
+      <image class='panel-content-img' src="http://129.204.105.64/{{book.bookCoverImage}}"></image>
       <view class='panel-content-right'>
         <view class='panel-content-title'>{{book.bookName}}</view>
         <view class='panel-content-subTitle'>      
