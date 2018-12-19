@@ -56,7 +56,7 @@ page {
 .goods .good-cont .good-price {
   display: flex;
   flex-direction: column;
-  flex: 5;
+  flex: 10;
 }
  
 .goods .good-cont .good-price .price {

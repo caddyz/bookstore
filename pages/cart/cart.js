@@ -183,7 +183,6 @@ Page({
     selectAllStatus = !selectAllStatus;
     let carts = this.data.cart;
     var that=this;
-
     for (let i = 0; i<carts.length; i++) {
       carts[i].isStatus = selectAllStatus;            // 改变所有商品状态
     }
@@ -231,7 +230,7 @@ getTotalPrice() {
     let carts = this.data.cart;
     let newcart = [];//未选中结算的
     let oldcart = [];//选中结算的
-    console.log("用户账户：" + JSON.stringify(app.globalData.userInfo));
+    // console.log("用户账户：" + JSON.stringify(app.globalData.userInfo));
     if (app.globalData.userInfo==null) {
       wx.showModal({
         title: '提示',
@@ -313,7 +312,7 @@ getTotalPrice() {
                 oldcart = oldcart.concat(carts[i]); //选中结算的商品
               }
             }
-            console.log("创建订单并将订单数据存入书库！");
+            // console.log("创建订单并将订单数据存入书库！");
             //如果用户未选定商品
             if (oldcart.length == 0) {
               wx.showToast({
