@@ -155,6 +155,7 @@ Page({
     var userId = app.globalData.userInfo.userId
     var commentContent = this.data.commentContent
 
+
     if (commentContent == undefined){
       wx.showToast({
         title: '请输入评论',
@@ -178,7 +179,7 @@ Page({
     this.setData({
       commentContent: ''//将data的commentContent清空
     });
-
+    
   },
 
 

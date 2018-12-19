@@ -68,6 +68,6 @@ page{
   /* 设置分类书名 */
   .book-name{
       font-size:30rpx;
-      margin-top:80%;
+      margin-top:60%;
   }
 
