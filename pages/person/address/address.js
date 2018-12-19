@@ -7,7 +7,8 @@ Page({
     time: '12:01',
     region: ['广东省', '广州市', '海珠区'],
     customItem: '全部',
-    first:''//判断用户是否是第一次添加收货地址
+    first:'',//判断用户是否是第一次添加收货地址
+    choose:''
   },
   bindRegionChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
@@ -21,11 +22,14 @@ Page({
     var that=this;
     if (app.globalData.userInfo != null){
       var first = options.first;
+      var choose = options.choose
       that.setData({
-        first: first
+        first: first,
+        choose:choose
       })
     }
-  
+ 
+
   },
   //将新修改的信息添加到数据库进行储存
   saveAddress: function (e) {
@@ -42,12 +46,13 @@ Page({
         addressDetail: e.detail.value.address,
         addressStatus: this.data.first
       }
+      var choose= this.data.choose //获得状态
       // console.log('form发生了submit事件，携带数据为：', e.detail.value)
       //改变本地数据
       this.setData({
         region: e.detail.value
       })
-
+    
       wx.request({
         url: app.URL + 'bookstore-mall/addReceiveAddress', //提交的网络地址
         method: "POST",
@@ -64,6 +69,21 @@ Page({
               wx.showToast({
                 title: '提交成功！',
               });
+
+              //用户下单时添加的收货地址
+              if (choose== 1) {
+                var newAddress = receiveAddress;
+                var pages = getCurrentPages();
+                var currPage = pages[pages.length - 1]; //当前页面 
+                var prevPage = pages[pages.length - 2]; //上一个页面 
+                prevPage.setData({
+                  newAddress: newAddress,
+                }) //给上级页面的变量赋值 
+                wx.navigateBack({
+                  delta:1//返回下单页面
+                }) //返回上级页面  
+              }
+
               wx.navigateBack();//返回上一页面
             }
 

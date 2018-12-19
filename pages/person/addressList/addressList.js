@@ -11,12 +11,17 @@ Page({
     mydata: ['广东省', '广州市', '海珠区'],
     addressList: [],
     messges:"你是个大坏蛋",
+    choose:'',
     regions:[],
     first: false//判断用户是不是第一次添加收货地址
   },
   // 这是页面初次加载的方法
   onLoad: function (options) {
     var that = this;
+    var choose = options.choose;
+    that.setData({
+      choose: choose
+    })
     //从数据库中获取数据
     that.getReceiveAddress();
 
@@ -35,7 +40,7 @@ Page({
 //添加新地址界面
   addAddress: function () {
     wx.navigateTo({
-      url: '../address/address?first='+this.data.first,
+      url: '../address/address?first=' + this.data.first + '&choose=' + this.data.choose,
     })
   },
 

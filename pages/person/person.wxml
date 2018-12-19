@@ -20,7 +20,7 @@
 
   <view class="navs">
     <block wx:for="{{orderItems}}" wx:key="name">
-      <view class="nav-item" catchtap="toOrder" data-type="{{item.name}}" data-typeid="{{item.typeId}}">
+      <view class="nav-item" catchtap="toOrderStatus" data-type="{{item.name}}" data-typeid="{{item.typeId}}">
         <image src="{{item.imageurl}}" class="nav-image" />
         <text>{{item.name}}</text>
       </view>

@@ -187,6 +187,7 @@ Page({
 
   toSubmitEvaluation:function(evalution){
     var that = this;
+    var orderId = this.data.orderId;//获得评价的订单号
     var evalution = evalution;
     console.log("evalution:" + JSON.stringify(evalution) )
     //将用户的评价表提交到数据库中保存起来
@@ -206,6 +207,7 @@ Page({
             title: '评价成功~！',
             duration:2000
           })
+          utils.updateOrder(orderId, '已评价');//改变数据库中订单的相应状态
           wx.navigateBack();//评价成功返回上一页
         } else {
           wx.showToast({

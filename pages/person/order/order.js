@@ -2,6 +2,7 @@ var app=getApp();
 var utils=require("../../../utils/util.js");
 Page({
   data:{
+    orderType:'',//查看的订单类型
     userId:'',
     order: [],//所有订单
     alreadOder:[],
@@ -30,16 +31,44 @@ Page({
     */
   onLoad: function (options) {
     var that = this;
+    this.getUserOrder();//从数据库中获取用户订单信息
+    
+    var orderType = options.orderType;//获得初始点击的状态
+   
     var userId = app.globalData.userInfo.userId;//获取用户Id
     that.setData({
-      userId: userId
+      userId: userId,
+      orderType: orderType
     })
-    that.getUserOrder();//从数据库中获取用户订单信息
+   
 
   },
   //页面显示
   onShow: function () {
-    this.alreadOder();
+  var that=this;
+    var orderType = this.data.orderType;
+ 
+    if (orderType != '') {
+      switch (orderType) {
+        case '0':
+          that.waitingPay();
+          break;
+        case '1':
+          that.waitingSend();
+          break;
+        case '2':
+          that.waitingReceive();
+          break;
+        case '3':
+          that.alreadOder();
+          break;
+        default:
+          break;
+      }
+    } else {
+      that.alreadOder();
+    }
+
   },
  
   //已经完成订单操作
@@ -295,8 +324,8 @@ Page({
     // var arr =[]
     // 有数据的话，就遍历数据 进行分组
     if (arr.length > 0) {
-      console.log("order数据是:" + that.data.order[0].orderStatus);
-      console.log("arr数据是:" + arr[0].orderStatus);
+      // console.log("order数据是:" + that.data.order[0].orderStatus);
+      // console.log("arr数据是:" + arr[0].orderStatus);
       for (var i in arr) {
         switch (arr[i].orderStatus)
         {
@@ -337,7 +366,7 @@ Page({
             });
             break;
           default:
-            return;
+            break;
         }      
       }
     }
@@ -365,9 +394,10 @@ Page({
       header: {
         'content-type': 'application/json' // 默认值
       },
+      
       success: function (res) {
         //--init data
-
+        // console.log("res.data" + JSON.stringify(res.data) )
         if (res.data != null) {
           that.setData({
             order: res.data,

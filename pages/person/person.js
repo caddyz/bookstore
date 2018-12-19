@@ -85,6 +85,15 @@ Page({
         })
       }
     },
+//跳转到相应的订单状态栏
+  toOrderStatus:function(e){
+    var orderType =null;
+    console.log("状态：" + e.currentTarget.dataset.typeid);
+    orderType = e.currentTarget.dataset.typeid
+    wx.navigateTo({
+      url: '../person/order/order?orderType=' + orderType
+    })
+  },
   //事件处理函数
   toOrder: function () {
     wx.navigateTo({
