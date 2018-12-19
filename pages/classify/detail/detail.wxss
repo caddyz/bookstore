@@ -97,7 +97,7 @@ swiper-item image {
   flex-direction: row;
   /* align-items 设置了flex容器的对齐方式 */
   align-items: center;
-  float: left;
+  /* float: left; */
   background-color: #fff;
   position: fixed;
   bottom: 0;
@@ -109,11 +109,11 @@ swiper-item image {
   height: 100rpx;
 }
 .button-yellow {
-  background-color: green; /* yellow */
+  background-color: green; 
 }
-.button-red {
-  background-color: red; /* 红色 */
-}
+/* .button-red {
+  background-color: red;
+} */
 .image_detail {
   width: 100%;
 }
@@ -128,11 +128,12 @@ button {
   width: 50%;
   height: 100%;
   line-height: 100rpx;
+
 }
 .detail-nav image {
   width: 70rpx;
   height: 50rpx;
-  margin: 20rpx 40rpx;
+  margin: 20rpx 120rpx;
 }
 
 /* 占位 */

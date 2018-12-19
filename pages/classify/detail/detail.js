@@ -60,29 +60,29 @@ Page({
     var bookNum = 1
     //  提取bookId
     var bookId = that.data.bookId
-    console.log("传入的数据:" + bookId)
+    // console.log("传入的数据:" + bookId)
     var bookName = this.data.list[0].bookName
-    console.log("获取的名字为：" + bookName)
+    // console.log("获取的名字为：" + bookName)
     var bookSalesPrice = this.data.list[0].bookSalesPrice
-    console.log("获取的金额为：" + bookSalesPrice)
+    // console.log("获取的金额为：" + bookSalesPrice)
     var bookCoverImage = this.data.list[0].bookCoverImage
-    console.log("获取的图片为：" + bookCoverImage)
+    // console.log("获取的图片为：" + bookCoverImage)
     var bookStatus = this.data.list[0].bookStatus
-    console.log("获取的状态为：" + bookStatus)
+    // console.log("获取的状态为：" + bookStatus)
   
     
     if(this.data.out[0] != null){
       var discountPrice = this.data.out[0].discountPrice;
-      console.log("获取的状态为：" + discountPrice)
+      // console.log("获取的状态为：" + discountPrice)
     }else{
       var discountPrice = null;
-      console.log("获取的状态为：" + discountPrice)
+      // console.log("获取的状态为：" + discountPrice)
     }
 
     // 获取缓存中的已添加购物车信息
     var carts = [];
     carts = wx.getStorageSync('carts') || [];
-    console.log(carts)
+    // console.log(carts)
 
     //判断购物车缓存中是否已存在该货品
     // var exist = carts.find(function (ele) {
@@ -104,7 +104,7 @@ Page({
         }
       }
       carts = ncarts;
-      console.log("ncarts" + JSON.stringify(ncarts));
+      // console.log("ncarts" + JSON.stringify(ncarts));
     }
     //如果不存在，传入该货品信息
     var newcarts = {
@@ -117,7 +117,7 @@ Page({
       bookNum: 1,
     }
     carts = carts.concat(newcarts);
-    console.log("添加的数据：" + JSON.stringify(carts));
+    // console.log("添加的数据：" + JSON.stringify(carts));
     // 加入购物车数据，存入缓存
     wx.setStorage({
       key: 'carts',
@@ -145,7 +145,7 @@ Page({
         url: '/pages/login/login',
       })
       }
-    console.log("是什么？:" + this.data.commentContent);
+    // console.log("是什么？:" + this.data.commentContent);
   },
 
   // 评论
@@ -186,23 +186,23 @@ Page({
  
 
   // 立即购买,跳转到购物车结算
-  nowBuy() {
-    if (app.globalData.userInfo == null) {
-      wx.navigateTo({
-        url: '/pages/login/login',
-      })
-    }
-    wx.switchTab({
-      url: '/pages/cart/cart'
-    })
+  // nowBuy() {
+  //   if (app.globalData.userInfo == null) {
+  //     wx.navigateTo({
+  //       url: '/pages/login/login',
+  //     })
+  //   }
+  //   wx.switchTab({
+  //     url: '/pages/cart/cart'
+  //   })
     
-  },
+  // },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log('传入的数据' + options.bookId)
+    // console.log('传入的数据' + options.bookId)
     var bookId = options.bookId;
     // var userId=2;
 // 调用查询所有书籍信息
@@ -307,17 +307,17 @@ Page({
         'content-type': 'application/json'
       },
       success: function (res) {
-        console.log("判断收藏 :" + res.data)
+        // console.log("判断收藏 :" + res.data)
         if (res.data == false) {
           that.setData({
             isCollected: true
           })
-          console.log("is:" + that.data.isCollected);
+          // console.log("is:" + that.data.isCollected);
         } else {
           that.setData({
             isCollected: false
           })
-          console.log("this:" + that.data.isCollected);
+          // console.log("this:" + that.data.isCollected);
         }
 
       }
@@ -338,7 +338,7 @@ Page({
        'content-type': 'application/json'
      },
      success: function (res) {
-       console.log("判断收藏 :"+res.data)
+      //  console.log("判断收藏 :"+res.data)
        if (res.data == false) {
          callback(false);//返回false说明这本书没有被收藏 
          that.setData({
@@ -369,10 +369,10 @@ Page({
     success: function (res) {
       console.log(res.data)
       if (res.data == 0) {
-        console.log("添加失败！");
+        // console.log("添加失败！");
       }
       else{
-        console.log("添加成功！");
+        // console.log("添加成功！");
       }
     }
   })
@@ -391,10 +391,10 @@ Page({
       success: function (res) {
         console.log(res.data.status)
         if (res.data.status == true) {
-          console.log("取消成功！");
+          // console.log("取消成功！");
         }
         else {
-          console.log("取消收藏失败！");
+          // console.log("取消收藏失败！");
         }
       }
     })

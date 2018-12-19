@@ -13,7 +13,7 @@ Page({
     let that = this
     var id = e.target.dataset.id
     var bookCategory = list[index].bookCategory
-    console.log("点击的种类是：" + list[index].bookCategory)
+    // console.log("点击的种类是：" + list[index].bookCategory)
     wx.request({
       url: app.URL + 'bookstore-mall/' + bookCategory + '/allBook',
       data: {
@@ -42,7 +42,7 @@ Page({
   alljump: function (e) {
     // e.target.dateset 来获取属性值
     let bookId = e.currentTarget.dataset.item.bookId
-    console.log("点击的书ID是：" + JSON.stringify(bookId))
+    // console.log("点击的书ID是：" + JSON.stringify(bookId))
     wx.navigateTo({
       url: '/pages/classify/detail/detail?bookId=' + bookId,
     })
