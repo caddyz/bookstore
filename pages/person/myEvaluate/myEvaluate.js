@@ -27,7 +27,7 @@ Page({
             that.data.list[i].scoreflag = false; // 添加内容展开属性
           };
         }else{
-          this.setData({
+          that.setData({
             hiddenCon:false
           })
         }

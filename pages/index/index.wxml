@@ -6,7 +6,7 @@
   <!-- 头部查询 -->
   <view class='page-section'>
     <view class='top-search' bindtap='searchSkip'>
-      <input name='searchValue' placeholder='请输入要查询的书/作者' confirm-type='search'></input>         </view>
+      <input name='searchValue' placeholder='请输入要查询的书/作者' confirm-type='search' disabled='true'></input>         </view>
   </view>
   <!-- 轮播 -->
   <view class='page-section'>
