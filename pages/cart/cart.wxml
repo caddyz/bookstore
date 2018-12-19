@@ -19,7 +19,7 @@
         <icon wx:else type="circle" bindtap="selectList" data-index="{{index}}"/>
             <!--左侧图片-->
             <view catchtap='toBookDetail' data-id="{{index}}">
-                <image src="http://192.168.10.110/{{item.imgUrl}}" class="good-img"/>
+                <image src="http://129.204.105.64/{{item.imgUrl}}" class="good-img"/>
             </view>
             <!--右侧说明部分-->
             <view class="good-cont">
@@ -28,8 +28,8 @@
                     <text class="good-name">{{item.bookName}}</text>
                 </view>
                 <!--价钱和购物加减的父盒子-->
-                <view class="good-price">
-                    <text class="price">￥{{item.bookPrice}}</text>
+                <view class="good-price" >
+                    <text class="price">原价￥{{item.bookPrice}}</text><text class="newprice">折扣￥{{item.bookPrice}}</text>
                     <view class="btn-box">
                         <view class="btn">
                             <button id="del{{index}}" type="default" size="mini" bindtap="delCount">-</button>

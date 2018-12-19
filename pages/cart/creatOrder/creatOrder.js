@@ -110,36 +110,67 @@ Page({
     // console.log("现在的日期是：" + utils.formatDate(new Date()));
     // console.log("现在的时间是：" + utils.formatTime(new Date()),);
     // console.log("我获得的地址信息是：" + this.data.newAddress.addressId );
-    var couponId = this.data.couponId;//优惠券id号
+    
     var realPayPrice = this.data.realPayPrice;//实际支付金额
-  let  order={   
-    expressId: this.data.expressId,//货运方式Id
-    receiveAddressId: this.data.newAddress.addressId,//收货地址Id
-    userId: app.globalData.userInfo.userId,//用户Id
-    carts:this.data.oldcart,//商品
-    orderTime: utils.formatTime(new Date()),//下单时间
-    orderStatus:'待发货',//订单状态
-    totalPrice: this.data.totalPrice,//订单总价
-  };
+    if (app.globalData.userInfo!=null){
 
-  that.creatOrder(order);//将用户数据提交到数据库中
-  //支付接口
-  // console.log("appURL:"+app.URL);
-  //   app.orderInfo.body = '书本购买';
-  //   app.orderInfo.detail = '买了4本书！';
-  //   app.orderInfo.out_trade_no = Date.parse(new Date());
-  //   app.orderInfo.total_fee = realPayPrice;//实际支付的商品金额
-  //   console.log("app.orderInfo" + JSON.stringify(app.orderInfo) )
-  //   pay.payOreder(app.orderInfo, function (data) {
-  //     wx.showToast({
-  //       title: data.return_msg,
-  //       icon: 'none'
-  //     })
-  // });
-        // console.log("booksId:" + order.booksId);
-    if (app.globalData.userInfo!=null&&couponId!=''){
+      var couponId = this.data.couponId;//优惠券id号
+   
+      let order = {
+        expressId: this.data.expressId,//货运方式Id
+        receiveAddressId: this.data.newAddress.addressId,//收货地址Id
+        userId: app.globalData.userInfo.userId,//用户Id
+        carts: this.data.oldcart,//商品
+        orderTime: utils.formatTime(new Date()),//下单时间
+        orderStatus: '待发货',//订单状态
+        totalPrice: this.data.totalPrice,//订单总价
+      };
+
+      that.creatOrder(order);//将用户数据提交到数据库中
+      //支付接口
+      // console.log("appURL:"+app.URL);
+      //   app.orderInfo.body = '书本购买';
+      //   app.orderInfo.detail = '买了4本书！';
+      //   app.orderInfo.out_trade_no = Date.parse(new Date());
+      //   app.orderInfo.total_fee = realPayPrice;//实际支付的商品金额
+      //   console.log("app.orderInfo" + JSON.stringify(app.orderInfo) )
+      //   pay.payOreder(app.orderInfo, function (data) {
+      //     wx.showToast({
+      //       title: data.return_msg,
+      //       icon: 'none'
+      //     })
+      // });
+      // console.log("booksId:" + order.booksId);
       that.updateUserCoupons(app.globalData.userInfo.userId, couponId, utils.formatTime(new Date()))//用户使用优惠券后改变数据库中优惠券的状态(用户id，优惠券id，优惠券使用时间)
+ 
+    }else{
+      let order = {
+        expressId: this.data.expressId,//货运方式Id
+        receiveAddressId: this.data.newAddress.addressId,//收货地址Id
+        userId: app.globalData.userId,//游客Id
+        carts: this.data.oldcart,//商品
+        orderTime: utils.formatTime(new Date()),//下单时间
+        orderStatus: '待发货',//订单状态
+        totalPrice: this.data.totalPrice,//订单总价
+      };
+
+      that.creatOrder(order);//将用户数据提交到数据库中
+      //支付接口
+      // console.log("appURL:"+app.URL);
+      //   app.orderInfo.body = '书本购买';
+      //   app.orderInfo.detail = '买了4本书！';
+      //   app.orderInfo.out_trade_no = Date.parse(new Date());
+      //   app.orderInfo.total_fee = realPayPrice;//实际支付的商品金额
+      //   console.log("app.orderInfo" + JSON.stringify(app.orderInfo) )
+      //   pay.payOreder(app.orderInfo, function (data) {
+      //     wx.showToast({
+      //       title: data.return_msg,
+      //       icon: 'none'
+      //     })
+      // });
+      // console.log("booksId:" + order.booksId);
     }
+   
    
   
   },

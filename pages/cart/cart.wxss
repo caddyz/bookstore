@@ -56,14 +56,20 @@ page {
 .goods .good-cont .good-price {
   display: flex;
   flex-direction: column;
-  flex: 3;
+  flex: 5;
 }
  
 .goods .good-cont .good-price .price {
   font-size: 16px;
-  color: #ec5151;
+  color:green;
+    /* 金额划横线 */
+  text-decoration:line-through;
 }
- 
+ .goods .good-cont .good-price .newprice {
+  font-size: 16px;
+  color: #ec5151;
+ text-align: left;
+}
 .goods .good-cont .good-price .btn-box {
   display: flex;
   flex-direction: row;

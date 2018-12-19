@@ -38,6 +38,7 @@ Page({
         if (arr[i].isStatus){
           goodsCount += Number(arr[i].bookNum);
         }
+    
       }
       // 更新数据
       this.setData({
