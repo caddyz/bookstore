@@ -8,11 +8,12 @@ Page({
     Nums:[],//显示库存
     author:[],//显示一个或多个作者
     collector:[],//显示匹配收藏
-    minusStatus:'disabled',//预览退出
+    minusStatus:'disabled',//预览退出,
     isCollected:'' ? false : true ,//收藏
     bookId: '',
     userId:'',
   },
+  // 评论字符
   commentContent:'',
   // 收藏事件
   handleCollection:function(e) {
@@ -291,27 +292,37 @@ Page({
         console.log(err)
       }
     })
-    // 收藏回调
+    // 判断收藏状态
     // this.isCollector(userId, bookId, function (isCollector) {
     //   that.setData({
     //     isCollected: isCollected
     //   })
     // });
-  },
-  
-  
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    var that = this
     var userId = app.globalData.userInfo.userId
-    var bookId = that.data.bookId
-    // 回调收藏
-    that.isCollector(bookId, userId, function (isCollected) {
-      console.log("????:" + isCollected)
+    wx.request({
+      url: app.URL + 'bookstore-mall/' + userId + '/' + bookId + '/isExit',
+      data: {},
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        console.log("判断收藏 :" + res.data)
+        if (res.data == false) {
+          that.setData({
+            isCollected: true
+          })
+          console.log("is:" + that.data.isCollected);
+        } else {
+          that.setData({
+            isCollected: false
+          })
+          console.log("this:" + that.data.isCollected);
+        }
+
+      }
     })
   },
+  
 
   //判断数据库中的这本书是否被收藏
   isCollector: function (userId, bookId,callback){

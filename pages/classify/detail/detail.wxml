@@ -4,7 +4,7 @@
   <!-- 循环遍历 -->
     <block wx:for="{{list}}">
      <view  bindtap="previewImage" class='img-detail'>
-      <image src='http://192.168.10.110/{{item.bookCoverImage}}'></image>
+      <image src='http://129.204.105.64/{{item.bookCoverImage}}'></image>
   </view>
         <text> \n </text>
   <view class="detail" data-item='{{item}}'>
