@@ -134,6 +134,66 @@ function updateOrder(orderId, orderStatus) {
     }
   })
 }
+
+//从数据库中获取购物车的数据
+function getAllCarts(userId) {
+  var that = this
+  var isCart = true;
+  var cart = wx.getStorageSync("carts") || [];
+  console.log("userId=================" + userId);
+  // //数据库获取初始数据
+  wx.request({
+    url: app.URL + 'bookstore-mall/selectCart/' + userId, //提交的网络地址
+    method: "GET",
+    dataType: "json",
+    header: {
+      'content-type': 'application/json' // 默认值
+    },
+    success: function (res) {
+      //--init data
+      if (res.data != null) {
+        if (cart.length > 0) {
+          //缓存和数据库中都有数据
+          for (var i in res.data) { 
+            for (var j in cart) {
+              console.log("状态isCart1：" + isCart);
+              if(res.data[i].bookId==cart[j].bookId){
+                isCart=false;
+            
+              }
+            }
+            console.log("状态isCart2：" + isCart);
+            if(isCart){
+              cart = cart.concat(res.data[i]);//没有重复添加进数组
+            }else{
+              isCart=true;//有重复的数组不添加
+            }
+              }       
+          }
+
+    
+        } else {
+          //缓存中没有数据而数据库中有
+          cart = res.data;
+        }
+        console.log("加入购物车的" + JSON.stringify(cart));
+        //存入缓存
+        wx.setStorage({
+          key: 'carts',
+          data: cart,
+        })
+       
+    },
+    fail: function () {
+      // fail
+      wx.showToast({
+        title: '网络异常！',
+        duration: 30000
+      });
+    }
+  })
+}
+
 module.exports = {
 	formatTimes: formatTimes,
   formatDate: formatDate,
@@ -145,5 +205,6 @@ module.exports = {
   getSelectClassifyBookByIdSearch: getSelectClassifyBookByIdSearch,
   slideshowConnection: slideshowConnection,
   getTheme: getTheme,
-  updateOrder: updateOrder
+  updateOrder: updateOrder,
+  getAllCarts: getAllCarts
 }
