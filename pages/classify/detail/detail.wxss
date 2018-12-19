@@ -111,9 +111,7 @@ swiper-item image {
 .button-yellow {
   background-color: green; 
 }
-/* .button-red {
-  background-color: red;
-} */
+
 .image_detail {
   width: 100%;
 }

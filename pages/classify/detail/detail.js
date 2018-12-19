@@ -175,6 +175,15 @@ Page({
         duration: 1000
       })
     }
+    if(commentContent != undefined && commentReply == null){
+
+    }else{
+      wx.showToast({
+        title: '评论以超过限制',
+        icon: 'loading',
+        duration: 1500
+      })
+    }
     // 不让用户一直按评论显示多条同样的语句
     this.setData({
       commentContent: ''//将data的commentContent清空
@@ -183,20 +192,6 @@ Page({
   },
 
 
- 
-
-  // 立即购买,跳转到购物车结算
-  // nowBuy() {
-  //   if (app.globalData.userInfo == null) {
-  //     wx.navigateTo({
-  //       url: '/pages/login/login',
-  //     })
-  //   }
-  //   wx.switchTab({
-  //     url: '/pages/cart/cart'
-  //   })
-    
-  // },
 
   /**
    * 生命周期函数--监听页面加载

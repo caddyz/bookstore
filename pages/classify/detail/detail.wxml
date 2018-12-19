@@ -72,5 +72,4 @@ src='https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3411382528,345291
 <image bindtap='handleCollection' wx:else='{{!isCollected}}' 
 src='https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=971562027,3284667727&fm=26&gp=0.jpg'></image>
   <button class="button-yellow" bindtap="addCar" formType="submit">加入购物车</button>
-  <!-- <button class="button-red" bindtap="nowBuy" formType="submit">立即购买</button> -->
 </view> 
