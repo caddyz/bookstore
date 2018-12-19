@@ -1,7 +1,7 @@
 //app.js
 var scence=0;
 App({
-  URL:'http://localhost:8080/',
+  URL:'http://192.168.10.110:8080/',
   orderInfo:[
     {openid:''},
     {spbill_create_ip:''},
@@ -35,7 +35,7 @@ App({
         if (res.code) {
           //发起网络请求
           wx.request({
-            url: 'http://localhost:8080/bookstore-mall/getopenid/'+res.code,//传送路径
+            url: 'http://192.168.10.110:8080/bookstore-mall/getopenid/'+res.code,//传送路径
             success(res) {
               payinfo:res.data,
               that.orderInfo.openid=res.data.openid
