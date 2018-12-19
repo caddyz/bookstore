@@ -46,7 +46,7 @@ Page({
 
     
           if (this.data.first == false) {
-            console.log("=============================================")
+            // console.log("=============================================")
             //验证用户是否登录
             if (app.globalData.userInfo != null) {
               utils.getAllCarts(app.globalData.userInfo.userId);//如果用户登录状态从数据库中获取购物车商品信息
