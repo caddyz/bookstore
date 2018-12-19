@@ -352,15 +352,19 @@ Page({
                console.log("userCoupons" + JSON.stringify(userCoupons));
              }
            }
+
+           if (userCoupons.length>0){
+             that.setData({
+               userCoupon: userCoupons,
+               couponName: userCoupons[0].couponName,
+               couponMoney: userCoupons[0].couponMoney,
+               couponId: userCoupons[0].couponId
+             })
+             console.log("成功获取用户优惠券：" + that.data.userCoupon[0].couponName);
+           }      
          };   
-          that.setData({
-            userCoupon: userCoupons,
-            couponName: userCoupons[0].couponName,
-            couponMoney: userCoupons[0].couponMoney,
-            couponId: userCoupons[0].couponId
-          })
-          
-          console.log("成功获取用户优惠券：" + that.data.userCoupon[0].couponName);
+      
+      
         } else {
           console.log("没有获取用户优惠券：")
         }

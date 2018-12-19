@@ -27,7 +27,7 @@ Page({
  
       // 获取缓存李里面的数据并加入购物车
   var bufferCart = wx.getStorageSync('carts') || [];
-  console.log("取出的缓存" + JSON.stringify(bufferCart));
+  // console.log("取出的缓存" + JSON.stringify(bufferCart));
    var arr = bufferCart;
   
     var goodsCount=0;
