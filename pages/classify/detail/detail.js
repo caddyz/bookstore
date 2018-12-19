@@ -214,7 +214,7 @@ Page({
        'content-type':'application/json'
      },
      success:function(res){
-       console.log(res.data)
+      //  console.log(res.data)
     
        that.setData({
           list: res.data, //设置数据
@@ -233,7 +233,7 @@ Page({
         'content-type': 'application/json'
       },
       success: function (res) {
-        console.log(res.data)
+        // console.log(res.data)
         that.setData({
           item: res.data //设置数据
         })
@@ -250,7 +250,7 @@ Page({
         'content-type': 'application/json'
       },
       success: function (res) {
-        console.log(res.data)
+        // console.log(res.data)
         that.setData({
           out: res.data //设置数据
         })
@@ -267,7 +267,7 @@ Page({
         'content-type': 'application/json'
       },
       success: function (res) {
-        console.log(res.data)
+        // console.log(res.data)
         that.setData({
           author: res.data //设置数据
         })
@@ -284,7 +284,7 @@ Page({
         'content-type': 'application/json'
       },
       success: function (res) {
-        console.log(res.data)
+        // console.log(res.data)
         that.setData({
           Nums: res.data //设置数据
         })
