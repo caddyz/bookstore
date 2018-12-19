@@ -134,7 +134,7 @@ Page({
    var that = this;
    // //数据库获取初始数据
    wx.request({
-     url: 'http://localhost:8080/bookstore-mall/editorUserInfomation', //提交的网络地址
+     url: app.URL+'bookstore-mall/editorUserInfomation', //提交的网络地址
      method: "POST",
      dataType: "json",
      data: JSON.stringify(user),
