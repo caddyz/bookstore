@@ -3,7 +3,7 @@
   <view class='main-body'>
     <view class='appraise-book'>
       <view class='show-word'>评论书籍：</view>
-      <block wx:for='{{item.books}}'>
+      <block wx:for='{{item.books}}' wx:key=''>
         <view>{{item.bookName}}</view>
       </block>
     </view>
