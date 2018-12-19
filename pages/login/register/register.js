@@ -16,6 +16,7 @@ Page({
     two:false,
     success:false
     
+    
   },
   /**
     *
@@ -33,21 +34,18 @@ Page({
   },
   //用户名
   handleNewName: function (e) {
-    console.log(e);
     this.setData({
       username: e.detail.value
     })
   },
   //密码
   handleNewChanges: function (e) {
-    console.log(e);
     this.setData({
      password: e.detail.value
     })
   },
   //确认密码
   handleNewChangesAgain: function (e) {
-    console.log(e);
     this.setData({
      passwordAgain: e.detail.value
     })
@@ -92,11 +90,11 @@ Page({
               duration: 2000
             })
           } else {
-            wx.showToast({
-              title: res.data.msg,
-              icon: 'success',
-              duration: 2000
-            })
+            // wx.showToast({
+            //   title: res.data.msg,
+            //   icon: 'success',
+            //   duration: 2000
+            // })
             that.setData({
               show_row: false,one:false, show_row1: true,two:true, show_row2: false
             })
@@ -135,11 +133,11 @@ Page({
               duration: 2000
             })
           } else {
-            wx.showToast({
-              title: res.data.msg,
-              icon: 'success',
-              duration: 2000
-            })
+            // wx.showToast({
+            //   title: res.data.msg,
+            //   icon: 'success',
+            //   duration: 2000
+            // })
             that.setData({
               show_row: false, show_row1: false, show_row2: true,success:true,two:false
             })
@@ -188,14 +186,14 @@ Page({
           if (res.data.status == true) {
             wx.showToast({
               title: res.data.msg,
-              icon: 'success',
-              duration: 2000,
-              success: function () {
+              icon: 'success',                                    
+            })
+            //注册成功后跳转的延时
+            setTimeout(function(){
                 wx.navigateBack({
                   delta: 1
                 })
-              }
-            })
+            },1000)
           }
         }
       })

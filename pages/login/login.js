@@ -10,7 +10,6 @@ Page({
     message:'',
     active:''
 	
-	
   },
   //从页面获取输入账号 
   accountInput: function (e) {
@@ -19,6 +18,7 @@ Page({
       account: e.detail.value,
     })
   },
+  
 
   // 获取输入密码 
   passwordinput: function (e) {
@@ -50,7 +50,7 @@ Page({
       })
       return
     }
-    console.log("用户名：" + account + "，密码：" + password)
+   // console.log("用户名：" + account + "，密码：" + password)
     //发送ajax请求到服务器-登录
     wx.request({
       //开发者服务器接口地址
@@ -79,14 +79,20 @@ Page({
             userInfo: res.data
           });
           //信息正确,给userInfo赋值        
-          console.log("userInfo" + that.data.userInfo.username);
+         // console.log("userInfo" + that.data.userInfo.username);
           app.globalData.userInfo = that.data.userInfo;
-          console.log("用户名" + app.globalData.userInfo.username);
+         // console.log("用户名" + app.globalData.userInfo.username);
           //返回上一页 上一页的跳转只能用wx.navigateTo
           if(that.data.userInfo.active==1){
-          wx.navigateBack({
-            delta: 1
+            wx.showToast({
+              title: '登陆成功',
+              icon:'success',         
           })
+          setTimeout(function(){
+          wx.navigateBack({
+            delta: 1    
+            })
+          },1000)
           }else{
             wx.showToast({
               title:'用户未激活',

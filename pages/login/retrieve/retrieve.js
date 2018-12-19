@@ -12,6 +12,7 @@ Page({
     // mask:true,
     show_content: true,
     show_content2: false
+    
   },
 //从页面获取输入的邮箱
   inputEmail:function(e){
@@ -76,11 +77,11 @@ Page({
             })
             return
           } else {
-            wx.showToast({
-              title: res.data.msg,
-              icon: 'success',
-              duration: 2000
-            })
+            // wx.showToast({
+            //   title: res.data.msg,
+            //   icon: 'success',
+            //   duration: 2000
+            // })
             that.setData({
               show_content: false, show_content1: true, show_content: false,
               email:email,
@@ -126,11 +127,11 @@ Page({
               duration: 2000
             })
           } else {
-            wx.showToast({
-              title: res.data.msg,
-              icon: 'success',
-              duration: 2000
-            })
+            // wx.showToast({
+            //   title: res.data.msg,
+            //   icon: 'success',
+            //   duration: 2000
+            // })
             that.setData({
               show_content: false, show_content1: false, show_content2: true,
             })
@@ -178,14 +179,14 @@ Page({
           if (res.data.status) {
             wx.showToast({
               title: res.data.msg,
-              icon: 'success',
-              duration: 2000,
-              success:function(res){
+              icon: 'success',            
+            }) 
+            //成功后的延时
+            setTimeout(function(){
                 wx.navigateBack({
                   delta:1
                 })
-              }
-            }) 
+            },1000)
           } else {
             wx.showToast({
               title: "修改失败",
