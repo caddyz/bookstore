@@ -42,7 +42,7 @@ Page({
         addressDetail: e.detail.value.address,
         addressStatus: this.data.first
       }
-      console.log('form发生了submit事件，携带数据为：', e.detail.value)
+      // console.log('form发生了submit事件，携带数据为：', e.detail.value)
       //改变本地数据
       this.setData({
         region: e.detail.value

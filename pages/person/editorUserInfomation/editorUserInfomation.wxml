@@ -4,7 +4,7 @@
       <form bindsubmit="edituser"  >      
        
            <view class="xing">昵称：
-           <input placeholder-class='placeholder'  placeholder='请输入你的昵称'  type='number' class="in"       name='nickName' value="{{nickName}}"/>
+           <input placeholder-class='placeholder'  placeholder='请输入你的昵称'   class="in"       name='nickName' value="{{nickName}}"/>
          </view> 
 <view class="xing">
   <text>性别</text>
@@ -37,7 +37,7 @@
      </picker>
 </view>
          <view class="xing">手机号码：
-           <input placeholder-class='placeholder'  placeholder='请输入手机号码'  class="in" name='tel' value="{{mobile}}"/>
+           <input placeholder-class='placeholder'  placeholder='请输入手机号码'  type='number' class="in" name='tel' value="{{mobile}}"/>
          </view>
          <view class="xing">邮箱：
            <input placeholder-class='placeholder'  placeholder='请输入邮箱'  class="in" name='email' value="{{email}}"/>

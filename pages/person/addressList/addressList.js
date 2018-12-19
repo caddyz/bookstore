@@ -55,16 +55,7 @@ Page({
   onShow: function () {
     var that = this;
     var region=[];
-    var newRegion ={
-      id: '3',
-      userId: '456',
-      consignee: '',
-      mobile: '',
-      province: '',
-      city: '',
-      county: '',
-      details: ''
-  }; 
+    var newRegion ={}; 
     //先从数据库中获取数据
     that.getReceiveAddress();
   
@@ -91,7 +82,6 @@ Page({
       regions[index].addressStatus = true; 
     };
     that.updateUserReceiveAddressStatus(app.globalData.userInfo.userId, newAddressId, oldAddressId);//修改数据库中默认地址的状态
-
     this.setData({
       regions: regions,
     });
@@ -100,8 +90,18 @@ Page({
   /* 删除收货地址*/
   delAddress: function (e) {
     var that=this;
+   var  regions=this.data.regions;
     var addressId = e.currentTarget.dataset.id;
-    console.log('获取的数据addressId是' + addressId)
+    console.log("长度" + regions.length+JSON.stringify(regions));
+    if (regions.length==1){
+      that.setData({
+        regions:[],
+        isAddressList:false
+      })
+      console.log("状态：" + that.data.isAddressList)
+    }
+
+    // console.log('获取的数据addressId是' + addressId)
    wx.request({
      url: app.URL + 'bookstore-mall/delReceiveAddress/' + app.globalData.userInfo.userId + '/' + addressId, //提交的网络地址
       method: "get",
@@ -112,8 +112,6 @@ Page({
      success: function (res) {
        //--init data 
        if (res.data) {
-        that.onShow();//页面显示刷新
-
          wx.showToast({
            title: '成功删除！',
          })

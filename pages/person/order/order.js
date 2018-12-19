@@ -3,105 +3,6 @@ var utils=require("../../../utils/util.js");
 Page({
   data:{
     userId:'',
-    order:[
-      // {
-      //   id: "001",
-      //    orderId: "12381",
-      //   imgUrl: "../order/images/history-21.jpg",
-      //   name: "燃烧的远征",
-      //   price: "65.00",
-      //   orderStatus: '已完成',
-      //   num: '2',
-      //  totalPrice: "86.00",    //总金额
-      // },
-      // {
-      //   id: "002",
-      //    orderId: "1239",
-      //   imgUrl: "../order/images/history-22.jpg",
-      //   name: "人类简史",
-      //   price: "68.00",
-      //   orderStatus: '已完成',
-      //   num: '1',
-      //  totalPrice: "86.00",    //总金额
-      // },
-      {
-        id: "003",
-        orderId:"123",
-        bookId: "",
-        bookCoverImage: "../order/images/history-23.jpg",
-        bookName: "日本现代史",
-        bookSalesPrice: "86.00",
-        orderStatus: '已完成',
-        bookNum: '1',
-        totalPrice:"86.00",    //总金额
-      },
-      {
-        id: "005",
-        orderId: "1233",
-        bookId: "",
-        imgUrl: "../order/images/history-24.jpg",
-        bookName: "十字军的故事",
-        bookPrice: "十字军的故事",
-        orderStatus: '待付款',
-        num: '2',
-        totalPrice: "136.00",    //总金额
-      },
-      {
-        id: "006",
-        orderId: "1234",
-        bookId: "",
-        imgUrl: "../order/images/history-25.jpg",
-        bookName: "丝绸之路",
-        bookPrice: "86.00",
-        orderStatus: '待付款',
-        bookNum: '1',
-        totalPrice: "86.00",    //总金额
-      }, 
-      {
-        id: "007",
-        orderId: "1235",
-        bookId: "",
-        imgUrl: "../order/images/history-26.jpg",
-        bookName: "宋徽宗",
-        bookPrice: "86.00",
-        orderStatus: '待发货',
-        bookNum: '1',
-        totalPrice: "86.00",    //总金额
-      },
-      {
-        id: "008",
-        orderId: "1236",
-        bookId: "",
-        imgUrl: "../order/images/history-27.jpg",
-        bookName: "万历十五年",
-        bookPrice: "86.00",
-        orderStatus: '待收货',
-        bookNum: '1',
-        totalPrice: "86.00",    //总金额
-      }, 
-      {
-        id: "007",
-        orderId: "1237",
-        bookId: "",
-        imgUrl: "../order/images/history-28.jpg",
-        bookName: "未来简史",
-        bookPrice: "86.00",
-        orderStatus: '已经取消',
-        bookNum: '1',
-        totalPrice: "86.00",    //总金额
-      },
-      {
-        id: "007",
-        orderId: "1238",
-        bookId:"",
-        imgUrl: "../order/images/history-29.jpg",
-        bookName: "曾国藩",
-        bookPrice: "86.00",
-        orderStatus: '退款中',
-        bookNum: '1',
-        totalPrice: "86.00",    //总金额
-      }
-    ],//具体商品
     order: [],//所有订单
     alreadOder:[],
     waitingPay: [],//具体商品
@@ -134,38 +35,10 @@ Page({
       userId: userId
     })
     that.getUserOrder();//从数据库中获取用户订单信息
-    //获取用户的头像和昵称
-    wx.getUserInfo({
-      success: function (res) {
-        // success
-        that.setData({
-          nickName: res.userInfo.nickName,
-          userInfoAvatar: res.userInfo.avatarUrl,
-        })
-      }
-    });
 
   },
   //页面显示
   onShow: function () {
-    // var that = this;
-    // var arr = this.data.order;
-    // var goodsCount = 0;
-    // var arr =[]
-    // // 有数据的话，就遍历数据， 总数量
-    // if (arr.length > 0) {
-    //   for (var i in arr) {
-    //     if (arr[i].statuse) {
-    //       goodsCount += Number(arr[i].num);
-    //     }
-    //   }
-    //   // 更新数据
-    //   this.setData({
-    //     showOrder: arr,
-    //     goodsCount: goodsCount
-    //   });
-    // }
-   
     this.alreadOder();
   },
  
@@ -310,7 +183,7 @@ Page({
     let that=this;
     let id = e.currentTarget.dataset.id;
     let arr=this.data.order;
-    console.log("我获得的状态是：" + statues + "获得的id是" + id + "我获得的书的Id是" + bookId);
+    // console.log("我获得的状态是：" + statues + "获得的id是" + id + "我获得的书的Id是" + bookId);
     //如果获得的订单状态是待付款对应的操作
     switch (statues){
       case '待付款':
@@ -324,7 +197,7 @@ Page({
               for (var i in arr) {
                 if (arr[i].orderId == id) {
                   arr[i].orderStatus = '待发货';
-                  console.log('循环后orderId' + id);
+                  // console.log('循环后orderId' + id);
                   utils.updateOrder(id, '待发货');//改变数据库中订单的相应状态
                 }
 
@@ -335,10 +208,10 @@ Page({
               that.clearGrouping();//清除分组
               that.getOrderGrouping();//重新分组
               that.waitingPay();//再次显示
-              console.log("调用函数修改数据库中订单的状态书的id=" + id + '修改后的状态是：' + '待发货')
-              console.log("确认收货后的操作");
+              // console.log("调用函数修改数据库中订单的状态书的id=" + id + '修改后的状态是：' + '待发货')
+              // console.log("确认收货后的操作");
             } else {
-              console.log('弹框后点取消')
+              // console.log('弹框后点取消')
               return;
             }
           }
@@ -472,7 +345,7 @@ Page({
 //查看订单详细信息界面
   toOrderDetail: function (e) {
     let orderId = e.currentTarget.dataset.order;
-    console.log("我获得的订单号：" + orderId)
+    // console.log("我获得的订单号：" + orderId)
     wx.navigateTo({
       url: '../orderDetail/orderDetails?orderId=' + orderId
     })
