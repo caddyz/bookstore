@@ -17,7 +17,7 @@
 				<view class="df_1 c6">
         	<image class="x_right mt15" src="../creatOrder/images/x_right.png"></image>
 				<view class="l_h20">收货人：{{newAddress.addressConsignee}}<text class="fl_r mr10">  {{newAddress.addressMobile}}</text></view>       		
-				<view class="l_h20 mt5">地址：{{newAddress.addressProvince}}省{{newAddress.addressCity}}市 {{newAddressaddressCounty}}区(县){{newAddress.addressDetail}}</view>
+				<view class="l_h20 mt5">地址：{{newAddress.addressProvince}} {{newAddress.addressCity}}  {{newAddressaddressCounty}} {{newAddress.addressDetail}}</view>
 				</view>
 				
 			</view>

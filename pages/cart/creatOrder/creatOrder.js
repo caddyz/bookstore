@@ -182,7 +182,7 @@ Page({
     //验证用户是否登录，如果用户登录的话跳向用户的地址管理界面，未登录的话跳向地址添加界面
     if (app.globalData.userInfo != null){
       wx.navigateTo({
-        url: '../../person/addressList/addressList',
+        url: '../../person/addressList/addressList?choose='+1,
       })
     }else{
       wx.navigateTo({
