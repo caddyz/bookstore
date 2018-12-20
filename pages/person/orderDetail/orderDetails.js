@@ -78,7 +78,7 @@ Page({
           that.setData({
             oderDetail: res.data,
           })
-          // console.log("oderDetail:" + that.data.oderDetail);
+          console.log("oderDetail:" + JSON.stringify(res.data));
         } else {
           that.setData({
             oderDetail: oderDetail

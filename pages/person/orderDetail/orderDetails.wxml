@@ -1,4 +1,5 @@
 <!-- 物流信息 -->
+<wxs src="../../../utils/constant.wxs" module="util" />
 <view bindtap="kuaidiInfo" class="kuaidi">
 	<view class="kuaidiIcon">
 		<image src="../orderDetail/images/member_list_arrow.png"></image>
@@ -46,7 +47,7 @@
 	</view>
 	<view class="orderListDetails">
 		<view class="productImg">
-			<image src="http://129.204.105.64/{{item.bookCoverImage}}"></image>
+			<image src="{{util.IMAGE_URL}}{{item.bookCoverImage}}"></image>
 		</view>
 		<view class="productInfo">
 			<view class="productTitle">{{item.bookName}}</view>
