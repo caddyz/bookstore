@@ -2,47 +2,39 @@
 <view class="login-icon"> 
  <image class="login-img" src="/pages/img/find.jpg"></image> 
  </view>
-<view class='content' wx:if='{{show_content}}'>
-  <form bindsubmit='next'>
-    <view class='header'>
-      <text>找回密码：第1步</text>
+
+<view class='row' wx:if='{{show_content}}'>
+  <view class='info'>
+    <input  class= 'info-input1' bindinput="inputEmail" placeholder="请输入绑定的邮箱" />
+  </view> 
+</view>
+<view wx:if='{{one}}'>
+<text>\n</text>
+  <button  type="primary" catchtap="next">第一步</button> 
+</view>
+<view class='row' wx:if='{{show_content1}}'>
+ <view class='info'>
+      <input placeholder='请输入原密码'  class= 'info-input1' bindinput='inputOldPassword'/>
     </view>
-    <view class='section'>
-      <input placeholder='请输入绑定的邮箱' name='email'  class= 'info-input' bindinput='inputEmail'></input>
-    </view>
-    <text>\n</text>
-    <button type='primary' form-type='submit'>下一步</button>
-  </form>
+</view>
+<view wx:if='{{two}}'>
+<text>\n</text>
+  <button  type="primary" catchtap="next1">第二步</button> 
 </view>
 
-
-<view class='content1' wx:if='{{show_content1}}'>
-  <form bindsubmit='next1'>
-    <view class='header'>
-      <text>找回密码：第2步</text>
+<view class='row' wx:if='{{show_content2}}'>
+   <view class='info'>
+               <input type='password' class= 'info-input' bindinput="inputPassword" placeholder="请输入你的新密码" />
+       </view>
     </view>
-    <view class='section1'>
-      <input placeholder='请输入原密码' name='password'  class= 'info-input1' bindinput='inputOldPassword'></input>
+<view class="line"></view> 
+    <view class='row' wx:if='{{show_content2}}'>
+   <view class='info'>
+               <input type='password' class= 'info-input' bindinput="inputNewPassword" placeholder="请重新输入你的新密码" />
+       </view>
     </view>
-    <text>\n</text>
-    <button  type='primary' form-type='submit'>下一步</button>
-  </form>
+     <view wx:if='{{success}}'>
+ <button class='submit' catchtap='submit'>提交</button>
 </view>
 
-
-<view class='content2' wx:if='{{show_content2}}'>
-  <form bindsubmit='submit'>
-    <view class='header'>
-      <text>找回密码：第3步</text>
-    </view>
-    <view class='section2'>
-      <view class='section2_one'>
-        <input  placeholder='输入新密码' name='newPassword'  class= 'info-input2' bindinput='inputPassword'></input>
-        <input  placeholder='重新输入新密码' name='againNewPassword'  class= 'info-input2' bindinput='inputNewPassword'></input>
-      </view>
-    </view>
-    <text>\n</text>
-    <button  type='primary' form-type='submit'>提交</button>
-  </form>
-</view>
 

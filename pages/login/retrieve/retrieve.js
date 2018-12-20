@@ -11,7 +11,10 @@ Page({
     againNewPassword:'',
     // mask:true,
     show_content: true,
-    show_content2: false
+    show_content2: false,
+    one:true,
+    two:false,
+    success:false
     
   },
 //从页面获取输入的邮箱
@@ -83,7 +86,7 @@ Page({
               duration: 2000
             })
             that.setData({
-              show_content: false, show_content1: true, show_content: false,
+              show_content: false, one:false,two:true,show_content1: true, show_content2: false,
               email:email,
             })
           }
@@ -133,7 +136,7 @@ Page({
             //   duration: 2000
             // })
             that.setData({
-              show_content: false, show_content1: false, show_content2: true,
+              show_content: false, show_content1: false,two:false, show_content2: true,success:true
             })
           }
         }

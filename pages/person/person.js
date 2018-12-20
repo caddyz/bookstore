@@ -63,12 +63,12 @@ Page({
           content: '是否登陆',
           success(res) {
             if (res.confirm) {
-              console.log('用户点击确定')
+              //console.log('用户点击确定')
               wx.navigateTo({
                 url: "/pages/login/login"
               })
             } else if (res.cancel) {
-              console.log('用户点击取消')
+              //console.log('用户点击取消')
               wx.switchTab({
                 url: '/pages/index/index',
               })

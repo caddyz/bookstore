@@ -35,32 +35,30 @@ page{
 } 
 
 /*输入框*/
-.nameImage, .keyImage { 
- margin-left: 22px; 
+/* .nameImage, .keyImage { 
+ margin-left: 2px; 
  width: 14px; 
  height: 14px
-} 
+}  */
 
   
 
-.loginLab { 
+/* .loginLab { 
  margin: 15px 15px 15px 10px; 
  color: #545454; 
  font-size: 14px
-
-} 
-
+}  */
 .inputText { 
- flex: block;
-  /*向右浮动  */
- float: right; 
- text-align: right; 
- /* 右边距 */
- margin-right: 22px; 
- /* 对象上边的外距离 */
- margin-top: 11px; 
- color: black; 
- font-size: 14px
+  display: block;
+  color:black;
+  height: 100rpx;
+  line-height: 50rpx;
+  font-size: 35rpx;
+  /* height: 100rpx;
+  margin-left: 50rpx;
+  color:black;
+    float: left;
+    width: 420rpx; */
 } 
 
 .line { 

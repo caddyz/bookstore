@@ -50,7 +50,7 @@ Page({
       })
       return
     }
-   // console.log("用户名：" + account + "，密码：" + password)
+    console.log("用户名：" + account + "，密码：" + password)
     //发送ajax请求到服务器-登录
     wx.request({
       //开发者服务器接口地址

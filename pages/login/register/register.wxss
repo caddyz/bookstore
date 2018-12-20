@@ -22,21 +22,21 @@ page{
   margin-right: 20rpx;
   color: #777;
   background: #fff;
- 
+
 }
 .info-input{
-  height: 100rpx;
-  margin-left: 50rpx;
+  display: block;
   color:black;
-  /* 元素向左浮动 */
-    float: left;
+  height: 100rpx;
+  line-height: 50rpx;
+  font-size: 35rpx;
 }
 .info-input1{
-  height: 100rpx;
-  margin-left: 50rpx;
+ display: block;
   color:black;
-    float: left;
-    width: 420rpx;
+  height: 100rpx;
+  line-height: 50rpx;
+  font-size: 35rpx;
 }
 .button{
   width: 200rpx;
