@@ -24,9 +24,8 @@ page{
 .login-icon{ 
  flex: none; 
 } 
-
 .login-img{ 
- width: 600rpx; 
+ width: 100%; 
 } 
 
 

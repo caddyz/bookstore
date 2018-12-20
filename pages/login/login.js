@@ -95,12 +95,11 @@ Page({
           },1000)
           }else{
             wx.showToast({
-              title:'用户未激活',
+              title:'用户未激活,请去邮箱激活',
               icon:'none',
               duration:2000
             })
           }
-
         } else {
           //显示消息提示框
           wx.showModal({

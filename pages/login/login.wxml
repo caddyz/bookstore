@@ -21,10 +21,12 @@
    <input class="inputText" name='password' placeholder="请输入密码" type="password" bindinput="passwordinput"/>
  </view> 
  <!--按钮-->
- 
+ <text>\n</text>
+ <text>\n</text>
  <view class='login'>
   <button  type="primary" catchtap="login">登录</button>
  </view>
+  <text>\n</text>
  <view class="signIn">
       <button  class='left' type="submit" catchtap="register">注册</button>
       <button  class='right' type='submit' catchtap='retrieve'>忘记密码</button>

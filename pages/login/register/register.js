@@ -185,15 +185,15 @@ Page({
           //注册成功后跳转
           if (res.data.status == true) {
             wx.showToast({
-              title: res.data.msg,
-              icon: 'success',                                    
+              title: '邮件已发送至您的邮箱，请点击邮箱激活用户',
+              icon: 'none',                                    
             })
             //注册成功后跳转的延时
             setTimeout(function(){
                 wx.navigateBack({
                   delta: 1
                 })
-            },1000)
+            },2000)
           }
         }
       })

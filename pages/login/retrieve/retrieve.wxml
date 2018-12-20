@@ -8,9 +8,10 @@
       <text>找回密码：第1步</text>
     </view>
     <view class='section'>
-      <input placeholder='请输入绑定的邮箱' name='email' bindinput='inputEmail'></input>
+      <input placeholder='请输入绑定的邮箱' name='email'  class= 'info-input' bindinput='inputEmail'></input>
     </view>
-    <button class='btn' type='primary' form-type='submit'>下一步</button>
+    <text>\n</text>
+    <button type='primary' form-type='submit'>下一步</button>
   </form>
 </view>
 
@@ -21,9 +22,10 @@
       <text>找回密码：第2步</text>
     </view>
     <view class='section1'>
-      <input placeholder='请输入原密码' name='password' bindinput='inputOldPassword'></input>
+      <input placeholder='请输入原密码' name='password'  class= 'info-input1' bindinput='inputOldPassword'></input>
     </view>
-    <button class='btn' type='primary' form-type='submit'>下一步</button>
+    <text>\n</text>
+    <button  type='primary' form-type='submit'>下一步</button>
   </form>
 </view>
 
@@ -35,14 +37,12 @@
     </view>
     <view class='section2'>
       <view class='section2_one'>
-        <input  placeholder='输入新密码' name='newPassword' bindinput='inputPassword'></input>
-        <input  placeholder='重新输入新密码' name='againNewPassword' bindinput='inputNewPassword'></input>
-        <!-- <view class="body-view">
-            <switch bindchange="switchChange"/>
-       </view> -->
+        <input  placeholder='输入新密码' name='newPassword'  class= 'info-input2' bindinput='inputPassword'></input>
+        <input  placeholder='重新输入新密码' name='againNewPassword'  class= 'info-input2' bindinput='inputNewPassword'></input>
       </view>
     </view>
-    <button class='btn2' type='primary' form-type='submit'>提交</button>
+    <text>\n</text>
+    <button  type='primary' form-type='submit'>提交</button>
   </form>
 </view>
 

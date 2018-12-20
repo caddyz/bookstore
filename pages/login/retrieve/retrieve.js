@@ -77,11 +77,11 @@ Page({
             })
             return
           } else {
-            // wx.showToast({
-            //   title: res.data.msg,
-            //   icon: 'success',
-            //   duration: 2000
-            // })
+            wx.showToast({
+              title: '邮件已发送',
+              icon: 'success',
+              duration: 2000
+            })
             that.setData({
               show_content: false, show_content1: true, show_content: false,
               email:email,
