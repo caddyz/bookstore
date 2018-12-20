@@ -53,7 +53,8 @@ page{
   color:black;
   height: 100rpx;
   line-height: 50rpx;
-  font-size: 35rpx;
+  font-size: 40rpx;
+  margin-left: 50rpx;
   /* height: 100rpx;
   margin-left: 50rpx;
   color:black;

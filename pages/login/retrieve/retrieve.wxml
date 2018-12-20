@@ -34,7 +34,8 @@
        </view>
     </view>
      <view wx:if='{{success}}'>
- <button class='submit' catchtap='submit'>提交</button>
+     <text>\n</text>
+ <button type="primary" catchtap='submit'>提交</button>
 </view>
 
 

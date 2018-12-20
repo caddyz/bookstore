@@ -29,14 +29,16 @@ page{
   color:black;
   height: 100rpx;
   line-height: 50rpx;
-  font-size: 35rpx;
+  font-size: 40rpx;
+  margin-left: 50rpx;
 }
 .info-input1{
  display: block;
   color:black;
   height: 100rpx;
   line-height: 50rpx;
-  font-size: 35rpx;
+  font-size: 40rpx;
+  margin-left: 50rpx;
 }
 .button{
   width: 200rpx;
