@@ -1,9 +1,11 @@
 const app = getApp()
 Page({
   data:{
+    fullorder:[],
     hiddenCon:true,
     list:[],
-    orderlist:[]
+    orderlist:[],
+    hidderbutton:true
   },
   //订单评价跳转
   toMyOrder: function () {
@@ -32,7 +34,7 @@ Page({
           };
         }else{
           that.setData({
-            hiddenCon:false
+            hidderbutton:false
           })
         }
       },
@@ -41,6 +43,20 @@ Page({
           title: '请求失败',
           icon:'none'
         })
+      }
+    })
+    wx.request({
+      url: app.URL + 'bookstore-mall/selectOrderNoComment/' + app.globalData.userInfo.userId,
+      success(res){
+        if (res.data.length != 0){
+          that.setData({
+            fullorder:res.data
+          })
+        }else{
+          that.setData({
+            hidderbutton: false
+          })
+        }
       }
     })
   },
@@ -117,7 +133,17 @@ Page({
     }
   },
   //订单
-  orderSkip:function(){
+  orderSkip:function(e){
+    let that = this;
+    wx.navigateTo({
+      url: '../orderDetail/orderDetails?orderId='+that.data.list[e.currentTarget.dataset.index].orderId,
+    })
+  },
 
+  orderCommentSkip: function (e) {
+    let that = this;
+    wx.navigateTo({
+      url: '../order/order?orderType='+3,
+    })
   }
 });

@@ -11,7 +11,8 @@
   <!-- 轮播 -->
   <view class='page-section'>
     <view class='enevt-planning'>
-      <swiper indicator-dots="{{indicatorDots}}" circular='true' current='{{swiperCurrent}}' bindchange='swiperChange'
+      <swiper indicator-dots="{{indicatorDots}}" circular='true' current='{{swiperCurrent}}'        
+          bindchange='swiperChange'  bindanimationfinish="changeGoodsSwip"
         autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
         <block wx:for="{{imgUrls}}" wx:key="index">
           <swiper-item>
