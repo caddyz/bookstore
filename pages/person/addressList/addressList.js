@@ -45,15 +45,6 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面卸载
-   * 当用户离开时将数据存入数据库
-   */
-  onUnload: function () {
-  
-    wx.clearStorage("regions")
-    wx.clearStorage("editorRegions")
-  },
-  /**
     * 生命周期函数--监听页面显示
     时间监控并显示数据的改变
     */

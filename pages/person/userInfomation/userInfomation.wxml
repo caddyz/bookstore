@@ -13,7 +13,7 @@
 </view>
 <view class="sex">
   <text>性别</text>
- <view class="real" name='sex'>{{user.sex}}</view>
+ <view class="real" name='sex'>{{sex}}</view>
 </view>
 <view class="age">
   <text>年龄</text>

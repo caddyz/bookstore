@@ -22,13 +22,11 @@
         <image class='addr_img' src='../addressList/images/receivePhone.png'></image>收货人电话:
       <view class='real'>{{itemName.addressMobile}} </view>
       </view>
-
-        <view class="addressList" data-index="{{idx}}" bindtap='to_confirm'>
-        <image class='addr_img' src='../addressList/images/receive_address.png'></image>收货地址: 
-      <view class='real'>{{itemName.addressProvince}} {{itemName.addressCity}} {{itemName.addressCounty}} {{itemName.addressDetail}} </view>
-      </view>
+          <view class='address'  data-index="{{idx}}" bindtap='to_confirm'>
+            <image class='addr_img' src='../addressList/images/receive_address.png'></image>
+            <text>地址：{{itemName.addressProvince}} {{itemName.addressCity}} {{itemName.addressCounty}} {{itemName.addressDetail}}</text>
+          </view>
     
-   
                 <p class="ui-list-item-del" data-id="{{itemName.addressId}}" bindtap="delAddress">删除</p>
                 <view></view>
                 <p class="ui-list-item-editor" data-id="{{itemName.addressId}}" data-first="{{itemName.addressStatus}}"  catchtap="editorAddress">编辑</p>

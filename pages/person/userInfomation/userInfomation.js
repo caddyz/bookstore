@@ -23,7 +23,7 @@ Page({
     province: '四川',
     city: '成都',
     county:'',
-    sex:'男',
+ 
  
   },
 
@@ -35,6 +35,7 @@ Page({
     var that = this;
     var user=app.globalData.userInfo;//获取用户信息
     console.log("user:" + JSON.stringify(user));
+    that.userSex(user);//用户性别处理
     if (user.birthday!=null){
       var birthday = utils.formatDate(new Date(user.birthday));
       // console.log("获得的生日是：" + birthday);
@@ -42,6 +43,7 @@ Page({
         // console.log("获得的年纪是："+data);
         that.setData({
           age:data
+    
         })
       })
     }
@@ -54,11 +56,7 @@ Page({
   toEditor:function(){
     var that=this
     var user=this.data.user;
-    //存入缓存
-    wx.setStorage({
-      key: "user",
-      data: user
-    })
+
     wx.navigateTo({
       url: '../editorUserInfomation/editorUserInfomation',
       success: function(res) {
@@ -115,6 +113,27 @@ Page({
       }
     }
     callback(returnAge) ;//返回周岁年龄  
-  }  
+  },
+  //用户性别的处理
+  userSex: function (user){
+    var that=this;
+    var sex='';
+    switch (user.sex) {
+      case 1:
+        sex = '男'
+        break;
+      case 0:
+        sex = '女'
+        break;
+      case -1:
+        sex = '保密'
+        break;
+      default:
+        break;
+    }
+that.setData({
+  sex: sex
+})
+  } 
 
 })

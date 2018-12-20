@@ -17,10 +17,10 @@
   </view>
 </view>
   <view class="xing" >原始密码：
-           <input placeholder-class='placeholder'  placeholder='请输入你的原始密码'  type='number' class="in"         name='oldPossword' value=""  />
+           <input placeholder-class='placeholder'  placeholder='请输入你的原始密码'   class="in"         name='oldPossword' value=""  />
          </view> 
 <view class="xing">新密码：
-           <input placeholder-class='placeholder'  placeholder='请输入你的新密码'  type='number' class="in"       name='newPossword' value=""  />
+           <input placeholder-class='placeholder'  placeholder='请输入你的新密码'  class="in"       name='newPossword' value=""  />
          </view> 
 <view class="xing">
   <picker mode="date" value="{{date}}"   bindchange="bindDateChange" name="newDate">
@@ -42,7 +42,6 @@
          <view class="xing">邮箱：
            <input placeholder-class='placeholder'  placeholder='请输入邮箱'  class="in" name='email' value="{{email}}"/>
          </view>
-
            <view class="xing">个性签名：
            <input placeholder-class='placeholder'  placeholder='请输入个性签名'  class="in" name='signature' value="{{signature}}"/>
          </view>

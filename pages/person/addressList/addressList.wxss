@@ -134,6 +134,7 @@ font-size: 10px;
 
 }
  .real{
+  font-size: 40rpx;
   float: right;
   margin-right: 20rpx;
   vertical-align: middle;
@@ -167,4 +168,10 @@ font-size: 10px;
   flex-direction: column;
   align-items: center;
   color: #999;
+}
+
+.address{
+  font-size: 40rpx;
+  color: #666666;
+  margin-top: 20rpx;
 }
