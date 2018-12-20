@@ -42,7 +42,6 @@ Page({
       newcart: newcart
     })
   
-    
     that.getExpressWay();//获取书店提供的货运方式
     //验证用户是否登录
     if (app.globalData.userInfo != null){
@@ -117,13 +116,13 @@ Page({
       var couponId = this.data.couponId;//优惠券id号
    
       let order = {
-        expressId: this.data.expressId,//货运方式Id
-        receiveAddressId: this.data.newAddress.addressId,//收货地址Id
+        expressId: that.data.expressId,//货运方式Id
+        receiveAddressId: that.data.newAddress.addressId,//收货地址Id
         userId: app.globalData.userInfo.userId,//用户Id
-        carts: this.data.oldcart,//商品
+        carts: that.data.oldcart,//商品
         orderTime: utils.formatTime(new Date()),//下单时间
-        orderStatus: '待发货',//订单状态
-        totalPrice: this.data.totalPrice,//订单总价
+        orderStatus: '待付款',//订单状态
+        totalPrice: that.data.totalPrice,//订单总价
       };
   //是否有收货地址的验证
       if (order.receiveAddressId == undefined){
@@ -133,6 +132,7 @@ Page({
       })
       return;
     }
+      
       that.creatOrder(order);//将用户数据提交到数据库中
       that.updateUserCoupons(app.globalData.userInfo.userId, couponId, utils.formatTime(new Date()))//用户使用优惠券后改变数据库中优惠券的状态(用户id，优惠券id，优惠券使用时间)
 
@@ -233,7 +233,7 @@ Page({
             newAddress: that.data.newAddress
           })
         }
-        console.log("我获取的默认收货地址：" + JSON.stringify(that.data.newAddress) )
+        // console.log("我获取的默认收货地址：" + JSON.stringify(that.data.newAddress) )
       },
       fail: function () {
         // fail
@@ -302,6 +302,7 @@ Page({
         if (res.data==true) {
           // console.log("添加成功！");        
           that.deCartsAlreadyPay();//订单生成成功删除用户购物车中已经结算了的数据
+          that.addOrderAddress(that.data.newAddress);//添加订单的收货地址
           wx.showToast({
             title: '下单成功！',
             duration: 2000
@@ -360,7 +361,6 @@ Page({
       success: function (res) {
         //--init data
         if (res.data.length>0) {
-         
          for(let i=0;i<res.data.length;i++){
            console.log("获得的时间：" + res.data[i].couponEnd)
            if (( Date.parse(new Date())) <= res.data[i].couponEnd && (Date.parse(new Date())) >= res.data[i].couponStart) {
@@ -380,8 +380,7 @@ Page({
              })
              console.log("成功获取用户优惠券：" + that.data.userCoupon[0].couponName);
            }      
-         };   
-      
+         };     
       
         } else {
           console.log("没有获取用户优惠券：")
@@ -432,6 +431,45 @@ Page({
       }
     })
   },
+
+
+  //将订单的收货地址添加到订单收货地址表
+  addOrderAddress: function (address) {
+    var that = this;
+    var address = address;
+    // //将用户生成的订单存入数据库
+    wx.request({
+      url: app.URL + 'bookstore-mall/addOrderAddress', //提交的网络地址
+      method: "POST",
+      dataType: "json",
+      data: JSON.stringify(address),
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        //--init data
+        if (res.data == true) {
+         
+          wx.showToast({
+            title: '下单成功！',
+            duration: 2000
+          }) 
+        } else {
+          wx.showToast({
+            title: '下单失败！',
+            duration: 2000
+          })
+        }
+      },
+      fail: function () {
+        // fail
+        wx.showToast({
+          title: '网络异常！',
+          duration: 30000
+        });
+      }
+    });
+  },
   //实际支付价格的算法
   getRealPayprice:function(){
     var that=this;
@@ -444,4 +482,5 @@ Page({
     realPayPrice: realPayPrice
   })
   }
+
 })

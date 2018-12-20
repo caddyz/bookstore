@@ -30,7 +30,8 @@
                 </view>
                 <!--价钱和购物加减的父盒子-->
                 <view class="good-price" >
-                    <text class="price">原价￥{{item.bookPrice}}</text><text class="newprice">折扣￥{{item.bookPrice}}</text>
+                    <!-- <text class="price">原价￥{{item.bookPrice}}</text><text class="newprice">折扣￥{{item.bookPrice}}</text> -->
+                    <text class="newprice">单价￥{{item.bookPrice}}</text>
                     <view class="btn-box">
                         <view class="btn">
                             <button id="del{{index}}" type="default" size="mini" bindtap="delCount">-</button>
