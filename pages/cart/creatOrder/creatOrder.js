@@ -34,7 +34,7 @@ Page({
     var that=this;
     var oldcart = JSON.parse(options.oldcart);
     var newcart = JSON.parse(options.newcart);
-    console.log("我接受的数据是：" + oldcart[0].bookNum);
+    // console.log("我接受的数据是：" + oldcart[0].bookNum);
     // console.log("我接受的总价是：" + options.totalPrice)
     that.setData({
       totalPrice:options.totalPrice,
@@ -125,8 +125,18 @@ Page({
         orderStatus: '待发货',//订单状态
         totalPrice: this.data.totalPrice,//订单总价
       };
-
+  //是否有收货地址的验证
+      if (order.receiveAddressId == undefined){
+      wx.showToast({
+        title: '请输入收货地址！',
+        duration:2000
+      })
+      return;
+    }
       that.creatOrder(order);//将用户数据提交到数据库中
+      that.updateUserCoupons(app.globalData.userInfo.userId, couponId, utils.formatTime(new Date()))//用户使用优惠券后改变数据库中优惠券的状态(用户id，优惠券id，优惠券使用时间)
+
+
       //支付接口
       // console.log("appURL:"+app.URL);
       //   app.orderInfo.body = '书本购买';
@@ -141,9 +151,10 @@ Page({
       //     })
       // });
       // console.log("booksId:" + order.booksId);
-      that.updateUserCoupons(app.globalData.userInfo.userId, couponId, utils.formatTime(new Date()))//用户使用优惠券后改变数据库中优惠券的状态(用户id，优惠券id，优惠券使用时间)
+
  
     }else{
+      //用户未登录的下单情况
       let order = {
         expressId: this.data.expressId,//货运方式Id
         receiveAddressId: this.data.newAddress.addressId,//收货地址Id
@@ -153,7 +164,14 @@ Page({
         orderStatus: '待发货',//订单状态
         totalPrice: this.data.totalPrice,//订单总价
       };
-
+      //是否有收货地址的验证
+      if (order.receiveAddressId == undefined) {
+        wx.showToast({
+          title: '请输入收货地址！',
+          duration: 2000
+        })
+        return;
+      }
       that.creatOrder(order);//将用户数据提交到数据库中
       //支付接口
       // console.log("appURL:"+app.URL);
