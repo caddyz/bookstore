@@ -16,7 +16,7 @@
       <block wx:for="{{booksRight}}">
         <button class="num_right_items" bindtap='alljump'  data-item='{{item}}'>
           <view class='bookpic'>
-            <image src='http://129.204.105.64/{{item.bookCoverImage}}'   style="width: 2200%; height: 1500%;background-color: #eeeeee;" >
+            <image src='http://129.204.105.64/{{item.bookCoverImage}}'style="width: 2200%; height: 1500%;background-color: #eeeeee;" >
             </image> 
           </view>
           <input type='text' class='book-name' value='{{item.bookName}}' 

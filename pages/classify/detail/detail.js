@@ -12,9 +12,12 @@ Page({
     isCollected:'' ? false : true ,//收藏
     bookId: '',
     userId:'',
+    commentContent:'',
+    commentReply:'',
   },
   // 评论字符
-  commentContent:'',
+  commentContent: '',
+
   // 收藏事件
   handleCollection:function(e) {
 	   var that = this
@@ -145,7 +148,7 @@ Page({
         url: '/pages/login/login',
       })
       }
-    // console.log("是什么？:" + this.data.commentContent);
+    console.log("是什么？:" + this.data.commentContent);
   },
 
   // 评论
@@ -154,9 +157,10 @@ Page({
     var bookId = that.data.bookId
     var userId = app.globalData.userInfo.userId
     var commentContent = this.data.commentContent
+    var commentReply = this.data.commentReply
 
-
-    if (commentContent == undefined){
+ 
+    if (commentContent == undefined || commentContent == '' ){
       wx.showToast({
         title: '请输入评论',
         icon: 'loading',
@@ -175,22 +179,40 @@ Page({
         duration: 1000
       })
     }
-    if(commentContent != undefined && commentReply == null){
-
-    }else{
-      wx.showToast({
-        title: '评论以超过限制',
-        icon: 'loading',
-        duration: 1500
-      })
-    }
+    // if(commentContent != undefined && userId == userId && bookId == bookId && commentReply==null){
+    //   wx.request({
+    //   url: app.URL + 'bookstore-mall/' + userId + '/' + bookId + '/'+commentReply+'/commentAll',
+    //   })
+    //   wx.showToast({
+    //     title: '追评成功',
+    //     icon: 'success',
+    //     duration: 1000
+    //   })
+    // }else{
+    //   wx.showToast({
+    //     title: '评论以超过限制',
+    //     icon: 'loading',
+    //     duration: 1500
+    //   })
+    // }
     // 不让用户一直按评论显示多条同样的语句
     this.setData({
       commentContent: ''//将data的commentContent清空
     });
-    
   },
 
+  // 跳转到购物车结算
+  nowBuy() {
+    if (app.globalData.userInfo == null) {
+      wx.navigateTo({
+        url: '/pages/login/login',
+      })
+    }
+    wx.switchTab({
+      url: '/pages/cart/cart'
+    })
+
+  },
 
 
   /**
@@ -325,7 +347,7 @@ Page({
    var that=this;
     var userId = app.globalData.userInfo.userId
     var bookId = bookId
-    console.log("bookId:" + bookId)
+    // console.log("bookId:" + bookId)
    wx.request({
      url: app.URL + 'bookstore-mall/' + userId + '/' + bookId + '/isExit',
      data: {},
@@ -393,7 +415,7 @@ Page({
         }
       }
     })
-  }
-
+  },
+  
 
 })
