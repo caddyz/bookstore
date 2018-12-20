@@ -8,7 +8,6 @@ Page({
     Nums:[],//显示库存
     author:[],//显示一个或多个作者
     collector:[],//显示匹配收藏
-    minusStatus:'disabled',//预览退出,
     isCollected:'' ? false : true ,//收藏
     bookId: '',
     userId:'',
@@ -200,20 +199,6 @@ Page({
       commentContent: ''//将data的commentContent清空
     });
   },
-
-  // 跳转到购物车结算
-  nowBuy() {
-    if (app.globalData.userInfo == null) {
-      wx.navigateTo({
-        url: '/pages/login/login',
-      })
-    }
-    wx.switchTab({
-      url: '/pages/cart/cart'
-    })
-
-  },
-
 
   /**
    * 生命周期函数--监听页面加载

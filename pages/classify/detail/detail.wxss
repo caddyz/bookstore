@@ -111,9 +111,6 @@ swiper-item image {
 .button-yellow {
   background-color: green; 
 }
-.button-red {
-  background-color: red;
-}
 .image_detail {
   width: 100%;
 }
@@ -133,7 +130,7 @@ button {
 .detail-nav image {
   width: 70rpx;
   height: 50rpx;
-  margin: 20rpx 40rpx;
+  margin: 20rpx 120rpx;
 }
 
 /* 占位 */
