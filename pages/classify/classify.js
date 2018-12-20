@@ -11,7 +11,6 @@ Page({
     let list = this.data.booksLeft;
     let index = e.target.dataset.index;
     let that = this
-    var id = e.target.dataset.id
     var bookCategory = list[index].bookCategory
     // console.log("点击的种类是：" + list[index].bookCategory)
     wx.request({
@@ -32,9 +31,9 @@ Page({
       }
     })
     // 把点击到的某一项，设为当前index  
-    this.setData({
-      curIndex: index,
-    })
+    // this.setData({
+    //   curIndex: index,
+    // })
   },
 
 
@@ -54,6 +53,7 @@ Page({
      */
   onLoad: function (options) {
     // 数据起始加载
+    // 查询所有种类
     var that = this;
     wx.request({
       url: app.URL + 'bookstore-mall/selectBook',
@@ -71,6 +71,7 @@ Page({
         console.log(err)
       }
     })
+    // 查询所有书
     wx.request({
       url: app.URL + 'bookstore-mall/selectAllBook',
       data: {},

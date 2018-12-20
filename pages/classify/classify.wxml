@@ -4,11 +4,9 @@
   <!--左边侧栏-->
   <view class="num_left">
     <block wx:for="{{booksLeft}}" wx:key="id">
-      <!--当前项的id等于item项的id-->
       <!--用data-index记录这个数据在数组的下标位置
       供打开2级页面使用-->
-      <view class="num_left_items" bindtap="switchRightTab" data-index="{{index}}" 
-      data-id="{{item.id}}">{{item.bookCategory}}</view>  
+      <view class="num_left_items" bindtap="switchRightTab" data-index="{{index}}">{{item.bookCategory}}</view>  
     </block>
   </view>
   <!--右边侧栏-->
@@ -17,8 +15,7 @@
       <block wx:for="{{booksRight}}">
         <button class="num_right_items" bindtap='alljump'  data-item='{{item}}'>
           <view class='bookpic'>
-            <image src='{{util.IMAGE_URL}}{{item.bookCoverImage}}' style="width: 2200%; height: 1500%;background-color: #eeeeee;" >
-            </image> 
+            <image src='{{util.IMAGE_URL}}{{item.bookCoverImage}}'></image>
           </view>
           <input type='text' class='book-name' value='{{item.bookName}}' 
           disabled='true'></input>
