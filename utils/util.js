@@ -193,7 +193,25 @@ function getAllCarts(userId) {
     }
   })
 }
+//手机号的正则验证
+function checkPhone  (phone) {
+  console.log("手机号" + phone);
+  if (!(/^1[34578]\d{9}$/.test(phone))) {
+    return false;
+  } else {
+    return true;
+  }
+}
 
+//邮箱的正则验证
+function checkEmail (str) {
+  var re = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;
+  if (re.test(str)) {
+    return true;
+  } else {
+    return false;
+  }
+}
 module.exports = {
 	formatTimes: formatTimes,
   formatDate: formatDate,
@@ -206,5 +224,7 @@ module.exports = {
   slideshowConnection: slideshowConnection,
   getTheme: getTheme,
   updateOrder: updateOrder,
-  getAllCarts: getAllCarts
+  getAllCarts: getAllCarts,
+  checkEmail:checkEmail,
+ checkPhone:checkPhone 
 }
