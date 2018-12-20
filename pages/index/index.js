@@ -14,11 +14,6 @@ Page({
       'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3313104465,2591523589&fm=200&gp=0.jpg',
       'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543818487436&di=2f8462538133f784a63225ca858357c2&imgtype=0&src=http%3A%2F%2Fscimg.jb51.net%2Fallimg%2F161009%2F102-161009142Pc96.jpg'
     ],
-    indicatorDots: true,
-    autoplay: true,
-    interval: 4000,
-    duration: 700,
-    swiperCurrent:0,
     searchLoading: true,
     searchLoadingComplete: false,
     list: [],

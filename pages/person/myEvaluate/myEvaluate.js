@@ -19,7 +19,7 @@ Page({
     wx.request({
       url: app.URL + 'bookstore-mall/allOrderComment/' + app.globalData.userInfo.userId,
       success(res){
-        if (res.data.length != 0){
+        if (res.data.length !== 0){
           that.setData({
             list:res.data
           })
@@ -34,7 +34,7 @@ Page({
           };
         }else{
           that.setData({
-            hidderbutton:false
+            hiddenCon:false
           })
         }
       },
@@ -48,7 +48,7 @@ Page({
     wx.request({
       url: app.URL + 'bookstore-mall/selectOrderNoComment/' + app.globalData.userInfo.userId,
       success(res){
-        if (res.data.length != 0){
+        if (res.data.length !== 0){
           that.setData({
             fullorder:res.data
           })
