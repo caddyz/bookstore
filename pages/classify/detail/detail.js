@@ -13,9 +13,10 @@ Page({
     userId:'',
     commentContent:'',
     commentReply:'',
+     // 评论字符
+    searchinput:'',
   },
-  // 评论字符
-  commentContent: '',
+ 
 
   // 收藏事件
   handleCollection:function(e) {
@@ -148,6 +149,9 @@ Page({
       })
       }
     console.log("是什么？:" + this.data.commentContent);
+    this.setData({
+      searchinput: '',
+    })
   },
 
   // 评论
@@ -195,9 +199,6 @@ Page({
     //   })
     // }
     // 不让用户一直按评论显示多条同样的语句
-    this.setData({
-      commentContent: ''//将data的commentContent清空
-    });
   },
 
   /**
@@ -309,7 +310,7 @@ Page({
     wx.request({
       url: app.URL + 'bookstore-mall/' + userId + '/' + bookId + '/isExit',
       data: {},
-      header: {
+      header: {  
         'content-type': 'application/json'
       },
       success: function (res) {

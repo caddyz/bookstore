@@ -70,7 +70,7 @@
   <!-- 表单 -->
 <form bindsubmit="formSubmit">
 <input type="text" name="commentContent" placeholder='请输入评论内容' 
-class="input-comment" bindinput="handNewComment"/>
+class="input-comment" bindinput="handNewComment" value="{{searchinput}}"/>
 <button formType="submit" class="btn" bindtap='commentAll'>评论</button>
 </form>
 <view class="separate"></view>
