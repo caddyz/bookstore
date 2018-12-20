@@ -301,7 +301,11 @@ Page({
     //     isCollected: isCollected
     //   })
     // });
-    var userId = app.globalData.userInfo.userId
+    if (app.globalData.userInfo == null) {
+      var userId = 0
+    } else {
+      var userId = app.globalData.userInfo.userId
+    }
     wx.request({
       url: app.URL + 'bookstore-mall/' + userId + '/' + bookId + '/isExit',
       data: {},
