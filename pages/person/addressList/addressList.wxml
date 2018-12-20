@@ -29,7 +29,7 @@
     
                 <p class="ui-list-item-del" data-id="{{itemName.addressId}}" bindtap="delAddress">删除</p>
                 <view></view>
-                <p class="ui-list-item-editor" data-id="{{itemName.addressId}}" data-first="{{itemName.addressStatus}}"  catchtap="editorAddress">编辑</p>
+                <p class="ui-list-item-editor" data-index="{{idx}}" data-first="{{itemName.addressStatus}}"  catchtap="editorAddress">编辑</p>
                 <view><text>\n</text></view>
        
   </view>

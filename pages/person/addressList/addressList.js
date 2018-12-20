@@ -26,14 +26,16 @@ Page({
     that.getReceiveAddress();
 
   },
-//默认地址编辑
+//地址编辑
   editorAddress:function(e){
-    var addressId = e.target.dataset.id;
+    var index = e.target.dataset.index;
+    var regions = this.data.regions;
+    var editorAddress = regions[index];
     var first = e.target.dataset.first;
     console.log(e.detail.value)
-    console.log('获取的数据a是' + addressId)
+    console.log('获取的数据a是' + JSON.stringify(editorAddress)  + first)
     wx.navigateTo({
-      url: '../editorAddress/editorAddress?addressId=' + addressId + '&first=' + first,
+      url: '../editorAddress/editorAddress?editorAddress=' + JSON.stringify(editorAddress)  + '&first=' + first,
     })
   },
 

@@ -1,4 +1,5 @@
 var app=getApp()
+var utils=require("../../../utils/util.js");
 Page({
   data: {
 
@@ -7,7 +8,7 @@ Page({
     // time: '12:01',
     region: ['', '', ''],
     customItem: '全部',
-    addressId:'',
+    editorAddress:'',//修改的收货地址
     first:''//判断收货地址的状态
   },
 
@@ -22,6 +23,13 @@ Page({
   //将新添加的数据进行储存
   editorAddress: function (e) {
     var that=this
+
+    if (!utils.checkPhone(e.detail.value.mobile)) {
+      wx.showToast({
+        title: '手机号有误！',
+      })
+      return;
+    }
     //进行数据初始化
    var addressConsignee=null;
     var addressMobile = null;
@@ -36,7 +44,7 @@ Page({
     if (e.detail.value.addressl[2] != '') { addressCounty = e.detail.value.addressl[2] };
     if (e.detail.value.address != '') { addressDetail = e.detail.value.address };
     var editorAddress = {
-      addressId:that.data.addressId,
+      addressId: that.data.editorAddress.addressId,
       userId: app.globalData.userInfo.userId,
       addressConsignee: addressConsignee,
       addressMobile: addressMobile,
@@ -68,6 +76,7 @@ Page({
           wx.showToast({
             title: '修改成功！',
           })
+          wx.navigateBack();
         } else {
           wx.showToast({
             title: '修改失败！',
@@ -91,13 +100,15 @@ Page({
   },
   onLoad: function (options) {
     var that=this;
-
-    
+    var address = JSON.parse(options.editorAddress)  ;
+    var regions = [address.addressProvince, address.addressCity, address.addressCounty];
+    console.log("接收的地址是：" + JSON.stringify(address));
     //数据时数组的接收方法
     // that.data.list = JSON.parse(options.list);
     this.setData({
-      addressId: options.addressId,//收货地址的id
-          first: options.first //收货地址的状态
+      editorAddress: address,//收货地址的id
+      region: regions,
+       first: options.first //收货地址的状态
     })
   },
 })

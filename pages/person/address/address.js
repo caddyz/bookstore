@@ -1,4 +1,5 @@
 var app=getApp()
+var utils=require("../../../utils/util.js");
 Page({
   data: {
     
@@ -33,7 +34,25 @@ Page({
   },
   //将新修改的信息添加到数据库进行储存
   saveAddress: function (e) {
-
+    if (e.detail.value.consignee==''){
+      wx.showToast({
+        title: '请输入收货人！',
+      })
+      return;
+    }
+    if (e.detail.value.mobile==''){
+      wx.showToast({
+        title: '请输入手机号！',
+      })
+      return;
+    }
+    if (!utils.checkPhone(e.detail.value.mobile))
+    {
+      wx.showToast({
+        title: '手机号有误！',
+      })
+      return;
+    }
     //判断用户是否登录
     if (app.globalData.userInfo != null){
       var receiveAddress = {
@@ -72,10 +91,12 @@ Page({
 
               //用户下单时添加的收货地址
               if (choose== 1) {
+                // console.log("用户下单时写的收货地址！");
                 var newAddress = receiveAddress;
+                // console.log("用户下单时写的收货地址！" + newAddress);
                 var pages = getCurrentPages();
                 var currPage = pages[pages.length - 1]; //当前页面 
-                var prevPage = pages[pages.length - 2]; //上一个页面 
+                var prevPage = pages[pages.length - 3]; //上一个页面 
                 prevPage.setData({
                   newAddress: newAddress,
                 }) //给上级页面的变量赋值 
