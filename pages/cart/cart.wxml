@@ -1,5 +1,6 @@
 <!--pages/cart/cart.wxml-->
 <!--要是够车内没有数据，就行显示没有数据-->
+<wxs src="../../utils/constant.wxs" module="util" />
 <view class="cart" hidden="{{iscart}}">
     <image src="../cart/images/cart_pic.png"/>
     <view>购物车什么都没有，赶快去购物吧</view>
@@ -19,7 +20,7 @@
         <icon wx:else type="circle" bindtap="selectList" data-index="{{index}}"/>
             <!--左侧图片-->
             <view catchtap='toBookDetail' data-id="{{index}}">
-                <image src="http://129.204.105.64/{{item.imgUrl}}" class="good-img"/>
+                <image src="{{util.IMAGE_URL}}{{item.imgUrl}}" class="good-img"/>
             </view>
             <!--右侧说明部分-->
             <view class="good-cont">
