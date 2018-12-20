@@ -2,7 +2,8 @@ const app = getApp()
 Page({
   data:{
     hiddenCon:true,
-    list:[]
+    list:[],
+    orderlist:[]
   },
   //订单评价跳转
   toMyOrder: function () {
@@ -23,8 +24,11 @@ Page({
           for (var i in that.data.list) {
             that.data.list[i].flag = false; // 添加分数展开属性
           };
-          for (var i in that.data.list) {
-            that.data.list[i].scoreflag = false; // 添加内容展开属性
+          for (var j in that.data.list) {
+            that.data.list[j].scoreflag = false; // 添加内容展开属性
+          };
+          for (var k in that.data.list) {
+            that.data.list[k].detailsflag = false; // 添加详情展开属性
           };
         }else{
           that.setData({
@@ -39,6 +43,25 @@ Page({
         })
       }
     })
+  },
+  //详情展开
+  detailsClick:function(e){
+    let that = this;
+    let index = e.currentTarget.dataset.index,
+      key = 'list[' + index + '].detailsflag',
+      val = that.data.list[index].detailsflag;
+    that.setData({
+      [key]: !val
+    })
+    wx.request({
+      url: app.URL + 'bookstore-mall/getOrderInculdeBooks/' + that.data.list[index].orderId,
+      success(res){
+        that.setData({
+          orderlist:res.data
+        })
+      }
+    })
+    // console.log("订单编号:"+that.data.list[index].orderId)
   },
   // 分数展开
   scoreClick: function (e) {
@@ -92,5 +115,9 @@ Page({
         hiddenCon: false
       })
     }
+  },
+  //订单
+  orderSkip:function(){
+
   }
 });

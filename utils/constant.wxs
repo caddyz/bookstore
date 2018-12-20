@@ -1,0 +1,10 @@
+var IMAGE_URL = 'http://129.204.105.64/';
+var filters = {
+  toFix: function (value) {
+    return value.toFixed(2)//此处2为保留两位小数
+  }
+}
+module.exports = {
+  IMAGE_URL: IMAGE_URL,
+  toFix: filters.toFix
+}

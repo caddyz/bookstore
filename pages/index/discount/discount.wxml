@@ -1,11 +1,11 @@
 <!--pages/index/discount/discount.wxml-->
-<wxs module="filters" src="discount.wxs"></wxs>
+<wxs src="../../../utils/constant.wxs" module="util" />
 <view style='height:40rpx; background-color: whitesmoke;'></view>
   <block wx:for='{{list}}' wx:key=''>
     <view class='info' data-item='{{item}}' bindtap='SkipDetail'>
       <view >
         <view >
-        <image src='http://192.168.10.110/{{item.bookCoverImage}}'  mode='scaleToFill'
+        <image src='{{util.IMAGE_URL}}{{item.bookCoverImage}}'  mode='scaleToFill'
         ></image>
         </view>
         <view style='height:15rpx'></view>
@@ -14,7 +14,7 @@
         <view style='text-align: center;text-decoration:line-through'>原价：{{item.bookSalesPrice}}</view>
         <view style='text-align: center'>{{item.activityName}}</view>
         <view style='text-align: center'><text style='color:red;'>跳楼价：</text>
-        {{filters.toFix((item.bookSalesPrice * item.activityDiscount)/100)}}</view>
+        {{util.toFix((item.bookSalesPrice * item.activityDiscount)/100)}}</view>
       </view>
     </view>
     <view style='height:80rpx; background-color: whitesmoke;'></view>

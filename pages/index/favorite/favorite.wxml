@@ -1,20 +1,24 @@
 <!--pages/favorite/favorite.wxml-->
+<wxs src="../../../utils/constant.wxs" module="util" />
+<scroll-view scroll-y="{{isScroll}}">
 <block wx:for="{{list}}" wx:key="item">
-  <view class='favorite-info'>
-    <view class='favorite-pic' data-item='{{item}}' bindtap='favoriteSkip'>
-      <image src='http://129.204.105.64/{{item.bookCoverImage}}' mode='aspectFit'  style="width: 100%; height: 100%;background-color: #eeeeee;"></image>
+<view style='height:28rpx'></view>
+  <view data-index='{{index}}' bindtap='favoriteSkip' class='favorite-info' bindtouchstart="drawStart" bindtouchmove="drawMove" bindtouchend="drawEnd" style="right:{{item.right}}rpx">
+    <view class='favorite-pic' >
+      <image src='{{util.IMAGE_URL}}{{item.bookCoverImage}}' mode='scaleToFill'  style="width: 100%; height: 100%;background-color: #eeeeee;"></image>
     </view>
     <view class='favorite-book'>
-      <view><text>{{item.bookName}}</text></view>
-      <block wx:for="{{item.bookAuthor}}">
-        <view>作者：<text>{{item.authorName}}</text></view>
-      </block>
+      <view>
+        <view><text>{{item.bookName}}</text></view>
+        <block wx:for="{{item.bookAuthor}}">
+          <view>作者：<text>{{item.authorName}}</text></view>
+        </block>
+      </view>
     </view>
-    <view class='favorite-delete' >
-      <icon type='cancel' size='30' bindtap='deleteBookInfo' data-index="{{index}}"></icon>
-    </view>
+     <view class="remove" catchtap='deleteBookInfo' data-index="{{index}}">删除 </view>
   </view>
 </block>
+</scroll-view>
 <view class='hidde-info' wx:if='{{hiddeinfo}}'>
   <view>什么都没有</view><view bindtap='goBuy' style='color: #5CACEE'>去看看</view>
 </view>

@@ -1,3 +1,4 @@
+<wxs src="../../../utils/constant.wxs" module="util" />
 <view class="tab-content1" hidden='{{hiddenCon}}'>
   <image class="tab-image" src="../order/images/cart_pic.png"></image>
   <view>您还没有评语哦！<text style='color:blue;' bindtap='toMyOrder'>去评论</text></view>
@@ -6,7 +7,30 @@
   <view class='main-body'>
     <view class='appraise-order'>
       <view class='show-word'>订单编号：</view>   
-        <view>{{item.orderId}}</view>
+      <view style='color:#87CEFA' bindtap='orderSkip'>{{item.orderId}}</view>
+    </view>
+    <view style='height:28rpx'></view>
+    <view class='appraise-order'>
+      <view class='show-word'>订单总金额：</view>   
+      <view>￥{{item.totalPrice}}</view>
+    </view>
+    <view style='height:28rpx'></view>
+     <view class='appraise-order'>
+      <view class='show-word'>订单详情：</view>   
+      <view class='comment-click' bindtap='detailsClick' data-index='{{index}}'>{{item.detailsflag?'收起':'展开'}}</view>
+    </view>
+    <view class='comment-contentinfo' wx:if='{{item.detailsflag}}'>
+      <block wx:for='{{orderlist}}'  wx:key=''>
+        <view style='height:18rpx'></view>
+        <view class='orderdetauls'>
+          <view style='width:35%'>
+            <image src='{{util.IMAGE_URL}}{{item.bookCoverImage}}' mode='scaleToFill'
+                style="width: 100%; height: 100%;background-color: #eeeeee;"></image>
+          </view>
+          <view class='order-laout' style='width:45%;'>{{item.bookName}}</view>
+          <view class='order-laout' style='20%'>{{item.bookNum}}本</view>
+        </view>
+      </block>
     </view>
     <view style='height:28rpx'></view>
     <view class='appraise-score'>

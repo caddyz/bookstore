@@ -1,7 +1,8 @@
+<wxs src="../../utils/constant.wxs" module="util" />
 <template name="msgItem">
         <button class='book-data' data-item='{{item}}' bindtap='bookInfoSkip'>
           <view class='book-info-pic' >
-            <image src='http://129.204.105.64/{{item.bookCoverImage}}' mode='scaleToFill'
+            <image src='{{util.IMAGE_URL}}{{item.bookCoverImage}}' mode='scaleToFill'
               style="width: 100%; height: 100%;background-color: #eeeeee;">
             </image> 
           </view>

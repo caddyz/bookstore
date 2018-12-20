@@ -3,14 +3,15 @@
   display: flex;
   flex-direction: row;
   height: 200rpx;
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
+  position: relative;
 }
 .favorite-pic{
-  width: 30%;
+  width: 45%;
 }
 .favorite-book{
-  width: 50%;
+  width: 55%;
 }
 .favorite-delete{
   display: flex;
@@ -21,4 +22,16 @@
 .hidde-info{
   width: 90%;
   text-align: center;
+}
+.remove{  
+  width: 160rpx;  
+  height: 100%;  
+  background-color: red; 
+  color: white; 
+  position: absolute;  
+  top: 0;  
+  right: -160rpx;  
+  display: flex;  
+  justify-content: center;  
+  align-items: center;  
 }

@@ -41,3 +41,14 @@
   background-color: #FFA07A;
   line-height: 70rpx
 }
+.orderdetauls{
+  background-color: red;
+  height: 200rpx;
+  display: flex;
+  flex-direction: row
+}
+.order-laout{
+  display: flex;
+  align-items: center;
+  justify-content: center
+}

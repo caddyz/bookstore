@@ -6,6 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+  isScroll: true,
+  delBtnWidth: 160,
    list:[],
    mes:[],
    hiddeinfo:false
@@ -14,9 +16,10 @@ Page({
    * 收藏跳转
    */
   favoriteSkip:function(e){
+    let that = this;
     wx.navigateTo({
       url: '/pages/classify/detail/detail?bookId='
-        + e.currentTarget.dataset.item.bookId,
+        + that.data.list[e.currentTarget.dataset.index].bookId,
     })
   },
   /**
@@ -47,7 +50,6 @@ Page({
         })
       }
     })
-    console.log("数据长度：" + that.data.list.length)
     if (that.data.list.length -1 == 0) {
       that.setData({
         hiddeinfo: true
@@ -64,6 +66,9 @@ Page({
       header: { 'content-type': 'application/json' },
       success: function (res) {
         if (res.data.length != 0) {
+          for(var i in res.data){
+            res.data[i].right = 0
+          }
           that.setData({
             list: res.data
           })
@@ -125,8 +130,68 @@ Page({
 
   },
   goBuy:function(){
-    wx.navigateTo({
+    wx.redirectTo({
       url: '../more/more',
     })
-  }
+  },
+  //手指触摸开始
+  drawStart: function (e) {
+    let that = this;
+    //设置开始时停留的触摸点的数组信息  初始为0
+    var touch = e.touches[0]
+
+    for (var index in that.data.list) {
+      var item = that.data.list[index]
+      item.right = 0
+    }
+    that.setData({
+      list: that.data.list,
+      startX: touch.clientX,//设置初始时横向的位置
+    })
+
+  },
+  //手指移动时的事件
+  drawMove: function (e) {
+    let that = this;
+    var touch = e.touches[0]
+    var item = that.data.list[e.currentTarget.dataset.index]
+    //移动了多少
+    var disX = that.data.startX - touch.clientX
+    //通过移动的距离来显示隐藏的区域
+    if (disX >= 20) {
+      if (disX > that.data.delBtnWidth) {
+        disX = that.data.delBtnWidth
+      }
+      item.right = disX
+      that.setData({
+        isScroll: false,
+        list: that.data.list
+      })
+    } else {
+      item.right = 0
+      that.setData({
+        isScroll: true,
+        list: that.data.list
+      })
+    }
+  },
+  //移动结束时事件
+  drawEnd: function (e) {
+    let that = this;
+    var item = that.data.list[e.currentTarget.dataset.index]
+    //判断移动结束时的时候的水平距离是否能显示隐藏的区域
+    if (item.right >= that.data.delBtnWidth / 2) {
+      item.right = that.data.delBtnWidth
+      that.setData({
+        isScroll: true,
+        list: that.data.list,
+      })
+    } else {
+      item.right = 0
+      that.setData({
+        isScroll: true,
+        list: that.data.list,
+      })
+    }
+  },
 })
