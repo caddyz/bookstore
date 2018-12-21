@@ -12,7 +12,7 @@
   <input class="inputText" name='account' placeholder="请输入邮箱账号" type="text" bindinput="accountInput"/>  
  </view> 
  <view class="line"></view> 
-
+<text>\n</text>
  <!--密码-->
  <view class="inputView"> 
   <!-- <image class="keyImage" src="../img/key.png"></image>  -->

@@ -6,7 +6,7 @@ Page({
    */
   data: {
     email:'',
-    password:'',
+    code:'',
     newPassword:'',
     againNewPassword:'',
     // mask:true,
@@ -26,7 +26,7 @@ Page({
   //从页面获取输入的原密码
   inputOldPassword:function(e){
     this.setData({
-      password:e.detail.value
+      code:e.detail.value
     })
   },
   //从页面获取输入的新密码
@@ -98,21 +98,20 @@ Page({
   next1: function () {
     var that = this;
     var email=that.data.email
-    var password = that.data.password
-    if (password == "" || password == null) {
+    var code = that.data.code
+    if (code == "" || code== null) {
       wx.showToast({
-        title: '请输入原密码',
+        title: '请输入验证码',
         icon: 'none',
         duration: 2000
       })
       return
     } else {
       wx.request({
-        url: app.URL + 'bookstore-mall/' + email + '/' + password + '/referUser',
+        url: app.URL + 'bookstore-mall/' + email + '/authCode',
         method: "GET",
         data: {
           email: email,
-          password:password
         },
         header: {
           'Content-Type': 'application/json'
@@ -120,12 +119,12 @@ Page({
         //接口调用成功之后的回调函数
         success: function (res) {
           that.setData({
-            user:res.data
+            num:res.data
           })
           //用户名是否注册，已注册提示用户用户名也被注册，没注册则下一步
-          if (that.data.user.password!=that.data.password) {
+          if (that.data.num==0) {
             wx.showToast({
-              title: "原密码输入错误",
+              title: "验证码输入错误",
               icon: 'none',
               duration: 2000
             })

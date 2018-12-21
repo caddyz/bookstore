@@ -14,7 +14,7 @@
 </view>
 <view class='row' wx:if='{{show_content1}}'>
  <view class='info'>
-      <input placeholder='请输入原密码'  class= 'info-input1' bindinput='inputOldPassword'/>
+      <input placeholder='请验证码'  class= 'info-input1' bindinput='inputOldPassword'/>
     </view>
 </view>
 <view wx:if='{{two}}'>
