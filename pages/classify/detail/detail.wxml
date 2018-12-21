@@ -57,8 +57,10 @@
        disabled='true' ></input>
   <input type='text' class='comment-name' value='昵称:{{item.userName}}' 
        disabled='true' ></input>
-<input type='text' class='comment-content' value='评论内容:{{item.commentContent}}' 
+评论内容:<input type='text' class='comment-content' value='{{item.commentContent}}' 
           disabled='true'  maxlength="-1"></input>
+      评论时间:<input type='text' class='comment-DataTime' value='{{item.commentDataTime}}' 
+       disabled='true' ></input>
   </view>
     </block>
   <!-- 表单 -->
