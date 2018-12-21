@@ -77,12 +77,14 @@ swiper-item image {
   /* color: yellow; */
   font-size: 36rpx;
    margin: 20rpx;
+
 }
 /* 设置出版社 */
 .detail .book-publish{
   /* color: rebeccapurple; */
   font-size: 40rpx;
    margin: 10rpx;
+   
 }
 /* 设置种类 */
 .detail .book-cotegory{
@@ -135,7 +137,7 @@ button {
 
 /* 占位 */
 .temp {
-  height: 100rpx;
+  height: 200px;
 }
 text {
   display: block;

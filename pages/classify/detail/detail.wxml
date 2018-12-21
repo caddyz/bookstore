@@ -44,27 +44,10 @@
     简介:<text class='book-profile'>'{{item.bookProfile}}'</text>
   </view>
     </block>
+   <view class="temp"></view>
+    <view class="temp"></view>
+     <view class="temp"></view>
      <text> \n </text>
-      <text> \n </text>
-       <text> \n </text>
-        <text> \n </text>
-         <text> \n </text>
-          <text> \n </text>
-           <text> \n </text>
-            <text> \n </text>
-             <text> \n </text>
-              <text> \n </text>
-              <text> \n </text>
-              <text> \n </text>
-               <text> \n </text>
-                <text> \n </text>
-                 <text> \n </text>
-                  <text> \n </text>
-                   <text> \n </text>
-                    <text> \n </text>
-                     <text> \n </text>
-                      <text> \n </text>
-                       <text> \n </text>
      <text> \n </text>
   <view class="separate"></view>
   
@@ -74,7 +57,7 @@
        disabled='true' ></input>
   <input type='text' class='comment-name' value='昵称:{{item.userName}}' 
        disabled='true' ></input>
-<input type='text' class='comment-content' value='内容:{{item.commentContent}}' 
+<input type='text' class='comment-content' value='评论内容:{{item.commentContent}}' 
           disabled='true'  maxlength="-1"></input>
   </view>
     </block>
@@ -86,7 +69,6 @@ class="input-comment" bindinput="handNewComment" value="{{searchinput}}"/>
 </form>
 <text> \n </text>
 <view class="separate"></view>
-  <view class="temp"></view>
 </scroll-view>
 </view>
 <!-- 底部的悬浮栏 -->
