@@ -7,12 +7,10 @@ Page({
     out:[],//显示折扣
     Nums:[],//显示库存
     author:[],//显示一个或多个作者
-    collector:[],//显示匹配收藏
     isCollected:'' ? false : true ,//收藏
     bookId: '',
     userId:'',
     commentContent:'',
-    commentReply:'',
      // 评论字符
     searchinput:'',
   },
@@ -20,41 +18,41 @@ Page({
 
 
   // 收藏事件
-  handleCollection:function(e) {
-	   var that = this
+  handleCollection: function (e) {
+    var that = this
     if (app.globalData.userInfo == null) {
       wx.navigateTo({
         url: '/pages/login/login',
       })
     } else {
-    var userId = app.globalData.userInfo.userId
-    // console.log("传入的数据:" + userId)
-    // var userId = 2
-    var bookId = that.data.bookId
-  
-     //判断收藏的状态
-    that.isCollector(userId,bookId,function(data){//callback返回
-       if(data==false){
-         wx.showToast({
-           title: "收藏成功",
-           icon: "success",
-           durantion: 2000
-         })
-         that.insertCollector(userId,bookId);//添加收藏
-         return;
-       }
-        else{
-         wx.showToast({
-           title: "取消收藏",
-           icon: "none",
-           durantion: 2000
-         })
-         that.delCollector(userId,bookId);//取消收藏
-         return;
+      var userId = app.globalData.userInfo.userId
+      // console.log("传入的数据:" + userId)
+      // var userId = 2
+      var bookId = that.data.bookId
+
+      //判断收藏的状态
+      that.isCollector(userId, bookId, function (data) {//callback返回
+        if (data == false) {
+          wx.showToast({
+            title: "收藏成功",
+            icon: "success",
+            durantion: 2000
+          })
+          that.insertCollector(userId, bookId);//添加收藏
+          return;
         }
-     })
+        else {
+          wx.showToast({
+            title: "取消收藏",
+            icon: "none",
+            durantion: 2000
+          })
+          that.delCollector(userId, bookId);//取消收藏
+          return;
+        }
+      })
     }
-    },
+  },
 
   
   addCar: function (e) {
@@ -297,6 +295,7 @@ Page({
     //     isCollected: isCollected
     //   })
     // });
+    
     if (app.globalData.userInfo == null) {
       var userId = 0
     } else {
@@ -328,59 +327,59 @@ Page({
   
 
   //判断数据库中的这本书是否被收藏
-  isCollector: function (userId, bookId,callback){
-   var that=this;
+  isCollector: function (userId, bookId, callback) {
+    var that = this;
     var userId = app.globalData.userInfo.userId
     var bookId = bookId
-    // console.log("bookId:" + bookId)
-   wx.request({
-     url: app.URL + 'bookstore-mall/' + userId + '/' + bookId + '/isExit',
-     data: {},
-     header: {
-       'content-type': 'application/json'
-     },
-     success: function (res) {
-      //  console.log("判断收藏 :"+res.data)
-       if (res.data == false) {
-         callback(false);//返回false说明这本书没有被收藏 
-         that.setData({
-           isCollected: false
-         })
-         console.log("is:" + that.data.isCollected);
-       }else{
-         callback(true);
-         that.setData({
-           isCollected: true
-         })
-       }
-      
-     }
-   })
- },
-//添加收藏到数据库中的方法
-  insertCollector: function (userId,bookId){
-  var that = this;
+    console.log("bookId:" + bookId)
+    wx.request({
+      url: app.URL + 'bookstore-mall/' + userId + '/' + bookId + '/isExit',
+      data: {},
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        //  console.log("判断收藏 :"+res.data)
+        if (res.data == false) {
+          callback(false);//返回false说明这本书没有被收藏 
+          that.setData({
+            isCollected: false
+          })
+          console.log("is:" + that.data.isCollected);
+        } else {
+          callback(true);
+          that.setData({
+            isCollected: true
+          })
+        }
+
+      }
+    })
+  },
+  //添加收藏到数据库中的方法
+  insertCollector: function (userId, bookId) {
+    var that = this;
     var userId = app.globalData.userInfo.userId
     var bookId = that.data.bookId
-  wx.request({
-    url: app.URL + 'bookstore-mall/' + userId + '/' + bookId + '/kindAdd',
-    data: {},
-    header: {
-      'content-type': 'application/json'
-    },
-    success: function (res) {
-      console.log(res.data)
-      if (res.data == 0) {
-        // console.log("添加失败！");
+    wx.request({
+      url: app.URL + 'bookstore-mall/' + userId + '/' + bookId + '/kindAdd',
+      data: {},
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        console.log(res.data)
+        if (res.data == 0) {
+          // console.log("添加失败！");
+        }
+        else {
+          // console.log("添加成功！");
+        }
       }
-      else{
-        // console.log("添加成功！");
-      }
-    }
-  })
-},
-//取消收藏的方法
-  delCollector: function ( userId,bookId) {
+    })
+  },
+  //取消收藏的方法
+  delCollector: function (userId, bookId) {
     var that = this;
     var userId = app.globalData.userInfo.userId
     var bookId = that.data.bookId
@@ -400,7 +399,7 @@ Page({
         }
       }
     })
-  },
-  
+  }
+
 
 })
