@@ -35,7 +35,7 @@ App({
         if (res.code) {
           //发起网络请求
           wx.request({
-            url: 'http://192.168.10.110:8080/bookstore-mall/getopenid/'+res.code,//传送路径
+            url: that.URL+'bookstore-mall/getopenid/'+res.code,//传送路径
             success(res) {
               payinfo:res.data,
               that.orderInfo.openid=res.data.openid
