@@ -119,7 +119,7 @@ Page({
           paySign: data.sign,
           success(res) {
             wx.request({
-              url: app.URL + 'bookstore-mall/memberpay/' + app.globalData.userInfo.userId + '/' +                   m.memberId,
+              url: app.URL + 'bookstore-mall/memberpay/' + app.globalData.userInfo.userId + '/' +m.memberId,
               success(res){
                 wx.showToast({
                   title: res.data.msg,
