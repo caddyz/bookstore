@@ -1,7 +1,7 @@
 //app.js
 var scence=0;
 App({
-  URL:'http://192.168.10.110:8080/',
+  URL:'http://www.superduck.xyz/',
   orderInfo:[
     {openid:''},
     {spbill_create_ip:''},
