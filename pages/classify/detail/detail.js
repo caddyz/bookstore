@@ -18,6 +18,7 @@ Page({
   },
  
 
+
   // 收藏事件
   handleCollection:function(e) {
 	   var that = this
@@ -87,17 +88,11 @@ Page({
     carts = wx.getStorageSync('carts') || [];
     // console.log(carts)
 
-    //判断购物车缓存中是否已存在该货品
-    // var exist = carts.find(function (ele) {
-    //   return ele.bookId === that.data.bookId
-    // })
-    // console.log(exist)
-
     if (carts != []) {
-      var ncarts = [];
+      var newcarts = [];
       for (var i in carts) {
         if (bookId != carts[i].bookId) {
-          ncarts = ncarts.concat(carts[i]);
+          newcarts = newcarts.concat(carts[i]);
         } else {
           wx.showToast({
             title: "购物车已经存在！",
@@ -106,8 +101,8 @@ Page({
           })
         }
       }
-      carts = ncarts;
-      // console.log("ncarts" + JSON.stringify(ncarts));
+      carts = newcarts;
+      // console.log("newcarts" + JSON.stringify(newcarts));
     }
     //如果不存在，传入该货品信息
     var newcarts = {
@@ -128,7 +123,7 @@ Page({
       success: function (res) {
         //添加购物车的消息提示框
         wx.showToast({
-          title: "添加购物车成功",
+          title: "您已将物品加入购物车",
           icon: "success",
           durantion: 2000
         })
@@ -148,7 +143,8 @@ Page({
         url: '/pages/login/login',
       })
       }
-    console.log("是什么？:" + this.data.commentContent);
+    // console.log("是什么？:" + this.data.commentContent);.
+    // 评论后input框清空
     this.setData({
       searchinput: '',
     })
@@ -198,7 +194,6 @@ Page({
     //     duration: 1500
     //   })
     // }
-    // 不让用户一直按评论显示多条同样的语句
   },
 
   /**
