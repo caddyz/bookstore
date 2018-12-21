@@ -84,7 +84,7 @@ Page({
       })
     }else{
       wx.request({
-        url: 'http://192.168.10.110:8080/bookstore-mall/newUserGetCoupon/' + app.globalData.userInfo.userId +'/7',
+        url: app.URL+'bookstore-mall/newUserGetCoupon/' + app.globalData.userInfo.userId +'/7',
         success:function(res){
           that.setData({
             msg:res.data
