@@ -27,7 +27,7 @@ Page({
     this.data.orderId = options.orderId;
     var orderId = options.orderId;//获得订单的id号
     var bookId=options.bookId;//获得商品的id号
-    console.log("我获得的订单号：" + orderId+"我获得的商品id号是："+bookId);
+    // console.log("我获得的订单号：" + orderId+"我获得的商品id号是："+bookId);
     that.setData({
       bookId:bookId,
       orderId:orderId
@@ -189,7 +189,7 @@ Page({
     var that = this;
     var orderId = this.data.orderId;//获得评价的订单号
     var evalution = evalution;
-    console.log("evalution:" + JSON.stringify(evalution) )
+    // console.log("evalution:" + JSON.stringify(evalution) )
     //将用户的评价表提交到数据库中保存起来
     wx.request({
       url: app.URL + 'bookstore-mall/submitEvaluation', //提交的网络地址
@@ -246,7 +246,7 @@ Page({
         that.setData({
           book:res.data             //将获取的数据提取出来
         })
-        console.log("我获得的信息是："+JSON.stringify(res.data))
+        // console.log("我获得的信息是："+JSON.stringify(res.data))
         } else {
          that.setData({
            book:this.data.book

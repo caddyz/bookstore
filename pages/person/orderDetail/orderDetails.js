@@ -62,7 +62,7 @@ Page({
   //获取订单详情页面数据的方法
   getOrderDetails: function (orderId) {
     var that = this
-    console.log("getorderId:" + orderId);
+    // console.log("getorderId:" + orderId);
     // //数据库获取初始数据
     wx.request({
       //需要传输到后台的数据有订单的id还有用户的id
@@ -78,7 +78,7 @@ Page({
           that.setData({
             oderDetail: res.data,
           })
-          console.log("oderDetail:" + JSON.stringify(res.data));
+          // console.log("oderDetail:" + JSON.stringify(res.data));
         } else {
           that.setData({
             oderDetail: oderDetail

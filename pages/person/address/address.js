@@ -90,20 +90,20 @@ Page({
               });
 
               //用户下单时添加的收货地址
-              if (choose== 1) {
-                // console.log("用户下单时写的收货地址！");
-                var newAddress = receiveAddress;
-                // console.log("用户下单时写的收货地址！" + newAddress);
-                var pages = getCurrentPages();
-                var currPage = pages[pages.length - 1]; //当前页面 
-                var prevPage = pages[pages.length - 3]; //上一个页面 
-                prevPage.setData({
-                  newAddress: newAddress,
-                }) //给上级页面的变量赋值 
-                wx.navigateBack({
-                  delta:1//返回下单页面
-                }) //返回上级页面  
-              }
+              // if (choose== 1) {
+              //   // console.log("用户下单时写的收货地址！");
+              //   var newAddress = receiveAddress;
+              //   // console.log("用户下单时写的收货地址！" + newAddress);
+              //   var pages = getCurrentPages();
+              //   var currPage = pages[pages.length - 1]; //当前页面 
+              //   var prevPage = pages[pages.length - 3]; //上一个页面 
+              //   prevPage.setData({
+              //     newAddress: newAddress,
+              //   }) //给上级页面的变量赋值 
+              //   wx.navigateBack({
+              //     delta:1//返回下单页面
+              //   }) //返回上级页面  
+              // }
 
               wx.navigateBack();//返回上一页面
             }
