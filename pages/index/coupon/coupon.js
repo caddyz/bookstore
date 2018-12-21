@@ -39,6 +39,9 @@ Page({
           url: app.URL + 'bookstore-mall/getUsersCoupon/' + app.globalData.userInfo.userId,
           success(res){
             if (res.data.length == 0){
+              that.setData({
+                list: li
+              })
               return 
             }else{
               for(var k in res.data){

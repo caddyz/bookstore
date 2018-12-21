@@ -149,12 +149,13 @@ Page({
   },
   // 获取滚动条当前位置
   onPageScroll: function (e) {
+    let that = this
     if (e.scrollTop > 400) {
-      this.setData({
+      that.setData({
         floorstatus: true
       });
     } else {
-      this.setData({
+      that.setData({
         floorstatus: false
       });
     }
@@ -174,22 +175,23 @@ Page({
     }
   },
   changeGoodsSwip: function (detail) {
+    let that = this
     if (detail.detail.source == "touch") {
       //当页面卡死的时候，current的值会变成0 
       if (detail.detail.current == 0) {
         //有时候这算是正常情况，所以暂定连续出现3次就是卡了
-        let swiperError = this.data.swiperError
+        let swiperError = that.data.swiperError
         swiperError += 1
         this.setData({ swiperError: swiperError })
         if (swiperError >= 3) { //在开关被触发3次以上
-          console.error(this.data.swiperError)
-          this.setData({ goodsIndex: this.data.preIndex });//，重置current为正确索引
-          this.setData({ swiperError: 0 })
+          console.error(that.data.swiperError)
+          that.setData({ goodsIndex: that.data.preIndex });//，重置current为正确索引
+          that.setData({ swiperError: 0 })
         }
       } else {//正常轮播时，记录正确页码索引
-        this.setData({ preIndex: detail.detail.current });
+        that.setData({ preIndex: detail.detail.current });
         //将开关重置为0
-        this.setData({ swiperError: 0 })
+        that.setData({ swiperError: 0 })
       }
     }
   }
