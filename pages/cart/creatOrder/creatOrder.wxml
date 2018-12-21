@@ -41,6 +41,7 @@
         <text></text>{{sendCost}}</view>
 
  <view><text>\n</text></view>
+ <view class='coupon' hidden='{{isCoupon}}'>
    <view class='list-msg3' bindtap='bindShowCoupon'>
         <text>￥{{couponName}}</text>
         <image style='height:20rpx;width:20rpx;' src='../creatOrder/images/down.png'></image>
@@ -50,7 +51,7 @@
          <view class='list-msg1'>
         <text>{{couponName}}</text>
         <text></text>-￥{{couponMoney}}</view>
-
+</view>
          <view class='list-msg1'>
         <text>商品折扣</text>
         <text></text>85折</view>

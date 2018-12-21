@@ -22,6 +22,7 @@ Page({
     couponName:'',//优惠券名字
     couponMoney:'',//优惠金额
     couponId:'',//优惠券的id号
+    isCoupon:true,//
     expressId:'',
     // sendWay: [{ name:'顺丰'}, {name: '韵达'}, {name: '京东'}, {name: '圆通'}],
     sendWay:[]
@@ -376,7 +377,8 @@ Page({
                userCoupon: userCoupons,
                couponName: userCoupons[0].couponName,
                couponMoney: userCoupons[0].couponMoney,
-               couponId: userCoupons[0].couponId
+               couponId: userCoupons[0].couponId,
+               isCoupon:false
              })
              console.log("成功获取用户优惠券：" + that.data.userCoupon[0].couponName);
            }      
