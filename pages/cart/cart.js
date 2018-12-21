@@ -324,7 +324,7 @@ getTotalPrice() {
             //跳转到订单生成界面,将结算的商品传给订单生成界面
             that.toCreatOrder(oldcart, newcart);
           } else {
-            console.log('弹框后点取消')
+            console.log('弹框后点取消'+Number(85).toFixed)
             return;
           }
         }

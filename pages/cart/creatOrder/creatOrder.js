@@ -128,7 +128,7 @@ Page({
   //是否有收货地址的验证
       if (order.receiveAddressId == undefined){
       wx.showToast({
-        title: '请输入收货地址！',
+        title: '请选择收货地址！',
         duration:2000
       })
       return;
