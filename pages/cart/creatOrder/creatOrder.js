@@ -122,7 +122,7 @@ Page({
         userId: app.globalData.userInfo.userId,//用户Id
         carts: that.data.oldcart,//商品
         orderTime: utils.formatTime(new Date()),//下单时间
-        orderStatus: '待付款',//订单状态
+        orderStatus: 0,//订单状态
         totalPrice: that.data.totalPrice,//订单总价
       };
   //是否有收货地址的验证
@@ -136,8 +136,9 @@ Page({
       
       that.creatOrder(order);//将用户数据提交到数据库中
       that.updateUserCoupons(app.globalData.userInfo.userId, couponId, utils.formatTime(new Date()))//用户使用优惠券后改变数据库中优惠券的状态(用户id，优惠券id，优惠券使用时间)
-
-
+      var score = Number(order.totalPrice) + Number(app.globalData.userInfo.score);
+      app.globalData.userInfo.score = score
+      that.addUserScore(score);//用户支付成功将积分添加到用户数据库中
       //支付接口
       // console.log("appURL:"+app.URL);
       //   app.orderInfo.body = '书本购买';
@@ -162,7 +163,7 @@ Page({
         userId: app.globalData.userId,//游客Id
         carts: this.data.oldcart,//商品
         orderTime: utils.formatTime(new Date()),//下单时间
-        orderStatus: '待发货',//订单状态
+        orderStatus: 0,//订单状态
         totalPrice: this.data.totalPrice,//订单总价
       };
       //是否有收货地址的验证
@@ -189,9 +190,6 @@ Page({
       // });
       // console.log("booksId:" + order.booksId);
     }
-   
-   
-  
   },
 
 
@@ -472,6 +470,35 @@ Page({
       }
     });
   },
+  //用户支付成功用户的积分增加
+  addUserScore: function (score) {
+    var that = this;
+    var score = score;
+    // //将用户生成的订单存入数据库
+    wx.request({
+      url: app.URL + 'bookstore-mall/addUserScore/' + score+'/'+app.globalData.userInfo.userId, //提交的网络地址
+      method: "GET",
+      dataType: "json",
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        //--init data
+        if (res.data == true) {
+      console.log("用户积分添加成功！");
+        } else {
+          console.log("用户积分添加失败！");
+        }
+      },
+      fail: function () {
+        // fail
+        wx.showToast({
+          title: '网络异常！',
+          duration: 30000
+        });
+      }
+    });
+  }, 
   //实际支付价格的算法
   getRealPayprice:function(){
     var that=this;
