@@ -42,7 +42,8 @@
     "pages/person/myEvaluate/myEvaluate",
 	"pages/person/orderDetail/orderDetails",
    "pages/cart/creatOrder/creatOrder",
-    "pages/person/myOrderRate/myOrderRate"
+    "pages/person/myOrderRate/myOrderRate",
+	 "pages/person/editorMyPassword/editorMyPassword"
   ],
     
   "window":{
