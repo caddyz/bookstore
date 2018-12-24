@@ -100,11 +100,6 @@ Page({
               duration:2000
             })
           }
-        }else if(res.data==null){
-          wx.showModal({
-            title: '提示',
-            content: '该用户尚未注册',
-          })
         }
          else {
           //显示消息提示框
