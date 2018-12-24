@@ -207,7 +207,7 @@ Page({
             title: '评价成功~！',
             duration:2000
           })
-          utils.updateOrder(orderId, '已评价');//改变数据库中订单的相应状态
+          utils.updateOrder(orderId, 6);//改变数据库中订单的相应状态
           wx.navigateBack();//评价成功返回上一页
         } else {
           wx.showToast({

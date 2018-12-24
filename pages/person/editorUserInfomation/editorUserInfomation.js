@@ -72,7 +72,7 @@ Page({
     };
     var oldPossword = e.detail.value.oldPossword;
     console.log("oldPossword:" + oldPossword + "    userPassword:" + userPassword);
-    console.log(user);
+    // console.log(user);
     if(user.email!=''||null){
       if (!utils.checkEmail(user.email)){
         wx.showToast({
@@ -92,6 +92,17 @@ Page({
           duration:3000
         })
         return;
+      }else{
+        if (user.phone!=app.globalData.userInfo.phone){
+          if (that.phoneValidate(user.phone)) {
+            wx.showToast({
+              title: '手机号已存在！',
+              duration: 3000
+            })
+          }
+          return;
+        }
+       
       }
     }else{
       user.phone = app.globalData.userInfo.phone;
@@ -113,7 +124,6 @@ Page({
 //修改数据库中用户的数据
     that.editorUserInfomation(user);  
   },
-
   radioChange: function (e) {
     var checked = e.detail.value
     var changed = {}
@@ -206,7 +216,12 @@ Page({
      }
    })
  },
-
+ //跳转到修改密码界面
+  editorPassword:function(){
+    wx.navigateTo({
+      url: '../editorMyPassword/editorMyPassword',
+    })
+  },
   
 
   editorAppUser:function(user){
@@ -219,6 +234,67 @@ Page({
     app.globalData.userInfo.phone = user.phone;
     app.globalData.userInfo.email = user.email;
     app.globalData.userInfo.signature = user.signature; 
-  }
+  },
+  //手机号的重复验证
 
-})
+  phoneValidate:function(phone){
+    var that = this;
+    // //数据库获取初始数据
+    wx.request({
+      url: app.URL + 'bookstore-mall/phoneValidate/' + phone, //提交的网络地址
+      method: "GET",
+      dataType: "json",
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        //--init data
+        if (res.data == true) {
+         
+          wx.showToast({
+            title: '修改成功！',
+            duration: 3000
+          })
+         return true;//存在手机号返回true
+        } else {
+          wx.showToast({
+            title: '修改失败！',
+            duration: 3000
+          })
+          return false;//不存在手机号返回false
+        }
+  }
+    })   
+  },
+  //邮箱的重复验证
+
+  emaileValidate: function (emaile) {
+    var that = this;
+    // //数据库获取初始数据
+    wx.request({
+      url: app.URL + 'bookstore-mall/phoneValidate/' + emaile, //提交的网络地址
+      method: "GET",
+      dataType: "json",
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        //--init data
+        if (res.data == true) {
+
+          wx.showToast({
+            title: '修改成功！',
+            duration: 3000
+          })
+          return true;//存在邮箱返回true
+        } else {
+          wx.showToast({
+            title: '修改失败！',
+            duration: 3000
+          })
+          return false;//不存在邮箱返回false
+        }
+      }
+    })
+  } 
+})   

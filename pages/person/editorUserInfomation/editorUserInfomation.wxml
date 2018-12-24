@@ -45,6 +45,8 @@
            <view class="xing">个性签名：
            <input placeholder-class='placeholder'  placeholder='请输入个性签名'  class="in" name='signature' value="{{signature}}"/>
          </view>
+    <button class='su' bindtap='editorPassword'>修改密码</button>
+    <view><text>\n</text></view>
     <button    form-type="submit" hover-class='button-hover' class='su'>保存</button>
    </form>   
    </view>

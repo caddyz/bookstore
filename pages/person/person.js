@@ -63,12 +63,12 @@ Page({
           content: '是否登陆',
           success(res) {
             if (res.confirm) {
-              //console.log('用户点击确定')
+              console.log('用户点击确定')
               wx.navigateTo({
                 url: "/pages/login/login"
               })
             } else if (res.cancel) {
-              //console.log('用户点击取消')
+              console.log('用户点击取消')
               wx.switchTab({
                 url: '/pages/index/index',
               })
@@ -133,13 +133,17 @@ Page({
       hasUserInfo: true
     })
   },
-
+//用户退出账户
   quit:function(){
+    var that = this;     
     wx.showModal({
       title: '提示',
       content: '是否退出？',
       success: function (res) {
-        if(res.confirm){
+        if(res.confirm){ 
+            var carts = wx.getStorageSync("carts")||[]//获取缓存的数据     
+            that.insetCart(carts)//将数据存入数据库中      
+            // console.log("取出的缓存数据：" + JSON.stringify(carts));      
           app.globalData.userInfo = null;
           wx.switchTab({
             url: '/pages/index/index',
@@ -152,5 +156,52 @@ Page({
 
     })
   
+  },
+
+  //将商品存入购物车数据存入数据库的方法
+  insetCart: function (carts) {
+    var that = this;
+    var Carts = carts;
+    var userId = app.globalData.userInfo.userId;//获取用户的id
+   
+
+    //将用户的id传输到后台
+    wx.request({
+      url: app.URL + 'bookstore-mall/insertCartUserId/' + userId, //提交的网络地址
+      method: "GET",
+      dataType: "json",
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        //--init data
+        if (res.data == true) {
+          console.log("添加成功！");
+          that.insertCarts(Carts);
+        }
+      }
+    });
+  },
+  //将用户数据添加到后台的方法
+  insertCarts: function (carts) {
+    var Carts = carts;
+    console.log("Carts" + JSON.stringify(Carts));
+    //将用户数据传输到后台
+    wx.request({
+      url: app.URL + 'bookstore-mall/insertCart', //提交的网络地址
+      method: "POST",
+      dataType: "json",
+      data: JSON.stringify(Carts),
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        //--init data
+        if (res.data == true) {
+          console.log("添加成功！");
+          wx.clearStorage("carts");//添加到购物车后清除缓存里的数据
+        }
+      }
+    });
   }
 })

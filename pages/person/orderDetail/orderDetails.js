@@ -11,7 +11,6 @@ Page({
     orderId:'',//订单的Id
     oderDetail:{}     
   },
-
   /**
    * 生命周期函数--监听页面加载
    */
@@ -29,14 +28,14 @@ Page({
   returnGoods:function(){
     var id = this.data.orderId;
     var oderDetail = this.data.oderDetail;
-    if (oderDetail.orderStatus=='退款中'){
+    if (oderDetail.orderStatus==4){
       wx.showToast({
         title: '商品已退款中',
         duration:2000,
       });
       return;
     };
-    if (oderDetail.orderStatus == '待付款'){
+    if (oderDetail.orderStatus == 0){
       wx.showToast({
         title: '商品未付款',
         duration: 2000,
@@ -50,7 +49,7 @@ Page({
         if(res.confirm){
           //改变订单状态为退款中
           // console.log("修改订单状态为退款");
-          utils.updateOrder(id, '退款中');//改变数据库中订单的相应状态
+          utils.updateOrder(id, 4);//改变数据库中订单的相应状态
           wx.navigateBack();//返回上一页
         }else{
           return;

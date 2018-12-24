@@ -227,9 +227,8 @@ Page({
                 if (arr[i].orderId == id) {
                   arr[i].orderStatus = '待发货';
                   // console.log('循环后orderId' + id);
-                  utils.updateOrder(id, '待发货');//改变数据库中订单的相应状态
+                  utils.updateOrder(id, 1);//改变数据库中订单的相应状态
                 }
-
               }
               that.setData({
                 order: arr
@@ -258,7 +257,7 @@ Page({
               for (var i in arr) {
                 if (arr[i].orderId == id) {
                   arr[i].orderStatus = '已完成';
-                  utils.updateOrder(id, '已完成');//改变数据库中订单的相应状态
+                  utils.updateOrder(id, 5);//改变数据库中订单的相应状态
                 }
               }
               that.setData({
@@ -275,7 +274,7 @@ Page({
           }
         });
       break;
-      case'已完成':
+      case'待评价':
       wx.showModal({
         title: '提示',
         content: '是否评价订单？',
@@ -327,39 +326,46 @@ Page({
       // console.log("order数据是:" + that.data.order[0].orderStatus);
       // console.log("arr数据是:" + arr[0].orderStatus);
       for (var i in arr) {
+        // console.log("获得的订单状态：" + arr[i].orderStatus);
         switch (arr[i].orderStatus)
         {
-          case '已完成':
+          case 5:
+            arr[i].orderStatus='待评价';
             alreadOders = this.data.alreadOder.concat(arr[i]);
             this.setData({
               alreadOder: alreadOders
             });
             break;
-          case '待付款':
+          case 0:
+            arr[i].orderStatus = '待付款';
             waitingPays = this.data.waitingPay.concat(arr[i]);
             this.setData({
               waitingPay: waitingPays
             });
             break;
-          case '待发货':
+          case 1:
+            arr[i].orderStatus = '待发货';
             waitingSends = this.data.waitingSend.concat(arr[i]);
             this.setData({
               waitingSend: waitingSends
             })
             break;
-          case '待收货':
+          case 2:
+            arr[i].orderStatus = '待收货';
             waitingReceives = this.data.waitingReceive.concat(arr[i]);
             this.setData({
               waitingReceive: waitingReceives
             });
             break;
-          case '已取消':
+          case 3:
+            arr[i].orderStatus = '取消订单';
             conceleds = this.data.conceled.concat(arr[i]);
             this.setData({
               conceled: conceleds
             })
             break;
-          case '退款中':
+          case 4:
+            arr[i].orderStatus = '退款中';
             goodsRejectings = this.data.goodsRejecting.concat(arr[i]);
             this.setData({
               goodsRejecting: goodsRejectings
