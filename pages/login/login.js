@@ -6,7 +6,7 @@ Page({
   data: {
     account: '',
     password: '',
-    userInfo:'',
+    userInfo:null,
     message:'',
     active:''
 	
@@ -50,6 +50,14 @@ Page({
       })
       return
     }
+    //  else if (!(/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/.test(that.data.email))) {
+    //   wx.showToast({
+    //     title: '邮箱格式不正确',
+    //     icon: 'none',
+    //     duration: 2000
+    //   })
+    //   return;
+    // }
     console.log("用户名：" + account + "，密码：" + password)
     //发送ajax请求到服务器-登录
     wx.request({
@@ -69,21 +77,30 @@ Page({
       dataType: 'json', // 默认值json
      
       success: function (res) {  // 服务器响应成功的回调函数
-        //调试，相当于alert    
+        //响应成功  
         if (res.statusCode === 200) {
           //将用户名和密码缓存下来,留着实现不用重复登录  
           wx.setStorageSync("account", that.data.account)
           wx.setStorageSync("password", that.data.password)
           // 用于点击后改变页面信息或者刷新后与后台交互获取最新的信息
-          that.setData({
-            userInfo: res.data
-          });
+          if(res.data!=null){
+            that.setData({
+              userInfo: res.data
+            }); 
+          }else{
+            that.setData({
+              userInfo: null
+            });  
+          }        
           //信息正确,给userInfo赋值        
          // console.log("userInfo" + that.data.userInfo.username);
           app.globalData.userInfo = that.data.userInfo;
+         // console.log("user:" + that.data.userInfo)
+          // console.log("user:" + that.data.userInfo);
          // console.log("用户名" + app.globalData.userInfo.username);
           //返回上一页 上一页的跳转只能用wx.navigateTo
-          if(that.data.userInfo.active==1){
+           if (that.data.userInfo!=""){
+           if(that.data.userInfo.active==1){
             wx.showToast({
               title: '登陆成功',
               icon:'success',         
@@ -100,15 +117,14 @@ Page({
               duration:2000
             })
           }
-        }
-         else {
-          //显示消息提示框
+        }else{
           wx.showModal({
             title: '提示',
-            content: '账号或者密码错误',
+            content: '用户名或密码错误',
             showCancel: false
           })
         }
+     }
       },
       fail: function (res) {
         wx.showModal({

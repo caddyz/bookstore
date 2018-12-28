@@ -32,23 +32,42 @@ page{
   font-size: 40rpx;
   margin-left: 50rpx;
 }
-.info-input1{
+/* .info-input1{
  display: block;
   color:black;
   height: 100rpx;
   line-height: 50rpx;
   font-size: 40rpx;
   margin-left: 50rpx;
-}
+} */
 .line { 
  width: 100%; 
  height: 1px; 
  background-color: #cccccc; 
  /* 对象上边的外距离 */
- margin-top: 1px; 
-
+ margin-top: 5px; 
 }
 .success{
   background: #ffffff;
  
+}
+
+.button{
+  width: 200rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  font-size: 28rpx;
+  background: #33FF99;
+  float: left;
+  margin-left: 10rpx;
+  margin-top: 15rpx;
+  color: #FFFFFF;
+}
+
+.info-input1{
+  height: 100rpx;
+  margin-left: 50rpx;
+  color: #777;
+    float: left;
+    width: 420rpx;
 }

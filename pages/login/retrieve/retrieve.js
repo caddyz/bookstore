@@ -5,6 +5,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    text: '获取验证码', //按钮文字
+    currentTime: 61, //倒计时
+    disabled: false, //按钮是否禁用
+    num:0,
     email:'',
     code:'',
     newPassword:'',
@@ -13,7 +17,6 @@ Page({
     show_content: true,
     show_content2: false,
     one:true,
-    two:false,
     success:false
     
   },
@@ -42,10 +45,16 @@ Page({
     })
   },
   //点击输入邮箱触发的事件
-  next: function () {
+  doGetCode: function () {
     // console.log(e.detail.value);
     var that=this;
     var email=that.data.email
+    var num = Math.floor((Math.random() * 9 + 1) * 100000);
+    //console.log("num:"+num)
+    that.setData({
+      num:num
+    })
+    var currentTime = that.data.currentTime //把手机号跟倒计时值变例成js值
     if (that.data.email == '' || that.data.email == null) {
       wx.showToast({
         title: '邮箱不能为空',
@@ -61,12 +70,9 @@ Page({
         duration:2000
       })
     }else {
-      console.log("email:"+email)
+      //console.log("email:"+email)
       wx.request({
-        url: app.URL + 'bookstore-mall/' + email +  '/updatePhone',
-        data: {
-          email: email
-        },
+        url: app.URL + 'bookstore-mall/' + email +'/'+ num +  '/updatePhone',
         method: 'GET',
         header: {
           'Content-Type': 'application/json'
@@ -86,19 +92,37 @@ Page({
               duration: 2000
             })
             that.setData({
-              show_content: false, one:false,two:true,show_content1: true, show_content2: false,
-              email:email,
+           disabled: true, //只要点击了按钮就让按钮禁用 （避免正常情况下多次触发定时器事件）
+              color: '#ccc',
             })
+            //设置一分钟的倒计时
+            var interval = setInterval(function () {
+              currentTime--; //每执行一次让倒计时秒数减一
+              that.setData({
+                text: currentTime + 's', //按钮文字变成倒计时对应秒数
+
+              })
+              //如果当秒数小于等于0时 停止计时器 且按钮文字变成重新发送 且按钮变成可用状态 倒计时的秒数也要恢复成默认秒数 即让获取验证码的按钮恢复到初始化状态只改变按钮文字
+              if (currentTime <= 0) {
+                clearInterval(interval)
+                that.setData({
+                  text: '重新发送',
+                  currentTime: 61,
+                  disabled: false,
+                  color: '#33FF99'
+                })
+              }
+            }, 1000);
           }
         }
       })
 
     }
   },
-  next1: function () {
+  next: function () {
     var that = this;
-    var email=that.data.email
-    var code = that.data.code
+    var code = that.data.code;
+    //console.log("num:" + num)
     if (code == "" || code== null) {
       wx.showToast({
         title: '请输入验证码',
@@ -106,23 +130,7 @@ Page({
         duration: 2000
       })
       return
-    } else {
-      wx.request({
-        url: app.URL + 'bookstore-mall/' + email + '/authCode',
-        method: "GET",
-        data: {
-          email: email,
-        },
-        header: {
-          'Content-Type': 'application/json'
-        },
-        //接口调用成功之后的回调函数
-        success: function (res) {
-          that.setData({
-            num:res.data
-          })
-          //用户名是否注册，已注册提示用户用户名也被注册，没注册则下一步
-          if (that.data.num==0) {
+    } else if (this.data.num!=that.data.code){
             wx.showToast({
               title: "验证码输入错误",
               icon: 'none',
@@ -135,12 +143,9 @@ Page({
             //   duration: 2000
             // })
             that.setData({
-              show_content: false, show_content1: false,two:false, show_content2: true,success:true
+              show_content: false, one:false, show_content2: true,success:true
             })
           }
-        }
-      })
-    }
   },
 
 //点击提交触发的事件

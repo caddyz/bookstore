@@ -7,19 +7,16 @@
   <view class='info'>
     <input  class= 'info-input1' bindinput="inputEmail" placeholder="请输入绑定的邮箱" />
   </view> 
+    <button class='button' bindtap='doGetCode' disabled='{{disabled}}' style="background-color:{{color}}" >{{text}}</button>
 </view>
-<view wx:if='{{one}}'>
-<text>\n</text>
-  <button  type="primary" catchtap="next">第一步</button> 
-</view>
-<view class='row' wx:if='{{show_content1}}'>
- <view class='info'>
+<view class='row' wx:if='{{show_content}}'>
+  <view class='info'>
       <input placeholder='请输入验证码'  class= 'info-input1' bindinput='inputOldPassword'/>
     </view>
 </view>
-<view wx:if='{{two}}'>
+<view wx:if='{{one}}'>
 <text>\n</text>
-  <button  type="primary" catchtap="next1">第二步</button> 
+  <button  type="primary" catchtap="next">下一步</button> 
 </view>
 
 <view class='row' wx:if='{{show_content2}}'>

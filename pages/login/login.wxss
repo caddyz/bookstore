@@ -67,8 +67,7 @@ page{
  height: 1px; 
  background-color: #cccccc; 
  /* 对象上边的外距离 */
- margin-top: 1px; 
-
+ margin-top: 8px; 
 }
  .signIn {
   /*  //将对象作为弹性伸缩盒显示  可以左右布局*/

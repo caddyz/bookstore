@@ -13,7 +13,6 @@
   <input class="inputText" name='account' placeholder="请输入邮箱账号" type="text" bindinput="accountInput"/>  
  </view> 
  <view class="line"></view> 
-<text>\n</text>
  <!--密码-->
  <view class="inputView"> 
   <!-- <image class="keyImage" src="../img/key.png"></image>  -->
@@ -26,7 +25,7 @@
  <view class='login'>
   <button  type="primary" catchtap="login">登录</button>
  </view>
-  <text>\n</text>
+ <view class="line"></view> 
  <view class="signIn">
       <button  class='left' type="submit" catchtap="register">注册</button>
       <button  class='right' type='submit' catchtap='retrieve'>忘记密码</button>
