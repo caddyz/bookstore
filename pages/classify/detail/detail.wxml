@@ -21,7 +21,7 @@
    disabled='true'></input>
 
      <block wx:for="{{out}}">
-     <input type='text' class='activity-discount' value='折扣率:({{item.activityDiscount}}折)' disabled='true'></input>
+     <input type='text' class='activity-discount' value='折扣率:({{item.activityDiscount}})' disabled='true'></input>
       <input type='text' class='book-price' value='甩卖价:￥{{item.discountPrice}}'
       disabled='true'></input>
                <text> \n </text>
@@ -59,12 +59,16 @@
        disabled='true' ></input>
 评论内容:<input type='text' class='comment-content' value='{{item.commentContent}}' 
           disabled='true'  maxlength="-1"></input>
-      评论时间:<input type='text' class='comment-DataTime' value='{{item.commentDataTime}}' 
+    评论时间:<input type='text' class='comment-DataTime' value='{{item.commentDataTime}}' 
        disabled='true' ></input>
+  <!-- 追评内容:<input type='text' class='comment-reply' value='{{item.commentReply}}' 
+          disabled='true'  maxlength="-1"></input>
+  追评时间:<input type='text' class='comment-replyDataTime' value='{{item.commentReplyDataTime}}' 
+       disabled='true' ></input> -->
   </view>
     </block>
   <!-- 表单 -->
-<form bindsubmit="formSubmit">
+<form bindsubmit="formSubmit"> 
 <input type="text" name="commentContent" placeholder='请输入评论内容' 
 class="input-comment" bindinput="handNewComment" value="{{searchinput}}"/>
 <button formType="submit" class="btn" bindtap='commentAll'>评论</button>

@@ -1,20 +1,19 @@
 var util = require('../../../utils/util.js')
 var app = getApp()
 Page({
-  data:{
+  data: {
     list: [],//动态页面
-    item:[],//显示所有书
-    out:[],//显示折扣
-    Nums:[],//显示库存
-    author:[],//显示一个或多个作者
-    isCollected:'' ? false : true ,//收藏
+    item: [],//显示所有书
+    out: [],//显示折扣
+    Nums: [],//显示库存
+    author: [],//显示一个或多个作者
+    isCollected: '' ? false : true,//收藏
     bookId: '',
-    userId:'',
-    commentContent:'',
-     // 评论字符
-    searchinput:'',
+    userId: '',
+    commentContent: '',//输入评论框的数据
+    // 评论字符          
+    searchinput: '',
   },
- 
 
 
   // 收藏事件
@@ -27,11 +26,10 @@ Page({
     } else {
       var userId = app.globalData.userInfo.userId
       // console.log("传入的数据:" + userId)
-      // var userId = 2
       var bookId = that.data.bookId
 
       //判断收藏的状态
-      that.isCollector(userId, bookId, function (data) {//callback返回
+      this.isCollector(userId, bookId, function (data) {//callback返回
         if (data == false) {
           wx.showToast({
             title: "收藏成功",
@@ -40,8 +38,7 @@ Page({
           })
           that.insertCollector(userId, bookId);//添加收藏
           return;
-        }
-        else {
+        } else {
           wx.showToast({
             title: "取消收藏",
             icon: "none",
@@ -60,7 +57,7 @@ Page({
     var that = this
     // 默认书本为1
     var bookNum = 1
-    //  提取bookId
+    //  提取bookId54
     var bookId = that.data.bookId
     // console.log("传入的数据:" + bookId)
     var bookName = this.data.list[0].bookName
@@ -71,6 +68,7 @@ Page({
     // console.log("获取的图片为：" + bookCoverImage)
     var bookStatus = this.data.list[0].bookStatus
     // console.log("获取的状态为：" + bookStatus)
+    
   
     
     if(this.data.out[0] != null){
@@ -141,7 +139,7 @@ Page({
         url: '/pages/login/login',
       })
       }
-    // console.log("是什么？:" + this.data.commentContent);.
+    console.log("是什么？:" + this.data.commentContent);
     // 评论后input框清空
     this.setData({
       searchinput: '',
@@ -152,46 +150,61 @@ Page({
   formSubmit: function (e){
     var that = this
     var bookId = that.data.bookId
-    var userId = app.globalData.userInfo.userId
     var commentContent = this.data.commentContent
-    var commentReply = this.data.commentReply
+    // var commentContentAdd = this.data.item.commentContent
+    // console.log("获取的状态为：" + commentContentAdd)
+    // var commentReply = this.data.item.commentReply
+    // console.log("获取的状态为：" + commentReply)
 
- 
-    if (commentContent == undefined || commentContent == '' ){
-      wx.showToast({
-        title: '请输入评论',
-        icon: 'loading',
-        duration: 1500
-      })
-       setTimeout(function () {
-        wx.hideToast()
-      }, 2000)
+    
+    if (app.globalData.userInfo == null) {
+      var userId = null
     } else {
-    wx.request({
-  url:app.URL + 'bookstore-mall/' + userId + '/' + bookId + '/'+commentContent+'/commentAdd',
-      })
-      wx.showToast({
-        title: '评论成功',
-        icon: 'success',
-        duration: 1000
-      })
+      var userId = app.globalData.userInfo.userId
     }
-    // if(commentContent != undefined && userId == userId && bookId == bookId && commentReply==null){
-    //   wx.request({
-    //   url: app.URL + 'bookstore-mall/' + userId + '/' + bookId + '/'+commentReply+'/commentAll',
-    //   })
-    //   wx.showToast({
-    //     title: '追评成功',
-    //     icon: 'success',
-    //     duration: 1000
-    //   })
-    // }else{
-    //   wx.showToast({
-    //     title: '评论以超过限制',
-    //     icon: 'loading',
-    //     duration: 1500
-    //   })
-    // }
+
+    // if (commentContentAdd == null){
+      if (commentContent == undefined || commentContent == '') {
+        wx.showToast({
+          title: '请输入评论',
+          icon: 'loading', 
+          duration: 1500
+        })
+        setTimeout(function () {
+          wx.hideToast()
+        }, 2000)
+      } else {
+        wx.request({
+          url: app.URL + 'bookstore-mall/' + userId + '/' + bookId + '/' + commentContent + '/commentAdd',
+        })
+        wx.showToast({
+          title: '评论成功',
+          icon: 'success',
+          duration: 1000
+        })
+      // }
+  //   }else{
+  //     if (commentReply == null) {
+  //       wx.request({
+  // url: app.URL + 'bookstore-mall/' + userId + '/' + bookId +'/'+commentReply+ '/commentAll',
+  //       })
+  //       wx.showToast({
+  //         title: '追评成功',
+  //         icon: 'success',
+  //         duration: 1000
+  //       })
+  //     } else {
+  //       wx.showToast({
+  //         title: '评论已超过限制',
+  //         icon: 'loading',
+  //         duration: 1500
+  //       })
+  //     }
+    }
+    // 不让用户一直按评论显示多条同样的语句
+    this.setData({
+      commentContent: ''//将data的commentContent清空
+    }); 
   },
 
   /**
@@ -229,9 +242,9 @@ Page({
         'content-type': 'application/json'
       },
       success: function (res) {
-        // console.log(res.data)
+        console.log(res.data)
         that.setData({
-          item: res.data //设置数据
+          item: res.data, //设置数据
         })
       },
       fail: function (err) {
@@ -289,52 +302,43 @@ Page({
         console.log(err)
       }
     })
-    // 判断收藏状态
-    // this.isCollector(userId, bookId, function (isCollector) {
-    //   that.setData({
-    //     isCollected: isCollected
-    //   })
-    // });
-    
+// 收藏状态
     if (app.globalData.userInfo == null) {
       var userId = 0
     } else {
       var userId = app.globalData.userInfo.userId
     }
     wx.request({
-      url: app.URL + 'bookstore-mall/' + userId + '/' + bookId + '/isExit',
+      url: app.URL + 'bookstore-mall/'+userId+'/' + options.bookId+'/isExit',
       data: {},
-      header: {  
+      header: {
         'content-type': 'application/json'
       },
       success: function (res) {
-        // console.log("判断收藏 :" + res.data)
         if (res.data == false) {
           that.setData({
             isCollected: true
           })
-          // console.log("is:" + that.data.isCollected);
         } else {
           that.setData({
             isCollected: false
           })
-          // console.log("this:" + that.data.isCollected);
         }
 
       }
     })
   },
-  
+
 
   //判断数据库中的这本书是否被收藏
   isCollector: function (userId, bookId, callback) {
     var that = this;
     var userId = app.globalData.userInfo.userId
     var bookId = bookId
-    console.log("bookId:" + bookId)
+    // console.log("bookId:" + bookId)
     wx.request({
       url: app.URL + 'bookstore-mall/' + userId + '/' + bookId + '/isExit',
-      data: {},
+      dataType:"json",
       header: {
         'content-type': 'application/json'
       },
@@ -345,7 +349,7 @@ Page({
           that.setData({
             isCollected: false
           })
-          console.log("is:" + that.data.isCollected);
+          // console.log("is:" + that.data.isCollected);
         } else {
           callback(true);
           that.setData({
@@ -370,10 +374,10 @@ Page({
       success: function (res) {
         console.log(res.data)
         if (res.data == 0) {
-          // console.log("添加失败！");
+          console.log("添加失败！"); 
         }
         else {
-          // console.log("添加成功！");
+          console.log("添加成功！");
         }
       }
     })
@@ -392,14 +396,14 @@ Page({
       success: function (res) {
         console.log(res.data.status)
         if (res.data.status == true) {
-          // console.log("取消成功！");
+          console.log("取消成功！");
         }
         else {
-          // console.log("取消收藏失败！");
+          console.log("取消收藏失败！");
         }
       }
     })
-  }
+  },
 
 
 })
