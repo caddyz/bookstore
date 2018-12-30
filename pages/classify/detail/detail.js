@@ -134,6 +134,8 @@ Page({
     },
 // 点击事件 判断登陆
   commentAll: function (e) {
+    var that = this
+    var bookId = that.data.bookId
     if (app.globalData.userInfo == null) {
       wx.navigateTo({
         url: '/pages/login/login',
@@ -143,6 +145,23 @@ Page({
     // 评论后input框清空
     this.setData({
       searchinput: '',
+    })
+    // 查询所有评论
+    wx.request({
+      url: app.URL + 'bookstore-mall/' + bookId + '/allContext/kindAll',
+      data: {},
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          item: res.data, //设置数据
+        })
+      },
+      fail: function (err) {
+        console.log(err)
+      }
     })
   },
 
@@ -180,8 +199,8 @@ Page({
         wx.showToast({
           title: '评论成功',
           icon: 'success',
-          duration: 1000
-        })
+          duration: 1000,
+        })  
       // }
   //   }else{
   //     if (commentReply == null) {

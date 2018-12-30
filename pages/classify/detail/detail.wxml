@@ -4,7 +4,7 @@
 <scroll-view scroll-y="true">
   <!-- 循环遍历 -->
     <block wx:for="{{list}}">
-     <view  bindtap="previewImage" class='img-detail'>
+     <view class='img-detail'>
       <image src='{{util.IMAGE_URL}}{{item.bookCoverImage}}'></image>
   </view>
         <text> \n </text>
