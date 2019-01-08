@@ -1,0 +1,32 @@
+<!--pages/payment/payment.wxml-->
+<view class='container-con' style='margin-bottom:121rpx;'>
+  <view class='payTime'>
+    <view class='payTime-text'>订单支付金额</view>
+    <view class='payTime-num'>{{realPayPrice}}￥</view>
+  </view>
+
+  <view class='payment-select'>
+    <view class='payment-select-header'>
+      选择支付方式
+    </view>
+    <view class='payment-select-cell' wx:for='{{paymentList}}' wx:key='index' data-index='{{item.index}}' data-selected='{{item.selected}}' bindtap='changePayment'>
+      <view class='payment-select-cell-left'>
+        <image src='{{item.imgUrl}}'></image>
+        <label>{{item.name}}</label>
+      </view>
+      <view class='payment-select-cell-right'>
+        <image src='{{item.selected?"../payment/images/choosed.png":"../payment/images/circle.png"}}'></image>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class='bottom-box' bindtap='payNow'>
+  <view class='bottom-box-con'>
+    <view class='bottom-box-text'>立即支付</view>
+  </view>
+</view>
+<modal show="{{isPay}}" height='50%' bindcancel="modalCancel" bindconfirm='modalConfirm'>
+  <view style='text-align:center;margin-top:90rpx;' class='modal-content'>
+ </view>
+</modal>

@@ -1,6 +1,7 @@
 var app=getApp()
-var utils=require("../../../utils/util.js")
-var pay=require("../../../utils/pay.js")
+var utils=require("../../../utils/util.js");
+var pay=require("../../../utils/pay.js");
+
 Page({
 
   /**
@@ -24,6 +25,7 @@ Page({
     couponId:'',//优惠券的id号
     isCoupon:true,//
     expressId:'',
+    discount:'',//商品的折扣
     // sendWay: [{ name:'顺丰'}, {name: '韵达'}, {name: '京东'}, {name: '圆通'}],
     sendWay:[]
   },
@@ -33,8 +35,8 @@ Page({
    */
   onLoad: function (options) {
     var that=this;
-    var oldcart = JSON.parse(options.oldcart);
-    var newcart = JSON.parse(options.newcart);
+    var oldcart = JSON.parse(options.oldcart);//选中的商品
+    var newcart = JSON.parse(options.newcart);//未选中的商品
     // console.log("我接受的数据是：" + oldcart[0].bookNum);
     // console.log("我接受的总价是：" + options.totalPrice)
     that.setData({
@@ -43,7 +45,7 @@ Page({
       newcart: newcart
     })
   
-    that.getExpressWay();//获取书店提供的货运方式
+    this.getExpressWay();//获取书店提供的货运方式
     //验证用户是否登录
     if (app.globalData.userInfo != null){
       var userId = app.globalData.userInfo.userId; //如果登录获取用户的id
@@ -107,10 +109,6 @@ Page({
   // 及商品信息（就是书的id，名字，单价，总价）
   toCreatOrder:function(e){
     var that = this;
-    // console.log("现在的日期是：" + utils.formatDate(new Date()));
-    // console.log("现在的时间是：" + utils.formatTime(new Date()),);
-    // console.log("我获得的地址信息是：" + this.data.newAddress.addressId );
-    
     var realPayPrice = this.data.realPayPrice;//实际支付金额
     if (app.globalData.userInfo!=null){
 
@@ -132,29 +130,9 @@ Page({
         duration:2000
       })
       return;
-    }
-      
-      that.creatOrder(order);//将用户数据提交到数据库中
-      that.updateUserCoupons(app.globalData.userInfo.userId, couponId, utils.formatTime(new Date()))//用户使用优惠券后改变数据库中优惠券的状态(用户id，优惠券id，优惠券使用时间)
-      var score = Number(order.totalPrice) + Number(app.globalData.userInfo.score);
-      app.globalData.userInfo.score = score
-      that.addUserScore(score);//用户支付成功将积分添加到用户数据库中
-      //支付接口
-      // console.log("appURL:"+app.URL);
-      //   app.orderInfo.body = '书本购买';
-      //   app.orderInfo.detail = '买了4本书！';
-      //   app.orderInfo.out_trade_no = Date.parse(new Date());
-      //   app.orderInfo.total_fee = realPayPrice;//实际支付的商品金额
-      //   console.log("app.orderInfo" + JSON.stringify(app.orderInfo) )
-      //   pay.payOreder(app.orderInfo, function (data) {
-      //     wx.showToast({
-      //       title: data.return_msg,
-      //       icon: 'none'
-      //     })
-      // });
-      // console.log("booksId:" + order.booksId);
-
- 
+    } 
+    var orderId =this.creatOrder(order);//将用户数据提交到数据库中并获取订单号
+      console.log("orderId" + orderId);
     }else{
       //用户未登录的下单情况
       let order = {
@@ -175,20 +153,6 @@ Page({
         return;
       }
       that.creatOrder(order);//将用户数据提交到数据库中
-      //支付接口
-      // console.log("appURL:"+app.URL);
-      //   app.orderInfo.body = '书本购买';
-      //   app.orderInfo.detail = '买了4本书！';
-      //   app.orderInfo.out_trade_no = Date.parse(new Date());
-      //   app.orderInfo.total_fee = realPayPrice;//实际支付的商品金额
-      //   console.log("app.orderInfo" + JSON.stringify(app.orderInfo) )
-      //   pay.payOreder(app.orderInfo, function (data) {
-      //     wx.showToast({
-      //       title: data.return_msg,
-      //       icon: 'none'
-      //     })
-      // });
-      // console.log("booksId:" + order.booksId);
     }
   },
 
@@ -271,6 +235,7 @@ Page({
             sendWay: that.data.sendWay
           })
         }
+        // console.log("获得初始运费："+that.data.sendCost)//
       },
       fail: function () {
         // fail
@@ -281,6 +246,8 @@ Page({
       }
     })
   },
+
+
 
 
 //生成订单后将订单数据提交到后台数据库的方法
@@ -298,7 +265,7 @@ Page({
       },
       success: function (res) {
         //--init data
-        if (res.data==true) {
+        if (res.data!=null) {
           // console.log("添加成功！");        
           that.deCartsAlreadyPay();//订单生成成功删除用户购物车中已经结算了的数据
           that.addOrderAddress(that.data.newAddress);//添加订单的收货地址
@@ -306,11 +273,11 @@ Page({
             title: '下单成功！',
             duration: 2000
           })
-          wx.navigateBack({
-            delta:2 //返回到购物车界面
-          })
+          console.log("订单号" + res.data);
+          wx.navigateTo({
+            url: '../payment/payment?realPayPrice=' + that.data.realPayPrice + '&orderId=' + res.data,
+          }) 
         } else {
-          // console.log("添加失败！");
           wx.showToast({
             title: '下单失败！',
             duration: 2000
@@ -361,7 +328,7 @@ Page({
         //--init data
         if (res.data.length>0) {
          for(let i=0;i<res.data.length;i++){
-           console.log("获得的时间：" + res.data[i].couponEnd)
+          //  console.log("获得的时间：" + res.data[i].couponEnd)
            if (( Date.parse(new Date())) <= res.data[i].couponEnd && (Date.parse(new Date())) >= res.data[i].couponStart) {
             
              if (res.data[i].couponUseStatus == true) {
@@ -448,17 +415,19 @@ Page({
       },
       success: function (res) {
         //--init data
-        if (res.data == true) {
+        if (res.data != null) {
          
           wx.showToast({
             title: '下单成功！',
             duration: 2000
           }) 
+          return res.data;
         } else {
           wx.showToast({
             title: '下单失败！',
             duration: 2000
           })
+          return null;
         }
       },
       fail: function () {
@@ -470,45 +439,46 @@ Page({
       }
     });
   },
-  //用户支付成功用户的积分增加
-  addUserScore: function (score) {
-    var that = this;
-    var score = score;
-    // //将用户生成的订单存入数据库
-    wx.request({
-      url: app.URL + 'bookstore-mall/addUserScore/' + score+'/'+app.globalData.userInfo.userId, //提交的网络地址
-      method: "GET",
-      dataType: "json",
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function (res) {
-        //--init data
-        if (res.data == true) {
-      console.log("用户积分添加成功！");
-        } else {
-          console.log("用户积分添加失败！");
-        }
-      },
-      fail: function () {
-        // fail
-        wx.showToast({
-          title: '网络异常！',
-          duration: 30000
-        });
-      }
-    });
-  }, 
+ 
   //实际支付价格的算法
   getRealPayprice:function(){
-    var that=this;
-    var totalPrice = this.data.totalPrice;//获得商品的初始总价
-    var sendCost = this.data.sendCost;//获得货运的费用
-    var couponMoney = this.data.couponMoney;//优惠券优惠的金额
-    var realPayPrice = Number(totalPrice) + Number(sendCost) - Number(couponMoney);
-    realPayPrice = Number(realPayPrice * Number(0.85)).toFixed(2);
+    let that=this;
+    let price1=0;
+    let price2 = 0;
+    let discountPrice=0;//订单折扣
+    let h=0;
+    let k=0;
+    let discount=0;
+    let oldcart=this.data.oldcart;//选中的商品
+    // console.log("商品：" + JSON.stringify(oldcart))
+    let totalPrice = that.data.totalPrice;//获得商品的初始总价
+    let sendCost = that.data.sendCost;//获得货运的费用
+    console.log("获得运费：" + that.data.sendCost);
+    let couponMoney = that.data.couponMoney;//优惠券优惠的金额
+    
+for(let i in oldcart){
+  k=k+1;
+  if (oldcart[i].discountPrice!=null){
+    price1 = price1 + Number(oldcart[i].discountPrice) * Number(oldcart[i].bookNum);//折扣商品价格计算
+    discountPrice = discountPrice + Number(oldcart[i].discountPrice)/Number(oldcart[i].bookPrice);
+  }else{
+    price2 = price2 + Number(oldcart[i].bookPrice) * Number(oldcart[i].bookNum);//非折扣商品价格计算
+    h=h+1;
+  }
+}
+    if (discountPrice==0){
+      discount='无'; 
+    }else{
+      discount = Number(((h + discountPrice) / k) * 100).toFixed(2);//计算订单的折扣
+    }
+
+
+    var realPayPrice = Number(price1) + Number(price2) + Number(sendCost) - Number(couponMoney);
+    // console.log("实际支付价格：" + realPayPrice + price1 + "sad " + price2);
+    realPayPrice = Number(realPayPrice).toFixed(2);//固定小数点的位数
   that.setData({
-    realPayPrice: realPayPrice
+    realPayPrice: realPayPrice,
+    discount: discount
   })
   }
 

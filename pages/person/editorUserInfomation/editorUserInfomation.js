@@ -63,7 +63,6 @@ Page({
       userId: app.globalData.userInfo.userId,
       username: e.detail.value.nickName,
       sex: sex,
-      password: e.detail.value.newPossword,
       birthday: e.detail.value.newDate,
       address: e.detail.value.newAddress[0],
       phone: e.detail.value.tel,
@@ -106,20 +105,6 @@ Page({
       }
     }else{
       user.phone = app.globalData.userInfo.phone;
-    }
-    //原始密码验证
-    if (oldPossword!=''||null){
-      if (Number(oldPossword) == Number(userPassword)) {
-   
-      } else {
-        wx.showToast({
-          title: '原始密码有误！',
-          duration: 3000,
-        })
-        return;
-      }
-    }else{
-      user.password = app.globalData.userInfo.password;
     }
 //修改数据库中用户的数据
     that.editorUserInfomation(user);  
@@ -227,7 +212,6 @@ Page({
   editorAppUser:function(user){
     //修改app中的用户数据
     app.globalData.userInfo.username = user.username;
-    app.globalData.userInfo.password = user.password;
     app.globalData.userInfo.sex=user.sex;
     app.globalData.userInfo.birthday = user.birthday;
     app.globalData.userInfo.address = user.address;

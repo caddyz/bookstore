@@ -16,12 +16,7 @@
    </radio-group>
   </view>
 </view>
-  <view class="xing" >原始密码：
-           <input placeholder-class='placeholder'  placeholder='请输入你的原始密码'   class="in"         name='oldPossword' value=""  />
-         </view> 
-<view class="xing">新密码：
-           <input placeholder-class='placeholder'  placeholder='请输入你的新密码'  class="in"       name='newPossword' value=""  />
-         </view> 
+
 <view class="xing">
   <picker mode="date" value="{{date}}"   bindchange="bindDateChange" name="newDate">
     <view class="picker">

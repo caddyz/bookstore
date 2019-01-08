@@ -28,14 +28,14 @@ Page({
   returnGoods:function(){
     var id = this.data.orderId;
     var oderDetail = this.data.oderDetail;
-    if (oderDetail.orderStatus==4){
+    if (oderDetail.orderStatus =='退款中'){
       wx.showToast({
         title: '商品已退款中',
         duration:2000,
       });
       return;
     };
-    if (oderDetail.orderStatus == 0){
+    if (oderDetail.orderStatus == '待付款'){
       wx.showToast({
         title: '商品未付款',
         duration: 2000,
@@ -77,6 +77,7 @@ Page({
           that.setData({
             oderDetail: res.data,
           })
+          that.getOrderStatus();
           // console.log("oderDetail:" + JSON.stringify(res.data));
         } else {
           that.setData({
@@ -92,6 +93,53 @@ Page({
         });
       }
     })
-  }
+  },
+  //订单状态的定义
+getOrderStatus:function(){
+  var that=this
+  var order = this.data.oderDetail;
+
+  switch (order.orderStatus) {
+      case 5:
+      order.orderStatus = '待评价'; 
+      that.setData({
+          oderDetail: order
+        });
+        break;
+      case 0:
+      order.orderStatus = '待付款';
+      that.setData({
+        oderDetail: order
+      });
+        break;
+      case 1:
+      order.orderStatus = '待发货';
+      that.setData({
+        oderDetail: order
+      });
+        break;
+      case 2:
+      order.orderStatus = '待收货';
+      that.setData({
+        oderDetail: order
+      });
+        break;
+      case 3:
+      order.orderStatus = '已取消';
+      that.setData({
+        oderDetail: order
+      });
+        break;
+      case 4:
+      order.orderStatus = '退款中';
+      that.setData({
+        oderDetail: order
+      });
+        break;
+      default:
+        break;
+    }
+  
+}
 
 })

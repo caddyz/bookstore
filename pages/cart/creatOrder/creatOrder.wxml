@@ -53,8 +53,8 @@
         <text></text>-￥{{couponMoney}}</view>
 </view>
          <view class='list-msg1'>
-        <text>商品折扣</text>
-        <text></text>85折</view>
+        <text>订单折扣</text>
+        <text></text>{{discount}}折</view>
     <view class='list-msg1'>
         <text>实际付款</text>
         <text style='color:red'>￥{{realPayPrice}}</text>

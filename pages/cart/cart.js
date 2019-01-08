@@ -10,12 +10,12 @@ Page({
     count: 1,   //商品数量默认是1
     totalPrice: 0,    //总金额
     goodsCount: 0, //数量
+    isPay: false
   },
-  //初始加载页面
-  onLoad: function (options) {
 
-  
-  },
+
+ 
+
 
 
   //画面显示
@@ -55,6 +55,7 @@ Page({
       });
     }
     that.getTotalPrice();  
+    that.isAll();//判断是否全选
   },
 
 
@@ -174,6 +175,7 @@ Page({
       data: cartss
     })
     this.getTotalPrice();                           // 重新获取总价
+    this.isAll();//判断是否全选
   },
   
   //全选商品事件
@@ -352,8 +354,26 @@ getTotalPrice() {
     wx.navigateTo({
       url: '../cart/creatOrder/creatOrder?oldcart=' + JSON.stringify(oldcart) + '&totalPrice=' + totalPrice + '&newcart=' + JSON.stringify(newcart),
     })
-  }
-
-
-
+  },
+//查询商品是否全选
+isAll:function(){
+  var that=this;
+  let k=false;
+  let carts = this.data.cart;
+  for (let i in carts){
+    if(carts[i].isStatus==false){
+    k=true;
+    }
+    }
+    if(!k){
+      that.setData({
+        selectAllStatus:true
+      })
+      
+    }else{
+      that.setData({
+        selectAllStatus: false
+      })  
+    }
+}
 })

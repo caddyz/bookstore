@@ -1,5 +1,6 @@
 var app=getApp();
 var utils=require("../../../utils/util.js");
+var pay=require("../../../utils/pay.js");
 Page({
   data:{
     orderType:'',//查看的订单类型
@@ -215,7 +216,7 @@ Page({
     // console.log("我获得的状态是：" + statues + "获得的id是" + id + "我获得的书的Id是" + bookId);
     //如果获得的订单状态是待付款对应的操作
     switch (statues){
-      case '待付款':
+      case '去付款':
         console.log("我结账去了")//如果用户已经付款了就改变订单状态
         wx.showModal({
           title: '提示',
@@ -227,7 +228,10 @@ Page({
                 if (arr[i].orderId == id) {
                   arr[i].orderStatus = '待发货';
                   // console.log('循环后orderId' + id);
-                  utils.updateOrder(id, 1);//改变数据库中订单的相应状态
+                  console.log("arr[i]" + JSON.stringify(arr[i]) )
+                  wx.navigateTo({
+                    url: '../../cart/payment/payment?orderId=' + arr[i].orderId +'&realPayPrice='+arr[i].totalPrivce,
+                  })      
                 }
               }
               that.setData({
@@ -246,7 +250,7 @@ Page({
         });
       break;
 
-      case '待收货':
+      case '确认收货':
         console.log("确认收货")//如果用户已经付款了就改变订单状态
         wx.showModal({
           title: '提示',
@@ -274,7 +278,7 @@ Page({
           }
         });
       break;
-      case'待评价':
+      case'去评价':
       wx.showModal({
         title: '提示',
         content: '是否评价订单？',
@@ -330,14 +334,14 @@ Page({
         switch (arr[i].orderStatus)
         {
           case 5:
-            arr[i].orderStatus='待评价';
+            arr[i].orderStatus='去评价';
             alreadOders = this.data.alreadOder.concat(arr[i]);
             this.setData({
               alreadOder: alreadOders
             });
             break;
           case 0:
-            arr[i].orderStatus = '待付款';
+            arr[i].orderStatus = '去付款';
             waitingPays = this.data.waitingPay.concat(arr[i]);
             this.setData({
               waitingPay: waitingPays
@@ -351,7 +355,7 @@ Page({
             })
             break;
           case 2:
-            arr[i].orderStatus = '待收货';
+            arr[i].orderStatus = '确认收货';
             waitingReceives = this.data.waitingReceive.concat(arr[i]);
             this.setData({
               waitingReceive: waitingReceives
@@ -426,6 +430,33 @@ Page({
         });
       }
     })
+  },
+  
+  //用户申请退款的方法
+  toRefund: function (orderId,totalPrice){
+/*
+* 退款接口
+退款接口的orderInfo需要传以下参数：
+1、微信订单号，或者商品订单号  orderNumber
+2、商户退款单号 out_refund_no  商户系统内部的退款单号，商户系统内部唯一，只能是数字、大小写字母_-|*@ ，同一退款单号多次请求只退一笔。
+3、订单金额 total_fee 订单总金额，单位为分，只能为整数
+4、退款金额 refund_fee 退款总金额，订单总金额，单位为分，只能为整数
+5、退款原因 refund_desc 若商户传入，会在下发给用户的退款消息中体现退款原因
+5*/
+   var orderInfo={
+     orderNumber:orderId,
+     out_refund_no:'',
+     total_fee: totalPrice,
+     refund_fee: totalPrice,
+     refund_desc:''
+   }
+    pay.refund(orderInfo,function(data){
+      if (data.return_code == SUCCESS){
+        wx.showToast({
+          title: '申请成功！',
+        })
+      }
+    })
   }
 
-});
+})

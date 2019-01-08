@@ -133,6 +133,7 @@ Page({
       hasUserInfo: true
     })
   },
+  
 //用户退出账户
   quit:function(){
     var that = this;     
@@ -182,6 +183,7 @@ Page({
       }
     });
   },
+
   //将用户数据添加到后台的方法
   insertCarts: function (carts) {
     var Carts = carts;

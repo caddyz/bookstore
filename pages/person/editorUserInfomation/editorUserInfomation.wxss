@@ -22,15 +22,6 @@
   padding-bottom: 150rpx;
 }
 
-.jj {
-  font-size: 24rpx;
-  padding-top: 20rpx;
-  font-family: "微软雅黑", "黑体";
-  margin: 0 auto;
-  color: #ccc;
-  padding-bottom: 20rpx;
-}
-
 .xing {
   font-family: "微软雅黑", "黑体";
   height: 54rpx;
@@ -46,20 +37,7 @@
   padding-left: 30rpx;
 }
 
-.xi {
-  font-family: "微软雅黑", "黑体";
-  height: 200rpx;
-  width: 579rpx;
-  border-radius: 10rpx;
-  background: #fff;
-  margin: 0 auto;
-  text-align: left;
-  line-height: 54rpx;
-  font-size: 28rpx;
-  padding: 10rpx;
-  margin-top: 38rpx;
-  padding-left: 30rpx;
-}
+
 
 .placeholder {
   color: #ccc;
@@ -74,33 +52,6 @@
   color: #000;
 }
 
-.i {
-  float: right;
-  width: 72%;
-  height: 100%;
-  padding-top: 12rpx;
-  font-size: 28rpx;
-  color: #000;
-}
-
-textarea {
-  height: 100px;
-}
-
-.t {
-  font-family: "微软雅黑", "黑体";
-  width: 20%;
-  height: 60rpx;
-  /*background: #fff;*/
-  margin-left: 57rpx;
-  padding: 5rpx;
-  line-height: 60rpx;
-  margin-top: 40rpx;
-  font-size: 28rpx;
-  display: inline-block;
-  border: 1px solid #ccc;
-  float: left;
-}
 
 .su {
   width: 84%;

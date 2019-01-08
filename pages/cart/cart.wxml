@@ -4,9 +4,8 @@
 <view class="cart" hidden="{{iscart}}">
     <image src="../cart/images/cart_pic.png"/>
     <view>购物车什么都没有，赶快去购物吧</view>
-    <view wx:for="{{cart}}">
-    姓名：{{item.isStatus}}
-    </view>
+
+
 </view>
 <!--要是有数据，就显示数据-->
 <view class="cartList" hidden="{{!iscart}}">

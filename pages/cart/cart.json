@@ -1,5 +1,7 @@
 {
   "component": true,
-  "usingComponents": {},
+  "usingComponents": {
+    "modal": "../component/modal/modal"
+  },
   "navigationBarTitleText": "购物车"
   }
