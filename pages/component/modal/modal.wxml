@@ -1,0 +1,24 @@
+<view class='mask' wx:if='{{show}}' bindtap='clickMask'>
+ <view class='modal-content' style='height:{{height}}'>
+  <view  class='main-content'>
+     <view style='margin-bottom:50rpx;text-align:center;margin-top:90rpx;'>请输入支付密码</view>
+  <paySix 
+  bindvalueSix="valueSix" 
+  input_value="{{inputData.input_value}}" 
+  value_length="{{inputData.value_length}}" 
+  isNext="{{inputData.isNext}}" 
+  get_focus="{{inputData.get_focus}}" 
+  focus_class="{{inputData.focus_class}}" 
+  value_num="{{inputData.value_num}}"
+  height="{{inputData.height}}" 
+  width="{{inputData.width}}" 
+  see="{{inputData.see}}" 
+  interval="{{inputData.interval}}">
+  </paySix>
+  </view>
+  <view class='modal-btn-wrapper'>
+   <view class='cancel-btn' style='color:rgba(7,17,27,0.6)' bindtap='cancel'>取消</view>
+   <view class='confirm-btn' style='color:#13b5f5' bindtap='confirm'>确定</view>
+  </view>
+ </view>
+</view>
