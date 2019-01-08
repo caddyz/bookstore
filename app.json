@@ -43,7 +43,10 @@
 	"pages/person/orderDetail/orderDetails",
    "pages/cart/creatOrder/creatOrder",
     "pages/person/myOrderRate/myOrderRate",
-	 "pages/person/editorMyPassword/editorMyPassword"
+	"pages/person/editorMyPassword/editorMyPassword",
+	"pages/cart/payment/payment",
+   "pages/component/component",
+   "pages/component/modal/modal"
   ],
     
   "window":{
